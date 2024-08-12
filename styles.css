@@ -1,0 +1,393 @@
+body {
+    font-family: 'Garamond', serif;
+    background-color: #1e1e1e; /* Dunklerer Hintergrund für besseren Kontrast */
+    color: #e0e0e0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    padding: 20px; /* Padding für besseren Abstand */
+    overflow: auto;
+}
+
+.container {
+    text-align: center;
+    width: 90%; /* Erhöhte Breite für mehr Inhalt */
+    max-width: 700px; /* Größeres Maximum für mehr Flexibilität */
+    background-color: #2c2c2c; /* Leicht hellerer Hintergrund für Container */
+    border-radius: 8px;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2); /* Stärkerer Schatten für Tiefe */
+    padding: 20px;
+}
+
+h1, h2 {
+    font-family: 'Times New Roman', serif;
+    color: #f0f0f0;
+    margin: 10px 0;
+}
+
+h1 {
+    font-size: 2.8em;
+    margin-bottom: 25px;
+}
+
+h2 {
+    font-size: 2.2em;
+    margin-bottom: 25px;
+}
+
+.philosophers {
+    margin-bottom: 25px;
+}
+
+.philosopher-button {
+    background-color: #e67e22; /* Auffälligerer Orangeton für bessere Sichtbarkeit */
+    color: #fff; /* Weißer Text für besseren Kontrast */
+    border: none;
+    padding: 12px 24px; /* Mehr Padding für größere Schaltflächen */
+    margin: 8px;
+    cursor: pointer;
+    font-size: 1.3em;
+    border-radius: 8px; /* Abgerundete Ecken für moderneren Look */
+    transition: background-color 0.3s, transform 0.2s; /* Hinzugefügte Transformation für Hover-Effekt */
+}
+
+.philosopher-button:hover {
+    background-color: #d35400; /* Etwas dunklerer Orangeton bei Hover */
+    transform: scale(1.05); /* Vergrößerung bei Hover */
+}
+
+.back-button {
+    background-color: #2980b9; /* Dunklerer Blauton für besseren Kontrast */
+    color: #fff;
+    border: none;
+    padding: 12px 20px;
+    margin: 10px 0;
+    cursor: pointer;
+    font-size: 1.2em;
+    border-radius: 8px;
+    display: inline-block;
+    text-align: center;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+.back-button:hover {
+    background-color: #3498db; /* Hellerer Blauton bei Hover */
+    transform: scale(1.05); /* Vergrößerung bei Hover */
+}
+
+.content {
+    text-align: left;
+    margin-top: 25px;
+}
+
+/* Verbesserte Tages-Buttons */
+.audio-button {
+    background-color: #f1c40f; /* Warmer Gelbton für die Buttons */
+    color: #333; /* Dunkelgraue Schriftfarbe für besseren Kontrast */
+    border: none;
+    padding: 12px 20px; /* Etwas mehr Padding für größere Schaltflächen */
+    margin: 10px 0;
+    cursor: pointer;
+    font-size: 1.2em;
+    border-radius: 8px; /* Abgerundete Ecken für modernen Look */
+    display: block;
+    width: 100%;
+    transition: background-color 0.3s, transform 0.3s, box-shadow 0.3s; /* Weiche Übergänge für Hintergrundfarbe, Transformation und Schatten */
+}
+
+.audio-button:hover {
+    background-color: #f39c12; /* Etwas dunklerer Gelbton bei Hover */
+    transform: translateY(-5px); /* Subtile Vergrößerung durch Verschiebung */
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2); /* Stärkerer Schatten bei Hover */
+}
+
+.audio-button:active {
+    transform: translateY(-2px); /* Kleine Verkleinerung bei Klick */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Reduzierter Schatten bei Klick */
+}
+
+#audio-controls {
+    margin-top: 25px;
+}
+
+#audio-controls button {
+    background-color: #27ae60; /* Frisches Grün für Steuerung */
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    margin: 8px;
+    cursor: pointer;
+    font-size: 1.1em;
+    border-radius: 8px;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+#audio-controls button:hover {
+    background-color: #2ecc71; /* Etwas hellerer Grünton bei Hover */
+    transform: scale(1.05); /* Vergrößerung bei Hover */
+}
+
+/* Philosophen Steckbrief */
+#philosopher-profile {
+    background-color: #333; /* Dunkler Hintergrund für den Steckbrief */
+    color: #f5f5f5;
+    padding: 20px;
+    border-radius: 8px; /* Abgerundete Ecken für modernen Look */
+    margin-bottom: 25px;
+    text-align: left;
+    font-size: 1em; /* Etwas größere Schrift für bessere Lesbarkeit */
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2); /* Stärkerer Schatten für Tiefe */
+}
+
+/* Task Dialog */
+#task-dialog {
+    display: none;
+    position: fixed;
+    top: 20%;
+    left: 50%;
+    transform: translate(-50%, -20%);
+    background-color: #222; /* Noch dunklerer Hintergrund für Task Dialog */
+    color: #e0e0e0;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+}
+
+#task-dialog button {
+    margin-top: 15px;
+    padding: 12px;
+    cursor: pointer;
+    background-color: #555;
+    border: none;
+    color: #f5f5f5;
+    font-size: 1.1em;
+    border-radius: 8px;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+#task-dialog button:hover {
+    background-color: #777;
+    transform: scale(1.05); /* Vergrößerung bei Hover */
+}
+
+/* Abzeichen Profil Styles */
+#user-profile {
+    padding: 20px;
+    background-color: #2c2c2c; /* Hintergrundfarbe für das Profil */
+    border-radius: 8px;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+    margin-top: 20px;
+    body {
+        overflow: auto; /* Ermöglicht Scrollen, falls nötig */
+    }
+    
+
+
+}
+
+
+#user-profile h2 {
+    color: #f0f0f0;
+    margin-bottom: 20px;
+}
+
+#badges {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+}
+
+.badge {
+    background-color: #333;
+    border-radius: 8px;
+    padding: 10px;
+    text-align: center;
+    width: 150px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.badge img {
+    max-width: 100%;
+    border-radius: 8px;
+}
+
+.badge p {
+    color: #f0f0f0;
+    margin-top: 10px;
+    font-size: 0.9em;
+}
+
+/* CSS für das Info-Dialogfenster */
+#info-dialog {
+    display: none;
+    position: fixed;
+    top: 30%;
+    left: 50%;
+    transform: translate(-50%, -30%);
+    background-color: #333;
+    color: #f5f5f5;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    max-width: 600px;
+    z-index: 1100; /* Höher als andere Container */
+    font-size: 12px;
+}
+
+/* CSS für das User Profile */
+#user-profile {
+    display: none;
+    position: fixed;
+    top: 10%;
+    left: 50%;
+    transform: translate(-50%, 0); /* Centered horizontally */
+    width: 80%;
+    max-width: 1000px; /* Max width for larger screens */
+    background-color: #2c2c2c; /* Profile Background Color */
+    border-radius: 8px;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+    padding: 20px;
+    z-index: 1000; /* Sicherstellen, dass es unter dem Info-Dialog ist */
+    overflow: auto;
+}
+
+/* Back-Button Style */
+.back-button {
+    background-color: #2980b9; /* Hintergrundfarbe der Back-Schaltfläche */
+    color: #fff; /* Textfarbe */
+    border: none;
+    padding: 12px 20px;
+    margin: 10px 0;
+    cursor: pointer;
+    font-size: 1.2em;
+    border-radius: 8px;
+    display: inline-block;
+    text-align: center;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+.back-button:hover {
+    background-color: #3498db; /* Hellerer Blauton bei Hover */
+    transform: scale(1.05); /* Vergrößerung bei Hover */
+}
+
+/* Weitere Stile für Profil-Inhalt */
+.streak {
+    color: #e0e0e0; /* Textfarbe für Streak */
+    margin-top: 20px;
+    font-weight: bold;
+    text-decoration: underline;
+}
+
+.achieved-rewards {
+    color: #e0e0e0; /* Textfarbe für Belohnungen */
+    margin-top: 20px;
+}
+
+
+#user-profile {
+    position: relative; /* relative, damit absolut positionierte Elemente im Layoutfluss bleiben */
+    padding: 20px;
+    max-width: 800px;
+    margin: 0 auto; /* zentriert den Container */
+    overflow: auto;
+    max-height: 80vh;
+}
+
+#profile-image, #profile-image-a {
+    text-align: center; /* zentriert das Bild horizontal */
+    margin: 40px 0;
+
+}
+
+#profile-image img {
+    max-width: 100%; /* Bild passt sich der Breite des Containers an */
+    height: auto; /* Verhindert Verzerrungen */
+    display: block;
+    margin: 0 auto; /* zentriert das Bild */
+}
+
+#profile-image-a img {
+    max-width: 100%; /* Setzt die maximale Breite des Bildes auf 80px */
+    height: auto; /* Verhindert Verzerrungen */
+    display: block;
+    margin: 0 auto; /* Zentriert das Bild horizontal */
+    width: 100%; /* Setzt die Breite des Bildes auf auto, um die Proportionen beizubehalten */
+    border-radius: 10px;
+}
+
+
+
+
+/* Hauptseite Styling */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #1e1e1e; /* Dunkler Hintergrund */
+    color: #f5f5f5; /* Heller Text */
+    margin: 0;
+    padding: 0;
+    overflow: auto; /* Stellt sicher, dass der Body immer scrollbar ist */
+}
+
+/* Profil Container */
+#profile-container {
+    position: fixed; /* Fixiert das Profil-Fenster */
+    top: 10%;
+    left: 50%;
+    transform: translate(-50%, 0); /* Zentriert das Profil-Fenster horizontal */
+    width: 80%;
+    max-width: 800px; /* Maximale Breite des Profil-Fensters */
+    max-height: 80vh; /* Maximale Höhe als Prozentsatz des Viewports */
+    background-color: #2c2c2c; /* Hintergrundfarbe des Profil-Fensters */
+    border-radius: 8px;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+    padding: 20px;
+    overflow-y: auto; /* Macht das Profil-Fenster scrollbar, wenn der Inhalt zu groß ist */
+    z-index: 1000; /* Stellt sicher, dass das Profil über anderem Inhalt liegt */
+}
+
+/* Verhindert das Scrollen des Hauptkörpers, wenn das Profil-Fenster geöffnet ist */
+.modal-open {
+    overflow: auto; /* Verhindert das Scrollen des Hauptkörpers */
+}
+
+
+body {
+    min-height: 100vh;
+    display: flex;
+    font-family: "Roboto", Arial;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.profile-button {
+    background-color: #9b59b6; /* Purple Button */
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    transition: background-color 0.3s, transform 0.2s;
+    --height: 41px;
+    --color: #fff
+    --width: 160px;
+    --icon: #fff
+    padding: 0;
+    cursor: pointer;
+    text-align: center;
+    position: relative;
+    border: none;
+    outline: none;
+    background: none;
+    -webkit-appearance: none;
+    -webkit-tap-highlight-color: transparent;
+    width: var(--width);
+    letter-spacing: 0,5px;
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--color);
+    line-height: var(--height);
+
+}
