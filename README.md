@@ -1,1 +1,1 @@
-![Logo](assets/WiseWords%20Logo.png)
+![Logo](Logo.png)
