@@ -256,19 +256,33 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 
-// script.js
 
-// Funktion zum Abspielen des Soundeffekts
-function playStartupSound() {
-    var audio = document.getElementById('startup-sound');
-    if (audio) {
-        audio.play().catch(error => {
-            console.error('Error playing sound:', error);
-        });
+
+
+
+window.addEventListener('load', () => {
+    const loader = document.getElementById('loader');
+    const mainContent = document.getElementById('main-content');
+    const startupSound = document.getElementById('startup-sound');
+    const playSoundButton = document.getElementById('play-sound');
+
+    // Funktion, um den Ladebildschirm zu verbergen
+    function hideLoader() {
+        loader.style.display = 'none'; // Ladebildschirm ausblenden
+        mainContent.style.display = 'block'; // Hauptinhalt anzeigen
     }
-}
 
-// Event-Listener für das Laden der Seite
-document.addEventListener('DOMContentLoaded', function() {
-    playStartupSound();
+    // Funktion, um den Soundeffekt abzuspielen
+    function playSound() {
+        startupSound.play();
+    }
+
+    // Soundeffekt beim Klick auf den Button abspielen
+    playSoundButton.addEventListener('click', playSound);
+
+    // Ladebildschirm nach 3 Sekunden automatisch verbergen
+    setTimeout(hideLoader, 3000); // 3000 Millisekunden = 3 Sekunden
+
+    // Optional: Soundeffekt sofort abspielen, wenn die Seite geladen wird
+    // playSound();
 });
