@@ -7,6 +7,8 @@
     <link rel="stylesheet" href="styles.css">
     <link rel="manifest" href="manifest.json">
     <meta name="theme-color" content="#000000"> <!-- Optional, falls du eine Theme-Farbe festlegen möchtest -->
+    <script defer src="script.js"></script>
+
     <style>
         /* Existing Styles */
         body {
@@ -182,10 +184,35 @@
         <button onclick="closeTaskDialog()">OK</button>
     </div>
 
+
+
+
+
+
+
+
     <!-- User Profile -->
     <div id="user-profile">
-        <button class="back-button" onclick="hideProfile()">← Back</button>
-        <h2>My Profile</h2>
+        <button class="back-button" onclick="hideProfile()">  ←  </button>
+        <div id="profile-header">
+            <h2 id="profile-name">My Profile</h2>
+            
+        </div>
+        
+        <!-- Name Input Container -->
+        <div id="name-input-container">
+            <input type="text" id="name-input" placeholder="Enter your name">
+            <button id="save-button" onclick="saveProfileName()">✔️</button>
+        </div>
+        
+
+
+
+
+
+    <div>
+
+    <div>   
         <div id="profile-image-a">
             <!-- Profile Image -->
             <img src="Abzeichen Route.png" alt="Profile Images">
