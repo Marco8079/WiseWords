@@ -238,3 +238,51 @@ document.addEventListener('DOMContentLoaded', () => {
     // Streak beim Laden der Seite aktualisieren
     updateProfile();
 });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// Funktion zum Umschalten des Eingabefelds und Speichern-Buttons
+function toggleEdit() {
+    var nameInputContainer = document.getElementById('name-input-container');
+    var profileName = document.getElementById('profile-name');
+    var nameInput = document.getElementById('name-input');
+    
+    if (nameInputContainer.style.display === 'none' || nameInputContainer.style.display === '') {
+        // Zeige das Eingabefeld und den Speichern-Button an
+        nameInputContainer.style.display = 'flex';
+        // Setze den aktuellen Namen in das Eingabefeld
+        nameInput.value = profileName.textContent;
+        // Fokussiere das Eingabefeld
+        nameInput.focus();
+    } else {
+        // Verstecke das Eingabefeld und den Speichern-Button
+        nameInputContainer.style.display = 'none';
+    }
+}
+
+// Funktion zum Speichern des neuen Profilnamens
+function saveProfileName() {
+    var nameInput = document.getElementById('name-input');
+    var profileName = document.getElementById('profile-name');
+
+    // Speichern des neuen Profilnamens
+    profileName.textContent = nameInput.value;
+
+    // Verstecke das Eingabefeld und den Speichern-Button
+    document.getElementById('name-input-container').style.display = 'none';
+}
