@@ -256,3 +256,19 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 
+// script.js
+
+// Funktion zum Abspielen des Soundeffekts
+function playStartupSound() {
+    var audio = document.getElementById('startup-sound');
+    if (audio) {
+        audio.play().catch(error => {
+            console.error('Error playing sound:', error);
+        });
+    }
+}
+
+// Event-Listener für das Laden der Seite
+document.addEventListener('DOMContentLoaded', function() {
+    playStartupSound();
+});
