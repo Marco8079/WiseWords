@@ -302,27 +302,3 @@ document.addEventListener('DOMContentLoaded', () => {
     // Streak beim Laden der Seite aktualisieren
     updateProfile();
 });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// script.js
-document.addEventListener('DOMContentLoaded', () => {
-    // Kein spezifischer Code erforderlich für diese Animation
-});
