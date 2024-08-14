@@ -19,6 +19,7 @@ body {
     border-radius: 8px;
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2); /* Stärkerer Schatten für Tiefe */
     padding: 20px;
+    overflow: auto;
 }
 
 h1, h2 {
@@ -79,8 +80,20 @@ h2 {
 
 .content {
     text-align: left;
-    margin-top: 25px;
+    margin-top: 5px;
+    display: flex;
+    gap: 0px;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin: 5px;
 }
+
+
+
+
+
+
+
 
 /* Verbesserte Tages-Buttons */
 .audio-button {
@@ -88,7 +101,7 @@ h2 {
     color: #333; /* Dunkelgraue Schriftfarbe für besseren Kontrast */
     border: none;
     padding: 12px 20px; /* Etwas mehr Padding für größere Schaltflächen */
-    margin: 10px 0;
+    margin: 1px 0;
     cursor: pointer;
     font-size: 1.2em;
     border-radius: 8px; /* Abgerundete Ecken für modernen Look */
@@ -109,15 +122,15 @@ h2 {
 }
 
 #audio-controls {
-    margin-top: 25px;
+    margin-top: 5px;
 }
 
 #audio-controls button {
     background-color: #27ae60; /* Frisches Grün für Steuerung */
     color: white;
     border: none;
-    padding: 12px 20px;
-    margin: 8px;
+    padding: 5px 20px;
+    margin: 5px;
     cursor: pointer;
     font-size: 1.1em;
     border-radius: 8px;
@@ -404,6 +417,43 @@ body {
 
 
 
+/* styles.css */
+body {
+    margin: 0;
+    padding: 0;
+    background-color: #f0f0f0;
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    overflow: hidden;
+}
 
+#profile-icon-container {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    width: 80px; /* Container bleibt gleich groß */
+    height: 80px; /* Container bleibt gleich groß */
+}
 
+#profile-icon {
+    width: 100%;
+    height: 100%;
+}
 
+@keyframes rotate {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+/* Rotieren der kleineren Hälfte um den großen Kreis */
+#moving-segment {
+    transform-origin: center;
+    animation: rotate 4s linear infinite;
+}
