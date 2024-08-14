@@ -8,6 +8,7 @@
     <link rel="manifest" href="manifest.json">
     <meta name="theme-color" content="#000000"> <!-- Optional, falls du eine Theme-Farbe festlegen möchtest -->
     <script defer src="script.js"></script>
+    
 
     <style>
         /* Existing Styles */
@@ -139,6 +140,11 @@
         #info-dialog button:hover {
             background-color: #777;
         }
+
+
+
+
+        
     </style>
 
 
@@ -159,7 +165,7 @@
 
     <!-- Philosopher Pages -->
     <div id="philosopher-page" class="container" style="display:none;">
-        <button class="back-button" onclick="showStartPage()">← Back</button>
+        <button class="back-button" onclick="showStartPage()">  ←  </button>
         <h2 id="philosopher-name"></h2>
         <div id="philosopher-profile" style="display:none;"></div>
         <div class="content">
@@ -168,6 +174,31 @@
             <button class="audio-button" id="day3" onclick="playAudio('day3')">Day 3</button>
             <!-- Optional 4th Day for Aurelius -->
             <button class="audio-button" id="day4" style="display:none;" onclick="playAudio('day4')">Day 4</button>
+            <button class="audio-button" id="day5" style="display:none;" onclick="playAudio('day5')">Day 5</button>
+            <button class="audio-button" id="day6" style="display:none;" onclick="playAudio('day6')">Day 6</button>
+            <button class="audio-button" id="day7" style="display:none;" onclick="playAudio('day7')">Day 7</button>
+            <button class="audio-button" id="day8" style="display:none;" onclick="playAudio('day8')">Day 8</button>
+            <button class="audio-button" id="day9" style="display:none;" onclick="playAudio('day9')">Day 9</button>
+            <button class="audio-button" id="day10" style="display:none;" onclick="playAudio('day10')">Day 10</button>
+            <button class="audio-button" id="day11" style="display:none;" onclick="playAudio('day11')">Day 11</button>
+            <button class="audio-button" id="day12" style="display:none;" onclick="playAudio('day12')">Day 12</button>
+            <button class="audio-button" id="day13" style="display:none;" onclick="playAudio('day13')">Day 13</button>
+            <button class="audio-button" id="day14" style="display:none;" onclick="playAudio('day14')">Day 14</button>
+            <button class="audio-button" id="day15" style="display:none;" onclick="playAudio('day15')">Day 15</button>
+            <button class="audio-button" id="day16" style="display:none;" onclick="playAudio('day16')">Day 16</button>
+            <button class="audio-button" id="day17" style="display:none;" onclick="playAudio('day17')">Day 17</button>
+            <button class="audio-button" id="day18" style="display:none;" onclick="playAudio('day18')">Day 18</button>
+            <button class="audio-button" id="day19" style="display:none;" onclick="playAudio('day19')">Day 19</button>
+            <button class="audio-button" id="day20" style="display:none;" onclick="playAudio('day20')">Day 20</button>
+            <button class="audio-button" id="day21" style="display:none;" onclick="playAudio('day21')">Day 21</button>
+            <button class="audio-button" id="day22" style="display:none;" onclick="playAudio('day22')">Day 22</button>
+            <button class="audio-button" id="day23" style="display:none;" onclick="playAudio('day23')">Day 23</button>
+            <button class="audio-button" id="day24" style="display:none;" onclick="playAudio('day24')">Day 24</button>
+            <button class="audio-button" id="day25" style="display:none;" onclick="playAudio('day25')">Day 25</button>
+            <button class="audio-button" id="day26" style="display:none;" onclick="playAudio('day26')">Day 26</button>
+            <button class="audio-button" id="day27" style="display:none;" onclick="playAudio('day27')">Day 27</button>
+            <button class="audio-button" id="day28" style="display:none;" onclick="playAudio('day28')">Day 28</button>
+            <button class="audio-button" id="day29" style="display:none;" onclick="playAudio('day29')">Day 29</button>
         </div>
         <!-- Audio Player Controls -->
         <div id="audio-controls" style="display:none;">
@@ -225,6 +256,58 @@
 
     <div>
 
+
+
+
+
+
+
+
+
+
+
+
+        <div id="profile-icon-container">
+            <svg id="profile-icon" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                <!-- Definiere Farbverläufe -->
+                <defs>
+                    <linearGradient id="icon-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" style="stop-color:#ff7e5f;stop-opacity:1" />
+                        <stop offset="100%" style="stop-color:#feb47b;stop-opacity:1" />
+                    </linearGradient>
+                </defs>
+                <!-- Großer Kreis -->
+                <circle cx="50" cy="50" r="30" fill="url(#icon-gradient)" />
+                <!-- Kleinerer Halbkreis, der sich um den großen Kreis bewegt -->
+                <circle id="moving-segment" cx="50" cy="20" r="15" fill="white" stroke="url(#icon-gradient)" stroke-width="4" />
+            </svg>
+        </div>
+        <script src="script.js"></script>
+
+
+
+
+
+
+
+
+
+        
+       
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     <div>   
         <div id="profile-image-a">
             <!-- Profile Image -->
@@ -260,7 +343,33 @@
                 'day1': 'Reflect on your thoughts today. Maintain calmness and observe your inner self.',
                 'day2': 'Reflect silently on a disappointment. Write your feelings, seek forgiveness, and find inner strength.',
                 'day3': 'Reflect on a tough decision today. List priorities, balance them, and decide with reason and compassion.',
-                'day4': 'Today, during conversations, consciously radiate calmness and composure. Observe how this affects your conversation partners.'
+                'day4': 'Today, during conversations, consciously radiate calmness and composure. Observe how this affects your conversation partners.',
+                'day5': 'Think about a past betrayal. Try forgiveness and notice its effect on your peace and interactions today.',
+                'day6': 'Reflect on a time when patience led to success. Today, pause, observe, and trust in the steady path.',
+                'day7': 'Reflect on societal pressures versus inner values. Align actions with your principles for true fulfillment.',
+                'day8': 'Write freely today. Let your words flow without overthinking. Face challenges with clarity.',
+                'day9': 'Today, take a quiet moment to organize your thoughts. Strength lies in mastering your mind and finding inner calm.',
+                'day10': 'Reflect on your relationships. Engage deeply, listen, and support. Strengthen bonds through meaningful dialogue.',
+                'day11': 'Reflect on handling betrayal or threat with patience rather than impulse.',
+                'day12': 'When praised, stay grounded. Focus on your core purpose and maintain humility.',
+                'day13': 'Reflect on a recent conflict. Write down both perspectives and find a middle ground. ',
+                'day14': 'Show kindness to someone today—offer empathy or support. Nurture the connections that bind us.',
+                'day15': 'Have a meaningful conversation with someone who has a different perspective. Stay open-minded and embrace the exchange of ideas.',
+                'day16': 'Reflect on a current decision. Question if it serves a greater good or personal gain, and seek the view from a trusted person.',
+                'day17': 'Reflect on a recent decision balancing strategy and ethics. Ensure future choices align with your values.',
+                'day18': 'Reflect on a recent interaction with someone who had a different perspective. Consider what you learned and how to apply it.',
+                'day19': 'Reflect on a recent urgent situation. Did a measured response improve the outcome?',
+                'day20': 'Reflect on a current challenge. Write down how a stoic mindset could help you manage it.',
+                'day21': 'Identify a current challenge. How could patience and persistence improve your approach.',
+                'day22': 'Find a stressful area in your life. Schedule time to rest and reflect on how it improved your well-being.',
+                'day23': 'Adopt a morning ritual that fosters stillness and intention to enhance your day.',
+                'day24': 'Apply empathy and active listening to resolve a significant disagreement today.',
+                'day25': 'Reflect on a current limitation or change in your life. Embrace it with acceptance and seek the lessons it offers.',
+                'day26': 'Reflect on a piece of art or literature that shaped your self-view. Apply its insights to your life today.',
+                'day27': 'Reflect on someone who has shaped your growth. How can you continue learning from them or similar influences?',
+                'day28': 'Reflect on a time of criticism or false accusations. How did you respond, and how can you maintain your integrity in future challenges?',
+                'day29': 'Reflect on how understanding mortality shapes your actions. Embrace acceptance to live purposefully.'
+
             },
             'plato': {
                 'day1': 'Reflect on a truth-related decision. List aspects and consequences, then act wisely.',
@@ -318,9 +427,63 @@
                     'day1': 'audio/marcus-aurelius1.mp3',
                     'day2': 'audio/marcus-aurelius2.mp3',
                     'day3': 'audio/marcus-aurelius3.mp3',
-                    'day4': 'audio/marcus-aurelius4.mp3'
+                    'day4': 'audio/marcus-aurelius4.mp3',
+                    'day5': 'audio/marcus-aurelius5.mp3',
+                    'day6': 'audio/marcus-aurelius6.mp3',
+                    'day7': 'audio/marcus-aurelius7.mp3',
+                    'day8': 'audio/marcus-aurelius8.mp3',
+                    'day9': 'audio/marcus-aurelius9.mp3',
+                    'day10': 'audio/marcus-aurelius10.mp3',
+                    'day11': 'audio/marcus-aurelius11.mp3',
+                    'day12': 'audio/marcus-aurelius12.mp3',
+                    'day13': 'audio/marcus-aurelius13.mp3',
+                    'day14': 'audio/marcus-aurelius14.mp3',
+                    'day15': 'audio/marcus-aurelius15.mp3',
+                    'day16': 'audio/marcus-aurelius16.mp3',
+                    'day17': 'audio/marcus-aurelius17.mp3',
+                    'day18': 'audio/marcus-aurelius18.mp3',
+                    'day19': 'audio/marcus-aurelius19.mp3',
+                    'day20': 'audio/marcus-aurelius20.mp3',
+                    'day21': 'audio/marcus-aurelius21.mp3',
+                    'day22': 'audio/marcus-aurelius22.mp3',
+                    'day23': 'audio/marcus-aurelius23.mp3',
+                    'day24': 'audio/marcus-aurelius24.mp3',
+                    'day25': 'audio/marcus-aurelius25.mp3',
+                    'day26': 'audio/marcus-aurelius26.mp3',
+                    'day27': 'audio/marcus-aurelius27.mp3',
+                    'day28': 'audio/marcus-aurelius28.mp3',
+                    'day29': 'audio/marcus-aurelius29.mp3',
+                    
+
                 };
                 document.getElementById('day4').style.display = 'inline-block'; // Show Day 4 for Aurelius
+                document.getElementById('day5').style.display = 'inline-block';
+                document.getElementById('day6').style.display = 'inline-block';
+                document.getElementById('day7').style.display = 'inline-block'; 
+                document.getElementById('day8').style.display = 'inline-block';
+                document.getElementById('day9').style.display = 'inline-block';
+                document.getElementById('day10').style.display = 'inline-block';
+                document.getElementById('day11').style.display = 'inline-block';
+                document.getElementById('day12').style.display = 'inline-block';
+                document.getElementById('day13').style.display = 'inline-block';
+                document.getElementById('day14').style.display = 'inline-block';
+                document.getElementById('day15').style.display = 'inline-block';
+                document.getElementById('day16').style.display = 'inline-block';
+                document.getElementById('day17').style.display = 'inline-block';
+                document.getElementById('day18').style.display = 'inline-block';
+                document.getElementById('day19').style.display = 'inline-block';
+                document.getElementById('day20').style.display = 'inline-block';
+                document.getElementById('day21').style.display = 'inline-block';
+                document.getElementById('day22').style.display = 'inline-block';
+                document.getElementById('day23').style.display = 'inline-block';
+                document.getElementById('day24').style.display = 'inline-block';
+                document.getElementById('day25').style.display = 'inline-block';
+                document.getElementById('day26').style.display = 'inline-block';
+                document.getElementById('day27').style.display = 'inline-block';
+                document.getElementById('day28').style.display = 'inline-block';
+                document.getElementById('day29').style.display = 'inline-block';
+
+
             } else if (philosopher === 'plato') {
                 audioSrcs = {
                     'day1': 'audio/platon1.mp3',
@@ -328,6 +491,32 @@
                     'day3': 'audio/platon3.mp3'
                 };
                 document.getElementById('day4').style.display = 'none'; // Hide Day 4 for other philosophers
+                document.getElementById('day5').style.display = 'none';
+                document.getElementById('day6').style.display = 'none';
+                document.getElementById('day7').style.display = 'none';
+                document.getElementById('day8').style.display = 'none';
+                document.getElementById('day9').style.display = 'none';
+                document.getElementById('day10').style.display = 'none';
+                document.getElementById('day11').style.display = 'none';
+                document.getElementById('day12').style.display = 'none';
+                document.getElementById('day13').style.display = 'none';
+                document.getElementById('day14').style.display = 'none';
+                document.getElementById('day15').style.display = 'none';
+                document.getElementById('day16').style.display = 'none';
+                document.getElementById('day17').style.display = 'none';
+                document.getElementById('day18').style.display = 'none';
+                document.getElementById('day19').style.display = 'none';
+                document.getElementById('day20').style.display = 'none';
+                document.getElementById('day21').style.display = 'none';
+                document.getElementById('day22').style.display = 'none';
+                document.getElementById('day23').style.display = 'none';
+                document.getElementById('day24').style.display = 'none';
+                document.getElementById('day25').style.display = 'none';
+                document.getElementById('day26').style.display = 'none';
+                document.getElementById('day27').style.display = 'none';
+                document.getElementById('day28').style.display = 'none';
+                document.getElementById('day29').style.display = 'none';
+
             } else if (philosopher === 'aristotle') {
                 audioSrcs = {
                     'day1': 'audio/aristoteles1.mp3',
@@ -335,6 +524,31 @@
                     'day3': 'audio/aristoteles3.mp3'
                 };
                 document.getElementById('day4').style.display = 'none'; // Hide Day 4 for other philosophers
+                document.getElementById('day5').style.display = 'none';
+                document.getElementById('day6').style.display = 'none';
+                document.getElementById('day7').style.display = 'none';
+                document.getElementById('day8').style.display = 'none';
+                document.getElementById('day9').style.display = 'none';
+                document.getElementById('day10').style.display = 'none';
+                document.getElementById('day11').style.display = 'none';
+                document.getElementById('day12').style.display = 'none';
+                document.getElementById('day13').style.display = 'none';
+                document.getElementById('day14').style.display = 'none';
+                document.getElementById('day15').style.display = 'none';
+                document.getElementById('day16').style.display = 'none';
+                document.getElementById('day17').style.display = 'none';
+                document.getElementById('day18').style.display = 'none';
+                document.getElementById('day19').style.display = 'none';
+                document.getElementById('day20').style.display = 'none';
+                document.getElementById('day21').style.display = 'none';
+                document.getElementById('day22').style.display = 'none';
+                document.getElementById('day23').style.display = 'none';
+                document.getElementById('day24').style.display = 'none';
+                document.getElementById('day25').style.display = 'none';
+                document.getElementById('day26').style.display = 'none';
+                document.getElementById('day27').style.display = 'none';
+                document.getElementById('day28').style.display = 'none';
+                document.getElementById('day29').style.display = 'none';
             }
 
             // Show controls
