@@ -154,11 +154,19 @@
 <body>
     <!-- Start Page -->
     <div id="start-page" class="container">
-        <h1>Choose Your Philosopher</h1>
+        <h1>Choose Your Wise</h1>
         <div class="philosophers">
             <button class="philosopher-button" onclick="showPhilosopher('aurelius')">Aurelius</button>
             <button class="philosopher-button" onclick="showPhilosopher('plato')">Plato</button>
             <button class="philosopher-button" onclick="showPhilosopher('aristotle')">Aristotle</button>
+            <button class="philosopher-button" onclick="showPhilosopher('nietzsche')">Nietzsche</button>
+            <button class="philosopher-button" onclick="showPhilosopher('cäsar')">J.Cäsar</button>
+            <button class="philosopher-button" onclick="showPhilosopher('leonardo')">L. da Vinci</button>
+            <button class="philosopher-button" onclick="showPhilosopher('buddha')">Buddha</button>
+            <button class="philosopher-button" onclick="showPhilosopher('marco')">M.Polo</button>
+            <button class="philosopher-button" onclick="showPhilosopher('cook')">J.Cook</button>
+            <button class="philosopher-button" onclick="showPhilosopher('Shakespeare')">W.Shakespeare</button>
+
         </div>
         <button class="profile-button" onclick="showProfile()">View Profile</button>
     </div>
@@ -206,8 +214,24 @@
             <button onclick="pauseAudio()">Pause</button>
             <button onclick="rewindAudio()">Rewind 10s</button>
             <button onclick="forwardAudio()">Forward 10s</button>
+            <button onclick="setPlaybackRate(1.0)">1x</button>
+            <button onclick="setPlaybackRate(1.5)">1,5x</button>
+            <button onclick="setPlaybackRate(2.0)">2x</button>
+
         </div>
     </div>
+
+
+
+
+
+
+
+
+
+
+
+    
 
     <!-- Task Dialog -->
     <div id="task-dialog">
@@ -217,6 +241,13 @@
 
 
 
+
+    
+
+
+
+
+    
 
     
         <!-- Audio Element für den Soundeffekt -->
@@ -418,7 +449,225 @@
                 'day28': 'Learn from unexpected teachers. Let their experiences broaden your understanding and shape your knowledge.',
                 'day29': 'Reflect on temptations and demands. Stay true to your values for lasting satisfaction.',
                 'day30': 'Reflect on your path. Pursue goals with passion and integrity. The journey and truths define you, not the end.',
-            }
+            },
+            'nietzsche': {
+                'day1': 'Reflect on your struggles, use discipline and introspection, and embrace challenges to reach your highest self.',
+                'day2': 'Use the Will to Power to shape your path, turning challenges into opportunities for success.',
+                'day3': 'Live as if each moment repeats. Take one meaningful action today that reflects your deepest values.',
+                'day4': 'Examine one of your values today. Is it truly yours or inherited? Consider redefining it to better reflect your authentic self.',
+                'day5': 'Identify a challenge today. Embrace it as a teacher guiding your growth, just as Clara did.',
+                'day6': 'Identify an outdated belief. Adopt a new value that fits your current worldview and start applying it.',
+                'day7': 'Find a task today where you balance chaos and structure. Apply a clear structure to a creative activity and see how it improves your results.',
+                'day8': 'Engage in a joyful activity today. Let the pleasure and laughter remind you to value the journey and enhance your perspective.',
+                'day9': 'Identify a weakness and confront it honestly. How can accepting it lead to a more authentic path?',
+                'day10': 'Identify where you conform to norms. Try an unconventional approach and explore how it fosters your creativity and autonomy.',
+                'day11': 'Identify an area of envy or bitterness today. Shift your focus to personal growth and set a small goal to transform your narrative.',
+                'day12': 'Try a new activity today to rekindle your sense of wonder and discovery.',
+                'day13': 'Take one step today towards well-being: exercise, meditate, or connect meaningfully. Embrace "große Gesundheit.',
+                'day14': 'Break free from routine today. Make a small change, like trying a new hobby or visiting a new place, to ignite your creativity.',
+                'day15': 'Share one insight you will gain today through conversation or a kind act. Let your experience bring positive change to others.',
+                'day16': 'Notice and value something ordinary today. Find beauty in the mundane to enrich your perspective.',
+                'day17': 'Identify a belief you hold that challenges norms. Today, take a decisive step to defend or pursue it—through discussion, writing, or reflection.',
+                'day18': 'Embrace solitude today. Spend time alone with your thoughts to explore and understand yourself more deeply.',
+                'day19': 'Identify a routine or outdated method today. Explore new possibilities for personal growth.',
+                'day20': 'Embrace a current challenge with calm acceptance today. Let go of resistance and cultivate serenity to find deeper peace.',
+                'day21': 'Identify a recent challenge and use it to foster growth and deeper understanding. Embrace it as an opportunity for insight and transformation.',
+                'day22': 'Identify a rigid rule or constraint today. Redefine it as a game, rewriting the rules to explore new possibilities and freedom.',
+                'day23': 'Identify a societal norm limiting you. Take one small step today to redefine it and align more with your personal values and goals.',
+                'day24': 'Identify a current challenge. Use it as a source of strength to fuel your personal or creative growth and drive your journey forward.',
+                'day25': 'Choose one moment today to fully focus on the present experience. Observe and embrace it fully, just as Marcus Callahan did.',
+                'day26': 'Understand others desires, use empathy, and align your goals to see how it impacts your persuasion.',
+                'day27': 'Reflect alone in a quiet space. Notice how this solitude deepens self-understanding and creativity.',
+                'day28': 'Take on a challenge outside your comfort zone today. Observe its impact and document your insights and growth.',
+                'day29': 'Try a creative activity today. Notice its impact and consider how to incorporate this feeling into your daily life.',
+               
+            },
+            'cäsar': {
+                'day1': 'Reflect on a bold decision you made. How did you handle the risks, and how did it shape your path?',
+                'day2': 'Reflect on a collaborative project. How did strengths and strategies shape the outcome?',
+                'day3': 'Reflect on a goal and its challenges. Apply perseverance and take one step today to advance.',
+                'day4': 'Reflect on a current project. Apply preparation, adaptability, and execution. Take one action today to enhance your strategic approach.',
+                'day5': 'Use empathy, vision, and authentic communication today. Take one action to inspire and build loyalty.',
+                'day6': 'Reflect on a conflict where forgiveness could help. Take one step today to initiate reconciliation, aiming for lasting peace and stability.',
+                'day7': 'Identify an area where change is needed. Plan and implement one small step today to improve the situation effectively.',
+                'day8': 'Reflect on how your self-presentation aligns with your values. Identify one way to improve it and take a concrete action today.',
+                'day9': 'Reflect on a recent influence. Improve your communication and take action today.',
+                'day10': 'Identify one area to manage time better. Allocate specific time blocks and prioritize tasks. Implement today and observe the impact.',
+                'day11': 'Define your desired identity, take action to project it, and observe the impact.',
+                'day12': 'Identify someone supportive. Show appreciation with a gesture and observe its impact on your relationship.',
+                'day13': 'Adapt your approach to a current challenge. Stay flexible and open to new solutions. Observe how this impacts your progress.',
+                'day14': 'Apply patience and long-term planning. Align todays efforts with your vision and observe the impact.',
+                'day15': 'Assess risks in a current challenge. Apply calculated risk-taking and embrace uncertainty to achieve transformative outcomes.',
+                'day16': 'Evaluate and leverage your network to advance your goals. Nurture connections to enhance your career and ambitions.',
+                'day17': 'Identify a challenge and brainstorm innovative solutions. Embrace new ideas to drive improvement and success.',
+                'day18': 'Align todays actions with future goals. Plan strategic steps for the week and start implementing them.',
+                'day19': 'Write down a personal goal and create a step-by-step plan. Take the first step towards it today.',
+                'day20': 'Choose a symbol representing your identity. Plan to integrate it into your daily life or work. Start today.',
+                'day21': 'Write down a goal for the coming months. Break it into steps, outline a plan, share it with someone you trust, and start today.',
+                'day22': 'Identify a current challenge. Outline a strategy for communication and negotiation. Take the first step today.',
+                'day23': 'Describe a recent achievement. Frame it to highlight your intentions and outcomes. Share and observe the response.',
+                'day24': 'Reflect on a recent conflict. Analyze how emotional intelligence could improve outcomes. Propose a more empathetic approach for future conflicts.',
+                'day25': 'Reflect on asserting authority. Analyze balance with others needs and suggest one improvement.',
+                'day26': 'Reflect on a recent project. Analyze how you managed timing and suggest one adjustment to improve it in the future.',
+                'day27': 'Identify a recent challenge and a skill to improve. Create a brief plan and take one actionable step today toward enhancing this skill.',
+                'day28': 'Identify where you are pushing too hard. Take a step back today and assess its long-term benefits.',
+                'day29': 'Identify where you place trust. Balance trust with safeguards to protect yourself. Ensure trust is well-placed and stay vigilant.',
+            },
+             'leonardo': {
+                'day1': 'Explore a field you are curious about today. Spend time researching it and embrace the joy of discovery.',
+                'day2': 'Combine different skills or knowledge areas today. Explore how blending disciplines can enhance your work and creativity.',
+                'day3': 'Reflect on a project or goal. Apply patience and dedication. Take a small step today to enhance your efforts.',
+                'day4': 'Examine a small object closely today. Note its structure, purpose, and function. Record insights or sketches to enhance your observation skills.',
+                'day5': 'Choose a challenge. Approach it with fresh ideas from unexpected sources. Document insights and try creative solutions.',
+                'day6': 'Pick a fascinating concept and visualize it through drawings. Document how sketching clarifies and deepens your understanding.',
+                'day7': 'Reflect on an unfinished project and appreciate the growth and learning from the process. Embrace imperfections as part of your development.',
+                'day8': 'Reflect on an area where you seek perfection. Focus on the journey and lessons learned, embracing imperfections as part of your growth.',
+                'day9': 'Document an idea or observation today—sketch, write, or note it down. Reflect on how this might clarify your thoughts and inspire others.',
+                'day10': 'Observe a small element of nature today. Note its form and function. Reflect on how it might inspire your own work or life.',
+                'day11': 'Reflect on a current project needing patience. Write down your progress, challenges, and next steps to keep moving forward.',
+                'day12': 'Approach a mundane task today with artistic attention. Treat it as a work of art, focusing on every detail and appreciating its beauty.',
+                'day13': 'Question one accepted belief or practice today. Explore it from a new perspective and seek fresh insights.',
+                'day14': 'Conduct a small experiment in an area of interest today. Observe and document the results. Use this process to expand your understanding.',
+                'day15': 'Explore a topic of interest today. Spend time researching it and note your findings.',
+                'day16': 'Today, dive into an area of interest with humility. Recognize that learning is endless and let this mindset enrich your journey.',
+                'day17': 'Today, envision an unconventional solution to a challenge you are passionate about. Sketch, write, or brainstorm freely to ignite innovation.',
+                'day18': 'Find a collaboration opportunity today. Share ideas and be open to others perspectives.',
+                'day19': 'Reflect on one area for improvement in your life today. Assess your progress, identify growth areas, and plan steps for enhancement.',
+                'day20': 'Pick a topic you are curious about and spend some time exploring it today. Let your curiosity lead you and enjoy the learning process.',
+                'day21': 'Choose a project today and dedicate focused, distraction-free time to it. Notice how this concentrated effort boosts your productivity and progress.',
+                'day22': 'Find a quiet space today to reflect on a project or challenge. Use this solitude to think deeply and creatively, and observe how it enhances your work.',
+                'day23': 'Reflect on a recent project. Identify one area where you can act on your own desires, not others expectations.',
+                'day24': 'Identify a neglected area in your life or work. Plan to explore it today and let your curiosity lead to new insights.',
+                'day25': 'Find a project where creativity and logic intersect. Plan to integrate both today and observe the results.',
+                'day26': 'Identify a project where creativity and logic intersect. Plan to blend these elements today and note the impact.',
+                'day27': 'Find an area where you are rigid. Try a new approach today and see how flexibility improves your results.',
+                'day28': 'Pick a task and refine the details today. Notice the improvement in quality.',
+                'day29': 'Find an area needing balance today. Make one small change to align with your values or natural principles.',
+            },
+            'buddha': {
+                'day1': 'Today, make one small change that fosters inner contentment, like practicing mindfulness or expressing gratitude.',
+                'day2': 'Today, perform one small act of compassion, like offering a kind word or helping someone.',
+                'day3': 'Identify an area where you lean towards an extreme and find a way to introduce balance. Adjust your approach to integrate moderation.',
+                'day4': 'Identify where you resist change. Accept its impermanence to find peace and let go of limiting attachments.',
+                'day5': 'Find a source of suffering. Reflect on attachments role. Apply the Four Noble Truths for inner peace.',
+                'day6': 'Pick one aspect of the Noble Eightfold Path. Take a small, practical step today to embody it in your actions or thoughts.',
+                'day7': 'Choose an everyday activity today. Be fully present and mindful in that moment, focusing on every detail without distraction.',
+                'day8': 'Meditate for 10 minutes. Sit quietly, focus on your breath, and gently refocus when distracted. Observe without judgment.',
+                'day9': 'Today, before acting, pause to reflect on your intention. Ensure it is guided by compassion. Observe the outcomes and impact.',
+                'day10': 'Reflect on one attachment. Notice its impact and practice letting go.',
+                'day11': 'Reflect on one area of your life where you seek clarity and note any insights.',
+                'day12': 'Observe how you define yourself and consider how embracing Non-Self could bring freedom.',
+                'day13': 'Send loving-kindness to yourself and others today; observe its effect on your peace.',
+                'day14': 'Reflect on a current challenge and respond with patience today.',
+                'day15': 'Acknowledge your desires and practice contentment through a small act of generosity today.',
+                'day16': 'Spend a few moments observing your surroundings and reflecting on their interconnectedness today.',
+                'day17': 'Reach out to someone in your community today and offer or seek support.',
+                'day18': 'Reflect on your challenges as steps toward personal growth. Meditate on their role in your journey.',
+                'day19': 'Find a quiet spot today and spend a few minutes in stillness, focusing on your breath. Notice how this silence impacts your mind.',
+                'day20': 'Identify one grievance to let go of today. Meditate on the benefits of forgiveness and observe how it affects your peace.',
+                'day21': 'Observe ego-driven thoughts and their impact; practice mindfulness to see their illusory nature.',
+                'day22': 'Identify moments to practice ethical conduct and observe their impact on inner peace and relationships.',
+                'day23': 'Acknowledge challenging aspects of life and practice acceptance to foster inner peace.',
+                'day24': 'Identify a strong attachment and practice letting it go to experience greater freedom and inner peace.',
+                'day25': 'Observe a moment of discomfort with patience and acceptance to find balance and insight.',
+                'day26': 'Engage fully in a task or activity today and reflect on the insights gained from this direct experience.',
+                'day27': 'Observe your reactions today, pause during challenges, and cultivate inner calm to see how it affects your responses and interactions.',
+                'day28': 'Pause today to acknowledge simple blessings and practice gratitude. Observe how this shift affects your mood and peace.',
+                'day29': 'Identify where you are resisting change. Reflect on how to adapt with openness and observe how this shift impacts your peace.',
+            },
+            'marco': {
+                'day1': 'Note what piques your curiosity today. Write down your questions or topics, and take a small step to explore them.',
+                'day2': 'Find an area where a new perspective could help. Take one action today to engage with a different idea or culture.',
+                'day3': 'Review a system in your life. Integrate a new idea today to enhance it with diverse perspectives.',
+                'day4': 'Reflect on a recent cultural exchange and how it enriched you. Embrace more such interactions to broaden your perspective.',
+                'day5': 'Reflect on a current challenge and how your determination can help. Identify strategies to stay resolute and overcome obstacles.',
+                'day6': 'Assess a current challenge with strategic foresight. Identify weaknesses and plan your moves like a Mongol general to turn the situation in your favor.',
+                'day7': 'Observe something overlooked today; view it from a new perspective and discover what it can teach you.',
+                'day8': 'Learn about a different belief today with an open mind; it may deepen your understanding of your own.',
+                'day9': 'Examine your lifes organization; implement one small change for greater efficiency.',
+                'day10': 'Try a new dish today; embrace the experience with an open heart.',
+                'day11': 'Embrace delays as opportunities for growth and learning.',
+                'day12': 'See the ordinary with fresh eyes and find wonder in the everyday.',
+                'day13': 'Focus on details today; precision brings deeper understanding and progress.',
+                'day14': 'Be flexible today; adapt to challenges and find creative solutions.',
+                'day15': 'Approach tasks with patience; listen, reflect, and respond thoughtfully.',
+                'day16': 'Engage with someone from a different background today to broaden your perspective.',
+                'day17': 'Engage in an activity today that expands your knowledge or skills.',
+                'day18': 'Reflect on a situation where adaptability is needed. Identify one strategy to approach it with greater flexibility.',
+                'day19': 'Reflect on a story that impacted you. How has it shaped your perspective?',
+                'day20': 'Reflect on a time you faced skepticism about your beliefs. How did you maintain conviction?',
+                'day21': 'Consider how collaborating with others could improve a current project or challenge. Identify one specific way to leverage teamwork.',
+                'day22': 'Reflect on a recent communication barrier and how non-verbal cues and cultural awareness might improve understanding.',
+                'day23': 'Reflect on a recent unfamiliar experience and how it has challenged your assumptions or expanded your understanding.',
+                'day24': 'Observe an object or scene closely today. Note overlooked details and reflect on how they enhance your overall understanding.',
+                'day25': 'Identify a challenge and outline steps to use determination to overcome it. Write down your plan and commit to it.',
+                'day26': 'Reflect on how a recent travel or learning experience has broadened your perspective and how you can apply this new understanding in daily life.',
+                'day27': 'Reflect on a recent challenge where you showed courage. How can this bravery help with future challenges?',
+                'day28': 'Reflect on a recent challenge in finding the truth. How did you handle it, and what can you learn to ensure accuracy in the future?',
+                'day29': 'Reflect on a recent experience. Note what you saw, heard, and felt. How could sharing these details help others understand and learn?',
+            },
+            'cook': {
+                'day1': 'Document a detail from your day to contribute to a broader understanding.',
+                'day2': 'Review a current project with a focus on precision and detail.',
+                'day3': 'Learn about a different culture today to broaden your understanding and appreciation.',
+                'day4': 'Identify a project where attention to detail can improve outcomes. Plan steps to address potential obstacles today.',
+                'day5': 'Reflect on a recent setback. How can its lessons guide your approach to current goals?',
+                'day6': 'Reflect on where systematic methods and thorough documentation could improve your results.',
+                'day7': 'Consider how scientific or innovative methods might address your current challenge.',
+                'day8': 'Reflect on a past conflict due to misunderstanding and how cultural respect can help resolve similar issues.',
+                'day9': 'Reflect on a time when respecting another culture led to a positive outcome. How can this lesson improve your interactions today?',
+                'day10': 'Reflect on when detailed observation deepened your understanding. How can you apply meticulous research to your current projects?',
+                'day11': 'Scientific exploration values courage and learning over specific goals, enriching collective knowledge. Apply that!',
+                'day12': 'Choose a skill to master today; plan steps to improve it and reflect on its future impact.',
+                'day13': 'Review how you manage resources today; plan and implement improvements for better efficiency.',
+                'day14': 'Explore an aspect of another culture today; learn and reflect on its impact on your understanding of diversity.',
+                'day15': 'Reflect on a time you adapted to overcome a challenge and how flexibility improved the outcome; apply these principles to your daily life.',
+                'day16': 'Consider how collaborating with others can enhance your work and seek input or share knowledge to advance your progress.',
+                'day17': 'Reflect on unexplored areas in your life and consider how venturing into them with curiosity can expand your understanding.',
+                'day18': 'Map out a strategy for a current project, focusing on long-term goals and potential obstacles.',
+                'day19': 'Tackle a health or well-being challenge with creative, unconventional solutions.',
+                'day20': 'Share wisdom or offer support to someone who looks up to you; leadership is about empowering others.',
+                'day21': 'Reflect on how your work and dedication can lay a foundation for future success, benefiting both yourself and others.',
+                'day22': 'Reflect on how to adapt and endure through lifes storms, focusing on your response rather than the challenge itself.',
+                'day23': 'Reflect on a communication challenge you faced and consider how to improve your strategies for better understanding and relationships.',
+                'day24': 'Reflect on how sharing your observations from a recent unfamiliar experience can contribute to broader understanding and solutions.',
+                'day25': 'Reflect on how sharing your new cultural experiences can deepen connections and understanding.',
+                'day26': 'Reflect on a recent cultural encounter and how you might show more respect for differing traditions.',
+                'day27': 'Reflect on a recent challenge and how creativity helped you overcome it.',
+                'day28': 'Observe natural patterns around you and reflect on how they can inform your perspective and decisions.',
+                'day29': 'Reflect on a new experience and think about how documenting it can deepen your understanding and enrich your knowledge.',
+            },
+            'Shakespeare': {
+                'day1': 'Reflect on a key decision or challenge in your life. Apply careful contemplation, like Hamlet, to navigate moral conflicts and seek clarity.',
+                'day2': 'Reflect on how passion and conflict influence your decisions and relationships.',
+                'day3': 'Reflect on how collaboration or resources can enhance your current project or goal.',
+                'day4': 'Reframe a current challenge with humor and imagination to find new solutions.',
+                'day5': 'Reflect on how your ambitions shape your decisions. Consider if they need balancing with ethical considerations.',
+                'day6': 'Reflect on how biases affect your judgments and interactions. Strive to challenge and overcome these prejudices for a fairer perspective.',
+                'day7': 'Reflect on balancing personal values with societal expectations and compromise.',
+                'day8': 'Capture fleeting thoughts and emotions in words that resonate beyond the moment.',
+                'day9': 'Create a new phrase or line that reflects your unique thoughts and emotions, considering the impact of your words.',
+                'day10': 'Reflect on how you wield power and influence, and consider if your actions are guided by honor or darker motives.',
+                'day11': 'Reflect on your choices, pride, and trust, and consider if there are decisions or relationships you need to mend before regrets grow too severe.',
+                'day12': 'Reflect on your ambitions and their moral costs; assess if your path leads to fulfillment or destruction, and seek balance in your pursuits.',
+                'day13': 'Reflect on whether your roles align with your true self or just meet others expectations, and act with sincerity rather than obligation.',
+                'day14': 'Honor the quiet strength of Portias in your life and, when needed, act with courage and clarity.',
+                'day15': 'Reflect on your loyalties and make a conscious effort to honor and maintain them, as they are vital to your life.',
+                'day16': 'Reflect on the roles you play, how you navigate societal constraints, and find ways to assert your autonomy, like Katherina.',
+                'day17': 'Reflect on how you confront existential questions and uncertainties, and apply those insights to navigate your path with clarity and purpose.',
+                'day18': 'Consider how innovation impacts your life and work, and find ways to infuse your passions with fresh perspectives and creativity.',
+                'day19': 'Examine your important relationships with honesty and open communication, and address any mistrust to maintain their integrity.',
+                'day20': 'Reflect on how external factors influence your relationships and decisions, and approach this with an open mind.',
+                'day21': 'Reflect on a recent decision involving justice and mercy, and how your values shaped it.',
+                'day22': 'Explore the effects of ambiguity in language, seeking new insights and understanding throughout your day.',
+                'day23': 'Choose a figure who faced betrayal, analyze their response, and reflect on how this comparison deepens your understanding of *Julius Caesar*.',
+                'day24': 'Explore a literary work or film with classical mythological elements, analyzing how these enhance themes and character development.',
+                'day25': 'Analyze how a current leaders ambition impacts their legitimacy and national identity.',
+                'day26': 'Reflect on how love and ambition intersect in a current situation and how this understanding might influence your approach.',
+                'day27': 'Analyze a recent decision through historical or political drama themes and apply these insights to future choices.',
+                'day28': 'Reflect on a moral dilemma, focusing on the conflict between personal ethics and societal expectations, and the roles of justice and mercy.',
+                'day29': 'Examine if your relationships are based on genuine trust or external factors and how this affects your interactions.',
+            },
         };
 
         let lastAudioDateKey = 'lastAudioDate';
@@ -434,22 +683,64 @@
             // Display philosopher's profile
             const profile = {
                 'aurelius': {
-                    role: 'Roman Emperor and Stoic Philosopher',
+                    role: 'Roman Emperor and Stoic Philosopher (121 to 180 CE)',
                     style: 'Reflective, personal, and practical',
                     relevance: 'Focuses on inner strength and personal ethics',
                     length: '3-7 minutes'
                 },
                 'plato': {
-                    role: 'Greek Philosopher and Student of Socrates',
+                    role: 'Greek Philosopher and Student of Socrates (428 to 347 BCE)',
                     style: 'Idealistic, dialogical, and theoretical',
                     relevance: 'Focuses on ideal forms and political philosophy',
                     length: '3-7 minutes'
                 },
                 'aristotle': {
-                    role: 'Greek Philosopher and Scientist',
+                    role: 'Greek Philosopher and Scientist (384 to 322 BCE)',
                     style: 'Empirical, systematic, and practical',
                     relevance: 'Focuses on logic, ethics, and the nature of knowledge',
                     length: '3-6 minutes'
+                },
+                'nietzsche': {
+                    role: 'German Philosopher and Cultural Critic (1844 to 1900)',
+                    style: 'Provocative, aphoristic, and existential',
+                    relevance: 'Explores will to power, "Übermensch", criticizes religion and morality',
+                    length: '4-6 minutes'
+                },
+                'cäsar': {
+                    role: 'Roman General and Statesman (100 to 44 BCE)',
+                    style: 'Feasible, Strategic, pragmatic',
+                    relevance: 'Insights and reflection into/on military strategy, political power dynamics and leadership during a pivotal historical transition',
+                    length: '3-5 minutes'
+                },
+                'leonardo': {
+                    role: 'Italian Polymath and Inventor (1452 to 1519)',
+                    style: 'Innovative, interdisciplinary, and visionary',
+                    relevance: 'Explores approaches to learning, combining art and science to push the boundaries of knowledge and innovation',
+                    length: '3-5 minutes'
+                },
+                'buddha': {
+                    role: 'Spiritual Teacher and Founder of Buddhism (563/480 to 483/400 BCE)',
+                    style: 'Contemplative, philosophical, and transformative',
+                    relevance: 'Offers profound insights into the nature of suffering, mindfulness, and the path to enlightenment, emphasizing compassion and inner peace',
+                    length: '3-5 minutes'
+                },
+                'marco': {
+                    role: 'Venetian Explorer and Merchant (1254 to 1324)',
+                    style: 'Observant, adventurous, and descriptive',
+                    relevance: 'Provides detailed accounts of distant lands, cultures, and trade routes, highlighting the importance of exploration and cross-cultural exchange',
+                    length: '3-7 minutes'
+                },
+                'cook': {
+                    role: 'British Explorer and Navigator (1728 to 1779)',
+                    style: 'Meticulous, daring, and exploratory',
+                    relevance: 'Offers lessons in how to navigate uncharted territories, and how to expand your understanding of the world through exploration and curiosity',
+                    length: '3-6 minutes'
+                },
+                'Shakespeare': {
+                    role: 'English Playwright and Poet (1564 to 1616)',
+                    style: 'Creative, eloquent, and dramatic',
+                    relevance: 'Offers deep insights into human nature, emotion, and society through his literature, providing valuable lessons on storytelling, character development, and the complexities of human behavior',
+                    length: '4-7 minutes'
                 }
             }[philosopher];
 
@@ -647,7 +938,426 @@
                 document.getElementById('day28').style.display = 'inline-block';
                 document.getElementById('day29').style.display = 'inline-block';
                 document.getElementById('day30').style.display = 'inline-block';
+            
+
+            } else if (philosopher === 'nietzsche') {
+                audioSrcs = {
+                    'day1': 'audio21/nietzsche1.mp3',
+                    'day2': 'audio21/nietzsche2.mp3',
+                    'day3': 'audio21/nietzsche3.mp3',
+                    'day4': 'audio21/nietzsche4.mp3',
+                    'day5': 'audio22/nietzsche5.mp3',
+                    'day6': 'audio22/nietzsche6.mp3',
+                    'day7': 'audio22/nietzsche7.mp3',
+                    'day8': 'audio22/nietzsche8.mp3',
+                    'day9': 'audio23/nietzsche9.mp3',
+                    'day10': 'audio23/nietzsche10.mp3',
+                    'day11': 'audio23/nietzsche11.mp3',
+                    'day12': 'audio23/nietzsche12.mp3',
+                    'day13': 'audio24/nietzsche13.mp3',
+                    'day14': 'audio24/nietzsche14.mp3',
+                    'day15': 'audio24/nietzsche15.mp3',
+                    'day16': 'audio24/nietzsche16.mp3',
+                    'day17': 'audio25/nietzsche17.mp3',
+                    'day18': 'audio25/nietzsche18.mp3',
+                    'day19': 'audio26/nietzsche19.mp3',
+                    'day20': 'audio26/nietzsche20.mp3',
+                    'day21': 'audio26/nietzsche21.mp3',
+                    'day22': 'audio26/nietzsche22.mp3',
+                    'day23': 'audio27/nietzsche23.mp3',
+                    'day24': 'audio27/nietzsche24.mp3',
+                    'day25': 'audio27/nietzsche25.mp3',
+                    'day26': 'audio27/nietzsche26.mp3',
+                    'day27': 'audio28/nietzsche27.mp3',
+                    'day28': 'audio28/nietzsche28.mp3',
+                    'day29': 'audio28/nietzsche29.mp3',
+                };
+                document.getElementById('day4').style.display = 'inline-block'; // Show Day 4 for Aurelius
+                document.getElementById('day5').style.display = 'inline-block';
+                document.getElementById('day6').style.display = 'inline-block';
+                document.getElementById('day7').style.display = 'inline-block'; 
+                document.getElementById('day8').style.display = 'inline-block';
+                document.getElementById('day9').style.display = 'inline-block';
+                document.getElementById('day10').style.display = 'inline-block';
+                document.getElementById('day11').style.display = 'inline-block';
+                document.getElementById('day12').style.display = 'inline-block';
+                document.getElementById('day13').style.display = 'inline-block';
+                document.getElementById('day14').style.display = 'inline-block';
+                document.getElementById('day15').style.display = 'inline-block';
+                document.getElementById('day16').style.display = 'inline-block';
+                document.getElementById('day17').style.display = 'inline-block';
+                document.getElementById('day18').style.display = 'inline-block';
+                document.getElementById('day19').style.display = 'inline-block';
+                document.getElementById('day20').style.display = 'inline-block';
+                document.getElementById('day21').style.display = 'inline-block';
+                document.getElementById('day22').style.display = 'inline-block';
+                document.getElementById('day23').style.display = 'inline-block';
+                document.getElementById('day24').style.display = 'inline-block';
+                document.getElementById('day25').style.display = 'inline-block';
+                document.getElementById('day26').style.display = 'inline-block';
+                document.getElementById('day27').style.display = 'inline-block';
+                document.getElementById('day28').style.display = 'inline-block';
+                document.getElementById('day29').style.display = 'inline-block';
+            
+
+            } else if (philosopher === 'cäsar') {
+                audioSrcs = {
+                    'day1': 'audio29/cäsar1.mp3',
+                    'day2': 'audio29/cäsar2.mp3',
+                    'day3': 'audio29/cäsar3.mp3',
+                    'day4': 'audio29/cäsar4.mp3',
+                    'day5': 'audio30/cäsar5.mp3',
+                    'day6': 'audio30/cäsar6.mp3',
+                    'day7': 'audio30/cäsar7.mp3',
+                    'day8': 'audio30/cäsar8.mp3',
+                    'day9': 'audio31/cäsar9.mp3',
+                    'day10': 'audio31/cäsar10.mp3',
+                    'day11': 'audio31/cäsar11.mp3',
+                    'day12': 'audio31/cäsar12.mp3',
+                    'day13': 'audio32/cäsar13.mp3',
+                    'day14': 'audio32/cäsar14.mp3',
+                    'day15': 'audio32/cäsar15.mp3',
+                    'day16': 'audio32/cäsar16.mp3',
+                    'day17': 'audio33/cäsar17.mp3',
+                    'day18': 'audio33/cäsar18.mp3',
+                    'day19': 'audio33/cäsar19.mp3',
+                    'day20': 'audio33/cäsar20.mp3',
+                    'day21': 'audio34/cäsar21.mp3',
+                    'day22': 'audio34/cäsar22.mp3',
+                    'day23': 'audio34/cäsar23.mp3',
+                    'day24': 'audio34/cäsar24.mp3',
+                    'day25': 'audio35/cäsar25.mp3',
+                    'day26': 'audio35/cäsar26.mp3',
+                    'day27': 'audio35/cäsar27.mp3',
+                    'day28': 'audio36/cäsar28.mp3',
+                    'day29': 'audio36/cäsar29.mp3',
+                };
+                document.getElementById('day4').style.display = 'inline-block'; // Show Day 4 for Aurelius
+                document.getElementById('day5').style.display = 'inline-block';
+                document.getElementById('day6').style.display = 'inline-block';
+                document.getElementById('day7').style.display = 'inline-block'; 
+                document.getElementById('day8').style.display = 'inline-block';
+                document.getElementById('day9').style.display = 'inline-block';
+                document.getElementById('day10').style.display = 'inline-block';
+                document.getElementById('day11').style.display = 'inline-block';
+                document.getElementById('day12').style.display = 'inline-block';
+                document.getElementById('day13').style.display = 'inline-block';
+                document.getElementById('day14').style.display = 'inline-block';
+                document.getElementById('day15').style.display = 'inline-block';
+                document.getElementById('day16').style.display = 'inline-block';
+                document.getElementById('day17').style.display = 'inline-block';
+                document.getElementById('day18').style.display = 'inline-block';
+                document.getElementById('day19').style.display = 'inline-block';
+                document.getElementById('day20').style.display = 'inline-block';
+                document.getElementById('day21').style.display = 'inline-block';
+                document.getElementById('day22').style.display = 'inline-block';
+                document.getElementById('day23').style.display = 'inline-block';
+                document.getElementById('day24').style.display = 'inline-block';
+                document.getElementById('day25').style.display = 'inline-block';
+                document.getElementById('day26').style.display = 'inline-block';
+                document.getElementById('day27').style.display = 'inline-block';
+                document.getElementById('day28').style.display = 'inline-block';
+                document.getElementById('day29').style.display = 'inline-block';
+            
+
+            } else if (philosopher === 'leonardo') {
+                audioSrcs = {
+                    'day1': 'audio37/leonardo1.mp3',
+                    'day2': 'audio37/leonardo2.mp3',
+                    'day3': 'audio37/leonardo3.mp3',
+                    'day4': 'audio37/leonardo4.mp3',
+                    'day5': 'audio38/leonardo5.mp3',
+                    'day6': 'audio38/leonardo6.mp3',
+                    'day7': 'audio38/leonardo7.mp3',
+                    'day8': 'audio38/leonardo8.mp3',
+                    'day9': 'audio39/leonardo9.mp3',
+                    'day10': 'audio39/leonardo10.mp3',
+                    'day11': 'audio39/leonardo11.mp3',
+                    'day12': 'audio39/leonardo12.mp3',
+                    'day13': 'audio40/leonardo13.mp3',
+                    'day14': 'audio40/leonardo14.mp3',
+                    'day15': 'audio40/leonardo15.mp3',
+                    'day16': 'audio40/leonardo16.mp3',
+                    'day17': 'audio41/leonardo17.mp3',
+                    'day18': 'audio41/leonardo18.mp3',
+                    'day19': 'audio41/leonardo19.mp3',
+                    'day20': 'audio41/leonardo20.mp3',
+                    'day21': 'audio42/leonardo21.mp3',
+                    'day22': 'audio42/leonardo22.mp3',
+                    'day23': 'audio42/leonardo23.mp3',
+                    'day24': 'audio42/leonardo24.mp3',
+                    'day25': 'audio43/leonardo25.mp3',
+                    'day26': 'audio43/leonardo26.mp3',
+                    'day27': 'audio43/leonardo27.mp3',
+                    'day28': 'audio44/leonardo28.mp3',
+                    'day29': 'audio44/leonardo29.mp3',
+                };
+                document.getElementById('day4').style.display = 'inline-block'; // Show Day 4 for Aurelius
+                document.getElementById('day5').style.display = 'inline-block';
+                document.getElementById('day6').style.display = 'inline-block';
+                document.getElementById('day7').style.display = 'inline-block'; 
+                document.getElementById('day8').style.display = 'inline-block';
+                document.getElementById('day9').style.display = 'inline-block';
+                document.getElementById('day10').style.display = 'inline-block';
+                document.getElementById('day11').style.display = 'inline-block';
+                document.getElementById('day12').style.display = 'inline-block';
+                document.getElementById('day13').style.display = 'inline-block';
+                document.getElementById('day14').style.display = 'inline-block';
+                document.getElementById('day15').style.display = 'inline-block';
+                document.getElementById('day16').style.display = 'inline-block';
+                document.getElementById('day17').style.display = 'inline-block';
+                document.getElementById('day18').style.display = 'inline-block';
+                document.getElementById('day19').style.display = 'inline-block';
+                document.getElementById('day20').style.display = 'inline-block';
+                document.getElementById('day21').style.display = 'inline-block';
+                document.getElementById('day22').style.display = 'inline-block';
+                document.getElementById('day23').style.display = 'inline-block';
+                document.getElementById('day24').style.display = 'inline-block';
+                document.getElementById('day25').style.display = 'inline-block';
+                document.getElementById('day26').style.display = 'inline-block';
+                document.getElementById('day27').style.display = 'inline-block';
+                document.getElementById('day28').style.display = 'inline-block';
+                document.getElementById('day29').style.display = 'inline-block';
+            
+
+            } else if (philosopher === 'buddha') {
+                audioSrcs = {
+                    'day1': 'audio45/buddha1.mp3',
+                    'day2': 'audio45/buddha2.mp3',
+                    'day3': 'audio45/buddha3.mp3',
+                    'day4': 'audio45/buddha4.mp3',
+                    'day5': 'audio46/buddha5.mp3',
+                    'day6': 'audio46/buddha6.mp3',
+                    'day7': 'audio46/buddha7.mp3',
+                    'day8': 'audio46/buddha8.mp3',
+                    'day9': 'audio47/buddha9.mp3',
+                    'day10': 'audio47/buddha10.mp3',
+                    'day11': 'audio47/buddha11.mp3',
+                    'day12': 'audio47/buddha12.mp3',
+                    'day13': 'audio48/buddha13.mp3',
+                    'day14': 'audio48/buddha14.mp3',
+                    'day15': 'audio48/buddha15.mp3',
+                    'day16': 'audio48/buddha16.mp3',
+                    'day17': 'audio49/buddha17.mp3',
+                    'day18': 'audio49/buddha18.mp3',
+                    'day19': 'audio49/buddha19.mp3',
+                    'day20': 'audio49/buddha20.mp3',
+                    'day21': 'audio50/buddha21.mp3',
+                    'day22': 'audio50/buddha22.mp3',
+                    'day23': 'audio50/buddha23.mp3',
+                    'day24': 'audio50/buddha24.mp3',
+                    'day25': 'audio51/buddha25.mp3',
+                    'day26': 'audio51/buddha26.mp3',
+                    'day27': 'audio51/buddha27.mp3',
+                    'day28': 'audio52/buddha28.mp3',
+                    'day29': 'audio52/buddha29.mp3',
+                };
+                document.getElementById('day4').style.display = 'inline-block'; // Show Day 4 for Aurelius
+                document.getElementById('day5').style.display = 'inline-block';
+                document.getElementById('day6').style.display = 'inline-block';
+                document.getElementById('day7').style.display = 'inline-block'; 
+                document.getElementById('day8').style.display = 'inline-block';
+                document.getElementById('day9').style.display = 'inline-block';
+                document.getElementById('day10').style.display = 'inline-block';
+                document.getElementById('day11').style.display = 'inline-block';
+                document.getElementById('day12').style.display = 'inline-block';
+                document.getElementById('day13').style.display = 'inline-block';
+                document.getElementById('day14').style.display = 'inline-block';
+                document.getElementById('day15').style.display = 'inline-block';
+                document.getElementById('day16').style.display = 'inline-block';
+                document.getElementById('day17').style.display = 'inline-block';
+                document.getElementById('day18').style.display = 'inline-block';
+                document.getElementById('day19').style.display = 'inline-block';
+                document.getElementById('day20').style.display = 'inline-block';
+                document.getElementById('day21').style.display = 'inline-block';
+                document.getElementById('day22').style.display = 'inline-block';
+                document.getElementById('day23').style.display = 'inline-block';
+                document.getElementById('day24').style.display = 'inline-block';
+                document.getElementById('day25').style.display = 'inline-block';
+                document.getElementById('day26').style.display = 'inline-block';
+                document.getElementById('day27').style.display = 'inline-block';
+                document.getElementById('day28').style.display = 'inline-block';
+                document.getElementById('day29').style.display = 'inline-block';
+            
+            } else if (philosopher === 'marco') {
+                audioSrcs = {
+                    'day1': 'audio53/marco1.mp3',
+                    'day2': 'audio53/marco2.mp3',
+                    'day3': 'audio53/marco3.mp3',
+                    'day4': 'audio53/marco4.mp3',
+                    'day5': 'audio54/marco5.mp3',
+                    'day6': 'audio54/marco6.mp3',
+                    'day7': 'audio54/marco7.mp3',
+                    'day8': 'audio54/marco8.mp3',
+                    'day9': 'audio55/marco9.mp3',
+                    'day10': 'audio55/marco10.mp3',
+                    'day11': 'audio55/marco11.mp3',
+                    'day12': 'audio55/marco12.mp3',
+                    'day13': 'audio56/marco13.mp3',
+                    'day14': 'audio56/marco14.mp3',
+                    'day15': 'audio56/marco15.mp3',
+                    'day16': 'audio56/marco16.mp3',
+                    'day17': 'audio57/marco17.mp3',
+                    'day18': 'audio57/marco18.mp3',
+                    'day19': 'audio57/marco19.mp3',
+                    'day20': 'audio57/marco20.mp3',
+                    'day21': 'audio58/marco21.mp3',
+                    'day22': 'audio58/marco22.mp3',
+                    'day23': 'audio58/marco23.mp3',
+                    'day24': 'audio58/marco24.mp3',
+                    'day25': 'audio59/marco25.mp3',
+                    'day26': 'audio59/marco26.mp3',
+                    'day27': 'audio59/marco27.mp3',
+                    'day28': 'audio60/marco28.mp3',
+                    'day29': 'audio60/marco29.mp3',
+                };
+                document.getElementById('day4').style.display = 'inline-block'; // Show Day 4 for Aurelius
+                document.getElementById('day5').style.display = 'inline-block';
+                document.getElementById('day6').style.display = 'inline-block';
+                document.getElementById('day7').style.display = 'inline-block'; 
+                document.getElementById('day8').style.display = 'inline-block';
+                document.getElementById('day9').style.display = 'inline-block';
+                document.getElementById('day10').style.display = 'inline-block';
+                document.getElementById('day11').style.display = 'inline-block';
+                document.getElementById('day12').style.display = 'inline-block';
+                document.getElementById('day13').style.display = 'inline-block';
+                document.getElementById('day14').style.display = 'inline-block';
+                document.getElementById('day15').style.display = 'inline-block';
+                document.getElementById('day16').style.display = 'inline-block';
+                document.getElementById('day17').style.display = 'inline-block';
+                document.getElementById('day18').style.display = 'inline-block';
+                document.getElementById('day19').style.display = 'inline-block';
+                document.getElementById('day20').style.display = 'inline-block';
+                document.getElementById('day21').style.display = 'inline-block';
+                document.getElementById('day22').style.display = 'inline-block';
+                document.getElementById('day23').style.display = 'inline-block';
+                document.getElementById('day24').style.display = 'inline-block';
+                document.getElementById('day25').style.display = 'inline-block';
+                document.getElementById('day26').style.display = 'inline-block';
+                document.getElementById('day27').style.display = 'inline-block';
+                document.getElementById('day28').style.display = 'inline-block';
+                document.getElementById('day29').style.display = 'inline-block';
+            
+            } else if (philosopher === 'cook') {
+                audioSrcs = {
+                    'day1': 'audio61/cook1.mp3',
+                    'day2': 'audio61/cook2.mp3',
+                    'day3': 'audio61/cook3.mp3',
+                    'day4': 'audio61/cook4.mp3',
+                    'day5': 'audio62/cook5.mp3',
+                    'day6': 'audio62/cook6.mp3',
+                    'day7': 'audio62/cook7.mp3',
+                    'day8': 'audio62/cook8.mp3',
+                    'day9': 'audio63/cook9.mp3',
+                    'day10': 'audio63/cook10.mp3',
+                    'day11': 'audio63/cook11.mp3',
+                    'day12': 'audio63/cook12.mp3',
+                    'day13': 'audio64/cook13.mp3',
+                    'day14': 'audio64/cook14.mp3',
+                    'day15': 'audio64/cook15.mp3',
+                    'day16': 'audio64/cook16.mp3',
+                    'day17': 'audio65/cook17.mp3',
+                    'day18': 'audio65/cook18.mp3',
+                    'day19': 'audio65/cook19.mp3',
+                    'day20': 'audio65/cook20.mp3',
+                    'day21': 'audio66/cook21.mp3',
+                    'day22': 'audio66/cook22.mp3',
+                    'day23': 'audio66/cook23.mp3',
+                    'day24': 'audio66/cook24.mp3',
+                    'day25': 'audio67/cook25.mp3',
+                    'day26': 'audio67/cook26.mp3',
+                    'day27': 'audio67/cook27.mp3',
+                    'day28': 'audio68/cook28.mp3',
+                    'day29': 'audio68/cook29.mp3',
+                };
+                document.getElementById('day4').style.display = 'inline-block'; // Show Day 4 for Aurelius
+                document.getElementById('day5').style.display = 'inline-block';
+                document.getElementById('day6').style.display = 'inline-block';
+                document.getElementById('day7').style.display = 'inline-block'; 
+                document.getElementById('day8').style.display = 'inline-block';
+                document.getElementById('day9').style.display = 'inline-block';
+                document.getElementById('day10').style.display = 'inline-block';
+                document.getElementById('day11').style.display = 'inline-block';
+                document.getElementById('day12').style.display = 'inline-block';
+                document.getElementById('day13').style.display = 'inline-block';
+                document.getElementById('day14').style.display = 'inline-block';
+                document.getElementById('day15').style.display = 'inline-block';
+                document.getElementById('day16').style.display = 'inline-block';
+                document.getElementById('day17').style.display = 'inline-block';
+                document.getElementById('day18').style.display = 'inline-block';
+                document.getElementById('day19').style.display = 'inline-block';
+                document.getElementById('day20').style.display = 'inline-block';
+                document.getElementById('day21').style.display = 'inline-block';
+                document.getElementById('day22').style.display = 'inline-block';
+                document.getElementById('day23').style.display = 'inline-block';
+                document.getElementById('day24').style.display = 'inline-block';
+                document.getElementById('day25').style.display = 'inline-block';
+                document.getElementById('day26').style.display = 'inline-block';
+                document.getElementById('day27').style.display = 'inline-block';
+                document.getElementById('day28').style.display = 'inline-block';
+                document.getElementById('day29').style.display = 'inline-block';
+            
+
+            } else if (philosopher === 'Shakespeare') {
+                audioSrcs = {
+                    'day1': 'audio69/shakespear1.mp3',
+                    'day2': 'audio69/shakespear2.mp3',
+                    'day3': 'audio69/shakespear3.mp3',
+                    'day4': 'audio69/shakespear4.mp3',
+                    'day5': 'audio70/shakespear5.mp3',
+                    'day6': 'audio70/shakespear6.mp3',
+                    'day7': 'audio70/shakespear7.mp3',
+                    'day8': 'audio70/shakespear8.mp3',
+                    'day9': 'audio71/shakespear9.mp3',
+                    'day10': 'audio71/shakespear10.mp3',
+                    'day11': 'audio71/shakespear11.mp3',
+                    'day12': 'audio71/shakespear12.mp3',
+                    'day13': 'audio72/shakespear13.mp3',
+                    'day14': 'audio72/shakespear14.mp3',
+                    'day15': 'audio72/shakespear15.mp3',
+                    'day16': 'audio72/shakespear16.mp3',
+                    'day17': 'audio73/shakespear17.mp3',
+                    'day18': 'audio73/shakespear18.mp3',
+                    'day19': 'audio73/shakespear19.mp3',
+                    'day20': 'audio73/shakespear20.mp3',
+                    'day21': 'audio74/shakespear21.mp3',
+                    'day22': 'audio74/shakespear22.mp3',
+                    'day23': 'audio74/shakespear23.mp3',
+                    'day24': 'audio74/shakespear24.mp3',
+                    'day25': 'audio75/shakespear25.mp3',
+                    'day26': 'audio75/shakespear26.mp3',
+                    'day27': 'audio75/shakespear27.mp3',
+                    'day28': 'audio76/shakespear28.mp3',
+                    'day29': 'audio76/shakespear29.mp3',
+                };
+                document.getElementById('day4').style.display = 'inline-block'; // Show Day 4 for Aurelius
+                document.getElementById('day5').style.display = 'inline-block';
+                document.getElementById('day6').style.display = 'inline-block';
+                document.getElementById('day7').style.display = 'inline-block'; 
+                document.getElementById('day8').style.display = 'inline-block';
+                document.getElementById('day9').style.display = 'inline-block';
+                document.getElementById('day10').style.display = 'inline-block';
+                document.getElementById('day11').style.display = 'inline-block';
+                document.getElementById('day12').style.display = 'inline-block';
+                document.getElementById('day13').style.display = 'inline-block';
+                document.getElementById('day14').style.display = 'inline-block';
+                document.getElementById('day15').style.display = 'inline-block';
+                document.getElementById('day16').style.display = 'inline-block';
+                document.getElementById('day17').style.display = 'inline-block';
+                document.getElementById('day18').style.display = 'inline-block';
+                document.getElementById('day19').style.display = 'inline-block';
+                document.getElementById('day20').style.display = 'inline-block';
+                document.getElementById('day21').style.display = 'inline-block';
+                document.getElementById('day22').style.display = 'inline-block';
+                document.getElementById('day23').style.display = 'inline-block';
+                document.getElementById('day24').style.display = 'inline-block';
+                document.getElementById('day25').style.display = 'inline-block';
+                document.getElementById('day26').style.display = 'inline-block';
+                document.getElementById('day27').style.display = 'inline-block';
+                document.getElementById('day28').style.display = 'inline-block';
+                document.getElementById('day29').style.display = 'inline-block';
             }
+
 
             // Show controls
             document.getElementById('audio-controls').style.display = 'block';
@@ -676,6 +1386,7 @@
             if (audioSrc) {
                 currentAudio = new Audio(audioSrc);
                 currentAudio.play();
+                currentAudio.playbackRate = 1.0;
 
                 // Show controls
                 document.getElementById('audio-controls').style.display = 'block';
@@ -699,6 +1410,7 @@
                 currentAudio.play();
             }
         }
+        
 
         function pauseAudio() {
             if (currentAudio) {
@@ -712,9 +1424,17 @@
             }
         }
 
+        
+
         function forwardAudio() {
             if (currentAudio) {
                 currentAudio.currentTime += 10;
+            }
+        }
+
+        function setPlaybackRate(rate) {
+        if (currentAudio) {
+            currentAudio.playbackRate = rate;
             }
         }
 
