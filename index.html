@@ -49,14 +49,7 @@
             border-radius: 5px;
             font-size: 14px;
         }
-        #audio-controls {
-            margin-top: 20px;
-        }
-        #audio-controls button {
-            margin: 5px;
-            padding: 10px;
-            cursor: pointer;
-        }
+        
         #task-dialog {
             display: none;
             position: fixed;
@@ -148,6 +141,22 @@
     </style>
 
 
+    
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 </head>
@@ -208,18 +217,20 @@
             <button class="audio-button" id="day28" style="display:none;" onclick="playAudio('day28')">Day 28</button>
             <button class="audio-button" id="day29" style="display:none;" onclick="playAudio('day29')">Day 29</button>
         </div>
-        <!-- Audio Player Controls -->
-        <div id="audio-controls" style="display:none;">
-            <button onclick="playAudioCurrent()">Play</button>
-            <button onclick="pauseAudio()">Pause</button>
-            <button onclick="rewindAudio()">Rewind 10s</button>
-            <button onclick="forwardAudio()">Forward 10s</button>
-            <button onclick="setPlaybackRate(1.0)">1x</button>
-            <button onclick="setPlaybackRate(1.5)">1,5x</button>
-            <button onclick="setPlaybackRate(2.0)">2x</button>
 
-        </div>
     </div>
+    <!-- Audio Player Controls -->
+    <div id="audio-controls" style="display:none;">
+        <button onclick="playAudioCurrent()">▶</button>
+        <button onclick="pauseAudio()">|  |</button>
+        <button onclick="rewindAudio()">⏪10s</button>
+        <button onclick="forwardAudio()">⏩10s</button>
+        <button onclick="setPlaybackRate(1.0)">1x</button>
+        <button onclick="setPlaybackRate(1.5)">1,5x</button>
+        <button onclick="setPlaybackRate(2.0)">2x</button>
+
+    </div>
+   
 
 
 
@@ -330,7 +341,7 @@
             <img src="Abzeichen Route.png" alt="Profile Images">
         </div>
         <div id="profile-info">
-            <p><strong>Streak:</strong> <span id="streak-days">0</span> Days</p>
+            <p><strong class="flame">🔥</strong> <span id="streak-days" style="font-size: 30px; font-weight: bold; ">0</span> Days</p>
             <p><strong>Achieved Milestones:</strong></p>
             <!-- Milestones can be listed here -->
             <button onclick="showInfoDialog()">i</button>
