@@ -57,19 +57,6 @@ h2 {
     border-radius: 8px; /* Abgerundete Ecken für moderneren Look */
     transition: background-color 0.3s, transform 0.2s; /* Hinzugefügte Transformation für Hover-Effekt */
 }
-}
-
-.philosopher-button {
-    background-color: #e67e22; /* Auffälligerer Orangeton für bessere Sichtbarkeit */
-    color: #fff; /* Weißer Text für besseren Kontrast */
-    border: none;
-    padding: 12px 24px; /* Mehr Padding für größere Schaltflächen */
-    margin: 8px;
-    cursor: pointer;
-    font-size: 1.3em;
-    border-radius: 8px; /* Abgerundete Ecken für moderneren Look */
-    transition: background-color 0.3s, transform 0.2s; /* Hinzugefügte Transformation für Hover-Effekt */
-}
 
 .philosopher-button:hover {
     background-color: #d35400; /* Etwas dunklerer Orangeton bei Hover */
@@ -138,26 +125,60 @@ h2 {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Reduzierter Schatten bei Klick */
 }
 
+
+
+
+
+
+
+
+
+
 #audio-controls {
-    margin-top: 5px;
+    margin-top: 1px;
+    display: flex; /* Flexbox aktivieren */
+    justify-content: center; /* Buttons horizontal zentrieren */
+    align-items: center; /* Buttons vertikal zentrieren */
+    flex-wrap: wrap; /* Zeilenumbruch ermöglichen, wenn nötig */
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0.5) 100%);
+    padding: 7px 18px;
+    box-shadow: 0 -6px 15px rgba(0, 0, 0, 0.6), inset 0 0 10px rgba(255, 255, 255, 0.2); /* Subtiler äußerer und innerer Schatten für Tiefe */
+    border-bottom: 2px solid rgba(255, 255, 255, 0.2); /* Deutliche Border für mehr Eleganz */
+    border-radius: 10px; /* Sanft abgerundete Ecken für ein modernes Gefühl */
+    background-blend-mode: overlay; /* Erzeugt interessante Licht- und Farbeffekte */
 }
 
 #audio-controls button {
-    background-color: #27ae60; /* Frisches Grün für Steuerung */
+    background-color: #555; /* Frisches Grün für Steuerung */
     color: white;
     border: none;
-    padding: 5px 20px;
+    padding: 10px 20px;
+    font-size: 0.8em;
     margin: 5px;
     cursor: pointer;
-    font-size: 1.1em;
     border-radius: 8px;
     transition: background-color 0.3s, transform 0.2s;
 }
 
 #audio-controls button:hover {
-    background-color: #2ecc71; /* Etwas hellerer Grünton bei Hover */
+    background-color: #777; /* Etwas hellerer Grünton bei Hover */
     transform: scale(1.05); /* Vergrößerung bei Hover */
 }
+
+#audio-controls button span {
+    font-size: 0.8em; /* Größe der Symbole auf die Hälfte reduzieren */
+}
+
+
+
+
+
+
+
+
+
+
+
 
 /* Philosophen Steckbrief */
 #philosopher-profile {
@@ -420,4 +441,202 @@ body {
     color: var(--color);
     line-height: var(--height);
 
+}
+
+
+
+
+
+.flame {
+    font-size: 40px; /* Größe der Flamme auf 40px ändern */
+    position: relative;
+    animation: flicker 1.5s infinite ease-in-out alternate, colorChange 3s infinite linear;
+    transform-origin: center bottom;
+    color: orange;
+    text-shadow: 
+        0 0 15px rgba(255, 255, 0, 0.8),
+        0 0 25px rgba(255, 140, 0, 0.8),
+        0 0 35px rgba(255, 69, 0, 0.8),
+        0 0 50px rgba(255, 0, 0, 0.8);
+}
+
+/* Erster Funke */
+.flame::after {
+    content: '';
+    position: absolute;
+    top: -15px;
+    left: 50%;
+    width: 8px;
+    height: 8px;
+    background: yellow;
+    border-radius: 50%;
+    animation: spark1 2s infinite ease-in-out;
+    opacity: 0;
+}
+
+/* Zweiter Funke */
+.flame::before {
+    content: '';
+    position: absolute;
+    top: -20px;
+    left: 60%;
+    width: 8px;
+    height: 8px;
+    background: yellow;
+    border-radius: 50%;
+    animation: spark2 2.5s infinite ease-in-out;
+    opacity: 0;
+}
+
+/* Dritter Funke */
+.flame .spark3 {
+    position: absolute;
+    top: -10px;
+    left: 40%;
+    width: 8px;
+    height: 8px;
+    background: yellow;
+    border-radius: 50%;
+    animation: spark3 2.8s infinite ease-in-out;
+    opacity: 0;
+}
+
+/* Flackern der Flamme */
+@keyframes flicker {
+    0% {
+        transform: scale(1);
+        opacity: 1;
+    }
+    25% {
+        transform: scale(1.15);
+        opacity: 0.85;
+    }
+    50% {
+        transform: scale(1.3);
+        opacity: 0.9;
+    }
+    75% {
+        transform: scale(1.1);
+        opacity: 0.8;
+    }
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+/* Farbänderung der Flamme */
+@keyframes colorChange {
+    0% {
+        color: orange;
+    }
+    25% {
+        color: yellow;
+    }
+    50% {
+        color: red;
+    }
+    75% {
+        color: orange;
+    }
+    100% {
+        color: orange;
+    }
+}
+
+
+/* Basis-Stil für Funken */
+.spark {
+    position: absolute;
+    width: 4px; /* Kleinere Größe */
+    height: 4px; /* Kleinere Größe */
+    background: yellow; /* Subtilere Farbe */
+    border-radius: 50%;
+    opacity: 0; /* Weniger sichtbar */
+}
+
+/* Animation für den ersten Funken */
+@keyframes spark1 {
+    0% {
+        transform: translate(-50%, -50%) rotate(0deg) translateX(0px) scale(0.8);
+        opacity: 0.6;
+        background: rgba(255, 255, 0, 0.6);
+    }
+    50% {
+        transform: translate(-50%, -50%) rotate(180deg) translateX(10px) scale(0.6);
+        opacity: 0.5;
+        background: rgba(255, 255, 0, 0.5);
+    }
+    100% {
+        transform: translate(-50%, -50%) rotate(360deg) translateX(20px) scale(0.4);
+        opacity: 0.4;
+        background: rgba(255, 255, 0, 0.4);
+    }
+}
+
+/* Animation für den zweiten Funken */
+@keyframes spark2 {
+    0% {
+        transform: translate(-50%, -50%) rotate(0deg) translateX(0px) scale(0.8);
+        opacity: 0.6;
+        background: rgba(255, 255, 0, 0.6);
+    }
+    50% {
+        transform: translate(-50%, -50%) rotate(150deg) translateX(12px) scale(0.7);
+        opacity: 0.5;
+        background: rgba(255, 255, 0, 0.5);
+    }
+    100% {
+        transform: translate(-50%, -50%) rotate(300deg) translateX(25px) scale(0.4);
+        opacity: 0.4;
+        background: rgba(255, 255, 0, 0.4);
+    }
+}
+
+/* Animation für den dritten Funken */
+@keyframes spark3 {
+    0% {
+        transform: translate(-50%, -50%) rotate(0deg) translateX(0px) scale(0.8);
+        opacity: 0.6;
+        background: rgba(255, 255, 0, 0.6);
+    }
+    50% {
+        transform: translate(-50%, -50%) rotate(120deg) translateX(8px) scale(0.7);
+        opacity: 0.5;
+        background: rgba(255, 255, 0, 0.5);
+    }
+    100% {
+        transform: translate(-50%, -50%) rotate(240deg) translateX(15px) scale(0.4);
+        opacity: 0.4;
+        background: rgba(255, 255, 0, 0.4);
+    }
+}
+
+/* Funken zuweisen */
+.flame::after, .flame::before, .flame .spark3 {
+    content: '';
+    position: absolute;
+    border-radius: 50%;
+    background: yellow;
+    top: 0;
+    left: 0;
+}
+
+/* Funken-Animationen hinzufügen */
+.flame::after {
+    top: -20px;
+    left: 50%;
+    animation: spark1 3s infinite linear; /* Langsamere Animation */
+}
+
+.flame::before {
+    top: -20px;
+    left: 50%;
+    animation: spark2 3.5s infinite linear; /* Langsamere Animation */
+}
+
+.flame .spark3 {
+    top: -20px;
+    left: 50%;
+    animation: spark3 4s infinite linear; /* Langsamere Animation */
 }
