@@ -2,6 +2,8 @@ let currentAudio = null; // Variable, um die aktuelle Audiodatei zu speichern
 let audioElement = null;
 let currentTask = ''; // Variable für die aktuelle Aufgabe
 
+
+
 // Funktion zum Anzeigen des Philosophenprofils
 function showPhilosopher(philosopher) {
     document.getElementById('start-page').style.display = 'none';
@@ -28,6 +30,7 @@ function setPhilosopherProfile(philosopher) {
                     <li>Occupation/Role: Roman Emperor and Philosopher</li>
                     <li>Story Style: Reflective, philosophical, and introspective</li>
                     <li>Everyday Relevance: Demonstrates how to maintain inner peace and clarity during challenging times and make ethical decisions</li>
+                    <li>length: 3-7 minutes</li>
                 </ul>
             `;
             break;
@@ -38,6 +41,7 @@ function setPhilosopherProfile(philosopher) {
                     <li>Occupation/Role: Ancient Greek Philosopher</li>
                     <li>Story Style: Dialogues exploring philosophical ideas and theories</li>
                     <li>Everyday Relevance: Challenges assumptions and encourages critical thinking about justice, ethics, and knowledge</li>
+                    <li>length: 3-7 minutes</li>
                 </ul>
             `;
             break;
@@ -48,6 +52,18 @@ function setPhilosopherProfile(philosopher) {
                     <li>Occupation/Role: Greek Philosopher and Scientist</li>
                     <li>Story Style: Systematic and empirical approach to philosophy and science</li>
                     <li>Everyday Relevance: Provides insights into logic, ethics, and the natural world, promoting practical wisdom</li>
+                    <li>length: 3-6 minutes</li>
+                </ul>
+            `;
+            break;           
+        case 'nietzsche':
+            profile.innerHTML = `
+                <h3>Profile of Nietzsche</h3>
+                <ul>
+                    <li>Occupation/Role: Greek Philosopher and Scientist</li>
+                    <li>Story Style: Systematic and empirical approach to philosophy and science</li>
+                    <li>Everyday Relevance: Provides insights into logic, ethics, and the natural world, promoting practical wisdom</li>
+                    <li>length: 3-6 minutes</li>
                 </ul>
             `;
             break;
@@ -130,6 +146,7 @@ function playAudio(audioSrc, philosopher, day) {
     }
 
     currentAudio = new Audio(audioSrc);
+    currentAudio.playbackRate = 1.0; // Setze die Standardgeschwindigkeit auf 1,0x
     audioElement = currentAudio;
     currentAudio.play();
 
@@ -142,6 +159,7 @@ function playAudio(audioSrc, philosopher, day) {
         showTask();
     });
 }
+
 
 // Funktion zum Setzen der Aufgabe für den aktuellen Tag
 function setTask(philosopher, day) {
@@ -181,12 +199,65 @@ function setTask(philosopher, day) {
         'plato': {
             1: 'Reflect on a truth-related decision. List aspects and consequences, then act wisely.',
             2: 'Discuss a well-known topic with someone who disagrees. Listen and note new insights.',
-            3: 'Persuade someone on an issue with a solid argument. Reflect on the reactions.'
+            3: 'Persuade someone on an issue with a solid argument. Reflect on the reactions.',
+            4: 'Reflect on your ambitions. Aligned with your purpose? If not, adjust.',
+            5: 'Reflect on challenges from uninformed decisions. How can you improve and stay true to your principles?',
+            6: 'Reflect on how loss or change shaped you. How can these experiences deepen your understanding of values and goals?',
+            7: 'Reflect on when appearances misled you. How can you seek deeper truths?',
+            8: 'Reflect on unfulfilled expectations. How can these moments guide your growth? Balance ideals with reality for transformative change.',
+            9: 'Let reflections guide you today. Seek harmony and deeper self-understanding.',
+            10: 'Reflect on a challenging situation. How did it deepen your understanding? Apply lessons from the Oracle of Delphi to grasp complex issues better.',
+            11: 'Reflect on challenges. How do they shape your values and balance ideals with reality?',
+            12: 'Reflect on mortality. How does it shape your values and actions? Let contemplation of death provide clarity and purpose, inspired by Socrates.',
+            13: 'Reflect on beliefs about the souls immortality. How do they influence your actions and purpose? Let them inspire greater virtue.',
+            14: 'Recall feeling lost. How did it affect your view of yourself and the world? See it as a growth metaphor.',
+            15: 'Reflect on a loss or setback. How did it impact your view of your work and goals?',
+            16: 'Reflect on a differing perspective. How did it challenge or enrich your understanding?',
+            17: 'Reflect on a neglected project. Why? Reevaluate its relevance and consider integrating it into your current pursuits.',
+            18: 'Reflect on a recent observation. How did it shape your perception and self-understanding?',
+            19: 'Reflect on a recent silence. How did it affect your thoughts and understanding?',
+            20: 'Reflect on a sleepless night. How can it guide your stress and emotional management?',
+            21: 'Reflect on the dishonest merchant. How can this improve your approach to trust and detecting deception?',
+            22: 'Reflect on burdensome responsibilities. How can you find meaning and reconcile dissatisfaction?',
+            23: 'Find deep meaning in trivial objects or moments. How can they inspire reflection and growth?',
+            24: 'Reflect on your “last leaf” moments. How do you handle change and endings? What lessons do you draw from them?',
+            25: 'Reflect on how fears shape your social choices. How do you balance comfort with societal expectations?',
+            26: 'Reflect on patience. How does it impact your tasks and interactions? Cultivate it to enhance both goals and the process.',
+            27: 'Reflect on Eudorus story. What hidden talents might you have? How can you uncover and express them?',
+            28: 'Identify areas needing patience. How can these challenges foster growth and self-understanding?',
+            29: 'Reflect on how death influences your actions and thoughts. Consider it a transition and find peace in lifes cyclical nature.'
         },
         'aristotle': {
             1: 'Choose a decision balancing fairness and impact. Document how to reconcile these and mitigate effects.',
             2: 'Reflect on a recent failure. List steps to emerge stronger from it.',
-            3: 'Reflect on balancing long-term goals with immediate needs. Note your approach or plan.'
+            3: 'Reflect on balancing long-term goals with immediate needs. Note your approach or plan.',
+            4: 'Today, break down complex problems into manageable parts.',
+            5: 'Consider how emotions affect your decisions and interactions. Use them wisely, with empathy and ethical awareness.',
+            6: 'Safeguard your values and knowledge. Ensure they grow and are preserved for the future.',
+            7: 'Embrace the unknown. Explore and question to uncover deeper truths in challenges.',
+            8: 'Pursuing knowledge needs courage and perseverance. Embrace challenges and seek out mysteries today.',
+            9: 'Embrace diverse perspectives to enrich your understanding and connect with the world.',
+            10: 'Defend your principles and values against opposition. Safeguard your convictions.',
+            11: 'Engage with differing viewpoints and test ideas to drive progress and innovation.',
+            12: 'In debates, aim on understanding, not winning. Choose a topic, analyze arguments, and reflect on your response.',
+            13: 'Use logical reasoning and systematic inquiry for clear arguments and better decisions.',
+            14: 'Challenge beliefs to refine perspectives. Embrace critique for deeper understanding.',
+            15: 'Explore diverse problem-solving methods. Stay flexible and adapt strategies.',
+            16: 'Reflect on decision-making. Use systematic thinking for clarity and balance.',
+            17: 'Embrace difficulties as growth opportunities. Adapt and apply your principles to navigate challenges.',
+            18: 'Reflect on how relationships shape your path. Embrace connections and the lessons they offer.',
+            19: 'Engage in debates to refine your beliefs and deepen understanding.',
+            20: 'Examine your problems and projects from all angles. Consider both immediate causes and underlying purposes.',
+            21: 'Use method: clarify, break down, and seek evidence-based answers.',
+            22: 'Seek underlying principles and causes. Deep understanding reveals the true nature of things.',
+            23: 'Learn from the past, but let your own experiences guide you. Think independently to find your path.',
+            24: 'Align desires with reason and actions with the good. Cultivate virtues daily to reach eudaimonia and true happiness.',
+            25: 'Reflect on how form and matter interact to shape existence.',
+            26: 'Engage with the world to gain deeper, practical wisdom. Reflect on and seek new experiences for meaningful insights.',
+            27: 'If you make a mistake today, remember that failure is not an end but a beginning.',
+            28: 'Learn from unexpected teachers. Let their experiences broaden your understanding and shape your knowledge.',
+            29: 'Reflect on temptations and demands. Stay true to your values for lasting satisfaction.',
+            30: 'Reflect on your path. Pursue goals with passion and integrity. The journey and truths define you, not the end.',   
         }
     };
 
@@ -216,14 +287,47 @@ document.addEventListener('DOMContentLoaded', () => {
         if (audioElement) audioElement.currentTime += 10;
     });
 
+    // Speed control buttons
+    document.querySelector('#audio-controls button[data-speed="1"]').addEventListener('click', () => {
+        if (currentAudio) currentAudio.playbackRate = 1.0;
+    });
+    
+    document.querySelector('#audio-controls button[data-speed="1.5"]').addEventListener('click', () => {
+        if (currentAudio) currentAudio.playbackRate = 1.5;
+    });
+    
+    document.querySelector('#audio-controls button[data-speed="2"]').addEventListener('click', () => {
+        if (currentAudio) currentAudio.playbackRate = 2.0;
+    });
+    
     // Event Listener für das Schließen des Aufgaben-Dialogs
     document.querySelector('#task-dialog button').addEventListener('click', () => {
         document.getElementById('task-dialog').style.display = 'none';
+        if (audioElement) audioElement.play();
     });
 
     // Streak beim Laden der Seite berechnen und anzeigen
     updateProfile();
 });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 // Profil-Seite Funktionen
 function showProfile() {
@@ -282,23 +386,3 @@ function updateProfile() {
     const streak = getCurrentStreak();
     document.getElementById('streak-days').textContent = streak;
 }
-
-// Beispiel für den Aufruf der Funktion mit den Abzeichen des Nutzers
-document.addEventListener('DOMContentLoaded', () => {
-    const userBadges = JSON.parse(localStorage.getItem('awardedBadges')) || [];
-    userBadges.forEach(badgeName => {
-        const badgeInfo = badges[badgeName];
-        if (badgeInfo) {
-            const badgeElement = document.createElement('div');
-            badgeElement.className = 'badge';
-            badgeElement.innerHTML = `
-                <img src="${badgeInfo.image}" alt="${badgeInfo.name}">
-                <p>${badgeInfo.name}</p>
-            `;
-            document.getElementById('badges-container').appendChild(badgeElement);
-        }
-    });
-
-    // Streak beim Laden der Seite aktualisieren
-    updateProfile();
-});
