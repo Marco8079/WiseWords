@@ -20,6 +20,7 @@ body {
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2); /* Stärkerer Schatten für Tiefe */
     padding: 20px;
     overflow: auto;
+    
 }
 
 h1, h2 {
@@ -385,6 +386,16 @@ h2 {
     font-size: 0.9em;
 }
 
+
+
+
+
+
+
+
+
+
+
 /* CSS für das Info-Dialogfenster */
 #info-dialog {
     display: none;
@@ -401,6 +412,16 @@ h2 {
     z-index: 1100; /* Höher als andere Container */
     font-size: 12px;
 }
+
+
+
+
+
+
+
+
+
+
 
 /* CSS für das User Profile */
 #user-profile {
@@ -530,32 +551,59 @@ body {
 }
 
 .profile-button {
-    background-color: #9b59b6; /* Purple Button */
-    color: #fff;
+    background-color: #9b59b6; /* Lila Hintergrundfarbe */
+    color: #ffffff; /* Weißer Text */
     border: none;
-    border-radius: 8px;
-    transition: background-color 0.3s, transform 0.2s;
-    --height: 41px;
-    --color: #fff
-    --width: 160px;
-    --icon: #fff
-    padding: 0;
+    border-radius: 12px; /* Mehr abgerundete Ecken für ein modernes Design */
+    padding: 10px 20px; /* Angemessenes Padding für besseren Komfort */
     cursor: pointer;
     text-align: center;
     position: relative;
-    border: none;
-    outline: none;
-    background: none;
-    -webkit-appearance: none;
-    -webkit-tap-highlight-color: transparent;
-    width: var(--width);
-    letter-spacing: 0,5px;
-    font-size: 14px;
-    font-weight: 500;
-    color: var(--color);
-    line-height: var(--height);
-
+    font-size: 16px; /* Größere Schriftgröße für bessere Lesbarkeit */
+    font-weight: 600; /* Fettere Schrift für mehr Sichtbarkeit */
+    color: #ffffff; /* Weißer Text */
+    line-height: 1.5; /* Angenehme Zeilenhöhe */
+    width: auto; /* Automatische Breite basierend auf dem Inhalt */
+    display: inline-flex; /* Flexbox für bessere Kontrolle der Ausrichtung */
+    align-items: center; /* Vertikale Zentrierung des Inhalts */
+    justify-content: center; /* Horizontale Zentrierung des Inhalts */
+    transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease; /* Weiche Übergänge */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Leichter Schatten für Tiefe */
 }
+
+.profile-button:hover {
+    background-color: #8e44ad; /* Etwas dunkleres Lila bei Hover */
+    transform: translateY(-2px); /* Subtile Verschiebung für ein dynamisches Gefühl */
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Verstärkter Schatten bei Hover */
+}
+
+.profile-button:active {
+    background-color: #7d3c98; /* Noch dunkleres Lila bei Aktivierung */
+    transform: translateY(0); /* Kein Verschieben beim Klicken */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Reduzierter Schatten bei Aktivierung */
+}
+
+.profile-button:focus {
+    outline: none; /* Entfernen des Standard-Fokusrahmens */
+    box-shadow: 0 0 0 4px rgba(155, 89, 182, 0.4); /* Weicher Fokusrahmen für Zugänglichkeit */
+}
+
+/* Stil für das Icon im Button, falls vorhanden */
+.profile-button .icon {
+    margin-right: 8px; /* Platz zwischen Icon und Text */
+    font-size: 18px; /* Größe des Icons */
+    color: #ffffff; /* Farbe des Icons */
+}
+
+/* Zusätzlicher Stil für ein optionales Profilbild im Button */
+.profile-button .profile-image {
+    width: 24px; /* Breite des Profilbilds */
+    height: 24px; /* Höhe des Profilbilds */
+    border-radius: 50%; /* Rundes Profilbild */
+    margin-right: 8px; /* Platz zwischen Bild und Text */
+    object-fit: cover; /* Bild an den Container anpassen */
+}
+
 
 
 
@@ -753,4 +801,54 @@ body {
     top: -20px;
     left: 50%;
     animation: spark3 4s infinite linear; /* Langsamere Animation */
+}
+
+
+/* Standardmäßig wird der "View Profile"-Button angezeigt */
+#profile-button {
+    display: block;
+}
+
+/* Wenn ein Philosoph ausgewählt wird, wird der "View Profile"-Button ausgeblendet */
+:target:not(#start-page) ~ #profile-button {
+    display: none;
+}
+
+/* Philosopher Details Section wird nur angezeigt, wenn ein Philosoph ausgewählt wird */
+.philosopher-details {
+    display: none;
+}
+
+/* Zeigt die Details des Philosophen, wenn die entsprechende Sektion ausgewählt wird */
+:target#philosopher-details {
+    display: block;
+}
+
+
+
+
+.separator-line {
+    border: none; /* Entfernt den Standardrahmen */
+    height: 2px; /* Höhe der Linie */
+    background-image: linear-gradient(to right, #e0e0e0, #aaa, #e0e0e0); /* Gradient für eleganten Look */
+    margin: 30px 0 65px 0; /* Mehr Abstand für eine luftige Optik */
+    max-width: 400px; /* Maximale Breite der Linie */
+    width: 100%; /* Passt die Breite an den Container an */
+    border-radius: 10px; /* Abgerundete Ecken für sanfte Übergänge */
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1); /* Subtiler Schatten für Tiefe */
+    margin-left: auto; /* Zentriert die Linie */
+    margin-right: auto; /* Zentriert die Linie */
+}
+
+.separator-line2 {
+    border: none; /* Entfernt den Standardrahmen */
+    height: 2px; /* Höhe der Linie */
+    background-image: linear-gradient(to right, #14c5ae, #ffffff, #128891); /* Gradient für eleganten Look */
+    margin: 30px 0 30px 0; /* Mehr Abstand für eine luftige Optik */
+    max-width: 200px; /* Maximale Breite der Linie */
+    width: 100%; /* Passt die Breite an den Container an */
+    border-radius: 10px; /* Abgerundete Ecken für sanfte Übergänge */
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1); /* Subtiler Schatten für Tiefe */
+    margin-left: auto; /* Zentriert die Linie */
+    margin-right: auto; /* Zentriert die Linie */
 }
