@@ -20,7 +20,7 @@
         .container {
             padding: 20px;
         }
-        .philosopher-button, .audio-button, .profile-button {
+        .audio-button, .profile-button {
             margin: 10px;
             padding: 10px 20px;
             font-size: 16px;
@@ -165,16 +165,49 @@
     <div id="start-page" class="container">
         <h1>Choose Your Wise</h1>
         <div class="philosophers">
-            <button class="philosopher-button" onclick="showPhilosopher('aurelius')">Aurelius</button>
-            <button class="philosopher-button" onclick="showPhilosopher('plato')">Plato</button>
-            <button class="philosopher-button" onclick="showPhilosopher('aristotle')">Aristotle</button>
-            <button class="philosopher-button" onclick="showPhilosopher('nietzsche')">Nietzsche</button>
-            <button class="philosopher-button" onclick="showPhilosopher('cäsar')">J.Cäsar</button>
-            <button class="philosopher-button" onclick="showPhilosopher('leonardo')">L. da Vinci</button>
-            <button class="philosopher-button" onclick="showPhilosopher('buddha')">Buddha</button>
-            <button class="philosopher-button" onclick="showPhilosopher('marco')">M.Polo</button>
-            <button class="philosopher-button" onclick="showPhilosopher('cook')">J.Cook</button>
-            <button class="philosopher-button" onclick="showPhilosopher('Shakespeare')">W.Shakespeare</button>
+            <button class="philosopher-button" onclick="showPhilosopher('aurelius')">
+                <img src="aurelius.png" alt="Aurelius">
+                <span>Aurelius</span>
+            </button>
+            <div class="philosophers">
+                <button class="philosopher-button" onclick="showPhilosopher('plato')">
+                    <img src="plato.png" alt="Plato">
+                    <span>Plato</span>
+                </button>
+                <button class="philosopher-button" onclick="showPhilosopher('aristotle')">
+                    <img src="aristoteles.png" alt="Aristotle">
+                    <span>Aristotle</span>
+                </button>
+                <button class="philosopher-button" onclick="showPhilosopher('nietzsche')">
+                    <img src="nietzsche.png" alt="Nietzsche">
+                    <span>Nietzsche</span>
+                </button>
+                <button class="philosopher-button" onclick="showPhilosopher('cäsar')">
+                    <img src="cäsar.png" alt="Julius Caesar">
+                    <span>J. Cäsar</span>
+                </button>
+                <button class="philosopher-button" onclick="showPhilosopher('leonardo')">
+                    <img src="leonardo.png" alt="Leonardo da Vinci">
+                    <span>L. da Vinci</span>
+                </button>
+                <button class="philosopher-button" onclick="showPhilosopher('buddha')">
+                    <img src="buddha.png" alt="Buddha">
+                    <span>Buddha</span>
+                </button>
+                <button class="philosopher-button" onclick="showPhilosopher('marco')">
+                    <img src="marco.png" alt="Marco Polo">
+                    <span>M. Polo</span>
+                </button>
+                <button class="philosopher-button" onclick="showPhilosopher('cook')">
+                    <img src="cook.png" alt="James Cook">
+                    <span>J. Cook</span>
+                </button>
+                <button class="philosopher-button" onclick="showPhilosopher('Shakespeare')">
+                    <img src="shakespeare.png" alt="William Shakespeare">
+                    <span>W. Shakespeare</span>
+                </button>
+            </div>
+            
 
         </div>
         <button class="profile-button" onclick="showProfile()">View Profile</button>
@@ -230,6 +263,9 @@
         <button onclick="setPlaybackRate(2.0)">2x</button>
 
     </div>
+
+    
+    
    
 
 
