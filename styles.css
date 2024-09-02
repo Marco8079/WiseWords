@@ -852,3 +852,29 @@ body {
     margin-left: auto; /* Zentriert die Linie */
     margin-right: auto; /* Zentriert die Linie */
 }
+
+.separator-line3 {
+    border: none; /* Entfernt den Standardrahmen */
+    height: 2px; /* Höhe der Linie */
+    background-image: linear-gradient(to right, #e0e0e0, #aaa, #e0e0e0); /* Gradient für eleganten Look */
+    margin: 70px 0 5px 0; /* Mehr Abstand für eine luftige Optik */
+    max-width: 400px; /* Maximale Breite der Linie */
+    width: 100%; /* Passt die Breite an den Container an */
+    border-radius: 10px; /* Abgerundete Ecken für sanfte Übergänge */
+    box-shadow: 0 1px 3px rgba(255, 255, 255, 0.1); /* Subtiler Schatten für Tiefe */
+    margin-left: auto; /* Zentriert die Linie */
+    margin-right: auto; /* Zentriert die Linie */
+}
+
+/* Stil für den Link */
+a.small-text {
+    font-size: 1rem; /* Sehr kleine Schriftgröße */
+    color: #525252; /* Eine dunkle graue Farbe für den Text */
+    text-decoration: none; /* Kein Unterstrich für den Link */
+    margin: 0; /* Kein Abstand um den Text herum */
+}
+
+a.small-text:hover {
+    text-decoration: underline; /* Unterstrich bei Hover für bessere Benutzererfahrung */
+    color: #000; /* Optional: Ändere die Farbe beim Hover */
+}
