@@ -296,6 +296,10 @@ document.addEventListener('DOMContentLoaded', () => {
         if (currentAudio) currentAudio.playbackRate = 1.5;
     });
     
+    document.querySelector('#audio-controls button[data-speed="1.2"]').addEventListener('click', () => {
+        if (currentAudio) currentAudio.playbackRate = 1.2;
+    });
+
     document.querySelector('#audio-controls button[data-speed="2"]').addEventListener('click', () => {
         if (currentAudio) currentAudio.playbackRate = 2.0;
     });
@@ -386,5 +390,20 @@ function updateProfile() {
     const streak = getCurrentStreak();
     document.getElementById('streak-days').textContent = streak;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
