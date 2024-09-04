@@ -307,36 +307,60 @@ h2 {
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2); /* Stärkerer Schatten für Tiefe */
 }
 
-/* Task Dialog */
+/* Task Dialog - Vollbild */
 #task-dialog {
     display: none;
     position: fixed;
-    top: 20%;
-    left: 50%;
-    transform: translate(-50%, -20%);
-    background-color: #222; /* Noch dunklerer Hintergrund für Task Dialog */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #1a1a1a; /* Noch dunklerer Hintergrund */
     color: #e0e0e0;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+    padding: 40px;
+    box-sizing: border-box;
+    overflow: hidden; /* Verhindert Scrollen */
+    z-index: 1100;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
+/* Container für den Inhalt der Aufgabe */
+#task-content {
+    background-color: #2a2a2a; /* Leicht kontrastierender Hintergrund */
+    padding: 30px;
+    border-radius: 10px;
+    border: 2px solid #444; /* Dezenter Rahmen */
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.8); /* Schatten für mehr Tiefe */
+    text-align: center;
+    max-width: 600px; /* Maximale Breite des Inhalts */
+    width: 100%;
+    box-sizing: border-box;
+}
+
+/* Button-Stil */
 #task-dialog button {
-    margin-top: 15px;
-    padding: 12px;
+    display: block;
+    margin: 30px auto 0 auto;
+    padding: 15px 30px;
     cursor: pointer;
-    background-color: #555;
-    border: none;
+    background-color: #444;
+    border: 2px solid #555; /* Rahmen, um den Button hervorzuheben */
     color: #f5f5f5;
-    font-size: 1.1em;
+    font-size: 1.2em;
     border-radius: 8px;
-    transition: background-color 0.3s, transform 0.2s;
+    transition: background-color 0.3s, transform 0.2s, border-color 0.3s;
 }
 
 #task-dialog button:hover {
-    background-color: #777;
-    transform: scale(1.05); /* Vergrößerung bei Hover */
+    background-color: #555;
+    border-color: #777; /* Rahmenfarbe bei Hover ändern */
+    transform: scale(1.05); /* Leichte Vergrößerung bei Hover */
 }
+
+
+
 
 /* Abzeichen Profil Styles */
 #user-profile {
@@ -400,18 +424,72 @@ h2 {
 #info-dialog {
     display: none;
     position: fixed;
-    top: 30%;
-    left: 50%;
-    transform: translate(-50%, -30%);
-    background-color: #333;
+    top: 0;
+    left: 0;
+    width: 100vw; /* Volle Breite des Viewports */
+    height: 100vh; /* Volle Höhe des Viewports */
+    background-color: rgba(0, 0, 0, 0.9); /* Sehr dunkler Hintergrund */
     color: #f5f5f5;
-    padding: 20px;
-    border-radius: 5px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-    max-width: 600px;
+    padding: 0;
+    box-sizing: border-box;
     z-index: 1100; /* Höher als andere Container */
-    font-size: 12px;
+    overflow: hidden; /* Verhindert Scrollen */
+    display: flex;
+    justify-content: center; /* Zentriert den Inhalt horizontal */
+    align-items: center; /* Zentriert den Inhalt vertikal */
 }
+
+/* Innerer Container für den eigentlichen Dialoginhalt */
+#info-dialog .dialog-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    max-width: 80%; /* Maximale Breite des Inhalts */
+    max-height: 80%; /* Maximale Höhe des Inhalts */
+    background-color: #333;
+    padding: 40px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.8); /* Schatten für mehr Tiefe */
+    text-align: center;
+    overflow: auto; /* Ermöglicht Scrollen innerhalb des Inhalts, falls nötig */
+}
+
+/* Schließen-Button */
+#info-dialog .close-button {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background-color: #555;
+    color: #fff;
+    border: none;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    font-size: 18px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3);
+    transition: background-color 0.3s, transform 0.3s, box-shadow 0.3s;
+}
+
+/* Hover-Effekt für den Schließen-Button */
+#info-dialog .close-button:hover {
+    background-color: #444;
+    transform: scale(1.1);
+    box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.3);
+}
+
+/* Aktiver Zustand für den Schließen-Button */
+#info-dialog .close-button:active {
+    background-color: #333;
+    transform: scale(0.95);
+}
+
+
+
 
 
 
@@ -857,7 +935,33 @@ body {
     border: none; /* Entfernt den Standardrahmen */
     height: 2px; /* Höhe der Linie */
     background-image: linear-gradient(to right, #e0e0e0, #aaa, #e0e0e0); /* Gradient für eleganten Look */
-    margin: 70px 0 5px 0; /* Mehr Abstand für eine luftige Optik */
+    margin: 20px 0 5px 0; /* Mehr Abstand für eine luftige Optik */
+    max-width: 400px; /* Maximale Breite der Linie */
+    width: 100%; /* Passt die Breite an den Container an */
+    border-radius: 10px; /* Abgerundete Ecken für sanfte Übergänge */
+    box-shadow: 0 1px 3px rgba(255, 255, 255, 0.1); /* Subtiler Schatten für Tiefe */
+    margin-left: auto; /* Zentriert die Linie */
+    margin-right: auto; /* Zentriert die Linie */
+}
+
+.separator-line4 {
+    border: none; /* Entfernt den Standardrahmen */
+    height: 3px; /* Höhe der Linie */
+    background-image: linear-gradient(to right, #e0e0e0, #aaa, #e0e0e0); /* Gradient für eleganten Look */
+    margin: 7px 0 30px 0; /* Mehr Abstand für eine luftige Optik */
+    max-width: 400px; /* Maximale Breite der Linie */
+    width: 100%; /* Passt die Breite an den Container an */
+    border-radius: 10px; /* Abgerundete Ecken für sanfte Übergänge */
+    box-shadow: 0 1px 3px rgba(255, 255, 255, 0.1); /* Subtiler Schatten für Tiefe */
+    margin-left: auto; /* Zentriert die Linie */
+    margin-right: auto; /* Zentriert die Linie */
+}
+
+.separator-line5 {
+    border: none; /* Entfernt den Standardrahmen */
+    height: 2px; /* Höhe der Linie */
+    background-image: linear-gradient(to right, #e0e0e0, #aaa, #e0e0e0); /* Gradient für eleganten Look */
+    margin: 7px 0 25px 0; /* Mehr Abstand für eine luftige Optik */
     max-width: 400px; /* Maximale Breite der Linie */
     width: 100%; /* Passt die Breite an den Container an */
     border-radius: 10px; /* Abgerundete Ecken für sanfte Übergänge */
@@ -878,3 +982,149 @@ a.small-text:hover {
     text-decoration: underline; /* Unterstrich bei Hover für bessere Benutzererfahrung */
     color: #000; /* Optional: Ändere die Farbe beim Hover */
 }
+
+
+
+#profile-info {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Zentriert den Inhalt horizontal */
+    justify-content: center; /* Zentriert den Inhalt vertikal */
+}
+
+#profile-info button {
+    margin-top: 10px; /* Abstand nach oben */
+    background-color: #e74c3c;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    font-size: 18px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+    transition: background-color 0.3s, transform 0.3s, box-shadow 0.3s;
+}
+
+/* Hover-Effekt */
+#profile-info button:hover {
+    background-color: #c0392b;
+    transform: scale(1.1);
+    box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.3);
+}
+
+/* Aktiver Zustand */
+#profile-info button:active {
+    background-color: #aa2b1d;
+    transform: scale(0.95);
+}
+
+/* Fokus-Effekt */
+#profile-info button:focus {
+    outline: none;
+    box-shadow: 0px 0px 0px 2px rgba(218, 57, 51, 0.603);
+}
+
+
+
+
+
+/* Styling für den Button */
+.app-instruction {
+    background-color: #9b59b6; /* Lila Hintergrundfarbe */
+    color: #ffffff; /* Weißer Text */
+    border: none;
+    border-radius: 12px; /* Mehr abgerundete Ecken für ein modernes Design */
+    padding: 10px 20px; /* Angemessenes Padding für besseren Komfort */
+    cursor: pointer;
+    text-align: center;
+    position: relative;
+    font-size: 16px; /* Größere Schriftgröße für bessere Lesbarkeit */
+    font-weight: 600; /* Fettere Schrift für mehr Sichtbarkeit */
+    line-height: 1.5; /* Angenehme Zeilenhöhe */
+    width: auto; /* Automatische Breite basierend auf dem Inhalt */
+    display: inline-flex; /* Flexbox für bessere Kontrolle der Ausrichtung */
+    align-items: center; /* Vertikale Zentrierung des Inhalts */
+    justify-content: center; /* Horizontale Zentrierung des Inhalts */
+    transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease; /* Weiche Übergänge */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Leichter Schatten für Tiefe */
+    margin-top: -50px;
+}
+
+.app-instruction:hover {
+    background-color: #8e44ad; /* Etwas dunkleres Lila bei Hover */
+    transform: translateY(-2px); /* Subtile Verschiebung für ein dynamisches Gefühl */
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Verstärkter Schatten bei Hover */
+}
+
+.app-instruction:active {
+    background-color: #7d3c98; /* Noch dunkleres Lila bei Aktivierung */
+    transform: translateY(0); /* Kein Verschieben beim Klicken */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Reduzierter Schatten bei Aktivierung */
+}
+
+.app-instruction:focus {
+    outline: none; /* Entfernen des Standard-Fokusrahmens */
+    box-shadow: 0 0 0 4px rgba(155, 89, 182, 0.4); /* Weicher Fokusrahmen für Zugänglichkeit */
+}
+
+
+/* Styling für die App-Anweisungsseite */
+#app-instruction-page {
+    display: none; /* Standardmäßig verstecken */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8); /* Halbtransparentes Schwarz für den Hintergrund */
+    color: #f5f5f5;
+    padding: 0;
+    box-sizing: border-box;
+    z-index: 1100; /* Über anderen Elementen anzeigen */
+    overflow-y: auto; /* Ermöglicht Scrollen bei großem Inhalt */
+    overflow-x: hidden; /* Verhindert horizontales Scrollen */
+}
+
+/* Styling für den Inhalt der Anweisungsseite */
+.instruction-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start; /* Startet den Inhalt oben */
+    align-items: center;
+    min-height: 230vh; /* Füllt den gesamten Bildschirm vertikal */
+    padding: 40px 20px; /* Padding oben/unten und links/rechts */
+    background-color: #333;
+    margin: 0;
+    text-align: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    box-sizing: border-box; /* Berücksichtigt Padding in der Gesamtgröße */
+    font-family: 'Poppins', sans-serif; /* Runde Schriftart für die Anleitung */
+}
+
+/* Styling für den Schließen-Button */
+.instruction-content button {
+    padding: 10px 20px;
+    background-color: #555;
+    color: #f5f5f5;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s;
+    margin-top: 20px; /* Abstand zum Text */
+}
+
+.instruction-content button:hover {
+    background-color: #777;
+}
+
+/* Versteckt ein Element */
+.hidden {
+    display: none;
+}
+
+
