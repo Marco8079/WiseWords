@@ -1095,7 +1095,7 @@ a.small-text:hover {
     flex-direction: column;
     justify-content: flex-start; /* Startet den Inhalt oben */
     align-items: center;
-    min-height: 230vh; /* Füllt den gesamten Bildschirm vertikal */
+    min-height: 300vh; /* Füllt den gesamten Bildschirm vertikal */
     padding: 40px 20px; /* Padding oben/unten und links/rechts */
     background-color: #333;
     margin: 0;
