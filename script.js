@@ -70,6 +70,20 @@ function setPhilosopherProfile(philosopher) {
     }
 }
 
+
+
+// Funktion zum Anzeigen der Anweisungsseite
+function showAppInstruction() {
+    document.getElementById('app-instruction-page').style.display = 'flex';
+}
+
+// Funktion zum Schließen der Anweisungsseite
+function closeAppInstruction() {
+    document.getElementById('app-instruction-page').style.display = 'none';
+}
+
+
+
 // Funktion zum Einrichten der Audio-Buttons für den Philosophen
 function setupAudioButtons(philosopher) {
     const days = ['day1', 'day2', 'day3']; // Liste der Tage, die unterstützt werden
@@ -390,20 +404,3 @@ function updateProfile() {
     const streak = getCurrentStreak();
     document.getElementById('streak-days').textContent = streak;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
