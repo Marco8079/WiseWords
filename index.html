@@ -46,17 +46,17 @@
             top: 20%;
             left: 50%;
             transform: translate(-50%, -20%);
-            background-color: #333;
+            background-color: #0c0c0c;
             color: #f5f5f5;
             padding: 20px;
             border-radius: 5px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 4px 8px rgba(59, 59, 59, 0.3);
         }
         #task-dialog button {
-            margin-top: 10px;
+            margin-top: 500px;
             padding: 10px;
             cursor: pointer;
-            background-color: #555;
+            background-color: #242424;
             border: none;
             color: #f5f5f5;
         }
@@ -105,24 +105,38 @@
             top: 30%;
             left: 50%;
             transform: translate(-50%, -30%);
-            background-color: #333;
+            background-color: #1e1e1e;
             color: #f5f5f5;
             padding: 20px;
             border-radius: 5px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-            max-width: 600px;
+            box-shadow: #1e1e1e;
+            max-width: 100%;
+        }
+        #info-dialog .dialog-content {
+            padding: 300px; /* Padding innerhalb des Dialoginhalts */
+            box-sizing: border-box; /* Berücksichtigt Padding in der Gesamtbreite */
         }
         #info-dialog button {
             margin-top: 10px;
-            padding: 10px;
+            padding: 6px;
             cursor: pointer;
             background-color: #555;
             border: none;
             color: #f5f5f5;
+            border-radius: 8%; /* Macht den Button rund */
+            width: 45px; /* Setzt eine feste Breite */
+            height: 40px; /* Setzt eine feste Höhe */
+            display: flex; /* Flexbox für zentrierte Ausrichtung des Inhalts */
+            align-items: center; /* Vertikale Zentrierung */
+            justify-content: center; /* Horizontale Zentrierung */
+            font-size: 16px; /* Schriftgröße anpassen */
         }
-        #info-dialog button:hover {
+
+        /* Hover-Effekt für den runden Button */
+            #info-dialog button:hover {
             background-color: #777;
         }
+        
 
 
 
@@ -210,10 +224,12 @@
                     <img src="cook.jpg" alt="James Cook">
                     <span>James Cook</span>
                 </button>
-                <button class="philosopher-button" onclick="showPhilosopher('Shakespeare')">
+                <button class="philosopher-button" onclick="showPhilosopher('shakespeare')">
                     <img src="shakespeare.jpg" alt="William Shakespeare">
                     <span>William Shakespeare</span>
                 </button>
+                <hr class="separator-line">
+                <button class="app-instruction" onclick="showAppInstruction()">App-Guide</button>
                 <hr class="separator-line3">
                 <a href="https://sites.google.com/view/aboutwisewords/startseite" class="small-text">About us</a>
             </div>
@@ -224,7 +240,32 @@
         
     </div>
 
+    <!-- Die Seite für die App-Anweisung -->
+    <div id="app-instruction-page" class="hidden">
+        <div class="instruction-content">
+            <h1>Welcome to WiseWords!</h1>
+            <p>Here’s a simple guide to help you get started:</p>
+            <hr class="separator-line4">
+            <h2>1. Explore Historical Figures</h2>
+            <p>On the home page, select a historical figure such as Marcus Aurelius. You will find their stories and lessons available for listening.</p>
+            <hr class="separator-line5">
+            <h2>2. Listen to Stories Daily</h2>
+            <p>Each day, listen to one of the 29 stories from the chosen figure. This will provide daily insights and lessons.</p>
+            <hr class="separator-line5">
+            <h2>3. Track Your Progress</h2>
+            <p>Check your profile to view your streak and milestones. This shows how many days in a row you’ve listened to the stories.</p>
+            <hr class="separator-line5">
+            <h2>4. Earn Rewards</h2>
+            <p>As you build your streak, you will unlock rewards. These rewards reflect your dedication and progress.</p>
+            <hr class="separator-line5">
+            <h2>5. Personal Growth</h2>
+            <p>By engaging with daily stories, you’ll reflect on your values and improve your character. The wisdom from historical figures will guide you in defining and refining your own values. Unconsciously, too, by the way.</p>
+            <button onclick="closeAppInstruction()">Close</button>
+        </div>
+    </div>
     
+    
+
 
     <!-- Philosopher Pages -->
     <div id="philosopher-page" class="container" style="display:none;">
@@ -408,7 +449,7 @@
         <h3>How the Streak System Works</h3>
         <p>Your streak represents the number of days you've listened to an audio file. For each day you listen, you continue to build your streak. If you miss a day, the streak resets.</p>
         <p>In your profile, you'll see a streak count. Compare this count with the badge image to see which badge you've earned. Badges are awarded based on the length of your streak. For example, a 7-day streak will correspond to a wodden badge on this path.</p>
-        <p>If you reach a goal, you will be rewarded by us. Send a screenshot of your streak as proof to this email: Ecoming48@gmail.com | We will send you rewards.</p>
+        <p>If you reach a goal, you will be rewarded by us. Send a screenshot of your streak as proof to this email: ecoming48@gmail.com | We will send you rewards.</p>
         <button onclick="closeInfoDialog()">OK</button>
     </div>
 
@@ -698,7 +739,7 @@
                 'day28': 'Observe natural patterns around you and reflect on how they can inform your perspective and decisions.',
                 'day29': 'Reflect on a new experience and think about how documenting it can deepen your understanding and enrich your knowledge.',
             },
-            'Shakespeare': {
+            'shakespeare': {
                 'day1': 'Reflect on a key decision or challenge in your life. Apply careful contemplation, like Hamlet, to navigate moral conflicts and seek clarity.',
                 'day2': 'Reflect on how passion and conflict influence your decisions and relationships.',
                 'day3': 'Reflect on how collaboration or resources can enhance your current project or goal.',
@@ -797,7 +838,7 @@
                     relevance: 'Offers lessons in how to navigate uncharted territories, and how to expand your understanding of the world through exploration and curiosity',
                     length: '3-6 minutes'
                 },
-                'Shakespeare': {
+                'shakespeare': {
                     role: 'English Playwright and Poet (1564 to 1616)',
                     style: 'Creative, eloquent, and dramatic',
                     relevance: 'Offers deep insights into human nature, emotion, and society through his literature, providing valuable lessons on storytelling, character development, and the complexities of human behavior',
@@ -1359,7 +1400,7 @@
                 document.getElementById('day29').style.display = 'inline-block';
             
 
-            } else if (philosopher === 'Shakespeare') {
+            } else if (philosopher === 'shakespeare') {
                 audioSrcs = {
                     'day1': 'audio69/shakespear1.mp3',
                     'day2': 'audio69/shakespear2.mp3',
@@ -1501,9 +1542,7 @@
 
         function closeTaskDialog() {
             document.getElementById('task-dialog').style.display = 'none';
-            if (currentAudio) {
-                currentAudio.play(); // Resume audio playback when dialog is closed
-            }
+            
         }
 
         function showProfile() {
@@ -1547,6 +1586,19 @@
         function closeInfoDialog() {
             document.getElementById('info-dialog').style.display = 'none';
         }
+
+
+
+        // Funktion zum Anzeigen der Anweisungsseite
+        function showAppInstruction() {
+            document.getElementById('app-instruction-page').style.display = 'flex';
+        }
+
+        // Funktion zum Schließen der Anweisungsseite
+        function closeAppInstruction() {
+            document.getElementById('app-instruction-page').style.display = 'none';
+        }
+
     </script>
 </body>
 </html>
