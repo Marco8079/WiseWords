@@ -170,28 +170,28 @@
 
 
 
+    
 
 
 
 
 
 
-
-    <!-- Start Page -->
-    <div id="start-page" class="container">
-        <hr class="separator-line2">
-        <div>
-            <button class="profile-button" onclick="showProfile()">View Profile</button>
-        </div>
-        <hr class="separator-line">
-        <h1>Choose Your Wise</h1>
-        
-        <div class="philosophers">
+    <div id="full-screen-container"></div>
+        <!-- Startseite -->
+        <div id="start-page" class="container">
+            <hr class="separator-line2">
+            <div>
+                <button class="profile-button" onclick="showProfile()">View Profile</button>
+            </div>
+            <hr class="separator-line">
+            <h1>Choose Your Wise</h1>
+            
+            <div class="philosophers">
                 <button class="philosopher-button" onclick="showPhilosopher('aurelius')">
                     <img src="aurelius.jpg" alt="Aurelius">
                     <span>Aurelius</span>
                 </button>
-            
                 <button class="philosopher-button" onclick="showPhilosopher('plato')">
                     <img src="plato.jpg" alt="Plato">
                     <span>Plato</span>
@@ -228,17 +228,503 @@
                     <img src="shakespeare.jpg" alt="William Shakespeare">
                     <span>William Shakespeare</span>
                 </button>
+                <button class="btn" onclick="startQuiz()">Stoicism-Quiz
+                    <img src="Stoizismus.jpg">
+                </button>
                 <hr class="separator-line">
                 <button class="app-instruction" onclick="showAppInstruction()">App-Guide</button>
                 <hr class="separator-line3">
                 <a href="https://sites.google.com/view/aboutwisewords/startseite" class="small-text">About us</a>
             </div>
-            
-            
-
         </div>
         
+        <!-- Quiz Container -->
+        <div id="quiz-container">
+            <form id="quiz-form">
+                <div style="width: 100%;">
+                    <img src="wisdom.png" alt="wisdom" style="width: 100%; height: auto; display: block;">
+                </div>
+                
+                <!-- Question 1 -->
+                <div class="question" id="question-1">
+                    <div class="question-title">1. Who is considered one of the founders of Stoicism?</div>
+                    <div class="options">
+                        <label><input type="radio" name="q1" value="A"> A) Socrates</label>
+                        <label><input type="radio" name="q1" value="B"> B) Plato</label>
+                        <label><input type="radio" name="q1" value="C"> C) Zeno of Citium</label>
+                        <label><input type="radio" name="q1" value="D"> D) Aristotle</label>
+                    </div>
+                </div>
+
+                <!-- Question 2 -->
+                <div class="question" id="question-2">
+                    <div class="question-title">2. Which Stoic wrote the "Meditations"?</div>
+                    <div class="options">
+                        <label><input type="radio" name="q2" value="A"> A) Seneca</label>
+                        <label><input type="radio" name="q2" value="B"> B) Epictetus</label>
+                        <label><input type="radio" name="q2" value="C"> C) Marcus Aurelius</label>
+                        <label><input type="radio" name="q2" value="D"> D) Zeno of Citium</label>
+                    </div>
+                </div>
+
+                <!-- Question 3 -->
+                <div class="question" id="question-3">
+                    <div class="question-title">3. What principle describes the Stoic concept of "naturalness"?</div>
+                    <div class="options">
+                        <label><input type="radio" name="q3" value="A"> A) Everything follows a fixed fate</label>
+                        <label><input type="radio" name="q3" value="B"> B) The world is determined by chance</label>
+                        <label><input type="radio" name="q3" value="C"> C) Everything in the universe is in constant motion</label>
+                        <label><input type="radio" name="q3" value="D"> D) Everything in life is predetermined</label>
+                    </div>
+                </div>
+
+                <!-- Question 4 -->
+                <div class="question" id="question-4">
+                    <div class="question-title">4. What is according to Stoics the main cause of human suffering?</div>
+                    <div class="options">
+                        <label><input type="radio" name="q4" value="A"> A) Lack of wealth</label>
+                        <label><input type="radio" name="q4" value="B"> B) Uncontrollable emotions</label>
+                        <label><input type="radio" name="q4" value="C"> C) False views about the world</label>
+                        <label><input type="radio" name="q4" value="D"> D) Dissatisfaction with life</label>
+                    </div>
+                </div>
+
+                <!-- Question 5 -->
+                <div class="question" id="question-5">
+                    <div class="question-title">5. What is a central teaching of the Stoics about control?</div>
+                    <div class="options">
+                        <label><input type="radio" name="q5" value="A"> A) Control over external events</label>
+                        <label><input type="radio" name="q5" value="B"> B) Control over one's own thoughts and reactions</label>
+                        <label><input type="radio" name="q5" value="C"> C) Control over the future</label>
+                        <label><input type="radio" name="q5" value="D"> D) Control over other people</label>
+                    </div>
+                </div>
+
+                <!-- Question 6 -->
+                <div class="question" id="question-6">
+                    <div class="question-title">6. How does Stoicism define "virtue"?</div>
+                    <div class="options">
+                        <label><input type="radio" name="q6" value="A"> A) A state of wealth</label>
+                        <label><input type="radio" name="q6" value="B"> B) A state of inner peace</label>
+                        <label><input type="radio" name="q6" value="C"> C) A state of moral excellence</label>
+                        <label><input type="radio" name="q6" value="D"> D) A state of happiness</label>
+                    </div>
+                </div>
+
+                <!-- Question 7 -->
+                <div class="question" id="question-7">
+                    <div class="question-title">7. Which Stoic was known for practical advice in "Handbooks"?</div>
+                    <div class="options">
+                        <label><input type="radio" name="q7" value="A"> A) Seneca</label>
+                        <label><input type="radio" name="q7" value="B"> B) Epictetus</label>
+                        <label><input type="radio" name="q7" value="C"> C) Marcus Aurelius</label>
+                        <label><input type="radio" name="q7" value="D"> D) Zeno of Citium</label>
+                    </div>
+                </div>
+
+                <!-- Question 8 -->
+                <div class="question" id="question-8">
+                    <div class="question-title">8. How should negative emotions be dealt with according to the Stoics?</div>
+                    <div class="options">
+                        <label><input type="radio" name="q8" value="A"> A) By suppression</label>
+                        <label><input type="radio" name="q8" value="B"> B) By acceptance and rational thinking</label>
+                        <label><input type="radio" name="q8" value="C"> C) By distraction</label>
+                        <label><input type="radio" name="q8" value="D"> D) By anger and resistance</label>
+                    </div>
+                </div>
+
+                <!-- Question 9 -->
+                <div class="question" id="question-9">
+                    <div class="question-title">9. What does the term "ataraxia" mean in Stoicism?</div>
+                    <div class="options">
+                        <label><input type="radio" name="q9" value="A"> A) Physical health</label>
+                        <label><input type="radio" name="q9" value="B"> B) Peace of mind and emotional balance</label>
+                        <label><input type="radio" name="q9" value="C"> C) Material wealth</label>
+                        <label><input type="radio" name="q9" value="D"> D) Social status</label>
+                    </div>
+                </div>
+
+                <!-- Question 10 -->
+                <div class="question" id="question-10">
+                    <div class="question-title">10. How should one react to criticism according to Stoics?</div>
+                    <div class="options">
+                        <label><input type="radio" name="q10" value="A"> A) By defense and argument</label>
+                        <label><input type="radio" name="q10" value="B"> B) By reflection and understanding</label>
+                        <label><input type="radio" name="q10" value="C"> C) By ignoring</label>
+                        <label><input type="radio" name="q10" value="D"> D) By aggression</label>
+                    </div>
+                </div>
+
+                <!-- Question 11 -->
+                <div class="question" id="question-11">
+                    <div class="question-title">11. According to Stoics, what is the highest good in life?</div>
+                    <div class="options">
+                        <label><input type="radio" name="q11" value="A"> A) Wealth</label>
+                        <label><input type="radio" name="q11" value="B"> B) Virtue</label>
+                        <label><input type="radio" name="q11" value="C"> C) Power</label>
+                        <label><input type="radio" name="q11" value="D"> D) Fame</label>
+                    </div>
+                </div>
+
+                <!-- Question 12 -->
+                <div class="question" id="question-12">
+                    <div class="question-title">12. Which of the following statements corresponds to the Stoic view of fate?</div>
+                    <div class="options">
+                        <label><input type="radio" name="q12" value="A"> A) Fate is unchangeable and should be accepted</label>
+                        <label><input type="radio" name="q12" value="B"> B) Fate can be changed through personal effort</label>
+                        <label><input type="radio" name="q12" value="C"> C) Fate is an illusion and has no impact on life</label>
+                        <label><input type="radio" name="q12" value="D"> D) Fate is a punishment for past mistakes</label>
+                    </div>
+                </div>
+
+                <!-- Question 13 -->
+                <div class="question" id="question-13">
+                    <div class="question-title">13. What concept is central to Stoic ethics?</div>
+                    <div class="options">
+                        <label><input type="radio" name="q13" value="A"> A) Hedonism</label>
+                        <label><input type="radio" name="q13" value="B"> B) Rationality and self-control</label>
+                        <label><input type="radio" name="q13" value="C"> C) Self-indulgence</label>
+                        <label><input type="radio" name="q13" value="D"> D) Wealth accumulation</label>
+                    </div>
+                </div>
+
+                <!-- Question 14 -->
+                <div class="question" id="question-14">
+                    <div class="question-title">14. Which Stoic philosopher emphasized the importance of the "inner citadel"?</div>
+                    <div class="options">
+                        <label><input type="radio" name="q14" value="A"> A) Seneca</label>
+                        <label><input type="radio" name="q14" value="B"> B) Epictetus</label>
+                        <label><input type="radio" name="q14" value="C"> C) Marcus Aurelius</label>
+                        <label><input type="radio" name="q14" value="D"> D) Zeno of Citium</label>
+                    </div>
+                </div>
+
+                <!-- Question 15 -->
+                <div class="question" id="question-15">
+                    <div class="question-title">15. How does Stoicism view death?</div>
+                    <div class="options">
+                        <label><input type="radio" name="q15" value="A"> A) As a punishment</label>
+                        <label><input type="radio" name="q15" value="B"> B) As a natural part of life</label>
+                        <label><input type="radio" name="q15" value="C"> C) As something to be feared</label>
+                        <label><input type="radio" name="q15" value="D"> D) As something to be avoided</label>
+                    </div>
+                </div>
+
+                <!-- Question 16 -->
+                <div class="question" id="question-16">
+                    <div class="question-title">16. According to Stoicism, what is the relationship between virtue and happiness?</div>
+                    <div class="options">
+                        <label><input type="radio" name="q16" value="A"> A) Virtue leads to happiness</label>
+                        <label><input type="radio" name="q16" value="B"> B) Happiness leads to virtue</label>
+                        <label><input type="radio" name="q16" value="C"> C) Virtue and happiness are unrelated</label>
+                        <label><input type="radio" name="q16" value="D"> D) Happiness and virtue are the same</label>
+                    </div>
+                </div>
+
+                <!-- Question 17 -->
+                <div class="question" id="question-17">
+                    <div class="question-title">17. What does the Stoic term "eudaimonia" mean?</div>
+                    <div class="options">
+                        <label><input type="radio" name="q17" value="A"> A) Happiness</label>
+                        <label><input type="radio" name="q17" value="B"> B) Virtue</label>
+                        <label><input type="radio" name="q17" value="C"> C) Wisdom</label>
+                        <label><input type="radio" name="q17" value="D"> D) Pleasure</label>
+                    </div>
+                </div>
+
+                <!-- Question 18 -->
+                <div class="question" id="question-18">
+                    <div class="question-title">18. Which of the following is NOT a Stoic practice?</div>
+                    <div class="options">
+                        <label><input type="radio" name="q18" value="A"> A) Reflection on daily actions</label>
+                        <label><input type="radio" name="q18" value="B"> B) Contemplation of nature</label>
+                        <label><input type="radio" name="q18" value="C"> C) Pursuit of material wealth</label>
+                        <label><input type="radio" name="q18" value="D"> D) Cultivation of self-discipline</label>
+                    </div>
+                </div>
+
+                <!-- Question 19 -->
+                <div class="question" id="question-19">
+                    <div class="question-title">19. According to Stoics, what should one focus on in life?</div>
+                    <div class="options">
+                        <label><input type="radio" name="q19" value="A"> A) External achievements</label>
+                        <label><input type="radio" name="q19" value="B"> B) Internal virtues and character</label>
+                        <label><input type="radio" name="q19" value="C"> C) Social status</label>
+                        <label><input type="radio" name="q19" value="D"> D) Physical appearance</label>
+                    </div>
+                </div>
+
+                <!-- Question 20 -->
+                <div class="question" id="question-20">
+                    <div class="question-title">20. What does the Stoic concept of "apatheia" refer to?</div>
+                    <div class="options">
+                        <label><input type="radio" name="q20" value="A"> A) Complete emotional indifference</label>
+                        <label><input type="radio" name="q20" value="B"> B) The ability to manage emotions without being overwhelmed</label>
+                        <label><input type="radio" name="q20" value="C"> C) The pursuit of pleasure</label>
+                        <label><input type="radio" name="q20" value="D"> D) The practice of meditation</label>
+                    </div>
+                </div>
+
+                <!-- Question 21 -->
+                <div class="question" id="question-21">
+                    <div class="question-title">21. Who wrote "Letters from a Stoic"?</div>
+                    <div class="options">
+                        <label><input type="radio" name="q21" value="A"> A) Seneca</label>
+                        <label><input type="radio" name="q21" value="B"> B) Epictetus</label>
+                        <label><input type="radio" name="q21" value="C"> C) Marcus Aurelius</label>
+                        <label><input type="radio" name="q21" value="D"> D) Zeno of Citium</label>
+                    </div>
+                </div>
+
+                <!-- Question 22 -->
+                <div class="question" id="question-22">
+                    <div class="question-title">22. How does Stoicism view pleasure?</div>
+                    <div class="options">
+                        <label><input type="radio" name="q22" value="A"> A) As the ultimate goal</label>
+                        <label><input type="radio" name="q22" value="B"> B) As something to be avoided</label>
+                        <label><input type="radio" name="q22" value="C"> C) As indifferent, neither good nor bad</label>
+                        <label><input type="radio" name="q22" value="D"> D) As essential for a good life</label>
+                    </div>
+                </div>
+
+                <!-- Question 23 -->
+                <div class="question" id="question-23">
+                    <div class="question-title">23. What does the term "prohairesis" refer to in Stoicism?</div>
+                    <div class="options">
+                        <label><input type="radio" name="q23" value="A"> A) Rational choice and will</label>
+                        <label><input type="radio" name="q23" value="B"> B) Physical health</label>
+                        <label><input type="radio" name="q23" value="C"> C) Material possessions</label>
+                        <label><input type="radio" name="q23" value="D"> D) Social status</label>
+                    </div>
+                </div>
+
+                <!-- Question 24 -->
+                <div class="question" id="question-24">
+                    <div class="question-title">24. According to Stoics, how should one deal with adversity?</div>
+                    <div class="options">
+                        <label><input type="radio" name="q24" value="A"> A) By complaining</label>
+                        <label><input type="radio" name="q24" value="B"> B) By accepting and learning from it</label>
+                        <label><input type="radio" name="q24" value="C"> C) By avoiding it</label>
+                        <label><input type="radio" name="q24" value="D"> D) By resisting it with anger</label>
+                    </div>
+                </div>
+
+                <!-- Question 25 -->
+                <div class="question" id="question-25">
+                    <div class="question-title">25. What is the Stoic attitude towards ambition?</div>
+                    <div class="options">
+                        <label><input type="radio" name="q25" value="A"> A) It is necessary for success</label>
+                        <label><input type="radio" name="q25" value="B"> B) It is a source of disturbance</label>
+                        <label><input type="radio" name="q25" value="C"> C) It should be pursued at all costs</label>
+                        <label><input type="radio" name="q25" value="D"> D) It is irrelevant to a good life</label>
+                    </div>
+                </div>
+
+                <!-- Question 26 -->
+                <div class="question" id="question-26">
+                    <div class="question-title">26. Which Stoic concept emphasizes living according to reason?</div>
+                    <div class="options">
+                        <label><input type="radio" name="q26" value="A"> A) Eudaimonia</label>
+                        <label><input type="radio" name="q26" value="B"> B) Apatheia</label>
+                        <label><input type="radio" name="q26" value="C"> C) Virtue</label>
+                        <label><input type="radio" name="q26" value="D"> D) Logos</label>
+                    </div>
+                </div>
+
+                <!-- Question 27 -->
+                <div class="question" id="question-27">
+                    <div class="question-title">27. How does Stoicism approach the concept of "happiness"?</div>
+                    <div class="options">
+                        <label><input type="radio" name="q27" value="A"> A) It is found in external success</label>
+                        <label><input type="radio" name="q27" value="B"> B) It is a byproduct of living virtuously</label>
+                        <label><input type="radio" name="q27" value="C"> C) It is the result of material wealth</label>
+                        <label><input type="radio" name="q27" value="D"> D) It is achieved through pleasure</label>
+                    </div>
+                </div>
+
+                <!-- Question 28 -->
+                <div class="question" id="question-28">
+                    <div class="question-title">28. According to Stoicism, what is the nature of emotions?</div>
+                    <div class="options">
+                        <label><input type="radio" name="q28" value="A"> A) They are natural and should be embraced</label>
+                        <label><input type="radio" name="q28" value="B"> B) They are to be controlled and managed</label>
+                        <label><input type="radio" name="q28" value="C"> C) They are irrelevant to philosophy</label>
+                        <label><input type="radio" name="q28" value="D"> D) They are obstacles to happiness</label>
+                    </div>
+                </div>
+
+                <!-- Question 29 -->
+                <div class="question" id="question-29">
+                    <div class="question-title">29. How should one view success and failure according to Stoics?</div>
+                    <div class="options">
+                        <label><input type="radio" name="q29" value="A"> A) As indicators of worth</label>
+                        <label><input type="radio" name="q29" value="B"> B) As irrelevant to inner virtue</label>
+                        <label><input type="radio" name="q29" value="C"> C) As the ultimate goals of life</label>
+                        <label><input type="radio" name="q29" value="D"> D) As outcomes of luck</label>
+                    </div>
+                </div>
+
+                <!-- Question 30 -->
+                <div class="question" id="question-30">
+                    <div class="question-title">30. According to Stoicism, what is the best way to approach life’s challenges?</div>
+                    <div class="options">
+                        <label><input type="radio" name="q30" value="A"> A) By avoiding them</label>
+                        <label><input type="radio" name="q30" value="B"> B) By confronting them with rationality and virtue</label>
+                        <label><input type="radio" name="q30" value="C"> C) By ignoring them</label>
+                        <label><input type="radio" name="q30" value="D"> D) By reacting emotionally</label>
+                    </div>
+                </div>
+                
+                <!-- Hier kannst du weitere Fragen hinzufügen -->
+                
+                <!-- Ergebnis-Element -->
+                <div id="result"></div>
+
+                <!-- Button zum Einreichen des Quiz -->
+                <button type="button" class="btn" onclick="submitQuiz()">Submit quiz</button>
+                <button type="button" class="btn" onclick="repeatQuiz()">Repeat quiz</button>
+                <button type="button" class="btn" onclick="goBack()">  ←  </button>
+            </form>
+        </div>
     </div>
+
+    <script>
+        // Funktion, um das Quiz zu starten
+        function startQuiz() {
+            document.getElementById('start-page').style.display = 'none';
+            document.getElementById('quiz-container').style.display = 'block';
+        }
+    
+        // Funktion, um das Quiz zu überprüfen und zu beenden
+        function submitQuiz() {
+            const totalQuestions = 30; // Anzahl der Fragen
+            let score = 0;
+    
+            // Antworten überprüfen
+            for (let i = 1; i <= totalQuestions; i++) {
+                const selectedAnswer = document.querySelector(`input[name="q${i}"]:checked`);
+                if (selectedAnswer && selectedAnswer.value === getCorrectAnswer(i)) {
+                    score++;
+                }
+            }
+    
+            // Ergebnis anzeigen
+            const resultElement = document.getElementById('result');
+            if (score === totalQuestions) {
+                resultElement.textContent = "Congratulations! You answered all the questions correctly.";
+                resultElement.classList.add('correct');
+                resultElement.classList.remove('incorrect');
+                resultElement.style.display = 'block';
+    
+                // Überprüfen, ob das Quiz bereits erfolgreich abgeschlossen wurde
+                if (!hasQuizBeenCompleted()) {
+                    // Bonus-Streak um 10 Tage erhöhen
+                    increaseBonusStreak(10);
+                    // Setze den Status des erfolgreichen Quiz
+                    setQuizCompleted();
+                }
+    
+                setTimeout(() => {
+                    document.getElementById('quiz-container').style.display = 'none';
+                    document.getElementById('start-page').style.display = 'block';
+                }, 2000);
+    
+            } else {
+                resultElement.textContent = `Unfortunately, you answered only ${score} out of ${totalQuestions} questions correctly.`;
+                resultElement.classList.add('incorrect');
+                resultElement.classList.remove('correct');
+                resultElement.style.display = 'block';
+            }
+        }
+    
+        // Funktion, um das Quiz zu wiederholen
+        function repeatQuiz() {
+            // Alle ausgewählten Antworten zurücksetzen
+            document.querySelectorAll('input[type="radio"]:checked').forEach(input => input.checked = false);
+            
+            // Ergebnis zurücksetzen
+            const resultElement = document.getElementById('result');
+            resultElement.style.display = 'none';
+    
+            // Quiz-Container erneut anzeigen
+            document.getElementById('quiz-container').style.display = 'block';
+        }
+    
+        // Funktion, um zurück zur Startseite zu gehen
+        function goBack() {
+            // Startseite anzeigen und Quiz-Container ausblenden
+            document.getElementById('start-page').style.display = 'block';
+            document.getElementById('quiz-container').style.display = 'none';
+        }
+    
+        // Funktion, um die korrekte Antwort für jede Frage zu erhalten
+        function getCorrectAnswer(questionNumber) {
+            const correctAnswers = {
+                1: 'C', 2: 'A', 3: 'B', 4: 'D', 5: 'A', 6: 'C', 7: 'B', 8: 'D', 9: 'C', 10: 'A',
+                11: 'B', 12: 'D', 13: 'A', 14: 'C', 15: 'B', 16: 'D', 17: 'C', 18: 'A', 19: 'B', 20: 'D',
+                21: 'A', 22: 'C', 23: 'B', 24: 'D', 25: 'C', 26: 'A', 27: 'D', 28: 'B', 29: 'C', 30: 'A'
+            };
+            return correctAnswers[questionNumber];
+        }
+    
+        // Funktion, um die Bonus-Streak um eine bestimmte Anzahl von Tagen zu erhöhen
+        function increaseBonusStreak(days) {
+            // Hole den aktuellen Bonus-Streak aus dem localStorage
+            let bonusStreak = parseInt(localStorage.getItem('bonusStreak')) || 0;
+    
+            // Erhöhe den Bonus-Streak um die angegebenen Tage
+            bonusStreak += days;
+    
+            // Speichere den aktualisierten Bonus-Streak im localStorage
+            localStorage.setItem('bonusStreak', bonusStreak);
+    
+            // Aktualisiere das Bonus-Streak-Element
+            updateBonusStreak();
+        }
+    
+        // Funktion, um das Bonus-Streak anzuzeigen
+        function updateBonusStreak() {
+            const bonusStreak = parseInt(localStorage.getItem('bonusStreak')) || 0;
+            document.getElementById('bonus-streak-days').textContent = bonusStreak;
+        }
+    
+        // Funktion zur Berechnung und Anzeige des aktuellen Streaks
+        function updateProfile() {
+            const streak = getCurrentStreak();
+            document.getElementById('streak-days').textContent = streak;
+            updateBonusStreak(); // Auch das Bonus-Streak aktualisieren
+        }
+    
+        // Funktion, um zu überprüfen, ob das Quiz bereits abgeschlossen wurde
+        function hasQuizBeenCompleted() {
+            return localStorage.getItem('quizCompleted') === 'true';
+        }
+    
+        // Funktion, um den Status des abgeschlossenen Quiz zu setzen
+        function setQuizCompleted() {
+            localStorage.setItem('quizCompleted', 'true');
+        }
+    
+        // Streak beim Laden der Seite berechnen und anzeigen
+        updateProfile();
+    </script>
+    
+    
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     <!-- Die Seite für die App-Anweisung -->
     <div id="app-instruction-page" class="hidden">
@@ -265,6 +751,30 @@
     </div>
     
     
+
+
+    
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
     <!-- Philosopher Pages -->
@@ -391,52 +901,21 @@
 
 
 
-
-
-
-
-
-
-
-
-
-        
-
-
-
-        
-
-
-
-
-
-        
-       
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     <div>   
         <div id="profile-image-a">
             <!-- Profile Image -->
             <img src="Abzeichen Route.png" alt="Profile Images">
         </div>
         <div id="profile-info">
-            <p><strong class="flame">🔥</strong> <span id="streak-days" style="font-size: 30px; font-weight: bold; ">0</span> Days</p>
-            <p><strong>Achieved Milestones:</strong></p>
-            <!-- Milestones can be listed here -->
+            
+            <p><strong class="flame">🔥</strong> <span id="streak-days" style="font-size: 30px; font-weight: bold; ">0</span> Days</p>          
             <button onclick="showInfoDialog()">i</button>
         </div>
+
+
+          
+
+
         <div id="profile-image">
             <img src="Rewards.png" alt="Profile Image">
         </div>
