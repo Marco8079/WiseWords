@@ -1115,10 +1115,7 @@
                     setQuizCompleted2();
                 }
 
-                setTimeout(() => {
-                    document.getElementById('quiz-container2').style.display = 'none';
-                    document.getElementById('start-page').style.display = 'block';
-                }, 2000);
+                
 
             } else {
                 resultElement.textContent = `Unfortunately, you answered only ${score} out of ${totalQuestions} questions correctly.`;
@@ -1141,7 +1138,12 @@
             document.getElementById('quiz-container2').style.display = 'block';
         }
 
-        
+        // Funktion, um zurück zur Startseite zu gehen
+        function goBack2() {
+            // Startseite anzeigen und Quiz-Container ausblenden
+            document.getElementById('start-page').style.display = 'block';
+            document.getElementById('quiz-container2').style.display = 'none';
+        }
 
         // Funktion, um die korrekte Antwort für jede Frage des zweiten Quiz zu erhalten
         function getCorrectAnswer2(questionNumber) {
