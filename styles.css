@@ -1219,6 +1219,8 @@ a.small-text:hover {
     overflow-y: auto; /* Ermöglicht vertikales Scrollen */
     position: relative; /* Für die Positionierung der Buttons */
     margin: 20px; /* Abstand von den Bildschirmrändern */
+    width: 90%;
+    
 }
 
 .question {
@@ -1273,6 +1275,112 @@ a.small-text:hover {
 }
 
 #result.incorrect {
+    color: #f44336; /* Rote Farbe für falsche Antworten */
+    border: 2px solid #f44336; /* Roter Rand */
+}
+
+.download-btn {
+    display: inline-block;
+    padding: 14px 28px; /* Größeres Padding für einen prominenten Button */
+    background-color: #388E3C; /* Dunkleres Grün für den Hintergrund */
+    color: white; /* Weiße Schrift */
+    font-size: 18px; /* Größere Schriftgröße */
+    font-weight: bold;
+    text-align: center;
+    text-decoration: none; /* Entfernt die Unterstreichung des Links */
+    border-radius: 12px; /* Abgerundete Ecken */
+    transition: all 0.3s ease; /* Weiche Übergänge */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Leichter Schatten */
+    cursor: pointer;
+    margin-top: 20px; /* Abstand nach oben */
+}
+
+.download-btn:hover {
+    background-color: #2e7d32; /* Noch dunkleres Grün beim Hover */
+    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15); /* Verstärkter Schatten */
+    transform: translateY(-2px); /* Leichtes Anheben beim Hover */
+}
+
+.download-btn:active {
+    background-color: #25692b; /* Noch dunkleres Grün beim Klicken */
+    box-shadow: 0 3px 5px rgba(0, 0, 0, 0.1); /* Kleinerer Schatten */
+    transform: translateY(2px); /* Eindruck eines gedrückten Buttons */
+}
+
+.quiz-title {
+    color: #388E3C; /* Gleicher Grünton wie der Download-Button */
+    font-size: 10px; /* Optionale Anpassung der Schriftgröße */
+    font-weight: bold; /* Fettgedruckt für eine bessere Sichtbarkeit */
+}
+
+
+
+/* Stil für den Quiz-Container */
+#quiz-container2 {
+    display: none; /* Standardmäßig versteckt */
+    background-color: rgb(30, 30, 30); /* Etwas helleres Dunkelgrau für besseren Kontrast */
+    padding: 40px; /* Reduzierter Abstand für kompaktere Darstellung */
+    border-radius: 10px; /* Abgerundete Ecken für ein moderneres Aussehen */
+    box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2); /* Sanfterer und größerer Schatten */
+    max-height: 80vh; /* Begrenzte Höhe des Containers */
+    overflow-y: auto; /* Ermöglicht vertikales Scrollen */
+    position: relative; /* Für die Positionierung der Buttons */
+    margin: 20px; /* Abstand von den Bildschirmrändern */
+    width: 90%;
+}
+
+.question {
+    margin: 20px 0;
+}
+
+.question-title {
+    font-weight: bold;
+    font-size: 20px; /* Größere Schriftgröße für bessere Lesbarkeit */
+    color: #f0f0f0; /* Helle Schriftfarbe für besseren Kontrast */
+}
+
+.options label {
+    display: block;
+    margin-bottom: 12px; /* Mehr Abstand zwischen den Optionen */
+    font-size: 16px; /* Lesbarere Schriftgröße */
+    color: #d0d0d0; /* Helle Schriftfarbe für bessere Lesbarkeit */
+}
+
+.options input[type="radio"] {
+    margin-right: 12px; /* Mehr Abstand zwischen Radio-Button und Label */
+}
+
+/* Stil für die Radio-Buttons */
+.options input[type="radio"] {
+    accent-color: var(--primary-color-blue); /* Mischung aus Dunkelblau und leichtem Türkis für den Radio-Button */
+    border-radius: 50%; /* Runde Form */
+    width: 20px; /* Größere Größe */
+    height: 20px; /* Größere Größe */
+    border: 2px solid #ccc; /* Graue Umrandung */
+    cursor: pointer; /* Pointer-Cursor */
+    transition: background-color 0.3s, border-color 0.3s; /* Sanfte Übergänge */
+}
+
+.options input[type="radio"]:checked {
+    background-color: var(--primary-color-blue); /* Hintergrundfarbe bei Auswahl */
+    border-color: var(--primary-color-blue); /* Umrandungsfarbe bei Auswahl */
+}
+
+/* Stil für das Ergebnis */
+#result2 {
+    display: none; /* Standardmäßig versteckt */
+    margin-top: 30px; /* Mehr Abstand zum oberen Inhalt */
+    font-size: 20px; /* Größere Schriftgröße für bessere Lesbarkeit */
+    padding: 10px;
+    border-radius: 5px;
+}
+
+#result2.correct {
+    color: var(--primary-color-blue); /* Mischung aus Dunkelblau und leichtem Türkis für richtige Antworten */
+    border: 2px solid var(--primary-color-blue); /* Mischung aus Dunkelblau und leichtem Türkis Rand */
+}
+
+#result2.incorrect {
     color: #f44336; /* Rote Farbe für falsche Antworten */
     border: 2px solid #f44336; /* Roter Rand */
 }
