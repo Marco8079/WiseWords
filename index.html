@@ -228,8 +228,11 @@
                     <img src="shakespeare.jpg" alt="William Shakespeare">
                     <span>William Shakespeare</span>
                 </button>
-                <button class="btn" onclick="startQuiz()">Stoicism-Quiz
+                <button class="btn" onclick="startQuiz()">Stoicism-quiz
                     <img src="Stoizismus.jpg">
+                </button>
+                <button class="btn" onclick="startQuiz2()">Quotes-quiz
+                    <img src="sparta.jpg" alt="Philosophy">
                 </button>
                 <hr class="separator-line">
                 <button class="app-instruction" onclick="showAppInstruction()">App-Guide</button>
@@ -241,6 +244,7 @@
         <!-- Quiz Container -->
         <div id="quiz-container">
             <form id="quiz-form">
+                <h3 class="quiz-title">(Quiz with reward)</h3>
                 <div style="width: 100%;">
                     <img src="wisdom.png" alt="wisdom" style="width: 100%; height: auto; display: block;">
                 </div>
@@ -584,6 +588,10 @@
                 <button type="button" class="btn" onclick="submitQuiz()">Submit quiz</button>
                 <button type="button" class="btn" onclick="repeatQuiz()">Repeat quiz</button>
                 <button type="button" class="btn" onclick="goBack()">  ←  </button>
+                <div id="reward" style="display: none;">
+                    <a id="download-link" href="RewardStoic.pdf" download="Reward-Dokument" class="download-btn">Download reward</a>
+                </div>
+                
             </form>
         </div>
     </div>
@@ -615,6 +623,9 @@
                 resultElement.classList.add('correct');
                 resultElement.classList.remove('incorrect');
                 resultElement.style.display = 'block';
+
+                // Download-Link anzeigen
+                document.getElementById('reward').style.display = 'block';
     
                 // Überprüfen, ob das Quiz bereits erfolgreich abgeschlossen wurde
                 if (!hasQuizBeenCompleted()) {
@@ -714,9 +725,452 @@
 
 
 
+    <!-- Quiz Container -->
+    <div id="quiz-container2">
+        <form id="quiz-form2">
+            <h3 class="quiz-title">(Quiz with reward)</h3>
+            
+
+            <!-- Question 1 -->
+            <div class="question" id="question-1">
+                <div class="question-title">1. "The only way to deal with an unfree world is to become so absolutely free that your very existence is an act of rebellion." – Albert Camus</div>
+                <div class="options">
+                    <label><input type="radio" name="q1" value="A"> A) Freedom is irrelevant in the face of an unfree world.</label>
+                    <label><input type="radio" name="q1" value="B"> B) Absolute freedom is achieved through acts of rebellion against oppression.</label>
+                    <label><input type="radio" name="q1" value="C"> C) Freedom is achieved through passive resistance.</label>
+                    <label><input type="radio" name="q1" value="D"> D) Rebellion is unnecessary if one is free internally.</label>
+                </div>
+            </div>
+
+            <!-- Question 2 -->
+            <div class="question" id="question-2">
+                <div class="question-title">2. "The only thing I know is that I know nothing." – Socrates</div>
+                <div class="options">
+                    <label><input type="radio" name="q2" value="A"> A) True knowledge is achieved through recognizing one’s ignorance.</label>
+                    <label><input type="radio" name="q2" value="B"> B) Knowledge is absolute and not influenced by one’s awareness of ignorance.</label>
+                    <label><input type="radio" name="q2" value="C"> C) Ignorance is not related to knowledge.</label>
+                    <label><input type="radio" name="q2" value="D"> D) Knowledge is independent of the recognition of one’s own ignorance.</label>
+                </div>
+            </div>
+
+            <!-- Question 3 -->
+            <div class="question" id="question-3">
+                <div class="question-title">3. "Happiness depends upon ourselves." – Aristotle</div>
+                <div class="options">
+                    <label><input type="radio" name="q3" value="A"> A) External factors are the primary source of happiness.</label>
+                    <label><input type="radio" name="q3" value="B"> B) Happiness is influenced primarily by external circumstances.</label>
+                    <label><input type="radio" name="q3" value="C"> C) Happiness is determined by our own actions and attitudes.</label>
+                    <label><input type="radio" name="q3" value="D"> D) Happiness is a result of luck and chance rather than personal effort.</label>
+                </div>
+            </div>
+
+            <!-- Question 4 -->
+            <div class="question" id="question-4">
+                <div class="question-title">4. "The only limit to our realization of tomorrow is our doubts of today." – Franklin D. Roosevelt</div>
+                <div class="options">
+                    <label><input type="radio" name="q4" value="A"> A) Doubts are irrelevant to future achievements.</label>
+                    <label><input type="radio" name="q4" value="B"> B) Doubts about ourselves can't hinder our future potential.</label>
+                    <label><input type="radio" name="q4" value="C"> C) Future realization is solely determined by external circumstances.</label>
+                    <label><input type="radio" name="q4" value="D"> D) Tomorrow’s achievements are independent of today’s doubts.</label>
+                </div>
+            </div>
+
+            <!-- Question 5 -->
+            <div class="question" id="question-5">
+                <div class="question-title">5. "The unexamined life is not worth living." – Socrates</div>
+                <div class="options">
+                    <label><input type="radio" name="q5" value="A"> A) A life without introspection and self-reflection is meaningful.</label>
+                    <label><input type="radio" name="q5" value="B"> B) Self-reflection and examination are essential for a fulfilling life.</label>
+                    <label><input type="radio" name="q5" value="C"> C) Examining one’s life is irrelevant to its value.</label>
+                    <label><input type="radio" name="q5" value="D"> D) The value of life is independent of personal examination.</label>
+                </div>
+            </div>
+
+            <!-- Question 6 -->
+            <div class="question" id="question-6">
+                <div class="question-title">6. "Success is not final, failure is not fatal: It is the courage to continue that counts." – Winston Churchill</div>
+                <div class="options">
+                    <label><input type="radio" name="q6" value="A"> A) Success and failure are final and define our fate.</label>
+                    <label><input type="radio" name="q6" value="B"> B) The key to success is to persist despite setbacks.</label>
+                    <label><input type="radio" name="q6" value="C"> C) Success and failure are irrelevant; only results matter.</label>
+                    <label><input type="radio" name="q6" value="D"> D) Courage is irrelevant in the context of success or failure.</label>
+                </div>
+            </div>
+
+            <!-- Question 7 -->
+            <div class="question" id="question-7">
+                <div class="question-title">7. "The best revenge is massive success." – Frank Sinatra</div>
+                <div class="options">
+                    <label><input type="radio" name="q7" value="A"> A) Success is the most effective way to overcome past grievances.</label>
+                    <label><input type="radio" name="q7" value="B"> B) Revenge should be sought through direct confrontation.</label>
+                    <label><input type="radio" name="q7" value="C"> C) Revenge is irrelevant to achieving personal success.</label>
+                    <label><input type="radio" name="q7" value="D"> D) Success is unrelated to personal vindication.</label>
+                </div>
+            </div>
+
+            <!-- Question 8 -->
+            <div class="question" id="question-8">
+                <div class="question-title">8. "The greatest wealth is to live content with little." – Plato</div>
+                <div class="options">
+                    <label><input type="radio" name="q8" value="A"> A) Wealth is best measured by material abundance.</label>
+                    <label><input type="radio" name="q8" value="B"> B) True contentment comes from material wealth.</label>
+                    <label><input type="radio" name="q8" value="C"> C) Wealth is unrelated to contentment or simplicity.</label>
+                    <label><input type="radio" name="q8" value="D"> D) Contentment with minimal possessions is the greatest form of wealth.</label>
+                </div>
+            </div>
+
+            <!-- Question 9 -->
+            <div class="question" id="question-9">
+                <div class="question-title">9. "To thine own self be true." – William Shakespeare</div>
+                <div class="options">
+                    <label><input type="radio" name="q9" value="A"> A) Authenticity is less important than external validation.</label>
+                    <label><input type="radio" name="q9" value="B"> B) Being true to oneself is essential for personal integrity and fulfillment.</label>
+                    <label><input type="radio" name="q9" value="C"> C) External opinions are more important than self-truth.</label>
+                    <label><input type="radio" name="q9" value="D"> D) Personal truth is irrelevant to one’s public image.</label>
+                </div>
+            </div>
+
+            <!-- Question 10 -->
+            <div class="question" id="question-10">
+                <div class="question-title">10. "In the middle of difficulty lies opportunity." – Albert Einstein</div>
+                <div class="options">
+                    <label><input type="radio" name="q10" value="A"> A) Difficulties always result in failure.</label>
+                    <label><input type="radio" name="q10" value="B"> B) Opportunities are not related to challenges or difficulties.</label>
+                    <label><input type="radio" name="q10" value="C"> C) Challenges and difficulties can provide chances for growth and success.</label>
+                    <label><input type="radio" name="q10" value="D"> D) Success is only achieved through the absence of difficulty.</label>
+                </div>
+            </div>
+
+            <!-- Question 11 -->
+            <div class="question" id="question-11">
+                <div class="question-title">11. "The only true wisdom is in knowing you know nothing." – Socrates</div>
+                <div class="options">
+                    <label><input type="radio" name="q11" value="A"> A) Wisdom comes from understanding that knowledge is limited.</label>
+                    <label><input type="radio" name="q11" value="B"> B) True wisdom is found in acquiring as much knowledge as possible.</label>
+                    <label><input type="radio" name="q11" value="C"> C) Ignorance is a barrier to wisdom.</label>
+                    <label><input type="radio" name="q11" value="D"> D) Knowledge is not necessary for wisdom.</label>
+                </div>
+            </div>
+
+            <!-- Question 12 -->
+            <div class="question" id="question-12">
+                <div class="question-title">12. "The only thing we have to fear is fear itself." – Franklin D. Roosevelt</div>
+                <div class="options">
+                    <label><input type="radio" name="q12" value="A"> A) Fear of external factors is the greatest threat.</label>
+                    <label><input type="radio" name="q12" value="B"> B) Fear itself is the primary obstacle to overcoming challenges.</label>
+                    <label><input type="radio" name="q12" value="C"> C) External threats are more significant than internal fears.</label>
+                    <label><input type="radio" name="q12" value="D"> D) Fear is irrelevant to overcoming obstacles.</label>
+                </div>
+            </div>
+
+            <!-- Question 13 -->
+            <div class="question" id="question-13">
+                <div class="question-title">13. "To be, or not to be: that is the question." – William Shakespeare</div>
+                <div class="options">
+                    <label><input type="radio" name="q13" value="A"> A) The question of existence is irrelevant to personal choices.</label>
+                    <label><input type="radio" name="q13" value="B"> B) Personal choices are unrelated to questions of existence.</label>
+                    <label><input type="radio" name="q13" value="C"> C) Existence is not a matter of choice.</label>
+                    <label><input type="radio" name="q13" value="D"> D) The fundamental question of existence revolves around choices and existence itself.</label>
+                </div>
+            </div>
+
+            <!-- Question 14 -->
+            <div class="question" id="question-14">
+                <div class="question-title">14. "The mind is everything. What you think you become." – Buddha</div>
+                <div class="options">
+                    <label><input type="radio" name="q14" value="A"> A) Our thoughts and mindset shape our reality and who we become.</label>
+                    <label><input type="radio" name="q14" value="B"> B) External circumstances shape who we are more than our thoughts.</label>
+                    <label><input type="radio" name="q14" value="C"> C) Our future is determined solely by external factors.</label>
+                    <label><input type="radio" name="q14" value="D"> D) Thoughts are irrelevant to personal development and growth.</label>
+                </div>
+            </div>
+
+            <!-- Question 15 -->
+            <div class="question" id="question-15">
+                <div class="question-title">15. "He who has a why to live can bear almost any how." – Friedrich Nietzsche</div>
+                <div class="options">
+                    <label><input type="radio" name="q15" value="A"> A) Having a purpose in life helps one endure challenges and difficulties.</label>
+                    <label><input type="radio" name="q15" value="B"> B) Life’s challenges are irrelevant if one has a strong sense of purpose.</label>
+                    <label><input type="radio" name="q15" value="C"> C) The reason for living is irrelevant to overcoming life’s obstacles.</label>
+                    <label><input type="radio" name="q15" value="D"> D) Endurance in life is not related to having a sense of purpose.</label>
+                </div>
+            </div>
+
+            <!-- Question 16 -->
+            <div class="question" id="question-16">
+                <div class="question-title">16. "The good life is one inspired by love and guided by knowledge." – Bertrand Russell</div>
+                <div class="options">
+                    <label><input type="radio" name="q16" value="A"> A) Love and knowledge are irrelevant to living a good life.</label>
+                    <label><input type="radio" name="q16" value="B"> B) A good life is achieved through personal achievements and material success.</label>
+                    <label><input type="radio" name="q16" value="C"> C) Love and knowledge play a crucial role in leading a fulfilling life.</label>
+                    <label><input type="radio" name="q16" value="D"> D) Personal success and material wealth are the only indicators of a good life.</label>
+                </div>
+            </div>
+
+            <!-- Question 17 -->
+            <div class="question" id="question-17">
+                <div class="question-title">17. "What we think, we become." – Buddha</div>
+                <div class="options">
+                    <label><input type="radio" name="q17" value="A"> A) Our thoughts have no impact on our personal development.</label>
+                    <label><input type="radio" name="q17" value="B"> B) Reality is not influenced by our thoughts.</label>
+                    <label><input type="radio" name="q17" value="C"> C) Future outcomes are solely determined by external factors.</label>
+                    <label><input type="radio" name="q17" value="D"> D) Our thoughts shape our reality and our future selves.</label>
+                </div>
+            </div>
+
+            <!-- Question 18 -->
+            <div class="question" id="question-18">
+                <div class="question-title">18. "The greatest glory in living lies not in never falling, but in rising every time we fall." – Nelson Mandela</div>
+                <div class="options">
+                    <label><input type="radio" name="q18" value="A"> A) True glory comes from avoiding failure.</label>
+                    <label><input type="radio" name="q18" value="B"> B) The ability to recover from failure is a key aspect of glory in living.</label>
+                    <label><input type="radio" name="q18" value="C"> C) Success is achieved by never experiencing failure.</label>
+                    <label><input type="radio" name="q18" value="D"> D) Glory in life is unrelated to overcoming failure.</label>
+                </div>
+            </div>
+
+            <!-- Question 19 -->
+            <div class="question" id="question-19">
+                <div class="question-title">19. "Believe nothing, no matter where you read it, or who has said it, not even if I have said it, unless it agrees with your own reason and your own common sense." – Buddha</div>
+                <div class="options">
+                    <label><input type="radio" name="q19" value="A"> A) We should only believe what is confirmed by personal experience.</label>
+                    <label><input type="radio" name="q19" value="B"> B) We should believe everything we hear without questioning it.</label>
+                    <label><input type="radio" name="q19" value="C"> C) Belief should be based on hearsay as the best foundation for knowledge.</label>
+                    <label><input type="radio" name="q19" value="D"> D) Belief should only be based on scientific evidence, not personal experience.</label>
+                </div>
+            </div>
 
 
+            <!-- Question 20 -->
+            <div class="question" id="question-20">
+                <div class="question-title">20. "The only way to do great work is to love what you do." – Steve Jobs</div>
+                <div class="options">
+                    <label><input type="radio" name="q20" value="A"> A) Loving what you do is not necessary for doing great work.</label>
+                    <label><input type="radio" name="q20" value="B"> B) Passion and love for your work are key to achieving greatness.</label>
+                    <label><input type="radio" name="q20" value="C"> C) Great work is achieved through external validation rather than personal passion.</label>
+                    <label><input type="radio" name="q20" value="D"> D) Achieving greatness in work is independent of one’s feelings towards it.</label>
+                </div>
+            </div>
 
+            <!-- Question 21 -->
+            <div class="question" id="question-21">
+                <div class="question-title">21. "The greatest glory in living lies not in never falling, but in rising every time we fall." – Nelson Mandela</div>
+                <div class="options">
+                    <label><input type="radio" name="q21" value="A"> A) True glory comes from the ability to overcome failures repeatedly.</label>
+                    <label><input type="radio" name="q21" value="B"> B) Success is determined solely by avoiding failures.</label>
+                    <label><input type="radio" name="q21" value="C"> C) Glory is unrelated to how we handle setbacks.</label>
+                    <label><input type="radio" name="q21" value="D"> D) The primary measure of success is never experiencing defeat.</label>
+                </div>
+            </div>
+
+            <!-- Question 22 -->
+            <div class="question" id="question-22">
+                <div class="question-title">22. "Veni, vidi, vici." – Julius Caesar</div>
+                <div class="options">
+                    <label><input type="radio" name="q22" value="A"> A) Immediate and decisive action leads to swift victory.</label>
+                    <label><input type="radio" name="q22" value="B"> B) Success is achieved through prolonged efforts.</label>
+                    <label><input type="radio" name="q22" value="C"> C) Victory often requires strategic patience.</label>
+                    <label><input type="radio" name="q22" value="D"> D) Victory is usually the result of luck rather than effort.</label>
+                </div>
+            </div>
+
+            <!-- Question 23 -->
+            <div class="question" id="question-23">
+                <div class="question-title">23. "Never retreat, never surrender." – Leonidas</div>
+                <div class="options">
+                    <label><input type="radio" name="q23" value="A"> A) Avoid confrontation to achieve success.</label>
+                    <label><input type="radio" name="q23" value="B"> B) Retreating in difficult situations is a sign of weakness.</label>
+                    <label><input type="radio" name="q23" value="C"> C) Surrendering is often the best course of action.</label>
+                    <label><input type="radio" name="q23" value="D"> D) Perseverance and steadfastness are essential in the face of adversity.</label>
+                </div>
+            </div>
+
+            <!-- Question 24 -->
+            <div class="question" id="question-24">
+                <div class="question-title">24. "Et tu, Brute?" – Julius Caesar</div>
+                <div class="options">
+                    <label><input type="radio" name="q24" value="A"> A) Betrayal by a trusted ally is the deepest form of treachery.</label>
+                    <label><input type="radio" name="q24" value="B"> B) Trust is irrelevant in political matters.</label>
+                    <label><input type="radio" name="q24" value="C"> C) Political alliances are often short-lived.</label>
+                    <label><input type="radio" name="q24" value="D"> D) Loyalty is not necessary for personal success.</label>
+                </div>
+            </div>
+
+            <!-- Question 25 -->
+            <div class="question" id="question-25">
+                <div class="question-title">25. "The world is a stage, and all the men and women merely players." – William Shakespeare</div>
+                <div class="options">
+                    <label><input type="radio" name="q25" value="A"> A) Social roles are irrelevant to personal identity.</label>
+                    <label><input type="radio" name="q25" value="B"> B) Personal achievements are independent of societal roles.</label>
+                    <label><input type="radio" name="q25" value="C"> C) Life can be seen as a performance where everyone plays a role.</label>
+                    <label><input type="radio" name="q25" value="D"> D) Individual actions have no impact on broader societal performance.</label>
+                </div>
+            </div>
+
+            <!-- Question 26 -->
+            <div class="question" id="question-26">
+                <div class="question-title">26. "The better part of Valour, is Discretion." – William Shakespeare</div>
+                <div class="options">
+                    <label><input type="radio" name="q26" value="A"> A) Courage is best demonstrated by aggressive actions.</label>
+                    <label><input type="radio" name="q26" value="B"> B) True bravery involves knowing when to act with caution.</label>
+                    <label><input type="radio" name="q26" value="C"> C) Valour is only about boldness and risk-taking.</label>
+                    <label><input type="radio" name="q26" value="D"> D) Discretion is unrelated to the concept of bravery.</label>
+                </div>
+            </div>
+            
+            <!-- Question 27 -->
+            <div class="question" id="question-27">
+                <div class="question-title">27. "Only the hard and strong may call themselves Spartans." – Leonidas</div>
+                <div class="options">
+                    <label><input type="radio" name="q27" value="A"> A) True strength is required to be worthy of great honor.</label>
+                    <label><input type="radio" name="q27" value="B"> B) Honor is determined by one's background rather than strength.</label>
+                    <label><input type="radio" name="q27" value="C"> C) Greatness is achieved without the need for physical strength.</label>
+                    <label><input type="radio" name="q27" value="D"> D) Being a Spartan is about lineage, not personal qualities.</label>
+                </div>
+            </div>
+
+            <!-- Question 28 -->
+            <div class="question" id="question-28">
+                <div class="question-title">28. "We fight as one, or we die alone." – Leonidas</div>
+                <div class="options">
+                    <label><input type="radio" name="q28" value="A"> A) Collaboration is unnecessary in achieving victory.</label>
+                    <label><input type="radio" name="q28" value="B"> B) Individual efforts are more significant than teamwork.</label>
+                    <label><input type="radio" name="q28" value="C"> C) Success is best achieved through isolation and independence.</label>
+                    <label><input type="radio" name="q28" value="D"> D) Unity and collective effort are essential for success and survival.</label>
+                </div>
+            </div>
+
+            <!-- Question 29 -->
+            <div class="question" id="question-29">
+                <div class="question-title">29. "In the end, it is not the years in your life that count. It’s the life in your years." – Leonidas</div>
+                <div class="options">
+                    <label><input type="radio" name="q29" value="A"> A) Life’s worth is determined by achievements rather than experiences.</label>
+                    <label><input type="radio" name="q29" value="B"> B) Length of life is more valuable than the experiences lived.</label>
+                    <label><input type="radio" name="q29" value="C"> C) The quality of one's experiences is more important than the length of life.</label>
+                    <label><input type="radio" name="q29" value="D"> D) Quantity of life outweighs the depth of experiences.</label>
+                </div>
+            </div>
+
+            <!-- Question 30 -->
+            <div class="question" id="question-30">
+                <div class="question-title">30. "Prepare for the worst, hope for the best." – Leonidas</div>
+                <div class="options">
+                    <label><input type="radio" name="q30" value="A"> A) Being ready for challenges while maintaining optimism is crucial for success.</label>
+                    <label><input type="radio" name="q30" value="B"> B) Success comes from expecting only the best outcomes.</label>
+                    <label><input type="radio" name="q30" value="C"> C) Avoid preparing for difficulties to maintain a positive mindset.</label>
+                    <label><input type="radio" name="q30" value="D"> D) Hope alone is sufficient without preparation for potential problems.</label>
+                </div>
+            </div>
+            <!-- Ergebnis-Element -->
+            <div id="result2"></div>
+
+            <!-- Button zum Einreichen des Quiz -->
+            <button type="button" class="btn" onclick="submitQuiz2()">Submit quiz</button>
+            <button type="button" class="btn" onclick="repeatQuiz2()">Repeat quiz</button>
+            <button type="button" class="btn" onclick="goBack2()">  ←  </button>
+            <div id="reward2" style="display: none;">
+                <a id="download-link2" href="spartaners.pdf" download="Reward-Dokument" class="download-btn">Download reward</a>
+            </div>
+
+        </form>
+    </div>
+
+
+    <script>
+        // Funktion, um das zweite Quiz zu starten
+        function startQuiz2() {
+            document.getElementById('start-page').style.display = 'none';
+            document.getElementById('quiz-container2').style.display = 'block';
+        }
+
+        // Funktion, um das zweite Quiz zu überprüfen und zu beenden
+        function submitQuiz2() {
+            const totalQuestions = 30; // Anzahl der Fragen auf 30 setzen
+            let score = 0;
+
+            // Antworten überprüfen
+            for (let i = 1; i <= totalQuestions; i++) {
+                const selectedAnswer = document.querySelector(`input[name="q${i}"]:checked`);
+                if (selectedAnswer && selectedAnswer.value === getCorrectAnswer2(i)) {
+                    score++;
+                }
+            }
+
+            // Ergebnis anzeigen
+            const resultElement = document.getElementById('result2');
+            if (score === totalQuestions) {
+                resultElement.textContent = "Congratulations! You answered all the questions correctly.";
+                resultElement.classList.add('correct');
+                resultElement.classList.remove('incorrect');
+                resultElement.style.display = 'block';
+
+                // Download-Link anzeigen
+                document.getElementById('reward2').style.display = 'block';
+
+                // Überprüfen, ob das Quiz bereits erfolgreich abgeschlossen wurde
+                if (!hasQuizBeenCompleted2()) {
+                    // Bonus-Streak um 10 Tage erhöhen
+                    increaseBonusStreak(10);
+                    // Setze den Status des erfolgreichen Quiz
+                    setQuizCompleted2();
+                }
+
+                setTimeout(() => {
+                    document.getElementById('quiz-container2').style.display = 'none';
+                    document.getElementById('start-page').style.display = 'block';
+                }, 2000);
+
+            } else {
+                resultElement.textContent = `Unfortunately, you answered only ${score} out of ${totalQuestions} questions correctly.`;
+                resultElement.classList.add('incorrect');
+                resultElement.classList.remove('correct');
+                resultElement.style.display = 'block';
+            }
+        }
+
+        // Funktion, um das zweite Quiz zu wiederholen
+        function repeatQuiz2() {
+            // Alle ausgewählten Antworten zurücksetzen
+            document.querySelectorAll('input[type="radio"]:checked').forEach(input => input.checked = false);
+
+            // Ergebnis zurücksetzen
+            const resultElement = document.getElementById('result2');
+            resultElement.style.display = 'none';
+
+            // Quiz-Container erneut anzeigen
+            document.getElementById('quiz-container2').style.display = 'block';
+        }
+
+        
+
+        // Funktion, um die korrekte Antwort für jede Frage des zweiten Quiz zu erhalten
+        function getCorrectAnswer2(questionNumber) {
+            const correctAnswers2 = {
+                1: 'C', 2: 'A', 3: 'C', 4: 'D', 5: 'B', 6: 'B', 7: 'A', 8: 'D', 9: 'B', 10: 'C',
+                11: 'A', 12: 'B', 13: 'D', 14: 'A', 15: 'A', 16: 'C', 17: 'D', 18: 'B', 19: 'A', 20: 'B',
+                21: 'A', 22: 'A', 23: 'D', 24: 'A', 25: 'C', 26: 'B', 27: 'A', 28: 'D', 29: 'C', 30: 'A'
+            };
+            return correctAnswers2[questionNumber];
+        }
+
+        // Funktion, um zu überprüfen, ob das zweite Quiz bereits abgeschlossen wurde
+        function hasQuizBeenCompleted2() {
+            return localStorage.getItem('quizCompleted2') === 'true';
+        }
+
+        // Funktion, um den Status des abgeschlossenen zweiten Quiz zu setzen
+        function setQuizCompleted2() {
+            localStorage.setItem('quizCompleted2', 'true');
+        }
+
+        // Funktion zum Erhöhen der Bonus-Streak
+        function increaseBonusStreak(days) {
+            // Beispielimplementierung, passen Sie dies an Ihre Logik an
+            let currentStreak = parseInt(localStorage.getItem('streak') || '0');
+            localStorage.setItem('streak', currentStreak + days);
+        }
+
+    </script>
 
 
 
