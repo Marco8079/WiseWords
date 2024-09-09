@@ -234,6 +234,9 @@
                 <button class="btn" onclick="startQuiz2()">Quotes-quiz
                     <img src="sparta.jpg" alt="Philosophy">
                 </button>
+                <button class="btn" onclick="startQuiz3()">Dilemma-quiz
+                    <img src="king.jpg" alt="Quiz 3">
+                </button>
                 <hr class="separator-line">
                 <button class="app-instruction" onclick="showAppInstruction()">App-Guide</button>
                 <hr class="separator-line3">
@@ -1173,6 +1176,452 @@
         }
 
     </script>
+
+
+
+    <!-- Quiz Container -->
+    <div id="quiz-container3">
+        <form id="quiz-form3">
+            <h3 class="quiz-title">(Third Quiz with reward)</h3>
+
+            <!-- Question 1 -->
+            <div class="question" id="question-1">
+                <div class="question-title">1. You see a wallet full of money on the street. Do you:</div>
+                <div class="options">
+                    <label><input type="radio" name="q1" value="A"> A) Keep it for yourself</label>
+                    <label><input type="radio" name="q1" value="B"> B) Take the money but leave the wallet</label>
+                    <label><input type="radio" name="q1" value="C"> C) Return it to the police</label>
+                    <label><input type="radio" name="q1" value="D"> D) Give it to a charity</label>
+                </div>
+            </div>
+
+            <!-- Question 2 -->
+            <div class="question" id="question-2">
+                <div class="question-title">2. A train is about to hit five people tied to a track. You can pull a lever to divert the train, but it will hit one person. Do you:</div>
+                <div class="options">
+                    <label><input type="radio" name="q2" value="A"> A) Do nothing and let the five die</label>
+                    <label><input type="radio" name="q2" value="B"> B) Pull the lever, sacrificing one to save five</label>
+                    <label><input type="radio" name="q2" value="C"> C) Yell for help but don’t pull the lever</label>
+                    <label><input type="radio" name="q2" value="D"> D) Call authorities and wait for their response</label>
+                </div>
+            </div>
+
+            <!-- Question 3 -->
+            <div class="question" id="question-3">
+                <div class="question-title">3. You discover your close friend has committed a crime. Do you:</div>
+                <div class="options">
+                    <label><input type="radio" name="q3" value="A"> A) Report them to the police</label>
+                    <label><input type="radio" name="q3" value="B"> B) Confront them and give them a chance to turn themselves in</label>
+                    <label><input type="radio" name="q3" value="C"> C) Help them cover up the crime</label>
+                    <label><input type="radio" name="q3" value="D"> D) Do nothing and hope they don’t get caught</label>
+                </div>
+            </div>
+
+            <!-- Question 4 -->
+            <div class="question" id="question-4">
+                <div class="question-title">4. You're in charge of allocating resources in a famine. Do you:</div>
+                <div class="options">
+                    <label><input type="radio" name="q4" value="A"> A) Distribute equally to everyone, regardless of need</label>
+                    <label><input type="radio" name="q4" value="B"> B) Keep a portion for yourself to ensure your survival</label>
+                    <label><input type="radio" name="q4" value="C"> C) Give more to the people most likely to survive</label>
+                    <label><input type="radio" name="q4" value="D"> D) Prioritize women and children</label>
+                </div>
+            </div>
+
+            <!-- Question 5 -->
+            <div class="question" id="question-5">
+                <div class="question-title">5. You find out a colleague is cheating the company but has a family to support. Do you:</div>
+                <div class="options">
+                    <label><input type="radio" name="q5" value="A"> A) Report them to your boss immediately</label>
+                    <label><input type="radio" name="q5" value="B"> B) Blackmail them for personal gain</label>
+                    <label><input type="radio" name="q5" value="C"> C) Ignore it since it's not your business</label>
+                    <label><input type="radio" name="q5" value="D"> D) Warn them to stop or you will report them</label>
+                </div>
+            </div>
+
+            <!-- Question 6 -->
+            <div class="question" id="question-6">
+                <div class="question-title">6. A doctor can save five patients by using the organs of one healthy person. Do you:</div>
+                <div class="options">
+                    <label><input type="radio" name="q6" value="A"> A) Let the five patients die naturally?</label>
+                    <label><input type="radio" name="q6" value="B"> B) Harvest the organs from the healthy person, sacrificing one to save five?</label>
+                    <label><input type="radio" name="q6" value="C"> C) Wait and hope for another solution?</label>
+                    <label><input type="radio" name="q6" value="D"> D) Ask the healthy person if they’re willing to donate?</label>
+                </div>
+            </div>
+
+            <!-- Question 7 -->
+            <div class="question" id="question-7">
+                <div class="question-title">7. You see someone shoplifting food to feed their starving family. Do you:</div>
+                <div class="options">
+                    <label><input type="radio" name="q7" value="A"> A) Report them to the store manager?</label>
+                    <label><input type="radio" name="q7" value="B"> B) Offer to pay for their food?</label>
+                    <label><input type="radio" name="q7" value="C"> C) Ignore the situation?</label>
+                    <label><input type="radio" name="q7" value="D"> D) Help them steal more to survive?</label>
+                </div>
+            </div>
+
+            <!-- Question 8 -->
+            <div class="question" id="question-8">
+                <div class="question-title">8. During a war, you must decide whether to bomb a military target, but civilians will die too. Do you:</div>
+                <div class="options">
+                    <label><input type="radio" name="q8" value="A"> A) Refuse to bomb to save civilian lives?</label>
+                    <label><input type="radio" name="q8" value="B"> B) Bomb the target because the military objective is more important?</label>
+                    <label><input type="radio" name="q8" value="C"> C) Warn the civilians to evacuate and then bomb the target?</label>
+                    <label><input type="radio" name="q8" value="D"> D) Leave the decision to your superiors?</label>
+                </div>
+            </div>
+
+            <!-- Question 9 -->
+            <div class="question" id="question-9">
+                <div class="question-title">9. Your company has the chance to release a product quickly but it has safety issues. Do you:</div>
+                <div class="options">
+                    <label><input type="radio" name="q9" value="A"> A) Delay the release to fix the problems?</label>
+                    <label><input type="radio" name="q9" value="B"> B) Release it anyway and deal with problems later?</label>
+                    <label><input type="radio" name="q9" value="C"> C) Cover up the safety issues?</label>
+                    <label><input type="radio" name="q9" value="D"> D) Tell the public about the risks and let them decide?</label>
+                </div>
+            </div>
+
+            <!-- Question 10 -->
+            <div class="question" id="question-10">
+                <div class="question-title">10. You're offered a well-paid job, but it goes against your ethical beliefs. Do you:</div>
+                <div class="options">
+                    <label><input type="radio" name="q10" value="A"> A) Take the job for the money?</label>
+                    <label><input type="radio" name="q10" value="B"> B) Reject the job to stay true to your beliefs?</label>
+                    <label><input type="radio" name="q10" value="C"> C) Take the job but try to change it from within?</label>
+                    <label><input type="radio" name="q10" value="D"> D) Ask friends for advice and then decide?</label>
+                </div>
+            </div>
+
+            <!-- Continue the pattern for the remaining questions -->
+
+            <!-- Question 11 -->
+            <div class="question" id="question-11">
+                <div class="question-title">11. Your sibling is addicted to drugs and stealing from the family. Do you:</div>
+                <div class="options">
+                    <label><input type="radio" name="q11" value="A"> A) Report them to the police?</label>
+                    <label><input type="radio" name="q11" value="B"> B) Talk to them and encourage rehab?</label>
+                    <label><input type="radio" name="q11" value="C"> C) Ignore it to keep family peace?</label>
+                    <label><input type="radio" name="q11" value="D"> D) Take their stolen items back secretly?</label>
+                </div>
+            </div>
+
+            <!-- Question 12 -->
+            <div class="question" id="question-12">
+                <div class="question-title">12. In a competition, you see a competitor cheating. How do you act?</div>
+                <div class="options">
+                    <label><input type="radio" name="q12" value="A"> A) Confront them directly</label>
+                    <label><input type="radio" name="q12" value="B"> B) Report them to the judges</label>
+                    <label><input type="radio" name="q12" value="C"> C) Ignore it and focus on your performance</label>
+                    <label><input type="radio" name="q12" value="D"> D) Sabotage them to balance the playing field</label>
+                </div>
+            </div>
+
+            <!-- Question 13 -->
+            <div class="question" id="question-13">
+                <div class="question-title">13. A friend asks you to lie to protect their reputation, but the truth could help others. Do you:</div>
+                <div class="options">
+                    <label><input type="radio" name="q13" value="A"> A) Lie for your friend?</label>
+                    <label><input type="radio" name="q13" value="B"> B) Tell the truth, even if it harms them?</label>
+                    <label><input type="radio" name="q13" value="C"> C) Refuse to speak either way?</label>
+                    <label><input type="radio" name="q13" value="D"> D) Delay your response to buy time?</label>
+                </div>
+            </div>
+
+            <!-- Question 14 -->
+            <div class="question" id="question-14">
+                <div class="question-title">14. You're aware of an unsafe working condition at your job. Do you:</div>
+                <div class="options">
+                    <label><input type="radio" name="q14" value="A"> A) Report it to your boss?</label>
+                    <label><input type="radio" name="q14" value="B"> B) Ignore it to avoid conflict?</label>
+                    <label><input type="radio" name="q14" value="C"> C) Inform your coworkers and take collective action?</label>
+                    <label><input type="radio" name="q14" value="D"> D) Quit your job without reporting?</label>
+                </div>
+            </div>
+
+            <!-- Question 15 -->
+            <div class="question" id="question-15">
+                <div class="question-title">15. A student is cheating on an important exam. Do you:</div>
+                <div class="options">
+                    <label><input type="radio" name="q15" value="A"> A) Report them to the teacher?</label>
+                    <label><input type="radio" name="q15" value="B"> B) Ignore it since it’s their responsibility?</label>
+                    <label><input type="radio" name="q15" value="C"> C) Confront them after the exam?</label>
+                    <label><input type="radio" name="q15" value="D"> D) Help them cheat to avoid them failing?</label>
+                </div>
+            </div>
+
+            <!-- Question 16 -->
+            <div class="question" id="question-16">
+                <div class="question-title">16. Your company offers bribes to win contracts. Do you:</div>
+                <div class="options">
+                    <label><input type="radio" name="q16" value="A"> A) Report it to authorities?</label>
+                    <label><input type="radio" name="q16" value="B"> B) Quit the job silently?</label>
+                    <label><input type="radio" name="q16" value="C"> C) Participate to keep your job?</label>
+                    <label><input type="radio" name="q16" value="D"> D) Confront the leadership internally?</label>
+                </div>
+            </div>
+
+            <!-- Question 17 -->
+            <div class="question" id="question-17">
+                <div class="question-title">17. You witness a minor traffic accident, but no one else sees it. Do you:</div>
+                <div class="options">
+                    <label><input type="radio" name="q17" value="A"> A) Report it to the police?</label>
+                    <label><input type="radio" name="q17" value="B"> B) Leave the scene unnoticed?</label>
+                    <label><input type="radio" name="q17" value="C"> C) Offer assistance to the driver?</label>
+                    <label><input type="radio" name="q17" value="D"> D) Film it and post it online?</label>
+                </div>
+            </div>
+
+            <!-- Question 18 -->
+            <div class="question" id="question-18">
+                <div class="question-title">18. You suspect your doctor is making unethical decisions for profit. Do you:</div>
+                <div class="options">
+                    <label><input type="radio" name="q18" value="A"> A) Report them to medical authorities?</label>
+                    <label><input type="radio" name="q18" value="B"> B) Switch doctors without saying anything?</label>
+                    <label><input type="radio" name="q18" value="C"> C) Confront them directly?</label>
+                    <label><input type="radio" name="q18" value="D"> D) Research their decisions more thoroughly first?</label>
+                </div>
+            </div>
+
+            <!-- Question 19 -->
+            <div class="question" id="question-19">
+                <div class="question-title">19. A friend accidentally caused a fire but doesn't want to take responsibility. Do you:</div>
+                <div class="options">
+                    <label><input type="radio" name="q19" value="A"> A) Help them cover it up?</label>
+                    <label><input type="radio" name="q19" value="B"> B) Encourage them to confess?</label>
+                    <label><input type="radio" name="q19" value="C"> C) Report them yourself?</label>
+                    <label><input type="radio" name="q19" value="D"> D) Pretend you didn’t see anything?</label>
+                </div>
+            </div>
+
+            <!-- Question 20 -->
+            <div class="question" id="question-20">
+                <div class="question-title">20. You work for a charity that is mishandling donations. Do you:</div>
+                <div class="options">
+                    <label><input type="radio" name="q20" value="A"> A) Quit and stay silent?</label>
+                    <label><input type="radio" name="q20" value="B"> B) Report it to the media?</label>
+                    <label><input type="radio" name="q20" value="C"> C) Confront the leadership?</label>
+                    <label><input type="radio" name="q20" value="D"> D) Continue working to change things from within?</label>
+                </div>
+            </div>
+
+            <!-- Question 21 -->
+            <div class="question" id="question-21">
+                <div class="question-title">21. Your best friend cheated on their partner and asks you to keep it secret. Do you:</div>
+                <div class="options">
+                    <label><input type="radio" name="q21" value="A"> A) Tell their partner the truth?</label>
+                    <label><input type="radio" name="q21" value="B"> B) Keep the secret for your friend?</label>
+                    <label><input type="radio" name="q21" value="C"> C) Encourage your friend to come clean?</label>
+                    <label><input type="radio" name="q21" value="D"> D) Distance yourself from the situation?</label>
+                </div>
+            </div>
+
+            <!-- Question 22 -->
+            <div class="question" id="question-22">
+                <div class="question-title">22. You can afford to help a stranger in need but it’s inconvenient for you. Do you:</div>
+                <div class="options">
+                    <label><input type="radio" name="q22" value="A"> A) Help them despite the inconvenience?</label>
+                    <label><input type="radio" name="q22" value="B"> B) Ignore them and focus on your life?</label>
+                    <label><input type="radio" name="q22" value="C"> C) Help only if they ask directly?</label>
+                    <label><input type="radio" name="q22" value="D"> D) Tell them you can’t help this time?</label>
+                </div>
+            </div>
+
+            <!-- Question 23 -->
+            <div class="question" id="question-23">
+                <div class="question-title">23. Your coworker is struggling with mental health but refuses help. Do you:</div>
+                <div class="options">
+                    <label><input type="radio" name="q23" value="A"> A) Report it to HR for support?</label>
+                    <label><input type="radio" name="q23" value="B"> B) Talk to them privately and offer support?</label>
+                    <label><input type="radio" name="q23" value="C"> C) Ignore it since it’s their problem?</label>
+                    <label><input type="radio" name="q23" value="D"> D) Distance yourself to avoid involvement?</label>
+                </div>
+            </div>
+
+            <!-- Question 24 -->
+            <div class="question" id="question-24">
+                <div class="question-title">24. Your boss asks you to do something illegal at work. Do you:</div>
+                <div class="options">
+                    <label><input type="radio" name="q24" value="A"> A) Refuse and risk losing your job?</label>
+                    <label><input type="radio" name="q24" value="B"> B) Comply to keep your position?</label>
+                    <label><input type="radio" name="q24" value="C"> C) Report it to higher authorities?</label>
+                    <label><input type="radio" name="q24" value="D"> D) Quit without explanation?</label>
+                </div>
+            </div>
+
+            <!-- Question 25 -->
+            <div class="question" id="question-25">
+                <div class="question-title">25. You catch someone plagiarizing in school. Do you:</div>
+                <div class="options">
+                    <label><input type="radio" name="q25" value="A"> A) Report them to the teacher?</label>
+                    <label><input type="radio" name="q25" value="B"> B) Confront them privately?</label>
+                    <label><input type="radio" name="q25" value="C"> C) Let them off with a warning?</label>
+                    <label><input type="radio" name="q25" value="D"> D) Ignore it since it’s not your concern?</label>
+                </div>
+            </div>
+
+            <!-- Question 26 -->
+            <div class="question" id="question-26">
+                <div class="question-title">26. A wealthy individual donates to charity but behaves unethically in business. Do you:</div>
+                <div class="options">
+                    <label><input type="radio" name="q26" value="A"> A) Publicly call out their hypocrisy?</label>
+                    <label><input type="radio" name="q26" value="B"> B) Appreciate the donation regardless?</label>
+                    <label><input type="radio" name="q26" value="C"> C) Avoid working with them in the future?</label>
+                    <label><input type="radio" name="q26" value="D"> D) Challenge them to improve ethically?</label>
+                </div>
+            </div>
+
+            <!-- Question 27 -->
+            <div class="question" id="question-27">
+                <div class="question-title">27. You know your friend’s partner is cheating. Do you:</div>
+                <div class="options">
+                    <label><input type="radio" name="q27" value="A"> A) Tell your friend immediately?</label>
+                    <label><input type="radio" name="q27" value="B"> B) Wait for the cheater to confess?</label>
+                    <label><input type="radio" name="q27" value="C"> C) Stay out of it entirely?</label>
+                    <label><input type="radio" name="q27" value="D"> D) Confront the cheater first?</label>
+                </div>
+            </div>
+
+            <!-- Question 28 -->
+            <div class="question" id="question-28">
+                <div class="question-title">28. You can save a drowning stranger, but you can’t swim. Do you:</div>
+                <div class="options">
+                    <label><input type="radio" name="q28" value="A"> A) Try to save them despite the risk?</label>
+                    <label><input type="radio" name="q28" value="B"> B) Call for help immediately?</label>
+                    <label><input type="radio" name="q28" value="C"> C) Look for someone else to save them?</label>
+                    <label><input type="radio" name="q28" value="D"> D) Run away to avoid danger?</label>
+                </div>
+            </div>
+
+            <!-- Question 29 -->
+            <div class="question" id="question-29">
+                <div class="question-title">29. Your colleague lies to get a promotion. Do you:</div>
+                <div class="options">
+                    <label><input type="radio" name="q29" value="A"> A) Report them to your boss?</label>
+                    <label><input type="radio" name="q29" value="B"> B) Confront them about the lie?</label>
+                    <label><input type="radio" name="q29" value="C"> C) Ignore it since it’s not your business?</label>
+                    <label><input type="radio" name="q29" value="D"> D) Undermine their promotion subtly?</label>
+                </div>
+            </div>
+
+            <!-- Question 30 -->
+            <div class="question" id="question-30">
+                <div class="question-title">30. Your friend is drunk and about to drive home. Do you:</div>
+                <div class="options">
+                    <label><input type="radio" name="q30" value="A"> A) Take away their keys and call them a cab?</label>
+                    <label><input type="radio" name="q30" value="B"> B) Let them drive since they’ll be mad otherwise?</label>
+                    <label><input type="radio" name="q30" value="C"> C) Call the police to report it?</label>
+                    <label><input type="radio" name="q30" value="D"> D) Offer to drive them home yourself?</label>
+                </div>
+            </div>
+
+            <!-- Ergebnis-Element -->
+            <div id="result3"></div>
+
+            <!-- Button zum Einreichen des Quiz -->
+            <button type="button" class="btn" onclick="submitQuiz3()">Submit quiz</button>
+            <button type="button" class="btn" onclick="repeatQuiz3()">Repeat quiz</button>
+            <button type="button" class="btn" onclick="goBack3()">  ←  </button>
+            <div id="reward3" style="display: none;">
+                <a id="download-link3" href="quotesreward.pdf" download="Reward-Dokument" class="download-btn">Download reward</a>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        // Funktion, um das dritte Quiz zu starten
+        function startQuiz3() {
+            document.getElementById('start-page').style.display = 'none';
+            document.getElementById('quiz-container3').style.display = 'block';
+        }
+
+        // Funktion, um das dritte Quiz zu überprüfen und zu beenden
+        function submitQuiz3() {
+            const totalQuestions = 30; // Anzahl der Fragen auf 30 setzen
+            let score = 0;
+
+            // Antworten überprüfen
+            for (let i = 1; i <= totalQuestions; i++) {
+                const selectedAnswer = document.querySelector(`input[name="q${i}"]:checked`);
+                if (selectedAnswer && selectedAnswer.value === getCorrectAnswer3(i)) {
+                    score++;
+                }
+            }
+
+            // Ergebnis anzeigen
+            const resultElement = document.getElementById('result3');
+            if (score === totalQuestions) {
+                resultElement.textContent = "Congratulations! You answered all the questions correctly.";
+                resultElement.classList.add('correct');
+                resultElement.classList.remove('incorrect');
+                resultElement.style.display = 'block';
+
+                // Download-Link anzeigen
+                document.getElementById('reward3').style.display = 'block';
+
+                // Überprüfen, ob das Quiz bereits erfolgreich abgeschlossen wurde
+                if (!hasQuizBeenCompleted3()) {
+                    // Bonus-Streak um 10 Tage erhöhen
+                    increaseBonusStreak(10);
+                    // Setze den Status des erfolgreichen Quiz
+                    setQuizCompleted3();
+                }
+
+            } else {
+                resultElement.textContent = `Unfortunately, you answered only ${score} out of ${totalQuestions} questions correctly.`;
+                resultElement.classList.add('incorrect');
+                resultElement.classList.remove('correct');
+                resultElement.style.display = 'block';
+            }
+        }
+
+        // Funktion, um das dritte Quiz zu wiederholen
+        function repeatQuiz3() {
+            // Alle ausgewählten Antworten zurücksetzen
+            document.querySelectorAll('input[type="radio"]:checked').forEach(input => input.checked = false);
+
+            // Ergebnis zurücksetzen
+            const resultElement = document.getElementById('result3');
+            resultElement.style.display = 'none';
+
+            // Quiz-Container erneut anzeigen
+            document.getElementById('quiz-container3').style.display = 'block';
+        }
+
+        // Funktion, um zurück zur Startseite zu gehen
+        function goBack3() {
+            // Startseite anzeigen und Quiz-Container ausblenden
+            document.getElementById('start-page').style.display = 'block';
+            document.getElementById('quiz-container3').style.display = 'none';
+        }
+
+        // Funktion, um die korrekte Antwort für jede Frage des dritten Quiz zu erhalten
+        function getCorrectAnswer3(questionNumber) {
+            const correctAnswers3 = {
+                1: 'C', 2: 'B', 3: 'B', 4: 'C', 5: 'D', 6: 'A', 7: 'B', 8: 'C', 9: 'A', 10: 'B',
+                11: 'B', 12: 'B', 13: 'A', 14: 'A', 15: 'A', 16: 'A', 17: 'C', 18: 'A', 19: 'B', 20: 'C',
+                21: 'C', 22: 'A', 23: 'B', 24: 'A', 25: 'A', 26: 'D', 27: 'A', 28: 'B', 29: 'A', 30: 'A'
+            };
+            return correctAnswers3[questionNumber];
+        }
+
+        // Funktion, um zu überprüfen, ob das dritte Quiz bereits abgeschlossen wurde
+        function hasQuizBeenCompleted3() {
+            return localStorage.getItem('quizCompleted3') === 'true';
+        }
+
+        // Funktion, um den Status des abgeschlossenen dritten Quiz zu setzen
+        function setQuizCompleted3() {
+            localStorage.setItem('quizCompleted3', 'true');
+        }
+    </script>
+
+
+
+
+
+
 
 
 
