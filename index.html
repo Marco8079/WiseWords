@@ -237,13 +237,250 @@
                 <button class="btn" onclick="startQuiz3()">Dilemma-quiz
                     <img src="king.jpg" alt="Quiz 3">
                 </button>
+                <button class="philosopher-button" onclick="showWisdomMeter()">
+                    <img src="Moon.png.png" alt="Weisheitsmesser Icon">
+                    <span>Wisdom Meter</span>
+                </button>
+                
                 <hr class="separator-line">
                 <button class="app-instruction" onclick="showAppInstruction()">App-Guide</button>
                 <hr class="separator-line3">
+                <button class="button-style" id="copy-link-button" onclick="copyLink()">Share Download Link with friend’s</button>
                 <a href="https://sites.google.com/view/aboutwisewords/startseite" class="small-text">About us</a>
             </div>
         </div>
         
+
+        <!-- Input-Feld für den Download-Link -->
+        <input type="text" id="download-link" value="https://example.com/download" readonly style="display: none;">
+
+        <script>
+            // Funktion zum Kopieren des Links
+            function copyLink() {
+                const linkInput = document.getElementById('download-link');
+                linkInput.style.display = 'block'; // Zeige das Input-Feld kurz an, damit es kopiert werden kann
+                linkInput.select(); // Den Text im Input-Feld auswählen
+                document.execCommand('copy'); // Kopiere den ausgewählten Text
+                linkInput.style.display = 'none'; // Verstecke das Input-Feld wieder
+        
+                // Feedback für den Benutzer
+                alert('Download link copied!');
+            }
+        </script>
+        
+
+        <div id="full-screen-container">
+            <!-- Wisdom Meter Page -->
+            <div id="wisdom-meter-page" class="wisdom-container" style="display: none;">
+                <h1>Wisdom Meter</h1>
+
+
+
+                <button id="info-button" onclick="showInfo()">i</button>
+
+                    <!-- Info Overlay -->
+                    <div id="info-overlay" class="overlay" style="display: none;">
+                        <div class="overlay-content">
+                            <span class="close" onclick="hideInfo()">&times;</span>
+                            <h2>Wisdom Meter Explanation</h2>
+                            <p>The Wisdom Meter is a tool designed to help you assess your daily actions and decisions through a series of reflective questions. Each question focuses on key aspects of wisdom, encouraging self-discipline, empathy, and thoughtful decision-making.</p>
+                            <p>By rating your responses, you can gain insights into your wisdom level for the day. A higher score reflects more wise choices and actions. This tool aims to promote personal growth and mindfulness in your daily life.</p>
+                            <p>Scores range from 1 (lowest) to 5 (highest).</p>
+                            <p>Use the Wisdom Meter to track your progress over time and strive to improve your wisdom in various situations!</p>
+                        </div>
+                    </div>
+                <form>
+
+                    
+                    <!-- Question 1 -->
+                    <div class="wisdom-question-block">
+                        <label for="rationality">1. How did you navigate the consequences of your choices today?</label>
+                        <input type="range" id="rationality" name="rationality" min="1" max="5" value="3">
+                        <div class="wisdom-range-values">
+                            <span>1</span><span>2</span><span>3</span><span>4</span><span>5</span>
+                        </div>
+                    </div>
+    
+                    <!-- Question 2 -->
+                    <div class="wisdom-question-block">
+                        <label for="calmness">2. How did you keep your cool during today's storms?</label>
+                        <input type="range" id="calmness" name="calmness" min="1" max="5" value="3">
+                        <div class="wisdom-range-values">
+                            <span>1</span><span>2</span><span>3</span><span>4</span><span>5</span>
+                        </div>
+                    </div>
+    
+                    <!-- Question 3 -->
+                    <div class="wisdom-question-block">
+                        <label for="longterm">3. How did you strive to understand the viewpoints of others in your encounters today?</label>
+                        <input type="range" id="longterm" name="longterm" min="1" max="5" value="3">
+                        <div class="wisdom-range-values">
+                            <span>1</span><span>2</span><span>3</span><span>4</span><span>5</span>
+                        </div>
+                    </div>
+    
+                    <!-- Question 4 -->
+                    <div class="wisdom-question-block">
+                        <label for="selfreflection">4. How often did you take a moment to reflect on your thoughts and actions today?</label>
+                        <input type="range" id="selfreflection" name="selfreflection" min="1" max="5" value="3">
+                        <div class="wisdom-range-values">
+                            <span>1</span><span>2</span><span>3</span><span>4</span><span>5</span>
+                        </div>
+                    </div>
+    
+                    <!-- Question 5 -->
+                    <div class="wisdom-question-block">
+                        <label for="ethics">5. How much kindness did you sprinkle on others today?</label>
+                        <input type="range" id="ethics" name="ethics" min="1" max="5" value="3">
+                        <div class="wisdom-range-values">
+                            <span>1</span><span>2</span><span>3</span><span>4</span><span>5</span>
+                        </div>
+                    </div>
+    
+                    <!-- Question 6 -->
+                    <div class="wisdom-question-block">
+                        <label for="selfcontrol">6. How well did you adapt to unexpected changes or challenges that arose today?</label>
+                        <input type="range" id="selfcontrol" name="selfcontrol" min="1" max="5" value="3">
+                        <div class="wisdom-range-values">
+                            <span>1</span><span>2</span><span>3</span><span>4</span><span>5</span>
+                        </div>
+                    </div>
+    
+                    <!-- Question 7 -->
+                    <div class="wisdom-question-block">
+                        <label for="empathy">7. How did you chase the right path in tough choices today?</label>
+                        <input type="range" id="empathy" name="empathy" min="1" max="5" value="3">
+                        <div class="wisdom-range-values">
+                            <span>1</span><span>2</span><span>3</span><span>4</span><span>5</span>
+                        </div>
+                    </div>
+    
+                    <!-- Question 8 -->
+                    <div class="wisdom-question-block">
+                        <label for="patience">8. How eagerly did you seek new treasures of knowledge today?</label>
+                        <input type="range" id="patience" name="patience" min="1" max="5" value="3">
+                        <div class="wisdom-range-values">
+                            <span>1</span><span>2</span><span>3</span><span>4</span><span>5</span>
+                        </div>
+                    </div>
+    
+                    <!-- Question 9 -->
+                    <div class="wisdom-question-block">
+                        <label for="pragmatism">9. How did you seek meaning in your actions today?</label>
+                        <input type="range" id="pragmatism" name="pragmatism" min="1" max="5" value="3">
+                        <div class="wisdom-range-values">
+                            <span>1</span><span>2</span><span>3</span><span>4</span><span>5</span>
+                        </div>
+                    </div>
+    
+                    <!-- Question 10 -->
+                    <div class="wisdom-question-block">
+                        <label for="growth">10. How present were you in the moments you experienced today?</label>
+                        <input type="range" id="growth" name="growth" min="1" max="5" value="3">
+                        <div class="wisdom-range-values">
+                            <span>1</span><span>2</span><span>3</span><span>4</span><span>5</span>
+                        </div>
+                    </div>
+    
+                    <!-- Permanent Result Row -->
+                    <div id="permanent-result" style="color: white; margin-top: 20px; text-align: center;">
+                        Result: <span id="result-percentage">0%</span>
+                    </div>
+
+
+                    <button class="wisdom-submit-button" onclick="calculateResult(event)">
+                        Calculate Result
+                    </button>
+
+                    <!-- Back Button -->
+                    <button class="back-button" onclick="goBack()" style="margin-top: 20px;">
+                        &larr;
+                    </button>
+                </form>
+            </div>
+        </div>
+    
+        <script>
+            // Funktion zur Anzeige der Wisdom Meter-Seite
+            function showWisdomMeter() {
+                document.getElementById('start-page').style.display = 'none';
+                document.getElementById('wisdom-meter-page').style.display = 'block';
+            }
+            
+            function calculateResult(event) {
+                event.preventDefault(); // Verhindert das Standardverhalten des Buttons
+        
+                // Erstelle ein Array mit den Werten der Range-Inputs
+                const questions = [
+                    parseInt(document.getElementById('rationality').value),
+                    parseInt(document.getElementById('calmness').value),
+                    parseInt(document.getElementById('longterm').value),
+                    parseInt(document.getElementById('selfreflection').value),
+                    parseInt(document.getElementById('ethics').value),
+                    parseInt(document.getElementById('selfcontrol').value),
+                    parseInt(document.getElementById('empathy').value),
+                    parseInt(document.getElementById('patience').value),
+                    parseInt(document.getElementById('pragmatism').value),
+                    parseInt(document.getElementById('growth').value),
+                ];
+        
+                const total = questions.reduce((acc, curr) => acc + curr, 0);
+                const average = (total / questions.length); // Durchschnitt von 1-5
+        
+                // Umrechnung in Prozent (1-5 -> 20-100%)
+                const percentage = (average - 1) * 25; 
+        
+                // Ergebnis in der permanenten Ergebniszeile anzeigen
+                const resultPercentageDiv = document.getElementById('result-percentage');
+                resultPercentageDiv.innerHTML = `${percentage.toFixed(2)}%`;
+            }
+        
+            // Funktion zum Zurückkehren zur Startseite
+            function goBack() {
+                window.location.href = "index.html"; // Ändere den Pfad zur Startseite nach Bedarf
+            }
+        </script>
+        
+        <script>
+            // Funktion zur Anzeige des Info-Overlays
+            function showInfo() {
+                document.getElementById('info-overlay').style.display = 'flex';
+            }
+        
+            // Funktion zum Verstecken des Info-Overlays
+            function hideInfo() {
+                document.getElementById('info-overlay').style.display = 'none';
+            }
+        </script>
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         <!-- Quiz Container -->
         <div id="quiz-container">
             <form id="quiz-form">
