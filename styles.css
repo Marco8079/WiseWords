@@ -983,6 +983,25 @@ a.small-text:hover {
     color: #000; /* Optional: Ändere die Farbe beim Hover */
 }
 
+/* Stil für den Button */
+.button-style {
+    font-size: 1rem; /* Schriftgröße wie bei dem Link */
+    color: #525252; /* Dunkle graue Farbe für den Text */
+    background-color: transparent; /* Transparenter Hintergrund */
+    border: none; /* Keine Rahmen für den Button */
+    cursor: pointer; /* Zeiger für bessere Benutzererfahrung */
+    padding: 0; /* Kein Innenabstand */
+    margin: 0; /* Kein Abstand um den Button herum */
+    text-align: left; /* Text linksbündig ausrichten */
+    transition: color 0.3s; /* Sanfter Farbwechsel beim Hover */
+}
+
+/* Hover-Effekt für den Button */
+.button-style:hover {
+    text-decoration: underline; /* Unterstrich beim Hover */
+    color: #000; /* Optional: Ändere die Farbe beim Hover */
+}
+
 
 
 #profile-info {
@@ -1450,3 +1469,184 @@ a.small-text:hover {
     color: #f44336;
     border: 2px solid #f44336;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* Wisdom Meter specific styles */
+.wisdom-container {
+    background-color: #242424;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+    max-width: 600px;
+    margin: 20px auto; /* Added some margin to avoid edge collision */
+    height: auto; /* Ensure it takes necessary height */
+    overflow-y: auto; /* Enable scrolling inside the container if necessary */
+}
+
+#wisdom-meter-page {
+    height: 100vh; /* Make sure it takes full viewport height */
+    overflow-y: scroll; /* Enable scrolling for the page itself */
+}
+
+body {
+    overflow: hidden; /* Prevent double scrollbars by hiding body scroll */
+}
+
+/* Ensuring container doesn't break */
+.wisdom-question-block {
+    margin-bottom: 20px;
+    padding-bottom: 20px; /* Add some padding to the bottom */
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1); /* Light border for separation */
+}
+
+.wisdom-question-block:last-child {
+    border-bottom: none; /* Remove border for the last question */
+}
+
+.wisdom-question-block label {
+    font-size: 18px;
+    margin-bottom: 8px;
+    display: block;
+    color: white; /* Changed text color to white */
+}
+
+.wisdom-question-block input[type="range"] {
+    width: 100%;
+    -webkit-appearance: none; /* Remove default styling */
+    background: #555; /* Background color of the slider */
+    height: 10px; /* Height of the slider track */
+    border-radius: 5px; /* Rounded edges */
+    outline: none; /* Remove outline */
+}
+
+.wisdom-question-block input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none; /* Remove default thumb styling */
+    background: #4CAF50; /* Thumb color */
+    height: 20px; /* Height of the thumb */
+    width: 20px; /* Width of the thumb */
+    border-radius: 50%; /* Make thumb round */
+    cursor: pointer; /* Pointer cursor on hover */
+    box-shadow: 0 0 2px rgba(0, 0, 0, 0.5); /* Shadow for depth */
+}
+
+.wisdom-range-values {
+    display: flex;
+    justify-content: space-between;
+    font-size: 14px;
+    color: #ffffff; /* Changed range values color to white */
+}
+
+.wisdom-submit-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #4CAF50;
+    color: rgb(0, 0, 0);
+    border: none;
+    padding: 12px 20px;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    width: 100%;
+}
+
+.wisdom-submit-button img {
+    width: 20px;
+    height: 20px;
+    margin-right: 10px;
+}
+
+.wisdom-submit-button:hover {
+    background-color: #45a049;
+}
+
+#result {
+    font-size: 24px; /* Increase the font size for better visibility */
+    font-weight: bold; /* Make the result bold */
+    text-align: center; /* Center the text */
+    margin-bottom: 20px; /* Space below the result */
+}
+
+#permanent-result {
+    background-color: rgba(0, 0, 0, 0.8); /* Dunkler Hintergrund */
+    border-radius: 8px; /* Abgerundete Ecken */
+    padding: 15px; /* Innenabstand */
+    margin-top: 20px; /* Abstand nach oben */
+    text-align: center; /* Zentrierter Text */
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5); /* Schlagschatten für Tiefe */
+}
+
+#result-percentage {
+    font-size: 2em; /* Größere Schriftgröße für den Prozentwert */
+    color: #FFD700; /* Goldene Farbe für den Prozentwert */
+    font-weight: bold; /* Fettdruck */
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5); /* Textschatten für besseres Lesen */
+}
+
+
+#info-button {
+    padding: 10px; /* Padding */
+    font-size: 18px; /* Button font size */
+    background-color: #f44336; /* Button background color */
+    color: white; /* Button text color */
+    border: none; /* No border */
+    border-radius: 50%; /* Make the button round */
+    cursor: pointer; /* Pointer on hover */
+    margin-bottom: 15px; /* Abstand nach unten */
+    transition: background-color 0.3s; /* Sanfter Farbwechsel beim Hover */
+    width: 40px; /* Breite des Buttons */
+    height: 40px; /* Höhe des Buttons */
+    display: flex; /* Flexbox für zentrierten Inhalt */
+    justify-content: center; /* Zentriert den Inhalt horizontal */
+    align-items: center; /* Zentriert den Inhalt vertikal */
+}
+
+#info-button:hover {
+    background-color: #d32f2f; /* Dunklere Farbe beim Hover */
+}
+
+.overlay {
+    position: fixed; /* Position fixed to cover the entire screen */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8); /* Transparenter schwarzer Hintergrund */
+    display: flex;
+    justify-content: center; /* Zentriert den Inhalt horizontal */
+    align-items: center; /* Zentriert den Inhalt vertikal */
+    z-index: 1000; /* Höhere Z-Index für Overlay */
+}
+
+.overlay-content {
+    background-color: rgb(41, 41, 41); /* Dunkler Hintergrund für den Overlay-Inhalt */
+    padding: 20px; /* Innenabstand für den Inhalt */
+    border-radius: 10px; /* Abgerundete Ecken */
+    width: 80%; /* Breite des Overlays */
+    max-width: 600px; /* Maximale Breite */
+    max-height: 80%; /* Maximale Höhe für das Overlay */
+    text-align: center; /* Text zentrieren */
+    overflow-y: auto; /* Scrollbar bei Überlauf */
+}
+
+.close {
+    font-size: 30px; /* Größe des Schließen-Buttons */
+    cursor: pointer; /* Pointer auf Hover */
+    position: absolute; /* Positioniert den Schließen-Button */
+    top: 15px;
+    right: 25px; /* Abstand von der rechten Seite */
+}
+
+
