@@ -1,1473 +1,408 @@
-body {
-    font-family: 'Garamond', serif;
-    background-color: #1e1e1e; /* Dunklerer Hintergrund für besseren Kontrast */
-    color: #e0e0e0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    margin: 0;
-    padding: 20px; /* Padding für besseren Abstand */
-    overflow: auto;
+let currentAudio = null; // Variable, um die aktuelle Audiodatei zu speichern
+let audioElement = null;
+let currentTask = ''; // Variable für die aktuelle Aufgabe
+
+
+
+// Funktion zum Anzeigen des Philosophenprofils
+function showPhilosopher(philosopher) {
+    document.getElementById('start-page').style.display = 'none';
+    document.getElementById('philosopher-page').style.display = 'block';
+
+    const philosopherName = philosopher.charAt(0).toUpperCase() + philosopher.slice(1);
+    document.getElementById('philosopher-name').textContent = philosopherName;
+
+    // Setze den Steckbrief des Philosophen
+    setPhilosopherProfile(philosopher);
+
+    // Setze die Day-Buttons für den jeweiligen Philosophen
+    setupAudioButtons(philosopher);
 }
 
-.container {
-    text-align: center;
-    width: 90%; /* Erhöhte Breite für mehr Inhalt */
-    max-width: 700px; /* Größeres Maximum für mehr Flexibilität */
-    background-color: #2c2c2c; /* Leicht hellerer Hintergrund für Container */
-    border-radius: 8px;
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2); /* Stärkerer Schatten für Tiefe */
-    padding: 20px;
-    overflow: auto;
+// Funktion zum Setzen des Philosophenprofils
+function setPhilosopherProfile(philosopher) {
+    const profile = document.getElementById('philosopher-profile');
+    switch (philosopher) {
+        case 'aurelius':
+            profile.innerHTML = `
+                <h3>Profile of Marcus Aurelius</h3>
+                <ul>
+                    <li>Occupation/Role: Roman Emperor and Philosopher</li>
+                    <li>Story Style: Reflective, philosophical, and introspective</li>
+                    <li>Everyday Relevance: Demonstrates how to maintain inner peace and clarity during challenging times and make ethical decisions</li>
+                    <li>length: 3-7 minutes</li>
+                </ul>
+            `;
+            break;
+        case 'plato':
+            profile.innerHTML = `
+                <h3>Profile of Plato</h3>
+                <ul>
+                    <li>Occupation/Role: Ancient Greek Philosopher</li>
+                    <li>Story Style: Dialogues exploring philosophical ideas and theories</li>
+                    <li>Everyday Relevance: Challenges assumptions and encourages critical thinking about justice, ethics, and knowledge</li>
+                    <li>length: 3-7 minutes</li>
+                </ul>
+            `;
+            break;
+        case 'aristotle':
+            profile.innerHTML = `
+                <h3>Profile of Aristotle</h3>
+                <ul>
+                    <li>Occupation/Role: Greek Philosopher and Scientist</li>
+                    <li>Story Style: Systematic and empirical approach to philosophy and science</li>
+                    <li>Everyday Relevance: Provides insights into logic, ethics, and the natural world, promoting practical wisdom</li>
+                    <li>length: 3-6 minutes</li>
+                </ul>
+            `;
+            break;           
+        case 'nietzsche':
+            profile.innerHTML = `
+                <h3>Profile of Nietzsche</h3>
+                <ul>
+                    <li>Occupation/Role: Greek Philosopher and Scientist</li>
+                    <li>Story Style: Systematic and empirical approach to philosophy and science</li>
+                    <li>Everyday Relevance: Provides insights into logic, ethics, and the natural world, promoting practical wisdom</li>
+                    <li>length: 3-6 minutes</li>
+                </ul>
+            `;
+            break;
+    }
+}
+
+
+
+// Funktion zum Anzeigen der Anweisungsseite
+function showAppInstruction() {
+    document.getElementById('app-instruction-page').style.display = 'flex';
+}
+
+// Funktion zum Schließen der Anweisungsseite
+function closeAppInstruction() {
+    document.getElementById('app-instruction-page').style.display = 'none';
+}
+
+
+
+// Funktion zum Einrichten der Audio-Buttons für den Philosophen
+function setupAudioButtons(philosopher) {
+    const days = ['day1', 'day2', 'day3']; // Liste der Tage, die unterstützt werden
+
+
+    if (philosopher === 'aurelius') {
+        document.getElementById('day5').style.display = 'inline-block'; // Zeige Tag 5 an
+        days.push('day5'); // Füge Tag 5 zur Liste hinzu
+    }
+
+
+    days.forEach(day => {
+        const button = document.getElementById(day);
+        if (button) {
+            button.style.display = 'inline-block'; // Stelle sicher, dass der Button angezeigt wird
+            button.onclick = function() {
+                playAudio(`audio/${philosopher}-${day}.mp3`, philosopher, day.replace('day', ''));
+                recordVisitedDay(); // Speichert den Besuchstag
+            };
+        }
+    });
+
+    // Verberge den Tag 5-Button, wenn es sich nicht um Aurelius handelt
+    if (philosopher !== 'aurelius') {
+        const day5Button = document.getElementById('day5');
+        
+    }
+}
+
+function showPhilosopher(philosopher) {
+    document.getElementById('start-page').style.display = 'none';
+    document.getElementById('philosopher-page').style.display = 'block';
+
+    const philosopherName = philosopher.charAt(0).toUpperCase() + philosopher.slice(1);
+    document.getElementById('philosopher-name').textContent = philosopherName;
+
+    // Setze den Steckbrief des Philosophen
+    setPhilosopherProfile(philosopher);
+
+    // Setze die Day-Buttons für den jeweiligen Philosophen
+    setupAudioButtons(philosopher);
+}
+
+
+
+
+
+
+
+
+
+
+
+// Funktion zum Zurückkehren zur Startseite
+function showStartPage() {
+    document.getElementById('philosopher-page').style.display = 'none';
+    document.getElementById('start-page').style.display = 'block';
+
+    if (currentAudio) {
+        currentAudio.pause(); // Stoppe die Wiedergabe
+        currentAudio.currentTime = 0; // Setze den Zeitpunkt zurück
+        currentAudio = null; // Setze das aktuelle Audio-Objekt zurück
+    }
+
+    document.getElementById('audio-controls').style.display = 'none'; // Verstecke die Steuerung
+    document.getElementById('task-dialog').style.display = 'none'; // Verstecke das Aufgaben-Dialogfeld
+}
+
+// Funktion zum Abspielen von Audio
+function playAudio(audioSrc, philosopher, day) {
+    if (currentAudio) {
+        currentAudio.pause(); // Stoppe das vorherige Audio
+        currentAudio.currentTime = 0; // Setze den Zeitpunkt des vorherigen Audios zurück
+    }
+
+    currentAudio = new Audio(audioSrc);
+    currentAudio.playbackRate = 1.0; // Setze die Standardgeschwindigkeit auf 1,0x
+    audioElement = currentAudio;
+    currentAudio.play();
+
+    // Setze die Aufgabe für den aktuellen Tag
+    setTask(philosopher, day);
+
+    document.getElementById('audio-controls').style.display = 'block'; // Zeige die Steuerung an
+
+    currentAudio.addEventListener('ended', () => {
+        showTask();
+    });
+}
+
+
+// Funktion zum Setzen der Aufgabe für den aktuellen Tag
+function setTask(philosopher, day) {
+    const tasks = {
+        'aurelius': {
+            1: 'Reflect for 10 minutes on a current challenge; find clarity and inner strength.',
+            2: 'Reflect silently on a disappointment. Write your feelings, seek forgiveness, and find inner strength.',
+            3: 'Reflect on a tough decision today. List priorities, balance them, and decide with reason and compassion.',
+            4: 'Today, during conversations, consciously radiate calmness and composure. Observe how this affects your conversation partners.',
+            5: 'Think about a past betrayal. Try forgiveness and notice its effect on your peace and interactions today.',
+            6: 'Reflect on a time when patience led to success. Today, pause, observe, and trust in the steady path.',
+            7: 'Reflect on societal pressures versus inner values. Align actions with your principles for true fulfillment.',
+            8: 'Write freely today. Let your words flow without overthinking. Face challenges with clarity.',
+            9: 'Today, take a quiet moment to organize your thoughts. Strength lies in mastering your mind and finding inner calm.',
+            10: 'Reflect on your relationships. Engage deeply, listen, and support. Strengthen bonds through meaningful dialogue.',
+            11: 'Reflect on handling betrayal or threat with patience rather than impulse.',
+            12: 'When praised, stay grounded. Focus on your core purpose and maintain humility.',
+            13: 'Reflect on a recent conflict. Write down both perspectives and find a middle ground.',
+            14: 'Show kindness to someone today—offer empathy or support. Nurture the connections that bind us.',
+            15: 'Have a meaningful conversation with someone who has a different perspective. Stay open-minded and embrace the exchange of ideas.',
+            16: 'Reflect on a current decision. Question if it serves a greater good or personal gain, and seek the view from a trusted person.',
+            17: 'Reflect on a recent decision balancing strategy and ethics. Ensure future choices align with your values.',
+            18: 'Reflect on a recent interaction with someone who had a different perspective. Consider what you learned and how to apply it.',
+            19: 'Reflect on a recent urgent situation. Did a measured response improve the outcome?',
+            20: 'Reflect on a current challenge. Write down how a stoic mindset could help you manage it.',
+            21: 'Identify a current challenge. How could patience and persistence improve your approach.',
+            22: 'Find a stressful area in your life. Schedule time to rest and reflect on how it improved your well-being.',
+            23: 'Adopt a morning ritual that fosters stillness and intention to enhance your day.',
+            24: 'Apply empathy and active listening to resolve a significant disagreement today.',
+            25: 'Reflect on a current limitation or change in your life. Embrace it with acceptance and seek the lessons it offers.',
+            26: 'Reflect on a piece of art or literature that shaped your self-view. Apply its insights to your life today.',
+            27: 'Reflect on someone who has shaped your growth. How can you continue learning from them or similar influences?',
+            28: 'Reflect on a time of criticism or false accusations. How did you respond, and how can you maintain your integrity in future challenges?',
+            29: 'Reflect on how understanding mortality shapes your actions. Embrace acceptance to live purposefully.'
+            
+        },
+        'plato': {
+            1: 'Reflect on a truth-related decision. List aspects and consequences, then act wisely.',
+            2: 'Discuss a well-known topic with someone who disagrees. Listen and note new insights.',
+            3: 'Persuade someone on an issue with a solid argument. Reflect on the reactions.',
+            4: 'Reflect on your ambitions. Aligned with your purpose? If not, adjust.',
+            5: 'Reflect on challenges from uninformed decisions. How can you improve and stay true to your principles?',
+            6: 'Reflect on how loss or change shaped you. How can these experiences deepen your understanding of values and goals?',
+            7: 'Reflect on when appearances misled you. How can you seek deeper truths?',
+            8: 'Reflect on unfulfilled expectations. How can these moments guide your growth? Balance ideals with reality for transformative change.',
+            9: 'Let reflections guide you today. Seek harmony and deeper self-understanding.',
+            10: 'Reflect on a challenging situation. How did it deepen your understanding? Apply lessons from the Oracle of Delphi to grasp complex issues better.',
+            11: 'Reflect on challenges. How do they shape your values and balance ideals with reality?',
+            12: 'Reflect on mortality. How does it shape your values and actions? Let contemplation of death provide clarity and purpose, inspired by Socrates.',
+            13: 'Reflect on beliefs about the souls immortality. How do they influence your actions and purpose? Let them inspire greater virtue.',
+            14: 'Recall feeling lost. How did it affect your view of yourself and the world? See it as a growth metaphor.',
+            15: 'Reflect on a loss or setback. How did it impact your view of your work and goals?',
+            16: 'Reflect on a differing perspective. How did it challenge or enrich your understanding?',
+            17: 'Reflect on a neglected project. Why? Reevaluate its relevance and consider integrating it into your current pursuits.',
+            18: 'Reflect on a recent observation. How did it shape your perception and self-understanding?',
+            19: 'Reflect on a recent silence. How did it affect your thoughts and understanding?',
+            20: 'Reflect on a sleepless night. How can it guide your stress and emotional management?',
+            21: 'Reflect on the dishonest merchant. How can this improve your approach to trust and detecting deception?',
+            22: 'Reflect on burdensome responsibilities. How can you find meaning and reconcile dissatisfaction?',
+            23: 'Find deep meaning in trivial objects or moments. How can they inspire reflection and growth?',
+            24: 'Reflect on your “last leaf” moments. How do you handle change and endings? What lessons do you draw from them?',
+            25: 'Reflect on how fears shape your social choices. How do you balance comfort with societal expectations?',
+            26: 'Reflect on patience. How does it impact your tasks and interactions? Cultivate it to enhance both goals and the process.',
+            27: 'Reflect on Eudorus story. What hidden talents might you have? How can you uncover and express them?',
+            28: 'Identify areas needing patience. How can these challenges foster growth and self-understanding?',
+            29: 'Reflect on how death influences your actions and thoughts. Consider it a transition and find peace in lifes cyclical nature.'
+        },
+        'aristotle': {
+            1: 'Choose a decision balancing fairness and impact. Document how to reconcile these and mitigate effects.',
+            2: 'Reflect on a recent failure. List steps to emerge stronger from it.',
+            3: 'Reflect on balancing long-term goals with immediate needs. Note your approach or plan.',
+            4: 'Today, break down complex problems into manageable parts.',
+            5: 'Consider how emotions affect your decisions and interactions. Use them wisely, with empathy and ethical awareness.',
+            6: 'Safeguard your values and knowledge. Ensure they grow and are preserved for the future.',
+            7: 'Embrace the unknown. Explore and question to uncover deeper truths in challenges.',
+            8: 'Pursuing knowledge needs courage and perseverance. Embrace challenges and seek out mysteries today.',
+            9: 'Embrace diverse perspectives to enrich your understanding and connect with the world.',
+            10: 'Defend your principles and values against opposition. Safeguard your convictions.',
+            11: 'Engage with differing viewpoints and test ideas to drive progress and innovation.',
+            12: 'In debates, aim on understanding, not winning. Choose a topic, analyze arguments, and reflect on your response.',
+            13: 'Use logical reasoning and systematic inquiry for clear arguments and better decisions.',
+            14: 'Challenge beliefs to refine perspectives. Embrace critique for deeper understanding.',
+            15: 'Explore diverse problem-solving methods. Stay flexible and adapt strategies.',
+            16: 'Reflect on decision-making. Use systematic thinking for clarity and balance.',
+            17: 'Embrace difficulties as growth opportunities. Adapt and apply your principles to navigate challenges.',
+            18: 'Reflect on how relationships shape your path. Embrace connections and the lessons they offer.',
+            19: 'Engage in debates to refine your beliefs and deepen understanding.',
+            20: 'Examine your problems and projects from all angles. Consider both immediate causes and underlying purposes.',
+            21: 'Use method: clarify, break down, and seek evidence-based answers.',
+            22: 'Seek underlying principles and causes. Deep understanding reveals the true nature of things.',
+            23: 'Learn from the past, but let your own experiences guide you. Think independently to find your path.',
+            24: 'Align desires with reason and actions with the good. Cultivate virtues daily to reach eudaimonia and true happiness.',
+            25: 'Reflect on how form and matter interact to shape existence.',
+            26: 'Engage with the world to gain deeper, practical wisdom. Reflect on and seek new experiences for meaningful insights.',
+            27: 'If you make a mistake today, remember that failure is not an end but a beginning.',
+            28: 'Learn from unexpected teachers. Let their experiences broaden your understanding and shape your knowledge.',
+            29: 'Reflect on temptations and demands. Stay true to your values for lasting satisfaction.',
+            30: 'Reflect on your path. Pursue goals with passion and integrity. The journey and truths define you, not the end.',   
+        }
+    };
+
+    currentTask = tasks[philosopher][day] || 'No task available for this day.';
+}
+
+// Funktion zum Anzeigen der Aufgabe
+function showTask() {
+    const taskDialog = document.getElementById('task-dialog');
+    const taskText = taskDialog.querySelector('.task-text');
+    taskText.textContent = currentTask;
+    taskDialog.style.display = 'block'; // Zeige das Aufgaben-Dialogfeld
+}
+
+// Event Listener für die Tastensteuerung
+document.addEventListener('DOMContentLoaded', () => {
+    document.querySelector('#audio-controls button:nth-of-type(1)').addEventListener('click', () => {
+        if (audioElement) audioElement.play();
+    });
+    document.querySelector('#audio-controls button:nth-of-type(2)').addEventListener('click', () => {
+        if (audioElement) audioElement.pause();
+    });
+    document.querySelector('#audio-controls button:nth-of-type(3)').addEventListener('click', () => {
+        if (audioElement) audioElement.currentTime -= 10;
+    });
+    document.querySelector('#audio-controls button:nth-of-type(4)').addEventListener('click', () => {
+        if (audioElement) audioElement.currentTime += 10;
+    });
+
+    // Speed control buttons
+    document.querySelector('#audio-controls button[data-speed="1"]').addEventListener('click', () => {
+        if (currentAudio) currentAudio.playbackRate = 1.0;
+    });
     
-}
-
-h1, h2 {
-    font-family: 'Times New Roman', serif;
-    color: #f0f0f0;
-    margin: 10px 0;
-}
-
-h1 {
-    font-size: 2.8em;
-    margin-bottom: 25px;
-}
-
-h2 {
-    font-size: 2.2em;
-    margin-bottom: 25px;
-}
-
-
-
-
-
-
-
-
-/* Basis-CSS-Variablen für konsistente Stile */
-:root {
-    --primary-color: #e74c3c; /* Kräftiges Rot */
-    --primary-color-dark: #c0392b; /* Dunkleres Rot */
-    --white-color: #ffffff; /* Weiß für Text */
-    --focus-outline-color: rgba(231, 76, 60, 0.4); /* Fokusrahmen-Farbe */
-    --padding-large: 16px 32px; /* Größeres Padding für mehr Komfort */
-    --padding-small: 14px 24px; /* Padding für mobile Geräte */
-    --font-size-large: 1.3em; /* Angemessene Schriftgröße */
-    --font-size-small: 1.1em; /* Kleinere Schriftgröße für mobile Geräte */
-    --border-radius: 12px; /* Abgerundete Ecken */
-    --box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15); /* Tieferer Schatten für mehr Tiefe */
-    --hover-box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2); /* Intensiverer Schatten bei Hover */
-    --hover-scale: 1.05; /* Sanftere Skalierung bei Hover */
-    --image-size: 100px; /* Größere Bildgröße */
-    --button-width: 340px; /* Breite der Buttons */
-}
-
-/* Container für die Philosophenliste */
-.philosophers {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 16px; /* Größerer Abstand für eine luftige Anordnung */
-    margin-bottom: 40px; /* Genügend Platz unter dem Container */
-}
-
-/* Stil für die Philosophen-Buttons */
-.philosopher-button {
-    background-color: var(--primary-color); /* Kräftiges Rot */
-    color: var(--white-color); /* Weißer Text */
-    border: none;
-    padding: var(--padding-large); /* Komfortables Padding */
-    margin: 12px; /* Ausreichender Abstand zwischen Buttons */
-    cursor: pointer;
-    font-size: var(--font-size-large); /* Angemessene Schriftgröße */
-    font-weight: 600; /* Leicht fettgedruckter Text für besseren Kontrast */
-    border-radius: var(--border-radius); /* Abgerundete Ecken */
-    box-shadow: var(--box-shadow); /* Tieferer Schatten */
-    transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease; /* Sanfte Übergänge */
-    display: flex;
-    flex-direction: column; /* Bild und Text untereinander */
-    align-items: center; /* Zentrierte Ausrichtung */
-    justify-content: center; /* Vertikale Zentrierung */
-    gap: 12px; /* Abstand zwischen Bild und Text */
-    text-align: center; /* Zentrierter Text */
-    width: var(--button-width); /* Einheitliche Button-Breite */
-    height: auto; /* Automatische Höhe basierend auf Inhalt */
-    overflow: hidden; /* Verhindert Überlauf */
-}
-
-/* Stil für die Philosophen-Bilder */
-.philosopher-button img {
-    width: var(--image-size); /* Größere Bildbreite */
-    height: var(--image-size); /* Bildhöhe */
-    border-radius: 50%; /* Rundes Bild */
-    object-fit: cover; /* Bild passt sich dem Container an */
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15); /* Sanfterer Schatten um das Bild */
-}
-
-/* Hover-Effekte für die Philosophen-Buttons */
-.philosopher-button:hover {
-    background-color: var(--primary-color-dark); /* Dunkleres Rot bei Hover */
-    transform: scale(var(--hover-scale)); /* Sanfte Skalierung */
-    box-shadow: var(--hover-box-shadow); /* Intensiverer Schatten */
-}
-
-/* Fokuszustand für bessere Zugänglichkeit */
-.philosopher-button:focus {
-    outline: none; /* Standardrahmen entfernen */
-    box-shadow: 0 0 0 4px var(--focus-outline-color); /* Fokusrahmen mit weichem Rand */
-}
-
-/* Responsive Anpassungen */
-@media (max-width: 600px) {
-    .philosophers {
-        gap: 12px; /* Etwas weniger Abstand auf kleineren Bildschirmen */
-        margin-bottom: 30px; /* Weniger unterer Rand */
-    }
-
-    .philosopher-button {
-        padding: var(--padding-small); /* Weniger Padding auf kleinen Bildschirmen */
-        font-size: var(--font-size-small); /* Kleinere Schriftgröße auf kleinen Bildschirmen */
-        width: 100%; /* Volle Breite auf mobilen Geräten */
-    }
-
-    .philosopher-button img {
-        width: calc(var(--image-size) - 20px); /* Kleinere Bildgröße auf mobilen Geräten */
-        height: calc(var(--image-size) - 20px);
-    }
-}
-
-/* Optionale Variationen: Unterschiedliche Button-Stile */
-.philosopher-button--secondary {
-    background-color: #3498db; /* Alternative Farbe für sekundäre Buttons */
-    color: var(--white-color); /* Weißer Text */
-}
-
-.philosopher-button--secondary:hover {
-    background-color: #2980b9; /* Dunklerer Farbton bei Hover */
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-.back-button {
-    background-color: #2980b9; /* Dunklerer Blauton für besseren Kontrast */
-    color: #fff;
-    border: none;
-    padding: 12px 20px;
-    margin: 10px 0;
-    cursor: pointer;
-    font-size: 1.2em;
-    border-radius: 8px;
-    display: inline-block;
-    text-align: center;
-    transition: background-color 0.3s, transform 0.2s;
-}
-
-.back-button:hover {
-    background-color: #3498db; /* Hellerer Blauton bei Hover */
-    transform: scale(1.05); /* Vergrößerung bei Hover */
-}
-
-.content {
-    text-align: left;
-    margin-top: 5px;
-    display: flex;
-    gap: 0px;
-    flex-wrap: wrap;
-    justify-content: center;
-    margin: 5px;
-}
-
-
-
-
-
-
-
-
-/* Verbesserte Audio-Buttons mit klarem Blau */
-.audio-button {
-    background-color: #0a745e; /* Klares Blau */
-    color: #f5f5dc; /* Weißer Text für maximalen Kontrast */
-    border: none;
-    padding: 14px 24px; /* Mehr Padding für komfortablere Schaltflächen */
-    margin: 8px 0; /* Abstand zwischen den Buttons */
-    cursor: pointer;
-    font-size: 1.2em; /* Angemessene Schriftgröße */
-    font-weight: 600; /* Fettgedruckter Text für besseren Kontrast */
-    border-radius: 12px; /* Stärker abgerundete Ecken für ein modernes Design */
-    display: block;
-    width: calc(100% - 16px); /* Breite der Buttons angepasst für Container-Padding */
-    max-width: 320px; /* Maximalbreite für größere Bildschirme */
-    margin-left: auto; /* Zentrierte Positionierung */
-    margin-right: auto; /* Zentrierte Positionierung */
-    transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease; /* Sanfte Übergänge für Hintergrundfarbe, Transformation und Schatten */
-    text-align: center; /* Zentrierter Text */
-}
-
-/* Hover-Effekte für die Audio-Buttons */
-.audio-button:hover {
-    background-color: #085f4b; /* Dunkleres Blau bei Hover */
-    transform: translateY(-4px); /* Subtile Verschiebung bei Hover für einen 3D-Effekt */
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.25); /* Verstärkter Schatten bei Hover */
-}
-
-/* Aktiver Zustand für die Audio-Buttons */
-.audio-button:active {
-    background-color: #064c3a; /* Noch dunkleres Blau bei Klick für visuelles Feedback */
-    transform: translateY(-1px); /* Kleinere Verschiebung bei Klick */
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2); /* Etwas reduzierter Schatten bei Klick */
-}
-
-/* Fokuszustand für bessere Zugänglichkeit */
-.audio-button:focus {
-    outline: none; /* Entfernen des Standard-Fokusrahmens */
-    box-shadow: 0 0 0 4px rgba(10, 116, 94, 0.4); /* Sanfter Fokusrahmen */
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-#audio-controls {
-    margin-top: 1px;
-    display: flex; /* Flexbox aktivieren */
-    justify-content: center; /* Buttons horizontal zentrieren */
-    align-items: center; /* Buttons vertikal zentrieren */
-    flex-wrap: wrap; /* Zeilenumbruch ermöglichen, wenn nötig */
-    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0.5) 100%);
-    padding: 7px 18px;
-    box-shadow: 0 -6px 15px rgba(0, 0, 0, 0.6), inset 0 0 10px rgba(255, 255, 255, 0.2); /* Subtiler äußerer und innerer Schatten für Tiefe */
-    border-bottom: 2px solid rgba(255, 255, 255, 0.2); /* Deutliche Border für mehr Eleganz */
-    border-radius: 10px; /* Sanft abgerundete Ecken für ein modernes Gefühl */
-    background-blend-mode: overlay; /* Erzeugt interessante Licht- und Farbeffekte */
-}
-
-#audio-controls button {
-    background-color: #555; /* Frisches Grün für Steuerung */
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    font-size: 0.8em;
-    margin: 5px;
-    cursor: pointer;
-    border-radius: 8px;
-    transition: background-color 0.3s, transform 0.2s;
-}
-
-#audio-controls button:hover {
-    background-color: #777; /* Etwas hellerer Grünton bei Hover */
-    transform: scale(1.05); /* Vergrößerung bei Hover */
-}
-
-#audio-controls button span {
-    font-size: 0.8em; /* Größe der Symbole auf die Hälfte reduzieren */
-}
-
-
-
-
-
-
-
-
-
-
-
-
-/* Philosophen Steckbrief */
-#philosopher-profile {
-    background-color: #333; /* Dunkler Hintergrund für den Steckbrief */
-    color: #f5f5f5;
-    padding: 20px;
-    border-radius: 8px; /* Abgerundete Ecken für modernen Look */
-    margin-bottom: 25px;
-    text-align: left;
-    font-size: 1em; /* Etwas größere Schrift für bessere Lesbarkeit */
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2); /* Stärkerer Schatten für Tiefe */
-}
-
-/* Task Dialog - Vollbild */
-#task-dialog {
-    display: none;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: #1a1a1a; /* Noch dunklerer Hintergrund */
-    color: #e0e0e0;
-    padding: 40px;
-    box-sizing: border-box;
-    overflow: hidden; /* Verhindert Scrollen */
-    z-index: 1100;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-/* Container für den Inhalt der Aufgabe */
-#task-content {
-    background-color: #2a2a2a; /* Leicht kontrastierender Hintergrund */
-    padding: 30px;
-    border-radius: 10px;
-    border: 2px solid #444; /* Dezenter Rahmen */
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.8); /* Schatten für mehr Tiefe */
-    text-align: center;
-    max-width: 600px; /* Maximale Breite des Inhalts */
-    width: 100%;
-    box-sizing: border-box;
-}
-
-/* Button-Stil */
-#task-dialog button {
-    display: block;
-    margin: 30px auto 0 auto;
-    padding: 15px 30px;
-    cursor: pointer;
-    background-color: #444;
-    border: 2px solid #555; /* Rahmen, um den Button hervorzuheben */
-    color: #f5f5f5;
-    font-size: 1.2em;
-    border-radius: 8px;
-    transition: background-color 0.3s, transform 0.2s, border-color 0.3s;
-}
-
-#task-dialog button:hover {
-    background-color: #555;
-    border-color: #777; /* Rahmenfarbe bei Hover ändern */
-    transform: scale(1.05); /* Leichte Vergrößerung bei Hover */
-}
-
-
-
-
-/* Abzeichen Profil Styles */
-#user-profile {
-    padding: 20px;
-    background-color: #2c2c2c; /* Hintergrundfarbe für das Profil */
-    border-radius: 8px;
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
-    margin-top: 20px;
-    body {
-        overflow: auto; /* Ermöglicht Scrollen, falls nötig */
-    }
+    document.querySelector('#audio-controls button[data-speed="1.5"]').addEventListener('click', () => {
+        if (currentAudio) currentAudio.playbackRate = 1.5;
+    });
     
-
-
-}
-
-
-#user-profile h2 {
-    color: #f0f0f0;
-    margin-bottom: 20px;
-}
-
-#badges {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-    justify-content: center;
-}
-
-.badge {
-    background-color: #333;
-    border-radius: 8px;
-    padding: 10px;
-    text-align: center;
-    width: 150px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-}
-
-.badge img {
-    max-width: 100%;
-    border-radius: 8px;
-}
-
-.badge p {
-    color: #f0f0f0;
-    margin-top: 10px;
-    font-size: 0.9em;
-}
-
-
-
-
-
-
-
-
-
-
-
-/* CSS für das Info-Dialogfenster */
-#info-dialog {
-    display: none;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw; /* Volle Breite des Viewports */
-    height: 100vh; /* Volle Höhe des Viewports */
-    background-color: rgba(0, 0, 0, 0.9); /* Sehr dunkler Hintergrund */
-    color: #f5f5f5;
-    padding: 0;
-    box-sizing: border-box;
-    z-index: 1100; /* Höher als andere Container */
-    overflow: hidden; /* Verhindert Scrollen */
-    display: flex;
-    justify-content: center; /* Zentriert den Inhalt horizontal */
-    align-items: center; /* Zentriert den Inhalt vertikal */
-}
-
-/* Innerer Container für den eigentlichen Dialoginhalt */
-#info-dialog .dialog-content {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    max-width: 80%; /* Maximale Breite des Inhalts */
-    max-height: 80%; /* Maximale Höhe des Inhalts */
-    background-color: #333;
-    padding: 40px;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.8); /* Schatten für mehr Tiefe */
-    text-align: center;
-    overflow: auto; /* Ermöglicht Scrollen innerhalb des Inhalts, falls nötig */
-}
-
-/* Schließen-Button */
-#info-dialog .close-button {
-    position: absolute;
-    top: 20px;
-    right: 20px;
-    background-color: #555;
-    color: #fff;
-    border: none;
-    border-radius: 50%;
-    width: 30px;
-    height: 30px;
-    font-size: 18px;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3);
-    transition: background-color 0.3s, transform 0.3s, box-shadow 0.3s;
-}
-
-/* Hover-Effekt für den Schließen-Button */
-#info-dialog .close-button:hover {
-    background-color: #444;
-    transform: scale(1.1);
-    box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.3);
-}
-
-/* Aktiver Zustand für den Schließen-Button */
-#info-dialog .close-button:active {
-    background-color: #333;
-    transform: scale(0.95);
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/* CSS für das User Profile */
-#user-profile {
-    display: none;
-    position: fixed;
-    top: 10%;
-    left: 50%;
-    transform: translate(-50%, 0); /* Centered horizontally */
-    width: 80%;
-    max-width: 1000px; /* Max width for larger screens */
-    background-color: #2c2c2c; /* Profile Background Color */
-    border-radius: 8px;
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
-    padding: 20px;
-    z-index: 1000; /* Sicherstellen, dass es unter dem Info-Dialog ist */
-    overflow: auto;
-}
-
-/* Back-Button Style */
-.back-button {
-    background-color: #2980b9; /* Hintergrundfarbe der Back-Schaltfläche */
-    color: #fff; /* Textfarbe */
-    border: none;
-    padding: 12px 20px;
-    margin: 10px 0;
-    cursor: pointer;
-    font-size: 1.2em;
-    border-radius: 8px;
-    display: inline-block;
-    text-align: center;
-    transition: background-color 0.3s, transform 0.2s;
-}
-
-.back-button:hover {
-    background-color: #3498db; /* Hellerer Blauton bei Hover */
-    transform: scale(1.05); /* Vergrößerung bei Hover */
-}
-
-/* Weitere Stile für Profil-Inhalt */
-.streak {
-    color: #e0e0e0; /* Textfarbe für Streak */
-    margin-top: 20px;
-    font-weight: bold;
-    text-decoration: underline;
-}
-
-.achieved-rewards {
-    color: #e0e0e0; /* Textfarbe für Belohnungen */
-    margin-top: 20px;
-}
-
-
-#user-profile {
-    position: relative; /* relative, damit absolut positionierte Elemente im Layoutfluss bleiben */
-    padding: 20px;
-    max-width: 800px;
-    margin: 0 auto; /* zentriert den Container */
-    overflow: auto;
-    max-height: 80vh;
-}
-
-#profile-image, #profile-image-a {
-    text-align: center; /* zentriert das Bild horizontal */
-    margin: 40px 0;
-
-}
-
-#profile-image img {
-    max-width: 100%; /* Bild passt sich der Breite des Containers an */
-    height: auto; /* Verhindert Verzerrungen */
-    display: block;
-    margin: 0 auto; /* zentriert das Bild */
-}
-
-#profile-image-a img {
-    max-width: 100%; /* Setzt die maximale Breite des Bildes auf 80px */
-    height: auto; /* Verhindert Verzerrungen */
-    display: block;
-    margin: 0 auto; /* Zentriert das Bild horizontal */
-    width: 100%; /* Setzt die Breite des Bildes auf auto, um die Proportionen beizubehalten */
-    border-radius: 10px;
-}
-
-
-
-
-/* Hauptseite Styling */
-body {
-    font-family: Arial, sans-serif;
-    background-color: #1e1e1e; /* Dunkler Hintergrund */
-    color: #f5f5f5; /* Heller Text */
-    margin: 0;
-    padding: 0;
-    overflow: auto; /* Stellt sicher, dass der Body immer scrollbar ist */
-}
-
-/* Profil Container */
-#profile-container {
-    position: fixed; /* Fixiert das Profil-Fenster */
-    top: 10%;
-    left: 50%;
-    transform: translate(-50%, 0); /* Zentriert das Profil-Fenster horizontal */
-    width: 80%;
-    max-width: 800px; /* Maximale Breite des Profil-Fensters */
-    max-height: 80vh; /* Maximale Höhe als Prozentsatz des Viewports */
-    background-color: #2c2c2c; /* Hintergrundfarbe des Profil-Fensters */
-    border-radius: 8px;
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
-    padding: 20px;
-    overflow-y: auto; /* Macht das Profil-Fenster scrollbar, wenn der Inhalt zu groß ist */
-    z-index: 1000; /* Stellt sicher, dass das Profil über anderem Inhalt liegt */
-}
-
-/* Verhindert das Scrollen des Hauptkörpers, wenn das Profil-Fenster geöffnet ist */
-.modal-open {
-    overflow: auto; /* Verhindert das Scrollen des Hauptkörpers */
-}
-
-
-body {
-    min-height: 100vh;
-    display: flex;
-    font-family: "Roboto", Arial;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-}
-
-.profile-button {
-    background-color: #9b59b6; /* Lila Hintergrundfarbe */
-    color: #ffffff; /* Weißer Text */
-    border: none;
-    border-radius: 12px; /* Mehr abgerundete Ecken für ein modernes Design */
-    padding: 10px 20px; /* Angemessenes Padding für besseren Komfort */
-    cursor: pointer;
-    text-align: center;
-    position: relative;
-    font-size: 16px; /* Größere Schriftgröße für bessere Lesbarkeit */
-    font-weight: 600; /* Fettere Schrift für mehr Sichtbarkeit */
-    color: #ffffff; /* Weißer Text */
-    line-height: 1.5; /* Angenehme Zeilenhöhe */
-    width: auto; /* Automatische Breite basierend auf dem Inhalt */
-    display: inline-flex; /* Flexbox für bessere Kontrolle der Ausrichtung */
-    align-items: center; /* Vertikale Zentrierung des Inhalts */
-    justify-content: center; /* Horizontale Zentrierung des Inhalts */
-    transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease; /* Weiche Übergänge */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Leichter Schatten für Tiefe */
-}
-
-.profile-button:hover {
-    background-color: #8e44ad; /* Etwas dunkleres Lila bei Hover */
-    transform: translateY(-2px); /* Subtile Verschiebung für ein dynamisches Gefühl */
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Verstärkter Schatten bei Hover */
-}
-
-.profile-button:active {
-    background-color: #7d3c98; /* Noch dunkleres Lila bei Aktivierung */
-    transform: translateY(0); /* Kein Verschieben beim Klicken */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Reduzierter Schatten bei Aktivierung */
-}
-
-.profile-button:focus {
-    outline: none; /* Entfernen des Standard-Fokusrahmens */
-    box-shadow: 0 0 0 4px rgba(155, 89, 182, 0.4); /* Weicher Fokusrahmen für Zugänglichkeit */
-}
-
-/* Stil für das Icon im Button, falls vorhanden */
-.profile-button .icon {
-    margin-right: 8px; /* Platz zwischen Icon und Text */
-    font-size: 18px; /* Größe des Icons */
-    color: #ffffff; /* Farbe des Icons */
-}
-
-/* Zusätzlicher Stil für ein optionales Profilbild im Button */
-.profile-button .profile-image {
-    width: 24px; /* Breite des Profilbilds */
-    height: 24px; /* Höhe des Profilbilds */
-    border-radius: 50%; /* Rundes Profilbild */
-    margin-right: 8px; /* Platz zwischen Bild und Text */
-    object-fit: cover; /* Bild an den Container anpassen */
-}
-
-
-
-
-
-
-.flame {
-    font-size: 40px; /* Größe der Flamme auf 40px ändern */
-    position: relative;
-    animation: flicker 1.5s infinite ease-in-out alternate, colorChange 3s infinite linear;
-    transform-origin: center bottom;
-    color: orange;
-    text-shadow: 
-        0 0 15px rgba(255, 255, 0, 0.8),
-        0 0 25px rgba(255, 140, 0, 0.8),
-        0 0 35px rgba(255, 69, 0, 0.8),
-        0 0 50px rgba(255, 0, 0, 0.8);
-}
-
-/* Erster Funke */
-.flame::after {
-    content: '';
-    position: absolute;
-    top: -15px;
-    left: 50%;
-    width: 8px;
-    height: 8px;
-    background: yellow;
-    border-radius: 50%;
-    animation: spark1 2s infinite ease-in-out;
-    opacity: 0;
-}
-
-/* Zweiter Funke */
-.flame::before {
-    content: '';
-    position: absolute;
-    top: -20px;
-    left: 60%;
-    width: 8px;
-    height: 8px;
-    background: yellow;
-    border-radius: 50%;
-    animation: spark2 2.5s infinite ease-in-out;
-    opacity: 0;
-}
-
-/* Dritter Funke */
-.flame .spark3 {
-    position: absolute;
-    top: -10px;
-    left: 40%;
-    width: 8px;
-    height: 8px;
-    background: yellow;
-    border-radius: 50%;
-    animation: spark3 2.8s infinite ease-in-out;
-    opacity: 0;
-}
-
-/* Flackern der Flamme */
-@keyframes flicker {
-    0% {
-        transform: scale(1);
-        opacity: 1;
-    }
-    25% {
-        transform: scale(1.15);
-        opacity: 0.85;
-    }
-    50% {
-        transform: scale(1.3);
-        opacity: 0.9;
-    }
-    75% {
-        transform: scale(1.1);
-        opacity: 0.8;
-    }
-    100% {
-        transform: scale(1);
-        opacity: 1;
-    }
-}
-
-/* Farbänderung der Flamme */
-@keyframes colorChange {
-    0% {
-        color: orange;
-    }
-    25% {
-        color: yellow;
-    }
-    50% {
-        color: red;
-    }
-    75% {
-        color: orange;
-    }
-    100% {
-        color: orange;
-    }
-}
-
-
-/* Basis-Stil für Funken */
-.spark {
-    position: absolute;
-    width: 4px; /* Kleinere Größe */
-    height: 4px; /* Kleinere Größe */
-    background: yellow; /* Subtilere Farbe */
-    border-radius: 50%;
-    opacity: 0; /* Weniger sichtbar */
-}
-
-/* Animation für den ersten Funken */
-@keyframes spark1 {
-    0% {
-        transform: translate(-50%, -50%) rotate(0deg) translateX(0px) scale(0.8);
-        opacity: 0.6;
-        background: rgba(255, 255, 0, 0.6);
-    }
-    50% {
-        transform: translate(-50%, -50%) rotate(180deg) translateX(10px) scale(0.6);
-        opacity: 0.5;
-        background: rgba(255, 255, 0, 0.5);
-    }
-    100% {
-        transform: translate(-50%, -50%) rotate(360deg) translateX(20px) scale(0.4);
-        opacity: 0.4;
-        background: rgba(255, 255, 0, 0.4);
-    }
-}
-
-/* Animation für den zweiten Funken */
-@keyframes spark2 {
-    0% {
-        transform: translate(-50%, -50%) rotate(0deg) translateX(0px) scale(0.8);
-        opacity: 0.6;
-        background: rgba(255, 255, 0, 0.6);
-    }
-    50% {
-        transform: translate(-50%, -50%) rotate(150deg) translateX(12px) scale(0.7);
-        opacity: 0.5;
-        background: rgba(255, 255, 0, 0.5);
-    }
-    100% {
-        transform: translate(-50%, -50%) rotate(300deg) translateX(25px) scale(0.4);
-        opacity: 0.4;
-        background: rgba(255, 255, 0, 0.4);
-    }
-}
-
-/* Animation für den dritten Funken */
-@keyframes spark3 {
-    0% {
-        transform: translate(-50%, -50%) rotate(0deg) translateX(0px) scale(0.8);
-        opacity: 0.6;
-        background: rgba(255, 255, 0, 0.6);
-    }
-    50% {
-        transform: translate(-50%, -50%) rotate(120deg) translateX(8px) scale(0.7);
-        opacity: 0.5;
-        background: rgba(255, 255, 0, 0.5);
-    }
-    100% {
-        transform: translate(-50%, -50%) rotate(240deg) translateX(15px) scale(0.4);
-        opacity: 0.4;
-        background: rgba(255, 255, 0, 0.4);
-    }
-}
-
-/* Funken zuweisen */
-.flame::after, .flame::before, .flame .spark3 {
-    content: '';
-    position: absolute;
-    border-radius: 50%;
-    background: yellow;
-    top: 0;
-    left: 0;
-}
-
-/* Funken-Animationen hinzufügen */
-.flame::after {
-    top: -20px;
-    left: 50%;
-    animation: spark1 3s infinite linear; /* Langsamere Animation */
-}
-
-.flame::before {
-    top: -20px;
-    left: 50%;
-    animation: spark2 3.5s infinite linear; /* Langsamere Animation */
-}
-
-.flame .spark3 {
-    top: -20px;
-    left: 50%;
-    animation: spark3 4s infinite linear; /* Langsamere Animation */
-}
-
-
-/* Standardmäßig wird der "View Profile"-Button angezeigt */
-#profile-button {
-    display: block;
-}
-
-/* Wenn ein Philosoph ausgewählt wird, wird der "View Profile"-Button ausgeblendet */
-:target:not(#start-page) ~ #profile-button {
-    display: none;
-}
-
-/* Philosopher Details Section wird nur angezeigt, wenn ein Philosoph ausgewählt wird */
-.philosopher-details {
-    display: none;
-}
-
-/* Zeigt die Details des Philosophen, wenn die entsprechende Sektion ausgewählt wird */
-:target#philosopher-details {
-    display: block;
-}
-
-
-
-
-.separator-line {
-    border: none; /* Entfernt den Standardrahmen */
-    height: 2px; /* Höhe der Linie */
-    background-image: linear-gradient(to right, #e0e0e0, #aaa, #e0e0e0); /* Gradient für eleganten Look */
-    margin: 30px 0 65px 0; /* Mehr Abstand für eine luftige Optik */
-    max-width: 400px; /* Maximale Breite der Linie */
-    width: 100%; /* Passt die Breite an den Container an */
-    border-radius: 10px; /* Abgerundete Ecken für sanfte Übergänge */
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1); /* Subtiler Schatten für Tiefe */
-    margin-left: auto; /* Zentriert die Linie */
-    margin-right: auto; /* Zentriert die Linie */
-}
-
-.separator-line2 {
-    border: none; /* Entfernt den Standardrahmen */
-    height: 2px; /* Höhe der Linie */
-    background-image: linear-gradient(to right, #14c5ae, #ffffff, #128891); /* Gradient für eleganten Look */
-    margin: 30px 0 30px 0; /* Mehr Abstand für eine luftige Optik */
-    max-width: 200px; /* Maximale Breite der Linie */
-    width: 100%; /* Passt die Breite an den Container an */
-    border-radius: 10px; /* Abgerundete Ecken für sanfte Übergänge */
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1); /* Subtiler Schatten für Tiefe */
-    margin-left: auto; /* Zentriert die Linie */
-    margin-right: auto; /* Zentriert die Linie */
-}
-
-.separator-line3 {
-    border: none; /* Entfernt den Standardrahmen */
-    height: 2px; /* Höhe der Linie */
-    background-image: linear-gradient(to right, #e0e0e0, #aaa, #e0e0e0); /* Gradient für eleganten Look */
-    margin: 20px 0 5px 0; /* Mehr Abstand für eine luftige Optik */
-    max-width: 400px; /* Maximale Breite der Linie */
-    width: 100%; /* Passt die Breite an den Container an */
-    border-radius: 10px; /* Abgerundete Ecken für sanfte Übergänge */
-    box-shadow: 0 1px 3px rgba(255, 255, 255, 0.1); /* Subtiler Schatten für Tiefe */
-    margin-left: auto; /* Zentriert die Linie */
-    margin-right: auto; /* Zentriert die Linie */
-}
-
-.separator-line4 {
-    border: none; /* Entfernt den Standardrahmen */
-    height: 3px; /* Höhe der Linie */
-    background-image: linear-gradient(to right, #e0e0e0, #aaa, #e0e0e0); /* Gradient für eleganten Look */
-    margin: 7px 0 30px 0; /* Mehr Abstand für eine luftige Optik */
-    max-width: 400px; /* Maximale Breite der Linie */
-    width: 100%; /* Passt die Breite an den Container an */
-    border-radius: 10px; /* Abgerundete Ecken für sanfte Übergänge */
-    box-shadow: 0 1px 3px rgba(255, 255, 255, 0.1); /* Subtiler Schatten für Tiefe */
-    margin-left: auto; /* Zentriert die Linie */
-    margin-right: auto; /* Zentriert die Linie */
-}
-
-.separator-line5 {
-    border: none; /* Entfernt den Standardrahmen */
-    height: 2px; /* Höhe der Linie */
-    background-image: linear-gradient(to right, #e0e0e0, #aaa, #e0e0e0); /* Gradient für eleganten Look */
-    margin: 7px 0 25px 0; /* Mehr Abstand für eine luftige Optik */
-    max-width: 400px; /* Maximale Breite der Linie */
-    width: 100%; /* Passt die Breite an den Container an */
-    border-radius: 10px; /* Abgerundete Ecken für sanfte Übergänge */
-    box-shadow: 0 1px 3px rgba(255, 255, 255, 0.1); /* Subtiler Schatten für Tiefe */
-    margin-left: auto; /* Zentriert die Linie */
-    margin-right: auto; /* Zentriert die Linie */
-}
-
-/* Stil für den Link */
-a.small-text {
-    font-size: 1rem; /* Sehr kleine Schriftgröße */
-    color: #525252; /* Eine dunkle graue Farbe für den Text */
-    text-decoration: none; /* Kein Unterstrich für den Link */
-    margin: 0; /* Kein Abstand um den Text herum */
-}
-
-a.small-text:hover {
-    text-decoration: underline; /* Unterstrich bei Hover für bessere Benutzererfahrung */
-    color: #000; /* Optional: Ändere die Farbe beim Hover */
-}
-
-/* Stil für den Button */
-.button-style {
-    font-size: 1rem; /* Schriftgröße wie bei dem Link */
-    color: #525252; /* Dunkle graue Farbe für den Text */
-    background-color: transparent; /* Transparenter Hintergrund */
-    border: none; /* Keine Rahmen für den Button */
-    cursor: pointer; /* Zeiger für bessere Benutzererfahrung */
-    padding: 0; /* Kein Innenabstand */
-    margin: 0; /* Kein Abstand um den Button herum */
-    text-align: left; /* Text linksbündig ausrichten */
-    transition: color 0.3s; /* Sanfter Farbwechsel beim Hover */
-}
-
-/* Hover-Effekt für den Button */
-.button-style:hover {
-    text-decoration: underline; /* Unterstrich beim Hover */
-    color: #000; /* Optional: Ändere die Farbe beim Hover */
-}
-
-
-
-#profile-info {
-    display: flex;
-    flex-direction: column;
-    align-items: center; /* Zentriert den Inhalt horizontal */
-    justify-content: center; /* Zentriert den Inhalt vertikal */
-}
-
-#profile-info button {
-    margin-top: 10px; /* Abstand nach oben */
-    background-color: #e74c3c;
-    color: white;
-    border: none;
-    border-radius: 50%;
-    width: 40px;
-    height: 40px;
-    font-size: 18px;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
-    transition: background-color 0.3s, transform 0.3s, box-shadow 0.3s;
-}
-
-/* Hover-Effekt */
-#profile-info button:hover {
-    background-color: #c0392b;
-    transform: scale(1.1);
-    box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.3);
-}
-
-/* Aktiver Zustand */
-#profile-info button:active {
-    background-color: #aa2b1d;
-    transform: scale(0.95);
-}
-
-/* Fokus-Effekt */
-#profile-info button:focus {
-    outline: none;
-    box-shadow: 0px 0px 0px 2px rgba(218, 57, 51, 0.603);
-}
-
-
-
-
-
-/* Styling für den Button */
-.app-instruction {
-    background-color: #9b59b6; /* Lila Hintergrundfarbe */
-    color: #ffffff; /* Weißer Text */
-    border: none;
-    border-radius: 12px; /* Mehr abgerundete Ecken für ein modernes Design */
-    padding: 10px 20px; /* Angemessenes Padding für besseren Komfort */
-    cursor: pointer;
-    text-align: center;
-    position: relative;
-    font-size: 16px; /* Größere Schriftgröße für bessere Lesbarkeit */
-    font-weight: 600; /* Fettere Schrift für mehr Sichtbarkeit */
-    line-height: 1.5; /* Angenehme Zeilenhöhe */
-    width: auto; /* Automatische Breite basierend auf dem Inhalt */
-    display: inline-flex; /* Flexbox für bessere Kontrolle der Ausrichtung */
-    align-items: center; /* Vertikale Zentrierung des Inhalts */
-    justify-content: center; /* Horizontale Zentrierung des Inhalts */
-    transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease; /* Weiche Übergänge */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Leichter Schatten für Tiefe */
-    margin-top: -50px;
-}
-
-.app-instruction:hover {
-    background-color: #8e44ad; /* Etwas dunkleres Lila bei Hover */
-    transform: translateY(-2px); /* Subtile Verschiebung für ein dynamisches Gefühl */
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Verstärkter Schatten bei Hover */
-}
-
-.app-instruction:active {
-    background-color: #7d3c98; /* Noch dunkleres Lila bei Aktivierung */
-    transform: translateY(0); /* Kein Verschieben beim Klicken */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Reduzierter Schatten bei Aktivierung */
-}
-
-.app-instruction:focus {
-    outline: none; /* Entfernen des Standard-Fokusrahmens */
-    box-shadow: 0 0 0 4px rgba(155, 89, 182, 0.4); /* Weicher Fokusrahmen für Zugänglichkeit */
-}
-
-
-/* Styling für die App-Anweisungsseite */
-#app-instruction-page {
-    display: none; /* Standardmäßig verstecken */
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.8); /* Halbtransparentes Schwarz für den Hintergrund */
-    color: #f5f5f5;
-    padding: 0;
-    box-sizing: border-box;
-    z-index: 1100; /* Über anderen Elementen anzeigen */
-    overflow-y: auto; /* Ermöglicht Scrollen bei großem Inhalt */
-    overflow-x: hidden; /* Verhindert horizontales Scrollen */
-}
-
-/* Styling für den Inhalt der Anweisungsseite */
-.instruction-content {
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start; /* Startet den Inhalt oben */
-    align-items: center;
-    min-height: 300vh; /* Füllt den gesamten Bildschirm vertikal */
-    padding: 40px 20px; /* Padding oben/unten und links/rechts */
-    background-color: #333;
-    margin: 0;
-    text-align: center;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-    box-sizing: border-box; /* Berücksichtigt Padding in der Gesamtgröße */
-    font-family: 'Poppins', sans-serif; /* Runde Schriftart für die Anleitung */
-}
-
-/* Styling für den Schließen-Button */
-.instruction-content button {
-    padding: 10px 20px;
-    background-color: #555;
-    color: #f5f5f5;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 16px;
-    transition: background-color 0.3s;
-    margin-top: 20px; /* Abstand zum Text */
-}
-
-.instruction-content button:hover {
-    background-color: #777;
-}
-
-/* Versteckt ein Element */
-.hidden {
-    display: none;
-}
-
-
-
-
-
-
-
-
-
-/* Basis-CSS-Variablen für konsistente Stile */
-:root {
-    --primary-color-blue: #006994; /* Mischung aus Dunkelblau und leichtem Türkis */
-    --primary-color-dark-blue: #004d66; /* Noch dunkleres Blau bei Hover */
-    --white-color: #ffffff; /* Weiß für Text */
-    --focus-outline-color: rgba(0, 102, 153, 0.4); /* Fokusrahmen-Farbe für die Mischung */
-    --padding-large: 16px 32px; /* Größeres Padding für mehr Komfort */
-    --padding-small: 14px 24px; /* Padding für mobile Geräte */
-    --font-size-large: 1.3em; /* Angemessene Schriftgröße */
-    --font-size-small: 1.1em; /* Kleinere Schriftgröße für mobile Geräte */
-    --border-radius: 12px; /* Abgerundete Ecken */
-    --box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15); /* Tieferer Schatten für mehr Tiefe */
-    --hover-box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2); /* Intensiverer Schatten bei Hover */
-    --hover-scale: 1.05; /* Sanftere Skalierung bei Hover */
-    --button-width: 340px; /* Breite der Buttons */
-    --image-size: 120px; /* Größere Bildgröße */
-}
-
-/* Stil für den blauen Button */
-.btn {
-    background-color: var(--primary-color-blue); /* Mischung aus Dunkelblau und leichtem Türkis */
-    color: var(--white-color); /* Weißer Text */
-    border: none;
-    padding: var(--padding-large); /* Komfortables Padding */
-    margin-top: 10px; /* Abstand nach oben */
-    cursor: pointer;
-    font-size: var(--font-size-large); /* Angemessene Schriftgröße */
-    font-weight: 600; /* Leicht fettgedruckter Text für besseren Kontrast */
-    border-radius: var(--border-radius); /* Abgerundete Ecken */
-    box-shadow: var(--box-shadow); /* Tieferer Schatten */
-    transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease; /* Sanfte Übergänge */
-    display: flex;
-    flex-direction: column; /* Bild und Text untereinander */
-    align-items: center; /* Zentrierte Ausrichtung */
-    justify-content: center; /* Vertikale Zentrierung */
-    width: var(--button-width); /* Einheitliche Button-Breite */
-    height: auto; /* Automatische Höhe basierend auf Inhalt */
-    overflow: hidden; /* Verhindert Überlauf */
-    text-align: center; /* Zentrierter Text */
-}
-
-/* Hover-Effekte für den blauen Button */
-.btn:hover {
-    background-color: var(--primary-color-dark-blue); /* Noch dunkleres Blau bei Hover */
-    transform: scale(var(--hover-scale)); /* Sanfte Skalierung */
-    box-shadow: var(--hover-box-shadow); /* Intensiverer Schatten */
-}
-
-/* Fokuszustand für bessere Zugänglichkeit */
-.btn:focus {
-    outline: none; /* Standardrahmen entfernen */
-    box-shadow: 0 0 0 4px var(--focus-outline-color); /* Fokusrahmen mit weichem Rand */
-}
-
-/* Stil für die Bilder in den Buttons */
-.btn img {
-    width: var(--image-size); /* Größe des Bildes */
-    height: var(--image-size); /* Höhe des Bildes */
-    border-radius: 50%; /* Runde Form */
-    object-fit: cover; /* Bild passt sich dem Container an */
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15); /* Sanfterer Schatten um das Bild */
-    margin-bottom: 12px; /* Abstand zwischen Bild und Text */
-}
-
-/* Responsive Anpassungen */
-@media (max-width: 600px) {
-    .btn {
-        padding: var(--padding-small); /* Weniger Padding auf kleinen Bildschirmen */
-        font-size: var(--font-size-small); /* Kleinere Schriftgröße auf kleinen Bildschirmen */
-        width: 100%; /* Volle Breite auf mobilen Geräten */
-    }
-}
-
-/* Stil für den Quiz-Container */
-#quiz-container {
-    display: none; /* Standardmäßig versteckt */
-    background-color: rgb(30, 30, 30); /* Etwas helleres Dunkelgrau für besseren Kontrast */
-    padding: 40px; /* Reduzierter Abstand für kompaktere Darstellung */
-    border-radius: 10px; /* Abgerundete Ecken für ein moderneres Aussehen */
-    box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2); /* Sanfterer und größerer Schatten */
-    max-height: 80vh; /* Begrenzte Höhe des Containers */
-    overflow-y: auto; /* Ermöglicht vertikales Scrollen */
-    position: relative; /* Für die Positionierung der Buttons */
-    margin: 20px; /* Abstand von den Bildschirmrändern */
-    width: 90%;
+    document.querySelector('#audio-controls button[data-speed="1.2"]').addEventListener('click', () => {
+        if (currentAudio) currentAudio.playbackRate = 1.2;
+    });
+
+    document.querySelector('#audio-controls button[data-speed="2"]').addEventListener('click', () => {
+        if (currentAudio) currentAudio.playbackRate = 2.0;
+    });
     
+    // Event Listener für das Schließen des Aufgaben-Dialogs
+    document.querySelector('#task-dialog button').addEventListener('click', () => {
+        document.getElementById('task-dialog').style.display = 'none';
+        if (audioElement) audioElement.play();
+    });
+
+    // Streak beim Laden der Seite berechnen und anzeigen
+    updateProfile();
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// Profil-Seite Funktionen
+function showProfile() {
+    document.getElementById('start-page').style.display = 'none';
+    document.getElementById('philosopher-page').style.display = 'none';
+    document.getElementById('user-profile').style.display = 'block';
+    
+    // Profilbild und Informationen anzeigen
+    document.getElementById('profile-image-rewards').src = 'Abzeichen Route.png'; // Profilbild-URL einfügen
+    document.getElementById('streak-days').textContent = getCurrentStreak(); // Anzahl der Streak-Tage anzeigen
 }
 
-.question {
-    margin: 20px 0;
+function hideProfile() {
+    document.getElementById('user-profile').style.display = 'none';
+    document.getElementById('start-page').style.display = 'block';
 }
 
-.question-title {
-    font-weight: bold;
-    font-size: 20px; /* Größere Schriftgröße für bessere Lesbarkeit */
-    color: #f0f0f0; /* Helle Schriftfarbe für besseren Kontrast */
+// Funktion zum Speichern des Besuchstags
+function recordVisitedDay() {
+    const today = new Date().toISOString().split('T')[0]; // Format: YYYY-MM-DD
+    let visitedDays = JSON.parse(localStorage.getItem('visitedDays')) || [];
+    if (!visitedDays.includes(today)) {
+        visitedDays.push(today);
+        localStorage.setItem('visitedDays', JSON.stringify(visitedDays));
+    }
 }
 
-.options label {
-    display: block;
-    margin-bottom: 12px; /* Mehr Abstand zwischen den Optionen */
-    font-size: 16px; /* Lesbarere Schriftgröße */
-    color: #d0d0d0; /* Helle Schriftfarbe für bessere Lesbarkeit */
+// Funktion zum Abrufen der Anzahl der besuchten Tage
+function getVisitedDays() {
+    return JSON.parse(localStorage.getItem('visitedDays')) || [];
 }
 
-.options input[type="radio"] {
-    margin-right: 12px; /* Mehr Abstand zwischen Radio-Button und Label */
+// Funktion zur Berechnung des aktuellen Streaks
+function getCurrentStreak() {
+    const visitedDays = getVisitedDays();
+    if (visitedDays.length === 0) return 0;
+
+    let streak = 0;
+    let currentDate = new Date();
+
+    for (let i = visitedDays.length - 1; i >= 0; i--) {
+        const visitDate = new Date(visitedDays[i]);
+        const diffDays = Math.floor((currentDate - visitDate) / (1000 * 60 * 60 * 24));
+
+        if (diffDays > streak) break; // Streak unterbrochen
+
+        streak++;
+        currentDate = new Date(currentDate.setDate(currentDate.getDate() - 1));
+    }
+
+    return streak;
 }
 
-/* Stil für die Radio-Buttons */
-.options input[type="radio"] {
-    accent-color: var(--primary-color-blue); /* Mischung aus Dunkelblau und leichtem Türkis für den Radio-Button */
-    border-radius: 50%; /* Runde Form */
-    width: 20px; /* Größere Größe */
-    height: 20px; /* Größere Größe */
-    border: 2px solid #ccc; /* Graue Umrandung */
-    cursor: pointer; /* Pointer-Cursor */
-    transition: background-color 0.3s, border-color 0.3s; /* Sanfte Übergänge */
-}
-
-.options input[type="radio"]:checked {
-    background-color: var(--primary-color-blue); /* Hintergrundfarbe bei Auswahl */
-    border-color: var(--primary-color-blue); /* Umrandungsfarbe bei Auswahl */
-}
-
-/* Stil für das Ergebnis */
-#result {
-    display: none; /* Standardmäßig versteckt */
-    margin-top: 30px; /* Mehr Abstand zum oberen Inhalt */
-    font-size: 20px; /* Größere Schriftgröße für bessere Lesbarkeit */
-    padding: 10px;
-    border-radius: 5px;
-}
-
-#result.correct {
-    color: var(--primary-color-blue); /* Mischung aus Dunkelblau und leichtem Türkis für richtige Antworten */
-    border: 2px solid var(--primary-color-blue); /* Mischung aus Dunkelblau und leichtem Türkis Rand */
-}
-
-#result.incorrect {
-    color: #f44336; /* Rote Farbe für falsche Antworten */
-    border: 2px solid #f44336; /* Roter Rand */
-}
-
-.download-btn {
-    display: inline-block;
-    padding: 14px 28px; /* Größeres Padding für einen prominenten Button */
-    background-color: #388E3C; /* Dunkleres Grün für den Hintergrund */
-    color: white; /* Weiße Schrift */
-    font-size: 18px; /* Größere Schriftgröße */
-    font-weight: bold;
-    text-align: center;
-    text-decoration: none; /* Entfernt die Unterstreichung des Links */
-    border-radius: 12px; /* Abgerundete Ecken */
-    transition: all 0.3s ease; /* Weiche Übergänge */
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Leichter Schatten */
-    cursor: pointer;
-    margin-top: 20px; /* Abstand nach oben */
-}
-
-.download-btn:hover {
-    background-color: #2e7d32; /* Noch dunkleres Grün beim Hover */
-    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15); /* Verstärkter Schatten */
-    transform: translateY(-2px); /* Leichtes Anheben beim Hover */
-}
-
-.download-btn:active {
-    background-color: #25692b; /* Noch dunkleres Grün beim Klicken */
-    box-shadow: 0 3px 5px rgba(0, 0, 0, 0.1); /* Kleinerer Schatten */
-    transform: translateY(2px); /* Eindruck eines gedrückten Buttons */
-}
-
-.quiz-title {
-    color: #388E3C; /* Gleicher Grünton wie der Download-Button */
-    font-size: 10px; /* Optionale Anpassung der Schriftgröße */
-    font-weight: bold; /* Fettgedruckt für eine bessere Sichtbarkeit */
-}
-
-
-
-/* Stil für den Quiz-Container */
-#quiz-container2 {
-    display: none; /* Standardmäßig versteckt */
-    background-color: rgb(30, 30, 30); /* Etwas helleres Dunkelgrau für besseren Kontrast */
-    padding: 40px; /* Reduzierter Abstand für kompaktere Darstellung */
-    border-radius: 10px; /* Abgerundete Ecken für ein moderneres Aussehen */
-    box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2); /* Sanfterer und größerer Schatten */
-    max-height: 80vh; /* Begrenzte Höhe des Containers */
-    overflow-y: auto; /* Ermöglicht vertikales Scrollen */
-    position: relative; /* Für die Positionierung der Buttons */
-    margin: 20px; /* Abstand von den Bildschirmrändern */
-    width: 90%;
-}
-
-.question {
-    margin: 20px 0;
-}
-
-.question-title {
-    font-weight: bold;
-    font-size: 20px; /* Größere Schriftgröße für bessere Lesbarkeit */
-    color: #f0f0f0; /* Helle Schriftfarbe für besseren Kontrast */
-}
-
-.options label {
-    display: block;
-    margin-bottom: 12px; /* Mehr Abstand zwischen den Optionen */
-    font-size: 16px; /* Lesbarere Schriftgröße */
-    color: #d0d0d0; /* Helle Schriftfarbe für bessere Lesbarkeit */
-}
-
-.options input[type="radio"] {
-    margin-right: 12px; /* Mehr Abstand zwischen Radio-Button und Label */
-}
-
-/* Stil für die Radio-Buttons */
-.options input[type="radio"] {
-    accent-color: var(--primary-color-blue); /* Mischung aus Dunkelblau und leichtem Türkis für den Radio-Button */
-    border-radius: 50%; /* Runde Form */
-    width: 20px; /* Größere Größe */
-    height: 20px; /* Größere Größe */
-    border: 2px solid #ccc; /* Graue Umrandung */
-    cursor: pointer; /* Pointer-Cursor */
-    transition: background-color 0.3s, border-color 0.3s; /* Sanfte Übergänge */
-}
-
-.options input[type="radio"]:checked {
-    background-color: var(--primary-color-blue); /* Hintergrundfarbe bei Auswahl */
-    border-color: var(--primary-color-blue); /* Umrandungsfarbe bei Auswahl */
-}
-
-/* Stil für das Ergebnis */
-#result2 {
-    display: none; /* Standardmäßig versteckt */
-    margin-top: 30px; /* Mehr Abstand zum oberen Inhalt */
-    font-size: 20px; /* Größere Schriftgröße für bessere Lesbarkeit */
-    padding: 10px;
-    border-radius: 5px;
-}
-
-#result2.correct {
-    color: var(--primary-color-blue); /* Mischung aus Dunkelblau und leichtem Türkis für richtige Antworten */
-    border: 2px solid var(--primary-color-blue); /* Mischung aus Dunkelblau und leichtem Türkis Rand */
-}
-
-#result2.incorrect {
-    color: #f44336; /* Rote Farbe für falsche Antworten */
-    border: 2px solid #f44336; /* Roter Rand */
-}
-
-
-
-#quiz-container3 {
-    display: none;
-    background-color: rgb(30, 30, 30);
-    padding: 40px;
-    border-radius: 10px;
-    box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2);
-    max-height: 80vh;
-    overflow-y: auto;
-    position: relative;
-    margin: 20px;
-    width: 90%;
-}
-
-.question {
-    margin: 20px 0;
-}
-
-.question-title {
-    font-weight: bold;
-    font-size: 20px;
-    color: #f0f0f0;
-}
-
-.options label {
-    display: block;
-    margin-bottom: 12px;
-    font-size: 16px;
-    color: #d0d0d0;
-}
-
-.options input[type="radio"] {
-    margin-right: 12px;
-    accent-color: var(--primary-color-blue);
-    border-radius: 50%;
-    width: 20px;
-    height: 20px;
-    border: 2px solid #ccc;
-    cursor: pointer;
-    transition: background-color 0.3s, border-color 0.3s;
-}
-
-.options input[type="radio"]:checked {
-    background-color: var(--primary-color-blue);
-    border-color: var(--primary-color-blue);
-}
-
-#result3 {
-    display: none;
-    margin-top: 30px;
-    font-size: 20px;
-    padding: 10px;
-    border-radius: 5px;
-}
-
-#result3.correct {
-    color: var(--primary-color-blue);
-    border: 2px solid var(--primary-color-blue);
-}
-
-#result3.incorrect {
-    color: #f44336;
-    border: 2px solid #f44336;
+// Profil aktualisieren
+function updateProfile() {
+    const streak = getCurrentStreak();
+    document.getElementById('streak-days').textContent = streak;
 }
 
 
@@ -1482,171 +417,7 @@ a.small-text:hover {
 
 
 
-/* Wisdom Meter specific styles */
-.wisdom-container {
-    background-color: #242424;
-    padding: 30px;
-    border-radius: 15px;
-    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
-    max-width: 600px;
-    margin: 20px auto; /* Added some margin to avoid edge collision */
-    height: auto; /* Ensure it takes necessary height */
-    overflow-y: auto; /* Enable scrolling inside the container if necessary */
-}
-
-#wisdom-meter-page {
-    height: 100vh; /* Make sure it takes full viewport height */
-    overflow-y: scroll; /* Enable scrolling for the page itself */
-}
-
-body {
-    overflow: hidden; /* Prevent double scrollbars by hiding body scroll */
-}
-
-/* Ensuring container doesn't break */
-.wisdom-question-block {
-    margin-bottom: 20px;
-    padding-bottom: 20px; /* Add some padding to the bottom */
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1); /* Light border for separation */
-}
-
-.wisdom-question-block:last-child {
-    border-bottom: none; /* Remove border for the last question */
-}
-
-.wisdom-question-block label {
-    font-size: 18px;
-    margin-bottom: 8px;
-    display: block;
-    color: white; /* Changed text color to white */
-}
-
-.wisdom-question-block input[type="range"] {
-    width: 100%;
-    -webkit-appearance: none; /* Remove default styling */
-    background: #555; /* Background color of the slider */
-    height: 10px; /* Height of the slider track */
-    border-radius: 5px; /* Rounded edges */
-    outline: none; /* Remove outline */
-}
-
-.wisdom-question-block input[type="range"]::-webkit-slider-thumb {
-    -webkit-appearance: none; /* Remove default thumb styling */
-    background: #4CAF50; /* Thumb color */
-    height: 20px; /* Height of the thumb */
-    width: 20px; /* Width of the thumb */
-    border-radius: 50%; /* Make thumb round */
-    cursor: pointer; /* Pointer cursor on hover */
-    box-shadow: 0 0 2px rgba(0, 0, 0, 0.5); /* Shadow for depth */
-}
-
-.wisdom-range-values {
-    display: flex;
-    justify-content: space-between;
-    font-size: 14px;
-    color: #ffffff; /* Changed range values color to white */
-}
-
-.wisdom-submit-button {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background-color: #4CAF50;
-    color: rgb(0, 0, 0);
-    border: none;
-    padding: 12px 20px;
-    border-radius: 5px;
-    font-size: 16px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-    width: 100%;
-}
-
-.wisdom-submit-button img {
-    width: 20px;
-    height: 20px;
-    margin-right: 10px;
-}
-
-.wisdom-submit-button:hover {
-    background-color: #45a049;
-}
-
-#result {
-    font-size: 24px; /* Increase the font size for better visibility */
-    font-weight: bold; /* Make the result bold */
-    text-align: center; /* Center the text */
-    margin-bottom: 20px; /* Space below the result */
-}
-
-#permanent-result {
-    background-color: rgba(0, 0, 0, 0.8); /* Dunkler Hintergrund */
-    border-radius: 8px; /* Abgerundete Ecken */
-    padding: 15px; /* Innenabstand */
-    margin-top: 20px; /* Abstand nach oben */
-    text-align: center; /* Zentrierter Text */
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5); /* Schlagschatten für Tiefe */
-}
-
-#result-percentage {
-    font-size: 2em; /* Größere Schriftgröße für den Prozentwert */
-    color: #FFD700; /* Goldene Farbe für den Prozentwert */
-    font-weight: bold; /* Fettdruck */
-    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5); /* Textschatten für besseres Lesen */
-}
 
 
-#info-button {
-    padding: 10px; /* Padding */
-    font-size: 18px; /* Button font size */
-    background-color: #f44336; /* Button background color */
-    color: white; /* Button text color */
-    border: none; /* No border */
-    border-radius: 50%; /* Make the button round */
-    cursor: pointer; /* Pointer on hover */
-    margin-bottom: 15px; /* Abstand nach unten */
-    transition: background-color 0.3s; /* Sanfter Farbwechsel beim Hover */
-    width: 40px; /* Breite des Buttons */
-    height: 40px; /* Höhe des Buttons */
-    display: flex; /* Flexbox für zentrierten Inhalt */
-    justify-content: center; /* Zentriert den Inhalt horizontal */
-    align-items: center; /* Zentriert den Inhalt vertikal */
-}
-
-#info-button:hover {
-    background-color: #d32f2f; /* Dunklere Farbe beim Hover */
-}
-
-.overlay {
-    position: fixed; /* Position fixed to cover the entire screen */
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.8); /* Transparenter schwarzer Hintergrund */
-    display: flex;
-    justify-content: center; /* Zentriert den Inhalt horizontal */
-    align-items: center; /* Zentriert den Inhalt vertikal */
-    z-index: 1000; /* Höhere Z-Index für Overlay */
-}
-
-.overlay-content {
-    background-color: rgb(41, 41, 41); /* Dunkler Hintergrund für den Overlay-Inhalt */
-    padding: 20px; /* Innenabstand für den Inhalt */
-    border-radius: 10px; /* Abgerundete Ecken */
-    width: 80%; /* Breite des Overlays */
-    max-width: 600px; /* Maximale Breite */
-    max-height: 80%; /* Maximale Höhe für das Overlay */
-    text-align: center; /* Text zentrieren */
-    overflow-y: auto; /* Scrollbar bei Überlauf */
-}
-
-.close {
-    font-size: 30px; /* Größe des Schließen-Buttons */
-    cursor: pointer; /* Pointer auf Hover */
-    position: absolute; /* Positioniert den Schließen-Button */
-    top: 15px;
-    right: 25px; /* Abstand von der rechten Seite */
-}
 
 
