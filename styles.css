@@ -56,7 +56,7 @@ h2 {
     --padding-small: 14px 24px; /* Padding für mobile Geräte */
     --font-size-large: 1.3em; /* Angemessene Schriftgröße */
     --font-size-small: 1.1em; /* Kleinere Schriftgröße für mobile Geräte */
-    --border-radius: 12px; /* Abgerundete Ecken */
+    --border-radius: 20px; /* Abgerundete Ecken */
     --box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15); /* Tieferer Schatten für mehr Tiefe */
     --hover-box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2); /* Intensiverer Schatten bei Hover */
     --hover-scale: 1.05; /* Sanftere Skalierung bei Hover */
@@ -69,13 +69,16 @@ h2 {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 16px; /* Größerer Abstand für eine luftige Anordnung */
+    gap: 13px; /* Größerer Abstand für eine luftige Anordnung */
     margin-bottom: 40px; /* Genügend Platz unter dem Container */
 }
 
 /* Stil für die Philosophen-Buttons */
 .philosopher-button {
-    background-color: var(--primary-color); /* Kräftiges Rot */
+    background: linear-gradient(45deg, rgba(231, 76, 60, 1), rgba(231, 76, 60, 0.95), rgba(192, 57, 43, 1), rgba(192, 57, 43, 0.9)); /* Minimale Farbänderung mit intensiven Wellen */
+
+
+    background-size: 400% 400%; /* Größe für die Animation */
     color: var(--white-color); /* Weißer Text */
     border: none;
     padding: var(--padding-large); /* Komfortables Padding */
@@ -85,7 +88,7 @@ h2 {
     font-weight: 600; /* Leicht fettgedruckter Text für besseren Kontrast */
     border-radius: var(--border-radius); /* Abgerundete Ecken */
     box-shadow: var(--box-shadow); /* Tieferer Schatten */
-    transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease; /* Sanfte Übergänge */
+    transition: transform 0.2s ease; /* Sanfte Übergänge für Transformation */
     display: flex;
     flex-direction: column; /* Bild und Text untereinander */
     align-items: center; /* Zentrierte Ausrichtung */
@@ -95,6 +98,26 @@ h2 {
     width: var(--button-width); /* Einheitliche Button-Breite */
     height: auto; /* Automatische Höhe basierend auf Inhalt */
     overflow: hidden; /* Verhindert Überlauf */
+    animation: waveColors 11s ease-in-out infinite; /* Wellenanimation */
+}
+
+/* Wellenförmige Farbänderung */
+@keyframes waveColors {
+    0% {
+        background-position: 0% 50%; /* Startposition */
+    }
+    25% {
+        background-position: 50% 50%; /* Zwischenposition für Wellenbewegung */
+    }
+    50% {
+        background-position: 100% 50%; /* Mittelposition */
+    }
+    75% {
+        background-position: 50% 50%; /* Rückkehr zur Zwischenposition */
+    }
+    100% {
+        background-position: 0% 50%; /* Endposition zurücksetzen */
+    }
 }
 
 /* Stil für die Philosophen-Bilder */
@@ -106,16 +129,16 @@ h2 {
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15); /* Sanfterer Schatten um das Bild */
 }
 
-/* Hover-Effekte für die Philosophen-Buttons */
-.philosopher-button:hover {
-    background-color: var(--primary-color-dark); /* Dunkleres Rot bei Hover */
+/* Hover- und Fokus-Effekte, die die Farben nicht ändern */
+.philosopher-button:hover,
+.philosopher-button:focus {
     transform: scale(var(--hover-scale)); /* Sanfte Skalierung */
     box-shadow: var(--hover-box-shadow); /* Intensiverer Schatten */
+    outline: none; /* Fokusrahmen entfernen */
 }
 
 /* Fokuszustand für bessere Zugänglichkeit */
 .philosopher-button:focus {
-    outline: none; /* Standardrahmen entfernen */
     box-shadow: 0 0 0 4px var(--focus-outline-color); /* Fokusrahmen mit weichem Rand */
 }
 
@@ -138,6 +161,13 @@ h2 {
     }
 }
 
+
+
+
+
+
+
+
 /* Optionale Variationen: Unterschiedliche Button-Stile */
 .philosopher-button--secondary {
     background-color: #3498db; /* Alternative Farbe für sekundäre Buttons */
@@ -147,6 +177,64 @@ h2 {
 .philosopher-button--secondary:hover {
     background-color: #2980b9; /* Dunklerer Farbton bei Hover */
 }
+
+
+
+
+
+
+
+
+/* Tertiärer Button-Stil */
+.philosopher-button--tertiary {
+    background: linear-gradient(45deg, rgba(30, 30, 30, 0.8), rgba(0, 0, 0, 0.8), rgba(30, 30, 30, 0.8), rgba(0, 0, 0, 0.8)); /* Dunklerer Farbverlauf */
+    background-size: 400% 400%; /* Größe für die Animation */
+    color: var(--white-color); /* Weißer Text */
+    transition: color 0.3s ease, transform 0.3s ease; /* Übergang für Text und Transformation */
+    animation: waveColors 11s ease-in-out infinite; /* Wellenanimation mit geschmeidigerer Bewegung */
+    padding: 10px 20px; /* Innenabstand für den Button */
+    border: none; /* Keine Rahmen */
+    border-radius: var(--border-radius); /* Abgerundete Ecken */
+    cursor: pointer; /* Hand-Cursor */
+    margin: 13px; /* Abstand um den Button */
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15); /* Tieferer Schatten */
+    gap: 16px; /* Abstand zwischen den Inhalten */
+}
+
+/* Wellenförmige Farbänderung */
+@keyframes waveColors {
+    0% {
+        background-position: 0% 50%; /* Startposition */
+    }
+    25% {
+        background-position: 50% 50%; /* Zwischenposition für Wellenbewegung */
+    }
+    50% {
+        background-position: 100% 50%; /* Mittelposition */
+    }
+    75% {
+        background-position: 50% 50%; /* Rückkehr zur Zwischenposition */
+    }
+    100% {
+        background-position: 0% 50%; /* Endposition zurücksetzen */
+    }
+}
+
+/* Hover-Effekt */
+.philosopher-button--tertiary:hover {
+    background-color: rgba(20, 20, 20, 0.9); /* Noch dunklerer Farbton bei Hover */
+    color: #fff; /* Farbe des Textes bleibt gleich beim Hover */
+    transform: scale(1.05); /* Vergrößerung des Buttons um 5% */
+}
+
+
+
+
+
+
+
+
+
 
 
 
@@ -1124,6 +1212,7 @@ a.small-text:hover {
     font-family: 'Poppins', sans-serif; /* Runde Schriftart für die Anleitung */
 }
 
+
 /* Styling für den Schließen-Button */
 .instruction-content button {
     padding: 10px 20px;
@@ -1164,27 +1253,29 @@ a.small-text:hover {
     --padding-small: 14px 24px; /* Padding für mobile Geräte */
     --font-size-large: 1.3em; /* Angemessene Schriftgröße */
     --font-size-small: 1.1em; /* Kleinere Schriftgröße für mobile Geräte */
-    --border-radius: 12px; /* Abgerundete Ecken */
+    --border-radius: 20px; /* Abgerundete Ecken */
     --box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15); /* Tieferer Schatten für mehr Tiefe */
     --hover-box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2); /* Intensiverer Schatten bei Hover */
     --hover-scale: 1.05; /* Sanftere Skalierung bei Hover */
     --button-width: 340px; /* Breite der Buttons */
-    --image-size: 120px; /* Größere Bildgröße */
+    --image-size: 120px; /* Größere Bildgröße für das Hauptbild */
 }
 
-/* Stil für den blauen Button */
+/* Stil für den blauen Button mit Wellen */
 .btn {
-    background-color: var(--primary-color-blue); /* Mischung aus Dunkelblau und leichtem Türkis */
+    background: linear-gradient(45deg, rgba(0, 105, 148, 0.6), rgba(0, 155, 182, 0.6), rgba(0, 105, 148, 0.6), rgba(0, 155, 182, 0.6)); /* Farbverlauf mit zwei Farben für mehr Tiefe */
+    background-size: 400% 400%; /* Größe für die Animation */
     color: var(--white-color); /* Weißer Text */
     border: none;
     padding: var(--padding-large); /* Komfortables Padding */
-    margin-top: 10px; /* Abstand nach oben */
+    margin-top: 13px; /* Abstand nach oben */
     cursor: pointer;
     font-size: var(--font-size-large); /* Angemessene Schriftgröße */
     font-weight: 600; /* Leicht fettgedruckter Text für besseren Kontrast */
     border-radius: var(--border-radius); /* Abgerundete Ecken */
     box-shadow: var(--box-shadow); /* Tieferer Schatten */
-    transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease; /* Sanfte Übergänge */
+    transition: color 0.3s ease, transform 0.3s ease; /* Übergang für Text und Transformation */
+    animation: waveColors 11s ease-in-out infinite; /* Wellenanimation mit schnellerer Bewegung */
     display: flex;
     flex-direction: column; /* Bild und Text untereinander */
     align-items: center; /* Zentrierte Ausrichtung */
@@ -1192,7 +1283,28 @@ a.small-text:hover {
     width: var(--button-width); /* Einheitliche Button-Breite */
     height: auto; /* Automatische Höhe basierend auf Inhalt */
     overflow: hidden; /* Verhindert Überlauf */
+    position: relative; /* Ermöglicht absolute Positionierung der Bilder */
     text-align: center; /* Zentrierter Text */
+    margin-bottom: 10px;
+}
+
+/* Wellenförmige Farbänderung */
+@keyframes waveColors {
+    0% {
+        background-position: 0% 50%; /* Startposition */
+    }
+    25% {
+        background-position: 50% 50%; /* Zwischenposition für Wellenbewegung */
+    }
+    50% {
+        background-position: 100% 50%; /* Mittelposition */
+    }
+    75% {
+        background-position: 50% 50%; /* Rückkehr zur Zwischenposition */
+    }
+    100% {
+        background-position: 0% 50%; /* Endposition zurücksetzen */
+    }
 }
 
 /* Hover-Effekte für den blauen Button */
@@ -1208,15 +1320,115 @@ a.small-text:hover {
     box-shadow: 0 0 0 4px var(--focus-outline-color); /* Fokusrahmen mit weichem Rand */
 }
 
-/* Stil für die Bilder in den Buttons */
-.btn img {
-    width: var(--image-size); /* Größe des Bildes */
-    height: var(--image-size); /* Höhe des Bildes */
+/* Hover-Effekt */
+.btn:hover {
+    color: #fff; /* Farbe des Textes bleibt gleich beim Hover */
+    transform: scale(1.05); /* Vergrößerung des Buttons um 5% */
+}
+
+/* Fügen Sie einen weiteren Hover-Effekt hinzu, um die Wellenbewegung während des Hover zu verstärken */
+.btn:hover {
+    animation: none; /* Animation während des Hover stoppen */
+    background: var(--primary-color-dark-blue); /* Dunkleres Blau beim Hover */
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* Stil für das erste Bild im Button */
+.btn img:first-of-type {
+    width: var(--image-size); /* Größe des Hauptbildes */
+    height: var(--image-size); /* Höhe des Hauptbildes */
     border-radius: 50%; /* Runde Form */
     object-fit: cover; /* Bild passt sich dem Container an */
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15); /* Sanfterer Schatten um das Bild */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15); /* Sanfterer Schatten um das Hauptbild */
     margin-bottom: 12px; /* Abstand zwischen Bild und Text */
 }
+
+/* Stil für das Belohnungsbild in der oberen linken Ecke des Buttons */
+.btn img:last-of-type {
+    position: absolute; /* Ermöglicht die Positionierung innerhalb des Buttons */
+    top: 15px; /* Abstand von der oberen Kante des Buttons */
+    left: 15px; /* Abstand von der linken Kante des Buttons */
+    width: 30px; /* Kleinere Größe für das Belohnungsbild */
+    height: 30px; /* Gleiche Höhe für runde Form */
+    border-radius: 25%; /* Runde Form */
+    object-fit: cover; /* Bild passt sich dem Container an */
+   
+    animation: shimmer 1.5s infinite; /* Hochwertige Schimmer-Animation */
+}
+
+@keyframes goldShimmer {
+    0% {
+        transform: scale(1);
+        opacity: 1;
+        
+    }
+    50% {
+        transform: scale(1.12);
+        opacity: 0.9;
+        
+    }
+    100% {
+        transform: scale(1);
+        opacity: 1;
+        
+    }
+}
+
+/* Stil für das Belohnungsbild */
+.btn img:last-of-type {
+    animation: goldShimmer 2s infinite; /* Längere Animation für luxuriösen Effekt */
+}
+
+.reward-container {
+    position: relative; /* Positionierung des Containers, um den Tooltip relativ zum Bild zu platzieren */
+}
+
+.reward-image {
+    position: absolute;
+    top: 15px; /* Abstand von der oberen Kante */
+    left: 15px; /* Abstand von der linken Kante */
+    width: 30px; /* Kleinere Größe für das Belohnungsbild */
+    height: 30px; /* Gleiche Höhe für runde Form */
+    border-radius: 25%; /* Runde Form */
+    object-fit: cover; /* Bild passt sich dem Container an */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.000001); /* Leichter Schatten */
+}
+
+/* Tooltip-Stil */
+.tooltip {
+    visibility: hidden; /* Standardmäßig versteckt */
+    position: absolute; /* Absolut relativ zum .reward-container */
+    background-color: rgba(39, 39, 39, 0.774); /* Dunkler Hintergrund für den Tooltip */
+    color: #fff; /* Weiße Schriftfarbe */
+    text-align: center; /* Text zentriert */
+    border-radius: 5px; /* Leicht abgerundete Ecken */
+    padding: 5px 10px; /* Innenabstand */
+    top: 45px; /* Direkt unter dem Bild positioniert */
+    left: 14px; /* Links ausrichten unter dem Bild */
+    white-space: nowrap; /* Verhindert Zeilenumbruch */
+    opacity: 0; /* Unsichtbar standardmäßig */
+    transition: opacity 0.3s ease-in-out; /* Sanfter Übergang */
+    font-size: 0.6em; /* Kleinere Schriftgröße */
+}
+
+
+/* Sichtbar, wenn über das Belohnungsbild gehobene wird */
+.reward-image:hover + .tooltip {
+    visibility: visible; /* Sichtbar machen */
+    opacity: 1; /* Vollständig sichtbar */
+}
+
 
 /* Responsive Anpassungen */
 @media (max-width: 600px) {
@@ -1226,6 +1438,18 @@ a.small-text:hover {
         width: 100%; /* Volle Breite auf mobilen Geräten */
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
 
 /* Stil für den Quiz-Container */
 #quiz-container {
