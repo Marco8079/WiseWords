@@ -1877,29 +1877,99 @@
     <div id="app-instruction-page" class="hidden">
         <div class="instruction-content">
             <h1>Welcome to WiseWords!</h1>
-            <p>Here’s a simple guide to help you get started:</p>
+            <p>This might help you:</p>
             <hr class="separator-line4">
-            <h2>1. Explore Historical Figures</h2>
-            <p>On the home page, select a historical figure such as Marcus Aurelius. You will find their stories and lessons available for listening.</p>
-            <hr class="separator-line5">
-            <h2>2. Listen to Stories Daily</h2>
-            <p>Each day, listen to one of the 29 stories from the chosen figure. This will provide daily insights and lessons.</p>
-            <hr class="separator-line5">
-            <h2>3. Track Your Progress</h2>
-            <p>Check your profile to view your streak and milestones. This shows how many days in a row you’ve listened to the stories.</p>
-            <hr class="separator-line5">
-            <h2>4. Earn Rewards</h2>
-            <p>As you build your streak, you will unlock rewards. These rewards reflect your dedication and progress.</p>
-            <hr class="separator-line5">
-            <h2>5. Personal Growth</h2>
-            <p>By engaging with daily stories, you’ll reflect on your values and improve your character. The wisdom from historical figures will guide you in defining and refining your own values. Unconsciously, too, by the way.</p>
+            
+            
+            
+
+            <div class="qa-block">
+                <h3 class="qa-question">Question 1: How can I share the app with my <b>friends</b>?</h3>
+                <div class="qa-answer-container">
+                    <p class="qa-answer">Scroll to the bottom of the home page and click on "<b>Share download link with friends</b>". The link is now copied and can be sent via the platform of your choice, such as <b>WhatsApp</b>, <b>Facebook</b>, <b>Signal</b>, etc. (More informations about sharing the App via <b>About us</b>).</p>
+                </div>
+            </div>
+            
+            <div class="qa-block">
+                <h3 class="qa-question">Question 2: How can I get <b>rewarded</b>?</h3>
+                <div class="qa-answer-container">
+                    <p class="qa-answer">
+                        <b>A)</b> By listening to a story every day, the <b>Streak</b> increases (more about the Streak on your profile page), which brings you closer to the preplanned <b>rewards</b>.
+                    </p>
+                    <p class="qa-answer">
+                        <b>B)</b> By solving <b>quizzes</b>.
+                    </p>
+                </div>
+            </div>
+            
+            <div class="qa-block">
+                <h3 class="qa-question">Question 3: Will there be <b>updates</b> in the future?</h3>
+                <div class="qa-answer-container">
+                    <p class="qa-answer">Yes, we want to improve the app effectively. Future updates will include more and better <b>stories</b>, more <b>quizzes</b>, and a few more features (which are all part of the price).</p>
+                </div>
+            </div>
+            
+            <div class="qa-block">
+                <h3 class="qa-question">Question 4: How often should I listen to <b>daily stories</b>?</h3>
+                <div class="qa-answer-container">
+                    <p class="qa-answer">We recommend listening to <b>one a day</b>.</p>
+                </div>
+            </div>
+            
+            <div class="qa-block">
+                <h3 class="qa-question">Question 5: Where do the <b>stories</b> and <b>lessons</b> come from?</h3>
+                <div class="qa-answer-container">
+                    <p class="qa-answer">The stories and lessons are based on historical sources and classic texts that preserve the knowledge of important figures in history. We have carefully selected and edited the content to provide you with practical insights and inspiration for your everyday life.</p>
+                </div>
+            </div>
+
+            <div class="qa-block">
+                <h3 class="qa-question">Question 6: How can I make sure to never lose access to the app?</h3>
+                <div class="qa-answer-container">
+                    <p class="qa-answer">
+                        By copying and saving this link on a different device or paper: 
+                        https://marco8079.github.io/WiseWords/. 
+                        <span class="red-text">WARNING:</span> 
+                        Please be advised that this link is for your exclusive use. Sharing it with others will result in legal consequences for both you and the recipient, as our algorithms will detect unauthorised users. Thank you.
+                    </p>
+                </div>
+            </div>
+            
+            <div class="qa-block">
+                <h3 class="qa-question">Question 7: What is the app's <b>aim</b>?</h3>
+                <div class="qa-answer-container">
+                    <p class="qa-answer">The objective of the application is to provide users with guidance and inspiration in their lives through the use of <b>narratives</b>, <b>teachings</b>, and <b>quizzes</b> that are based on historical evidence, as this is a direction that is often lacking in clarity for many individuals.</p>
+                </div>
+            </div>
+            
             <button onclick="closeAppInstruction()">Close</button>
         </div>
+        
     </div>
     
     
 
+    <script>
+        // Event Listener für alle Fragen (qa-question) setzen
+        document.querySelectorAll('.qa-question').forEach((question) => {
+            question.addEventListener('click', function() {
+                const answerContainer = this.nextElementSibling; // Nächstes Element nach der Frage ist der Antwort-Container
 
+                // Überprüfen, ob der Container bereits eine maxHeight hat
+                if (answerContainer.style.maxHeight) {
+                    answerContainer.style.maxHeight = null; // Wenn er bereits offen ist, schließen
+                } else {
+                    // Alle anderen Antwort-Container schließen, um nur eine Antwort gleichzeitig offen zu halten
+                    document.querySelectorAll('.qa-answer-container').forEach((container) => {
+                        container.style.maxHeight = null;
+                    });
+                    // Den aktuellen Antwort-Container öffnen
+                    answerContainer.style.maxHeight = answerContainer.scrollHeight + 'px';
+                }
+            });
+        });
+
+    </script>
     
 
     
@@ -2067,8 +2137,29 @@
             <img src="Rewards.png" alt="Profile Image">
         </div>
 
+
+        
+
+
+        
+
+
     
     </div>
+
+
+
+    
+    
+    
+
+
+
+
+
+
+
+
 
     <!-- Information Dialog -->
     <div id="info-dialog">
