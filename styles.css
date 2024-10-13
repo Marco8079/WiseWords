@@ -1877,26 +1877,36 @@ body {
 
 
 
-
 /* Einzelner Q&A-Block */
 .qa-block {
     margin-bottom: 20px;
     border-bottom: 1px solid #ddd;
     padding-bottom: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Zentriert den Inhalt des Blocks */
+    width: 100%; /* Passt den Block an die Breite des Geräts an */
+    max-width: 800px; /* Optional: maximale Breite für größere Bildschirme */
+    margin-left: auto;
+    margin-right: auto;
 }
 
 /* Stil für die Frage */
 .qa-question {
     font-size: 1.5em;
     font-weight: bold;
-    color: #999999; /* grüne Farbe */
+    color: #999999;
     cursor: pointer;
     transition: color 0.3s;
+    text-align: center; /* Zentriert den Fragentext */
+    width: 100%; /* Nimmt die gesamte Breite des Blocks ein */
+    padding: 10px;
+    box-sizing: border-box;
 }
 
 /* Frage Hover-Effekt */
 .qa-question:hover {
-    color: #ffffff; /* Dunkleres Grün bei Hover */
+    color: #ffffff;
 }
 
 /* Antwort-Container ist am Anfang versteckt */
@@ -1904,16 +1914,31 @@ body {
     max-height: 0;
     overflow: hidden;
     transition: max-height 0.5s ease-out;
-    padding: 0 15px; /* Zusätzlicher Raum für die Antwort */
+    width: 100%; /* Antwort-Container nimmt die gesamte Breite ein */
+    padding: 0 15px;
+    box-sizing: border-box;
 }
 
 /* Stil für die Antwort */
 .qa-answer {
     font-size: 1.2em;
     margin-top: 5px;
-    color: #ffffff; /* dunkleres Grau für bessere Lesbarkeit */
+    color: #ffffff;
     padding: 10px 0;
+    text-align: center; /* Zentriert den Antworttext */
 }
+
+/* Responsives Design für kleinere Bildschirme */
+@media (max-width: 600px) {
+    .qa-question {
+        font-size: 1.2em; /* Kleinere Schriftgröße für mobile Geräte */
+    }
+
+    .qa-answer {
+        font-size: 1em; /* Kleinere Schriftgröße für mobile Geräte */
+    }
+}
+
 
 
 .red-text {
