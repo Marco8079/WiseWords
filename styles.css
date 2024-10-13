@@ -1874,3 +1874,96 @@ body {
 }
 
 
+
+
+
+
+/* Einzelner Q&A-Block */
+.qa-block {
+    margin-bottom: 20px;
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 10px;
+}
+
+/* Stil für die Frage */
+.qa-question {
+    font-size: 1.5em;
+    font-weight: bold;
+    color: #999999; /* grüne Farbe */
+    cursor: pointer;
+    transition: color 0.3s;
+}
+
+/* Frage Hover-Effekt */
+.qa-question:hover {
+    color: #ffffff; /* Dunkleres Grün bei Hover */
+}
+
+/* Antwort-Container ist am Anfang versteckt */
+.qa-answer-container {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.5s ease-out;
+    padding: 0 15px; /* Zusätzlicher Raum für die Antwort */
+}
+
+/* Stil für die Antwort */
+.qa-answer {
+    font-size: 1.2em;
+    margin-top: 5px;
+    color: #ffffff; /* dunkleres Grau für bessere Lesbarkeit */
+    padding: 10px 0;
+}
+
+
+.red-text {
+    color: red;
+}
+
+
+/* Container für die Timer-Anzeige */
+.timer-container {
+    background-color: #fff;
+    border: 2px solid #FFD700; /* Goldener Rahmen */
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    padding: 30px;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+/* Timer-Anzeige */
+#timer-display {
+    font-size: 20px;
+    font-weight: bold;
+    color: #FFD700; /* Goldene Farbe für die Timer-Anzeige */
+    margin-bottom: 10px;
+}
+
+/* Container für die Download-Buttons */
+#reward-button-container {
+    display: flex;
+    flex-direction: column; /* Anordnung der Buttons in einer Spalte */
+    align-items: center; /* Zentrieren der Buttons horizontal */
+}
+
+/* Gestaltung der Download-Buttons */
+.download-reward-button {
+    background-color: #4CAF50; /* Grüner Hintergrund */
+    border: none; /* Kein Rahmen */
+    color: white; /* Weiße Schriftfarbe */
+    padding: 15px 32px; /* Polsterung */
+    text-align: center; /* Text zentrieren */
+    text-decoration: none; /* Keine Unterstreichung */
+    display: block; /* Blockelement für den Button */
+    font-size: 16px; /* Schriftgröße */
+    margin: 8px 0; /* Außenabstand, um Platz zwischen den Buttons zu schaffen */
+    cursor: pointer; /* Cursor als Hand */
+    border-radius: 12px; /* Abgerundete Ecken */
+    transition: background-color 0.3s; /* Übergangseffekt für Hintergrundfarbe */
+}
+
+/* Hover-Effekt für die Download-Buttons */
+.download-reward-button:hover {
+    background-color: #45a049; /* Dunklerer Grünton bei Hover */
+}
