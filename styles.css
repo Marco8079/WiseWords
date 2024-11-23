@@ -1263,7 +1263,7 @@ a.small-text:hover {
 
 /* Stil für den blauen Button mit Wellen */
 .btn {
-    background: linear-gradient(45deg, rgba(0, 105, 148, 0.6), rgba(0, 155, 182, 0.6), rgba(0, 105, 148, 0.6), rgba(0, 155, 182, 0.6)); /* Farbverlauf mit zwei Farben für mehr Tiefe */
+    background: linear-gradient(45deg, rgba(2, 63, 87, 0.6), rgba(0, 58, 68, 0.6), rgba(0, 105, 148, 0.6), rgba(0, 127, 150, 0.6)); /* Farbverlauf mit zwei Farben für mehr Tiefe */
     background-size: 400% 400%; /* Größe für die Animation */
     color: var(--white-color); /* Weißer Text */
     border: none;
