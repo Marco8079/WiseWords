@@ -325,26 +325,16 @@
     
     
     <script>
-        // Überprüfen, ob die App vorher schon geöffnet wurde
-        if (!localStorage.getItem('appOpened')) {
-            // Wenn nicht, Splash-Screen anzeigen und Timer starten
-            document.getElementById('splash-screen').style.display = 'flex';
-
-            // Setzen, dass die App geöffnet wurde
-            localStorage.setItem('appOpened', 'true');
-
-            // Nach 3 Sekunden Splash-Screen ausblenden und Startseite anzeigen
-            setTimeout(function () {
-                document.getElementById('splash-screen').style.display = 'none';
-                document.getElementById('startpage').style.display = 'block';
-            }, 3000); // 3000ms = 3 Sekunden
-        } else {
-            // Wenn die App bereits geöffnet wurde, direkt zur Startseite wechseln
+        // Splash-Screen immer anzeigen und Timer starten
+        document.getElementById('splash-screen').style.display = 'flex';
+    
+        // Nach 3 Sekunden Splash-Screen ausblenden und Startseite anzeigen
+        setTimeout(function () {
             document.getElementById('splash-screen').style.display = 'none';
             document.getElementById('startpage').style.display = 'block';
-        }
-
+        }, 3000); // 3000ms = 3 Sekunden
     </script>
+    
     
 
 
