@@ -166,8 +166,195 @@
 </head>
 <body>
 
+    <div id="splash-screen">
+        <div id="dust-container">
+            <div id="dust-mask">
+                <img id="statue" src="Marble Statue.png" alt="Stoische Statue">
+            </div>
+            <div class="dust"></div>
+            <div class="dust"></div>
+            <div class="dust"></div>
+            <!-- Text "WiseWords" hinzugefügt -->
+            <div id="wiseWordsText">WiseWords</div>
+        </div>
+    </div>
+    
+    <style>
+    /* Splash Screen */
+    #splash-screen {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: #000;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 9999;
+        overflow: hidden;
+    }
+    
+    /* Container für Staub */
+    #dust-container {
+        position: relative;
+        width: 60%; /* Flexibler Container */
+        aspect-ratio: 1; /* Quadrat */
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        clip-path: inset(0); /* Grenzen des Staubbereichs */
+        overflow: hidden;
+    }
+    
+    /* Maske für die Statue */
+    #dust-mask {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        mask-image: radial-gradient(circle, rgba(0,0,0,1) 0%, rgba(0,0,0,0) 70%);
+        -webkit-mask-image: radial-gradient(circle, rgba(0,0,0,1) 0%, rgba(0,0,0,0) 70%);
+        mask-repeat: no-repeat;
+        mask-size: cover;
+        -webkit-mask-repeat: no-repeat;
+        -webkit-mask-size: cover;
+    }
+    
+    /* Statue */
+    #statue {
+        position: absolute;
+        width: 100%;
+        height: auto; /* Proportionale Skalierung */
+        opacity: 0;
+        filter: blur(10px);
+        animation: statueReveal 2s ease-in-out forwards; /* Schnellere Animation */
+        top: -5%; /* Statue leicht nach oben verschoben */
+    }
+    
+    /* Staubpartikel */
+    .dust {
+        position: absolute;
+        width: 10px;
+        height: 10px;
+        background-color: rgba(255, 255, 255, 0.8);
+        border-radius: 50%;
+        animation: dustAnimation 3s ease-in-out infinite;
+        box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+    }
+    
+    /* Staubpositionen zufällig */
+    .dust:nth-child(1) { animation-delay: 0.2s; left: 10%; top: 50%; }
+    .dust:nth-child(2) { animation-delay: 0.4s; left: 50%; top: 20%; }
+    .dust:nth-child(3) { animation-delay: 0.6s; left: 80%; top: 70%; }
+    
+    /* Animation: Statue erscheint */
+    @keyframes statueReveal {
+        0% {
+            opacity: 0;
+            filter: blur(15px);
+            transform: scale(0.9);
+        }
+        100% {
+            opacity: 1;
+            filter: blur(0);
+            transform: scale(1);
+        }
+    }
+    
+    /* Animation: Staubpartikel bewegen sich */
+    @keyframes dustAnimation {
+        0% {
+            transform: translateY(0) scale(0.5);
+            opacity: 1;
+        }
+        100% {
+            transform: translateY(-200px) scale(0.8);
+            opacity: 0;
+        }
+    }
+    
+    /* Text WiseWords Animation */
+    #wiseWordsText {
+        position: absolute;
+        font-size: 1.3rem; /* Etwas kleinere Schriftgröße */
+        font-weight: bold;
+        color: #fff;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        opacity: 0;
+        transform: translateY(50px) scale(0.8);
+        animation: textReveal 2.5s ease-in-out 0.3s forwards; /* Verzögerung von 0.3s für früheres Erscheinen */
+        text-align: center;
+        bottom: 5%; /* Text weiter unten */
+        width: 100%;
+    }
+    
+    /* Neue Animation für den Text */
+    @keyframes textReveal {
+        0% {
+            opacity: 0;
+            transform: translateY(80px) scale(0.8);
+        }
+        50% {
+            opacity: 0.5;
+            transform: translateY(30px) scale(1.05);
+        }
+        100% {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+        }
+    }
+    
+    /* Responsive Anpassungen */
+    @media (max-width: 768px) {
+        #dust-container {
+            width: 80%;
+        }
+    }
+    
+    @media (max-width: 480px) {
+        #dust-container {
+            width: 90%;
+        }
+    }
+    </style>
+    
     
 
+    <script>
+        // Local Storage komplett löschen
+        localStorage.clear();
+
+        // Option: Nur spezifische Einträge entfernen
+        // localStorage.removeItem('keyName');
+
+    </script>
+    
+    <script>
+        // Überprüfen, ob die App vorher schon geöffnet wurde
+        if (!localStorage.getItem('appOpened')) {
+            // Wenn nicht, Splash-Screen anzeigen und Timer starten
+            document.getElementById('splash-screen').style.display = 'flex';
+
+            // Setzen, dass die App geöffnet wurde
+            localStorage.setItem('appOpened', 'true');
+
+            // Nach 3 Sekunden Splash-Screen ausblenden und Startseite anzeigen
+            setTimeout(function () {
+                document.getElementById('splash-screen').style.display = 'none';
+                document.getElementById('startpage').style.display = 'block';
+            }, 3000); // 3000ms = 3 Sekunden
+        } else {
+            // Wenn die App bereits geöffnet wurde, direkt zur Startseite wechseln
+            document.getElementById('splash-screen').style.display = 'none';
+            document.getElementById('startpage').style.display = 'block';
+        }
+
+    </script>
+    
 
 
     
@@ -2066,11 +2253,15 @@
 
     <!-- Task Dialog -->
     <div id="task-dialog">
-        <p id="task-text"></p>
-        <button onclick="closeTaskDialog()">OK</button>
+        <div id="task-title">Today's Task:</div> <!-- Titel hinzugefügt -->
+        <div id="task-content">
+            <p id="task-text"></p>
+            <button onclick="closeTaskDialog()">OK</button>
+        </div>
     </div>
 
 
+    
 
 
     
@@ -2106,11 +2297,75 @@
     <div id="user-profile">
         <button class="back-button" onclick="hideProfile()">  ←  </button>
         <div id="profile-header">
-            <h2 id="profile-name">My Profile</h2>
+            <h2 id="profile-name">
+                <span id="user-name">[Your Name]</span>'s Profile
+                <button id="edit-name" onclick="editName()">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" viewBox="0 0 16 16">
+                        <path d="M15.502 1.94a1.5 1.5 0 0 1 0 2.121l-10 10a1.5 1.5 0 0 1-.708.354l-5 1a.5.5 0 0 1-.606-.606l1-5a1.5 1.5 0 0 1 .354-.708l10-10a1.5 1.5 0 0 1 2.121 0zm-11.5 10.44L11.5 4.94 11.061 4.5 3.94 11.061l-.439 2.197 2.197-.439zm8.465-8.465L9.94 3.5 11.5 4.939l1.025-1.025a.5.5 0 0 0-.708-.708L11.5 4.939z"/>
+                    </svg>
+                </button>
+            </h2>
+            
             
         </div>
         
-       
+        <style>
+            #user-profile {
+                font-family: Arial, sans-serif;
+            }
+        
+            #profile-header {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+            }
+        
+            #edit-name {
+                background: none;
+                border: none;
+                cursor: pointer;
+                margin-left: 10px;
+                color: gray;
+                font-size: 1rem;
+                display: inline-flex;
+                align-items: center;
+            }
+        
+            #edit-name:hover {
+                color: black;
+            }
+        
+            #name-instruction {
+                font-size: 0.9rem;
+                color: gray;
+                margin-top: 10px;
+            }
+        </style>
+       <script>
+            document.addEventListener("DOMContentLoaded", function () {
+                const userNameElement = document.getElementById("user-name");
+                const nameInstruction = document.getElementById("name-instruction");
+
+                // Check if the name is already saved
+                let userName = localStorage.getItem("userName");
+                if (userName) {
+                    // Display the saved name
+                    userNameElement.textContent = userName;
+                }
+
+                // Function to edit the name
+                window.editName = function () {
+                    const newName = prompt("Enter your name:", userNameElement.textContent);
+                    if (newName && newName.trim() !== "") {
+                        userNameElement.textContent = newName;
+                        localStorage.setItem("userName", newName);
+                    } else {
+                        alert("The name cannot be empty.");
+                    }
+                };
+            });
+
+        </script>
 
 
 
