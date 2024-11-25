@@ -338,7 +338,88 @@
     
 
 
-    
+    <style>
+        /* Container für den Button */
+        .profile-button-container {
+            position: inline; /* Fixiert den Container */
+            top: 20px; /* Abstand von oben */
+            right: 20px; /* Abstand von rechts */
+            display: flex; /* Flexbox für die Zentrierung des Buttons */
+            justify-content: center; /* Zentrierung */
+            align-items: center; /* Vertikale Zentrierung */
+            border-radius: 50%; /* Runde Form für den Container */
+            width: 70px; /* Gleiche Breite und Höhe für Rundheit */
+            height: 70px;
+            background-color: transparent; /* Kein Hintergrund, damit nur der Button sichtbar ist */
+            padding: 0; /* Kein Padding, um Störungen zu vermeiden */
+            box-sizing: border-box; /* Wichtig für korrekte Rundheit */
+        }
+
+        /* Button-Styling */
+        .profile-button {
+            background-color: #9b59b6; /* Lila Hintergrundfarbe */
+            color: #ffffff; /* Weißer Text */
+            border: none;
+            border-radius: 50%; /* Runde Form */
+            width: 60px; /* Gleiche Breite und Höhe */
+            height: 60px;
+            padding: 0; /* Kein Padding */
+            margin: 0; /* Kein Margin */
+            line-height: 60px; /* Exakte Höhe */
+            cursor: pointer;
+            display: flex; /* Zentrierung des Inhalts */
+            align-items: center; /* Vertikale Zentrierung */
+            justify-content: center; /* Horizontale Zentrierung */
+            transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Leichter Schatten */
+            box-sizing: border-box; /* Wichtig, um Rundheit zu erhalten */
+        }
+
+        /* Hover-Effekte */
+        .profile-button:hover {
+            background-color: #8e44ad; /* Etwas dunkler bei Hover */
+            transform: translateY(-4px) scale(1.1); /* Federnder Effekt nach oben mit einer leichten Skalierung */
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Stärkerer Schatten */
+        }
+
+        /* Aktiv-Zustand */
+        .profile-button:active {
+            background-color: #7d3c98; /* Dunkler bei Aktivierung */
+            transform: translateY(0) scale(1); /* Kein Verschieben bei Klick */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Reduzierter Schatten */
+        }
+
+        /* Fokus-Zustand */
+        .profile-button:focus {
+            outline: none; /* Entfernen des Standard-Fokusrahmens */
+            box-shadow: 0 0 0 4px rgba(155, 89, 182, 0.4); /* Weicher Fokusrahmen */
+            animation: springEffect 0.3s ease-out; /* Federnder Effekt beim Fokus */
+        }
+
+        /* Animation für federndes Springen */
+        @keyframes springEffect {
+            0% {
+                transform: translateY(-4px) scale(1.1); /* Anfangs oben mit leicht vergrößertem Button */
+            }
+            50% {
+                transform: translateY(0) scale(1); /* Mitte: Normalzustand */
+            }
+            100% {
+                transform: translateY(-2px) scale(1.05); /* Letzter Moment, federnd zurück nach oben */
+            }
+        }
+
+        /* Styling für das Icon */
+        .profile-button .icon {
+            width: 24px; /* Größe des Icons */
+            height: 24px; /* Größe des Icons */
+            fill: #ffffff; /* Farbe des Icons */
+            display: block; /* Verhindert das Einfügen von Abständen um das SVG */
+            margin: 0 auto; /* Zentriert das Icon innerhalb des Buttons */
+        }
+
+
+    </style>
 
 
 
@@ -348,11 +429,44 @@
     <div id="full-screen-container"></div>
         <!-- Startseite -->
         <div id="start-page" class="container">
-            <hr class="separator-line2">
-            <div>
-                <button class="profile-button" onclick="showProfile()">View Profile</button>
+            
+            <div class="profile-button-container">
+                <button class="profile-button" onclick="showProfile()">
+                    <svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                        <!-- Abgerundeter Hintergrund mit subtiler Schattierung -->
+                        <circle cx="12" cy="12" r="10" stroke="#333" stroke-width="3" fill="#e0e0e0"/> <!-- Runde Form -->
+                        <!-- Licht- und Schattenspiele auf dem Hintergrund -->
+                        <circle cx="12" cy="12" r="9.5" stroke="none" fill="rgba(0, 0, 0, 0.05)" />
+                        
+                        <!-- Kopf mit feinerem Detail und Schatten -->
+                        <circle cx="12" cy="10" r="4" stroke="#333" stroke-width="2" fill="#ffffff"/> <!-- Kopf -->
+                        <circle cx="12" cy="10" r="3.8" stroke="none" fill="rgba(0, 0, 0, 0.1)"/> <!-- Kopfschatten -->
+                        
+                        <!-- Körper mit weicheren Linien und Details -->
+                        <path d="M5 20c0-4 4-7 10-7s10 3 10 7" stroke="#333" stroke-width="2" fill="none"/> <!-- Körper -->
+                        <!-- Feine Details für den Körper -->
+                        <path d="M5 20c0-3 4-6 10-6s10 2 10 6" stroke="#555" stroke-width="1" fill="none"/> <!-- Körperform -->
+                        
+                        <!-- Hinzufügen von subtilen Lichtreflexen für das Icon -->
+                        <path d="M12 2c-1.2 0-1.2 1 0 1s1.2-1 0-1z" fill="rgba(255, 255, 255, 0.4)"/> <!-- Lichtreflex auf Kopf -->
+                    </svg>
+                </button>
             </div>
-            <hr class="separator-line">
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+
+            
+            <hr class="separator-line2">
+            
             <h1>Choose Your Wise</h1>
             
             <div class="philosophers">
