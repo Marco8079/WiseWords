@@ -408,7 +408,7 @@ h2 {
     padding: 40px;
     box-sizing: border-box;
     overflow: hidden; /* Verhindert Scrollen */
-    z-index: 1100;
+    z-index: 11000;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -524,53 +524,7 @@ h2 {
 
 
 
-/* Abzeichen Profil Styles */
-#user-profile {
-    padding: 20px;
-    background-color: #2c2c2c; /* Hintergrundfarbe für das Profil */
-    border-radius: 8px;
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
-    margin-top: 20px;
-    body {
-        overflow: auto; /* Ermöglicht Scrollen, falls nötig */
-    }
-    
 
-
-}
-
-
-#user-profile h2 {
-    color: #f0f0f0;
-    margin-bottom: 20px;
-}
-
-#badges {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-    justify-content: center;
-}
-
-.badge {
-    background-color: #333;
-    border-radius: 8px;
-    padding: 10px;
-    text-align: center;
-    width: 150px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-}
-
-.badge img {
-    max-width: 100%;
-    border-radius: 8px;
-}
-
-.badge p {
-    color: #f0f0f0;
-    margin-top: 10px;
-    font-size: 0.9em;
-}
 
 
 
@@ -665,20 +619,20 @@ h2 {
 
 /* CSS für das User Profile */
 #user-profile {
-    display: none;
     position: fixed;
-    top: 10%;
-    left: 50%;
-    transform: translate(-50%, 0); /* Centered horizontally */
-    width: 80%;
-    max-width: 1000px; /* Max width for larger screens */
-    background-color: #2c2c2c; /* Profile Background Color */
-    border-radius: 8px;
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+    top: 0;
+    left: 0;
+    transform: translate(0, 0);
+    width: 100%;
+    height: 100vh; /* Maximale Höhe */
+    background-color: #2c2c2c;
+    border-radius: 0; /* Ecken anpassen, wenn gewünscht */
+    box-shadow: none; /* Optional, je nachdem ob du den Schatten behalten willst */
     padding: 20px;
-    z-index: 1000; /* Sicherstellen, dass es unter dem Info-Dialog ist */
+    z-index: 1000;
     overflow: auto;
 }
+
 
 /* Back-Button Style */
 .back-button {
@@ -766,14 +720,152 @@ body {
     transform: translate(-50%, 0); /* Zentriert das Profil-Fenster horizontal */
     width: 80%;
     max-width: 800px; /* Maximale Breite des Profil-Fensters */
-    max-height: 80vh; /* Maximale Höhe als Prozentsatz des Viewports */
+    max-height: 300vh; /* Maximale Höhe als Prozentsatz des Viewports */
     background-color: #2c2c2c; /* Hintergrundfarbe des Profil-Fensters */
-    border-radius: 8px;
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+    border-radius: 16px; /* Abgerundete Ecken für einen moderneren Look */
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3); /* Weicherer Schatten für mehr Tiefe */
     padding: 20px;
     overflow-y: auto; /* Macht das Profil-Fenster scrollbar, wenn der Inhalt zu groß ist */
     z-index: 1000; /* Stellt sicher, dass das Profil über anderem Inhalt liegt */
 }
+
+/* Allgemeine Einstellungen */
+body {
+    font-family: 'Roboto', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+}
+
+/* Menüleiste */
+.menu-bar {
+    position: fixed;
+    top: 0; /* Direkt oben */
+    left: 0; /* Direkt links */
+    width: auto; /* Passt sich dem Inhalt an */
+    background-color: transparent; /* Standardmäßig keine Hintergrundfarbe */
+    border-radius: 0; /* Keine abgerundeten Ecken */
+    z-index: 2000; /* Erhöht den z-index, damit es immer vorne ist */
+    transition: all 0.3s ease; /* Weiche Übergänge für Effekte */
+    overflow: hidden;
+    padding: 10px; /* Minimaler Innenabstand */
+}
+
+.menu-bar.expanded {
+    background-color: #2c2c2c; /* Hintergrundfarbe wenn ausgeklappt */
+    padding: 10px;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+    border-bottom-right-radius: 20px;
+}
+
+/* Drei-Strich-Button */
+.toggle-button {
+    background: none;
+    border: none;
+    color: #fff; /* Weiß für bessere Sichtbarkeit */
+    font-size: 30px;
+    cursor: pointer;
+    transition: opacity 0.3s ease, color 0.3s ease; /* Übergänge für Transparenz und Farbe */
+    opacity: 0.7; /* Transparenter Standardzustand */
+    margin: 6px 6px;
+}
+
+.menu-bar.expanded .toggle-button {
+    opacity: 1; /* Volle Deckkraft beim Ausklappen */
+}
+
+.toggle-button:hover {
+    color: #f0f0f0; /* Heller bei Hover */
+}
+
+/* Menü-Items */
+.menu-items {
+    display: none; /* Versteckt im Standardzustand */
+    flex-direction: column; /* Buttons untereinander */
+    gap: 15px;
+    margin-top: 10px;
+    padding: 10px;
+}
+
+.menu-bar.expanded .menu-items {
+    display: flex; /* Zeigt die Buttons, wenn ausgeklappt */
+}
+
+/* Menü-Item (Button) */
+.menu-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background-color: #444;
+    color: #fff;
+    border: none;
+    padding: 12px 25px; /* Größere Buttons für einfachere Klickbarkeit */
+    font-size: 18px;
+    border-radius: 12px; /* Abgerundete Ecken */
+    cursor: pointer;
+    transition: background 0.3s ease, box-shadow 0.3s ease;
+    text-align: left;
+    width: 100%; /* Breiter Bereich für professionellen Look */
+}
+
+.menu-item i {
+    font-size: 20px; /* Etwas größere Icons für bessere Sichtbarkeit */
+}
+
+/* Hover-Effekt für die Buttons */
+.menu-item:hover {
+    background-color: #555; /* Subtile Aufhellung */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Weicher Schatten bei Hover */
+}
+
+.menu-item:active {
+    background-color: #666; /* Etwas dunkler bei aktivem Klick */
+}
+
+/* Responsive Anpassungen */
+@media screen and (max-width: 768px) {
+    .menu-item {
+        font-size: 16px; /* Kleinere Schrift auf mobilen Geräten */
+        padding: 10px 20px;
+    }
+    .toggle-button {
+        font-size: 28px; /* Etwas kleinere Schaltfläche auf mobilen Geräten */
+    }
+}
+
+/* Overlay für die Unschärfe */
+.screen-blur-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.4); /* Halbdurchsichtiges Schwarz */
+    backdrop-filter: blur(5px); /* Verschwommener Hintergrund */
+    z-index: 999; /* Unter dem Menü, aber über allem anderen */
+    display: none; /* Standardmäßig nicht sichtbar */
+}
+
+/* Sichtbar, wenn das Menü geöffnet ist */
+.menu-bar.expanded ~ .screen-blur-overlay {
+    display: block; /* Zeigt das Overlay an */
+}
+
+.screen-blur-overlay {
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.menu-bar.expanded ~ .screen-blur-overlay {
+    opacity: 1;
+}
+
+
+
+
+
+
+
 
 /* Verhindert das Scrollen des Hauptkörpers, wenn das Profil-Fenster geöffnet ist */
 .modal-open {
@@ -1480,12 +1572,12 @@ a.small-text:hover {
     padding: 40px; /* Reduzierter Abstand für kompaktere Darstellung */
     border-radius: 10px; /* Abgerundete Ecken für ein moderneres Aussehen */
     box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2); /* Sanfterer und größerer Schatten */
-    max-height: 80vh; /* Begrenzte Höhe des Containers */
+    max-height: 120vh; /* Begrenzte Höhe des Containers */
     overflow-y: auto; /* Ermöglicht vertikales Scrollen */
     position: relative; /* Für die Positionierung der Buttons */
     margin: 20px; /* Abstand von den Bildschirmrändern */
     width: 90%;
-    
+    z-index: 10999;
 }
 
 .question {
@@ -1587,11 +1679,12 @@ a.small-text:hover {
     padding: 40px; /* Reduzierter Abstand für kompaktere Darstellung */
     border-radius: 10px; /* Abgerundete Ecken für ein moderneres Aussehen */
     box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2); /* Sanfterer und größerer Schatten */
-    max-height: 80vh; /* Begrenzte Höhe des Containers */
+    max-height: 100vh; /* Begrenzte Höhe des Containers */
     overflow-y: auto; /* Ermöglicht vertikales Scrollen */
     position: relative; /* Für die Positionierung der Buttons */
     margin: 20px; /* Abstand von den Bildschirmrändern */
     width: 90%;
+    z-index: 10998;
 }
 
 .question {
@@ -1658,11 +1751,12 @@ a.small-text:hover {
     padding: 40px;
     border-radius: 10px;
     box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2);
-    max-height: 80vh;
+    max-height: 100vh;
     overflow-y: auto;
     position: relative;
     margin: 20px;
     width: 90%;
+    z-index: 10997;
 }
 
 .question {
@@ -1732,18 +1826,25 @@ a.small-text:hover {
 .wisdom-container {
     background-color: #242424;
     padding: 30px;
+    padding-top: 50px; /* Mehr Abstand oben */
     border-radius: 15px;
     box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
     max-width: 600px;
     margin: 20px auto; /* Added some margin to avoid edge collision */
-    height: auto; /* Ensure it takes necessary height */
+    height: 600px; /* Feste Höhe für mehr Scrollen */
     overflow-y: auto; /* Enable scrolling inside the container if necessary */
+    position: relative; /* Hinzugefügt, damit der z-index funktioniert */
+    z-index: 10999;
 }
 
+/* Make sure wisdom-meter-page is correctly positioned */
 #wisdom-meter-page {
-    height: 100vh; /* Make sure it takes full viewport height */
+    height: 100vh; /* Full viewport height */
     overflow-y: scroll; /* Enable scrolling for the page itself */
+    position: relative; /* Ensure positioning for z-index to take effect */
+    z-index: 10999;
 }
+
 
 body {
     overflow: hidden; /* Prevent double scrollbars by hiding body scroll */
@@ -1960,6 +2061,7 @@ body {
         font-size: 1em; /* Kleinere Schriftgröße für mobile Geräte */
     }
 }
+
 
 
 
