@@ -8,6 +8,10 @@
     <link rel="manifest" href="manifest.json">
     <meta name="theme-color" content="#000000"> <!-- Optional, falls du eine Theme-Farbe festlegen möchtest -->
     <script defer src="script.js"></script>
+    <!-- Google Fonts für bessere Schriftarten -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+    <!-- Favicon Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     
 
     <style>
@@ -69,35 +73,47 @@
             position: fixed;
             top: 10%;
             left: 50%;
-            transform: translate(-50%, 0); /* Centered horizontally */
-            width: 80%;
-            max-width: 1000px; /* Max width for larger screens */
-            background-color: #2c2c2c; /* Profile Background Color */
+            transform: translate(-50%, 0);
+            width: 90%; /* Passt sich flexibler der Bildschirmbreite an */
+            max-width: 1000px;
+            background-color: #2c2c2c;
             border-radius: 8px;
             box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
-            padding: 20px;
-            z-index: 1000; /* Ensure profile is above other content */
+            padding: 5vw; /* Nutzt viewport-weite Werte für Padding */
+            z-index: 1000;
         }
+
+        /* User Profile Header */
         #user-profile h2 {
             color: #f0f0f0;
-            margin-bottom: 20px;
+            margin-bottom: 10px;
+            font-size: 2rem; /* Noch größere Schrift */
         }
+
+
+        /* Profile Image */
         #profile-image {
             display: flex;
             justify-content: center;
             margin-bottom: 20px;
         }
+
         #profile-image img {
             max-width: 100%;
+            height: auto;
             border-radius: 8px;
         }
+
+        /* Profile Information */
         #profile-info {
             color: #f0f0f0;
             text-align: center;
         }
+
         #profile-info p {
             margin: 10px 0;
         }
+
         /* Info Dialog Styles */
         #info-dialog {
             display: none;
@@ -132,9 +148,49 @@
             font-size: 16px; /* Schriftgröße anpassen */
         }
 
-        /* Hover-Effekt für den runden Button */
-            #info-dialog button:hover {
-            background-color: #777;
+        /* Responsive Design with Media Queries */
+        @media (max-width: 768px) {
+            #task-dialog, #user-profile, #info-dialog {
+                padding: 8vw; /* Etwas mehr Padding auf mobilen Geräten */
+                max-width: 95%; /* Maximale Breite anpassen */
+            }
+
+            #task-dialog button, #info-dialog button {
+                max-width: 100%; /* Button breiter auf mobilen Geräten */
+            }
+
+            #user-profile h2 {
+                font-size: 1.5rem; /* Kleinere Schriftgröße für mobile Geräte */
+            }
+
+            #info-dialog .dialog-content {
+                padding: 5vw; /* Weniger Padding für kleinere Bildschirme */
+            }
+
+            #profile-info p {
+                font-size: 1.2rem; /* Kleinere Schrift auf kleinen Geräten */
+            }
+        }
+
+        /* Für sehr kleine Geräte (z. B. Smartphones) */
+        @media (max-width: 480px) {
+            #task-dialog, #user-profile, #info-dialog {
+                padding: 10vw; /* Höheres Padding für sehr kleine Geräte */
+            }
+
+            #task-dialog button {
+                font-size: 1rem; /* Kleinere Schriftgröße für Buttons */
+            }
+
+            #info-dialog button {
+                font-size: 14px; /* Kleinere Schrift für den Button */
+                width: 40px;
+                height: 35px;
+            }
+
+            #user-profile h2 {
+                font-size: 1.3rem; /* Noch kleinere Schrift für Titel */
+            }
         }
         
 
@@ -338,91 +394,95 @@
     
 
 
-    <style>
-        /* Container für den Button */
-        .profile-button-container {
-            position: inline; /* Fixiert den Container */
-            top: 20px; /* Abstand von oben */
-            right: 20px; /* Abstand von rechts */
-            display: flex; /* Flexbox für die Zentrierung des Buttons */
-            justify-content: center; /* Zentrierung */
-            align-items: center; /* Vertikale Zentrierung */
-            border-radius: 50%; /* Runde Form für den Container */
-            width: 70px; /* Gleiche Breite und Höhe für Rundheit */
-            height: 70px;
-            background-color: transparent; /* Kein Hintergrund, damit nur der Button sichtbar ist */
-            padding: 0; /* Kein Padding, um Störungen zu vermeiden */
-            box-sizing: border-box; /* Wichtig für korrekte Rundheit */
-        }
+    
 
-        /* Button-Styling */
-        .profile-button {
-            background-color: #9b59b6; /* Lila Hintergrundfarbe */
-            color: #ffffff; /* Weißer Text */
-            border: none;
-            border-radius: 50%; /* Runde Form */
-            width: 60px; /* Gleiche Breite und Höhe */
-            height: 60px;
-            padding: 0; /* Kein Padding */
-            margin: 0; /* Kein Margin */
-            line-height: 60px; /* Exakte Höhe */
-            cursor: pointer;
-            display: flex; /* Zentrierung des Inhalts */
-            align-items: center; /* Vertikale Zentrierung */
-            justify-content: center; /* Horizontale Zentrierung */
-            transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Leichter Schatten */
-            box-sizing: border-box; /* Wichtig, um Rundheit zu erhalten */
-        }
 
-        /* Hover-Effekte */
-        .profile-button:hover {
-            background-color: #8e44ad; /* Etwas dunkler bei Hover */
-            transform: translateY(-4px) scale(1.1); /* Federnder Effekt nach oben mit einer leichten Skalierung */
-            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Stärkerer Schatten */
-        }
+    <!-- Menüleiste -->
+    <nav class="menu-bar">
+        <button class="toggle-button" onclick="toggleMenu()">
+            <i class="fas fa-bars"></i>
+        </button>
+        <div class="menu-items">
+            <button class="menu-item" onclick="hideProfile(); closeAppInstruction(); showStartPage(); goBack()">
+                <i class="fas fa-home"></i> Home
+            </button>
+            <button class="menu-item" onclick="showProfile(); closeAppInstruction();">
+                <i class="fas fa-user"></i> Profile
+            </button>
+        </div>
+    </nav>
 
-        /* Aktiv-Zustand */
-        .profile-button:active {
-            background-color: #7d3c98; /* Dunkler bei Aktivierung */
-            transform: translateY(0) scale(1); /* Kein Verschieben bei Klick */
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Reduzierter Schatten */
-        }
 
-        /* Fokus-Zustand */
-        .profile-button:focus {
-            outline: none; /* Entfernen des Standard-Fokusrahmens */
-            box-shadow: 0 0 0 4px rgba(155, 89, 182, 0.4); /* Weicher Fokusrahmen */
-            animation: springEffect 0.3s ease-out; /* Federnder Effekt beim Fokus */
-        }
 
-        /* Animation für federndes Springen */
-        @keyframes springEffect {
-            0% {
-                transform: translateY(-4px) scale(1.1); /* Anfangs oben mit leicht vergrößertem Button */
-            }
-            50% {
-                transform: translateY(0) scale(1); /* Mitte: Normalzustand */
-            }
-            100% {
-                transform: translateY(-2px) scale(1.05); /* Letzter Moment, federnd zurück nach oben */
+    <div class="screen-blur-overlay"></div>
+    <script>
+        function toggleMenu() {
+            const menuBar = document.querySelector('.menu-bar');
+            const overlay = document.querySelector('.screen-blur-overlay');
+    
+            // Menü ein- oder ausklappen
+            menuBar.classList.toggle('expanded');
+    
+            // Verschwommenen Hintergrund ein- oder ausschalten
+            if (menuBar.classList.contains('expanded')) {
+                overlay.style.display = 'block'; // Zeigt den verschwommenen Hintergrund
+            } else {
+                overlay.style.display = 'none'; // Entfernt den verschwommenen Hintergrund
             }
         }
+    
+        // Menü automatisch schließen, wenn ein Menü-Button angeklickt wird
+        function setupMenuItemListeners() {
+            const menuItems = document.querySelectorAll('.menu-item');
+            const menuBar = document.querySelector('.menu-bar');
+            const overlay = document.querySelector('.screen-blur-overlay');
+    
+            menuItems.forEach(item => {
+                item.addEventListener('click', () => {
+                    menuBar.classList.remove('expanded'); // Menü schließen
+                    overlay.style.display = 'none'; // Verschwommenen Hintergrund entfernen
+                });
+            });
+        }
+    
+        // Event-Listener initialisieren
+        document.addEventListener('DOMContentLoaded', () => {
+            setupMenuItemListeners();
+        });
+    </script>
+    
+    
+    <script>
+        // Seiten umschalten
+        function openStartPage() {
+            const startPage = document.getElementById('startpage');
+            const profilePage = document.getElementById('profilepage');
 
-        /* Styling für das Icon */
-        .profile-button .icon {
-            width: 24px; /* Größe des Icons */
-            height: 24px; /* Größe des Icons */
-            fill: #ffffff; /* Farbe des Icons */
-            display: block; /* Verhindert das Einfügen von Abständen um das SVG */
-            margin: 0 auto; /* Zentriert das Icon innerhalb des Buttons */
+            // Zeige Startseite, verstecke Profilseite
+            startPage.classList.add('visible');
+            startPage.classList.remove('hidden');
+            profilePage.classList.add('hidden');
+            profilePage.classList.remove('visible');
         }
 
+        function openProfilePage() {
+            const startPage = document.getElementById('startpage');
+            const profilePage = document.getElementById('profilepage');
 
-    </style>
+            // Zeige Profilseite, verstecke Startseite
+            profilePage.classList.add('visible');
+            profilePage.classList.remove('hidden');
+            startPage.classList.add('hidden');
+            startPage.classList.remove('visible');
+        }
 
+        // Menü umschalten (Drei-Strich-Symbol)
+        function toggleMenu() {
+            const menuBar = document.querySelector('.menu-bar');
+            menuBar.classList.toggle('expanded');
+        }
 
-
+    </script>
 
 
 
@@ -430,41 +490,7 @@
         <!-- Startseite -->
         <div id="start-page" class="container">
             
-            <div class="profile-button-container">
-                <button class="profile-button" onclick="showProfile()">
-                    <svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
-                        <!-- Abgerundeter Hintergrund mit subtiler Schattierung -->
-                        <circle cx="12" cy="12" r="10" stroke="#333" stroke-width="3" fill="#e0e0e0"/> <!-- Runde Form -->
-                        <!-- Licht- und Schattenspiele auf dem Hintergrund -->
-                        <circle cx="12" cy="12" r="9.5" stroke="none" fill="rgba(0, 0, 0, 0.05)" />
-                        
-                        <!-- Kopf mit feinerem Detail und Schatten -->
-                        <circle cx="12" cy="10" r="4" stroke="#333" stroke-width="2" fill="#ffffff"/> <!-- Kopf -->
-                        <circle cx="12" cy="10" r="3.8" stroke="none" fill="rgba(0, 0, 0, 0.1)"/> <!-- Kopfschatten -->
-                        
-                        <!-- Körper mit weicheren Linien und Details -->
-                        <path d="M5 20c0-4 4-7 10-7s10 3 10 7" stroke="#333" stroke-width="2" fill="none"/> <!-- Körper -->
-                        <!-- Feine Details für den Körper -->
-                        <path d="M5 20c0-3 4-6 10-6s10 2 10 6" stroke="#555" stroke-width="1" fill="none"/> <!-- Körperform -->
-                        
-                        <!-- Hinzufügen von subtilen Lichtreflexen für das Icon -->
-                        <path d="M12 2c-1.2 0-1.2 1 0 1s1.2-1 0-1z" fill="rgba(255, 255, 255, 0.4)"/> <!-- Lichtreflex auf Kopf -->
-                    </svg>
-                </button>
-            </div>
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-
-            
+           
             <hr class="separator-line2">
             
             <h1>Choose Your Wise</h1>
@@ -2390,7 +2416,7 @@
 
     <!-- User Profile -->
     <div id="user-profile">
-        <button class="back-button" onclick="hideProfile()">  ←  </button>
+        
         <div id="profile-header">
             <h2 id="profile-name">
                 <span id="user-name">[Your Name]</span>'s Profile
@@ -2403,6 +2429,8 @@
             
             
         </div>
+
+        
         
         <style>
             #user-profile {
@@ -3623,6 +3651,8 @@
             document.getElementById('streak-days').textContent = getStreakDays();
         }
 
+        
+
         function hideProfile() {
             document.getElementById('user-profile').style.display = 'none';
             document.getElementById('start-page').style.display = 'block';
@@ -3669,5 +3699,6 @@
         }
 
     </script>
+    
 </body>
 </html>
