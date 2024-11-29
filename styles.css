@@ -1,7 +1,7 @@
 body {
     font-family: 'Garamond', serif;
     background-color: #1e1e1e; /* Dunklerer Hintergrund für besseren Kontrast */
-    color: #e0e0e0;
+    color: #000000;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -15,7 +15,7 @@ body {
     text-align: center;
     width: 90%; /* Erhöhte Breite für mehr Inhalt */
     max-width: 700px; /* Größeres Maximum für mehr Flexibilität */
-    background-color: #2c2c2c; /* Leicht hellerer Hintergrund für Container */
+    background-color: #222222; /* Leicht hellerer Hintergrund für Container */
     border-radius: 8px;
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2); /* Stärkerer Schatten für Tiefe */
     padding: 20px;
@@ -38,6 +38,47 @@ h2 {
     font-size: 2.2em;
     margin-bottom: 25px;
 }
+
+
+
+
+.philosopher-button {
+    position: relative; /* Ermöglicht absolute Positionierung des Sterns */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    padding: 15px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    background-color: #fff;
+    cursor: pointer;
+    overflow: hidden;
+}
+
+.philosopher-button .star {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 22px;
+    color: #252525; /* Standardfarbe: Grau */
+    cursor: pointer;
+    user-select: none; /* Verhindert Textmarkierung */
+    z-index: 1;
+
+    /* Erweitere die unsichtbare Klickfläche */
+    width: 30px; /* Klickbare Breite */
+    height: 30px; /* Klickbare Höhe */
+    display: flex; /* Zentriert den Stern im Klickbereich */
+    align-items: center;
+    justify-content: center;
+}
+
+.philosopher-button .star.active {
+    color: gold; /* Markierter Stern */
+}
+
 
 
 
@@ -405,7 +446,7 @@ h2 {
     height: 100%;
     background-color: rgba(0, 0, 0, 0.85); /* Halbtransparenter Hintergrund */
     color: #e0e0e0;
-    padding: 40px;
+    padding: 0; /* Kein Padding, um volle Breite zu gewährleisten */
     box-sizing: border-box;
     overflow: hidden; /* Verhindert Scrollen */
     z-index: 11000;
@@ -2116,3 +2157,33 @@ body {
 .download-reward-button:hover {
     background-color: #45a049; /* Dunklerer Grünton bei Hover */
 }
+
+
+.journal-button {
+    display: flex;
+    flex-direction: column;  /* Vertikale Anordnung von Icon und Text */
+    align-items: center;     /* Zentrieren von Icon und Text */
+    justify-content: center; /* Vertikale Zentrierung */
+    padding: 10px;
+    background-color: transparent; /* Kein Hintergrund */
+    border: none; /* Kein Rand */
+    cursor: pointer;
+    transition: transform 0.3s ease; /* Sanfter Übergang für Hover-Effekt */
+}
+
+.journal-button i {
+    font-size: 30px; /* Etwas kleineres Icon */
+    color: #e74c3c;  /* Rotes Icon */
+}
+
+.journal-button span {
+    margin-top: 5px; /* Abstand zwischen Icon und Text */
+    font-size: 14px;  /* Kleinere Schriftgröße für den Text */
+    color: #ffffff;  /* Weiße Farbe für den Text */
+    text-transform: uppercase; /* Optional: Text in Großbuchstaben */
+}
+
+.journal-button:hover {
+    transform: scale(1.1); /* Leichtes Vergrößern beim Hover für Interaktivität */
+}
+
