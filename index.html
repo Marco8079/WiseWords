@@ -12,6 +12,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
     <!-- Favicon Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
     
 
     <style>
@@ -497,42 +498,52 @@
             
             <div class="philosophers">
                 <button class="philosopher-button" onclick="showPhilosopher('aurelius')">
+                    <div class="star" onclick="toggleFavorite(event, 'aurelius')">★</div>
                     <img src="aurelius.jpg" alt="Aurelius">
                     <span>Aurelius</span>
                 </button>
                 <button class="philosopher-button" onclick="showPhilosopher('plato')">
+                    <div class="star" onclick="toggleFavorite(event, 'aurelius')">★</div>
                     <img src="plato.jpg" alt="Plato">
                     <span>Plato</span>
                 </button>
                 <button class="philosopher-button" onclick="showPhilosopher('aristotle')">
+                    <div class="star" onclick="toggleFavorite(event, 'aurelius')">★</div>
                     <img src="aristoteles.jpg" alt="Aristotle">
                     <span>Aristotle</span>
                 </button>
                 <button class="philosopher-button" onclick="showPhilosopher('nietzsche')">
+                    <div class="star" onclick="toggleFavorite(event, 'aurelius')">★</div>
                     <img src="nietzsche.jpg" alt="Nietzsche">
                     <span>Friedrich Nietzsche</span>
                 </button>
                 <button class="philosopher-button" onclick="showPhilosopher('cäsar')">
+                    <div class="star" onclick="toggleFavorite(event, 'aurelius')">★</div>
                     <img src="cäsar.jpg" alt="Julius Caesar">
                     <span>Julius Cäsar</span>
                 </button>
                 <button class="philosopher-button" onclick="showPhilosopher('leonardo')">
+                    <div class="star" onclick="toggleFavorite(event, 'aurelius')">★</div>
                     <img src="leonardo.jpg" alt="Leonardo da Vinci">
                     <span>Leonardo da Vinci</span>
                 </button>
                 <button class="philosopher-button" onclick="showPhilosopher('buddha')">
+                    <div class="star" onclick="toggleFavorite(event, 'aurelius')">★</div>
                     <img src="buddha.jpg" alt="Buddha">
                     <span>Buddha</span>
                 </button>
                 <button class="philosopher-button" onclick="showPhilosopher('marco')">
+                    <div class="star" onclick="toggleFavorite(event, 'aurelius')">★</div>
                     <img src="marco.jpg" alt="Marco Polo">
                     <span>Marco Polo</span>
                 </button>
                 <button class="philosopher-button" onclick="showPhilosopher('cook')">
+                    <div class="star" onclick="toggleFavorite(event, 'aurelius')">★</div>
                     <img src="cook.jpg" alt="James Cook">
                     <span>James Cook</span>
                 </button>
                 <button class="philosopher-button" onclick="showPhilosopher('shakespeare')">
+                    <div class="star" onclick="toggleFavorite(event, 'aurelius')">★</div>
                     <img src="shakespeare.jpg" alt="William Shakespeare">
                     <span>William Shakespeare</span>
                 </button>
@@ -771,7 +782,40 @@
         </script>
         
 
+        
+        <script>
+            // Initialisiere Favoriten aus Local Storage
+            document.addEventListener("DOMContentLoaded", () => {
+                const favorites = JSON.parse(localStorage.getItem("favorites")) || [];
+                favorites.forEach(key => {
+                    const star = document.querySelector(`.philosopher-button .star[onclick*="${key}"]`);
+                    if (star) star.classList.add("active");
+                });
+            });
 
+            // Favoritenstatus umschalten
+            function toggleFavorite(event, key) {
+                event.stopPropagation(); // Verhindert, dass der Button-Klick ausgelöst wird
+
+                const favorites = JSON.parse(localStorage.getItem("favorites")) || [];
+                const star = event.target;
+
+                if (favorites.includes(key)) {
+                    // Entfernen, wenn schon Favorit
+                    const index = favorites.indexOf(key);
+                    favorites.splice(index, 1);
+                    star.classList.remove("active");
+                } else {
+                    // Hinzufügen, wenn nicht Favorit
+                    favorites.push(key);
+                    star.classList.add("active");
+                }
+
+                // Speichern im Local Storage
+                localStorage.setItem("favorites", JSON.stringify(favorites));
+            }
+
+        </script>
 
 
 
@@ -2287,7 +2331,7 @@
 
 
 
-
+    
 
 
 
@@ -2510,7 +2554,12 @@
         </div>
 
 
-          
+            <!-- Neuer Button für die Schreibseite -->
+            <button onclick="navigateToWritingPage()" class="journal-button">
+                <i class="fas fa-book"></i>
+                <span>Journal</span>
+            </button>
+
 
 
         <div id="profile-image">
@@ -2529,7 +2578,14 @@
 
 
 
-    
+    <script>
+        
+        function navigateToWritingPage() {
+        window.location.href = "write.html"; // Ersetze 'write.html' durch den Dateinamen deiner Schreibseite
+        }
+
+
+    </script>
     
     
 
