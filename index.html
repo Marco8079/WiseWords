@@ -547,6 +547,11 @@
                     <img src="shakespeare.jpg" alt="William Shakespeare">
                     <span>William Shakespeare</span>
                 </button>
+                <button class="philosopher-button" onclick="showPhilosopher('leonidas')">
+                    <div class="star" onclick="toggleFavorite(event, 'aurelius')">★</div>
+                    <img src="leonidas.jpg" alt="leonidas">
+                    <span>Leonidas</span>
+                </button>
                 <hr class="separator-line">
                 <h1>Choose Your Quiz</h1>
                 <button class="btn" onclick="startQuiz()">Stoicism-quiz
@@ -2923,6 +2928,38 @@
                 'day28': 'Reflect on a moral dilemma, focusing on the conflict between personal ethics and societal expectations, and the roles of justice and mercy.',
                 'day29': 'Examine if your relationships are based on genuine trust or external factors and how this affects your interactions.',
             },
+            'leonidas': {
+                'day1': 'Choose one area of your life where you usually rely only on yourself. Today, trust someone else to help or give input, and observe how it changes the outcome.',
+                'day2': 'Choose one task that you often put off or feel is unimportant, and today, do it with full attention and care. Treat it as the most important thing of the day. Goal: Recognize the power of discipline in the little things. Remember, how you do one thing is how you do everything.',
+                'day3': 'Seek out advice or feedback from someone whose opinion you might not typically value or agree with. Reflect on their words without judgment and see if there is something to learn that can strengthen your approach. Goal: Practice humility and openness. Growth comes not just from affirmation but from challenging perspectives. Let today be a reminder that even the most difficult lessons can lead to the greatest strength.',                      
+                'day4': 'Seek a challenge that requires you to work with others. It could be in a school project, a team activity, or a shared goal with friends or family. Let this experience be a reminder that you are stronger when you unite your efforts. Goal: Understand that through collaboration, you will learn to endure and grow. Whether in moments of struggle or success, you will gain far more strength from those who share your burdens and triumphs.',  
+                'day5': 'Find one mistake you’ve made, however small, and admit it openly. Whether to a friend, a family member, or to yourself, acknowledge it without hiding behind excuses. Understand that by doing this, you free yourself from the burden of dishonesty. Goal: Learn to embrace honesty, even in the face of discomfort. Only by facing our mistakes head-on can we truly grow stronger.',  
+                'day6': 'Take one action that pushes you towards greatness—whether it is learning something new, showing leadership in a small moment, or making a decision that requires courage. Understand that each small choice adds up to your journey. Goal: Remember that greatness is built through consistent, focused effort. Do not wait for the perfect moment—make today the moment that begins your path to greatness.',
+                'day7': 'Think about how you can protect those around you—whether it’s supporting a friend, stepping up at work, or standing firm for a cause. Understand that your actions today protect the future of your community, and by doing so, you strengthen the bonds that hold you together. Goal: Remember, your strength is not just for you. It is for everyone who relies on you. Carry your shield with pride, and never drop it.',  
+                'day8': 'Today, find a situation where you can choose a peaceful resolution to a conflict. Use your wisdom and understanding to find a solution that avoids unnecessary confrontation, whether it is in your personal life, work, or community. Remember, sometimes the greatest victory comes not from defeating your opponent, but from finding a way to avoid the fight altogether.',
+                'day9': 'Find a situation today where you feel anxious or fearful about something you cannot control. Reflect on it and ask yourself: What can I control in this situation? What actions can I take, and what should I accept? Goal: By focusing on what you can control and accepting what you cannot, you will be freed from fear and gain inner peace.',  
+                'day10': 'Think about one thing you can do today that will define your legacy. It could be something as simple as helping someone in need or standing firm in your values. What is the action you will take today that will echo in the lives of others? Goal: Remember, your legacy is defined not by your words, but by what you do. Make today a day where your actions speak louder than any promise you could make.',  
+                'day11': 'Seek out someone you might normally overlook—a colleague, a friend, or even someone from a different walk of life. Ask them for their perspective on something you are facing. Listen carefully and see if their insight reveals something new to you. Goal: Remember, wisdom comes from many places. Keep your ears and heart open, for it is often the unexpected voices that carry the most valuable lessons.',  
+                'day12': 'When you are faced with a challenge today, take a step back and observe it before reacting. Ask yourself what is truly driving the situation—whether it’s a person, an obstacle, or a circumstance. Is there a way to resolve the issue without conflict, or is the direct approach necessary? Goal: By gaining a deeper understanding of the problem, you can find creative, more effective solutions. Don’t rush to act; take the time to think and understand first.',
+                'day13': 'Choose one area of your life where you are indulging in excess or comfort—whether it’s food, entertainment, or distractions—and simplify it. This is not about depriving yourself, but about regaining control over your impulses and strengthening your resolve. Goal: By removing unnecessary comforts, you will strengthen your focus and discipline, allowing you to live with purpose, just like the Spartan warriors.',  
+                'day14': 'When faced with a decision or temptation today, take a moment to pause and reflect. What is the true motive behind the offer or challenge? What insecurities or weaknesses might be hiding beneath the surface? By understanding these, you will make wiser choices and grow stronger in your resolve. Goal: Sharpen your mind as well as your body, for wisdom is the weapon that can turn the tide of any battle, whether on the field or in life.',  
+                'day15': 'Reflect on a situation in your life where you feel uncertain or where others may try to tell you your fate. How can you take control of that situation? What decisions can you make today that will shape your future in a positive way? Goal: By recognizing that you are the master of your own fate, you empower yourself to make choices that lead to strength and success, no matter the challenges you face.',  
+                'day16': 'Reflect on a recent failure or setback. What did you learn from it? How can you adapt your strategy or actions to improve your approach next time? Goal: Use your setbacks as stepping stones. Every mistake is an opportunity for growth, and with each lesson learned, you build the strength to face the challenges ahead.',  
+                'day17': 'Reflect on a time when you had to stand firm in your beliefs. How did your words or actions influence the situation? How can you use the power of your own words to navigate your challenges today? Goal: Use the strength of your mind and your voice to influence outcomes, knowing that what you say and how you say it can shape the world around you.',  
+                'day18': 'Think of someone in your life who may be struggling or in need of support. What small act of kindness could you offer them today? Reflect on how such a gesture might strengthen the bond between you and inspire loyalty. Goal: Lead not only with strength, but with care. Know that even in the toughest moments, your humanity can inspire greater courage and commitment in others.',
+                'day19': 'Identify a fear or obstacle that is standing in your way today. How can you approach it with a new perspective, using humor or confidence to transform it from a fear into a challenge? Goal: Remember that the light of your courage will always overcome the darkest of shadows. Approach your day with strength, and know that every challenge is simply another opportunity to prove your resolve.',  
+                'day20': 'Take a moment to reflect on the roots in your life. Who or what provides you with strength when challenges arise? How can you nurture these roots today, whether through family, values, or relationships? Goal: Understand that your resilience is built upon the foundations you have set. Strength is not just in your actions, but in the deep roots that give you the power to endure and thrive.',  
+                'day21': 'Think about a situation in your life where retreat might be a wiser course of action than continuing forward. What would it look like to step back, reassess, and preserve your energy for a better moment? Goal: Understand that true strength lies not just in relentless forward motion, but in knowing when to pull back, regroup, and prepare for the right moment.',  
+                'day22': 'Think about someone in your life who might be overlooked or judged for their past actions. What potential could they have that you haven’t yet seen? What role could they play in your life or in your goals? Goal: Learn to see the value in others, even when they don’t seem like obvious choices. Greatness often lies in the unlikeliest of places.',  
+                'day23': 'Take a moment in your day to observe a conversation or discussion without speaking. What do you learn from the silences and pauses between words? How does listening change your understanding of the situation? Goal: Strengthen your ability to listen before you speak. Recognize that silence can be a powerful tool, giving you insight and authority when you do choose to share your thoughts.',  
+                'day24': 'Take a moment today to reflect on the roles of others around you. How do their actions contribute to the greater whole? Whether it\'s at school, at home, or in a team, appreciate the small tasks and recognize their importance. Goal: Develop a deeper respect for teamwork by understanding the value of every role. Practice recognizing and appreciating the contributions of others.',  
+                'day25': 'Reflect on a challenge you are currently facing. Is there a way you can ask for help? Identify someone you can turn to and consider how working together might make you stronger. Goal: Learn to embrace the strength found in unity. Recognize that asking for help is not a weakness but a strength that can lead to greater success.',  
+                'day26': 'Identify one small distraction or issue that you have been ignoring. What can you do today to address it before it grows larger? Goal: Strengthen your awareness and vigilance in daily life. Just as in battle, success depends not only on power but on the ability to stay alert and manage even the smallest threats.',  
+                'day27': 'Reflect on a situation in your life where you have rushed to judgment. What happened when you made that snap decision? Today, identify one situation where you can hold back and allow time to reveal the truth before you act. Goal: Develop the patience to see beyond the surface and understand the full truth before making decisions. This will help you become a more thoughtful and wise leader in all aspects of your life.',  
+                'day28': 'Find a situation today where you can embrace discomfort or challenge. Whether it\'s something physical, emotional, or mental, take a step toward simplicity and strength. Do something that takes you out of your comfort zone and strengthens you in ways that luxury never could. Goal: Strengthen your mind and body by embracing simplicity and challenge. Remember that true resilience comes from the struggle, not the comfort.',  
+                'day29': 'Identify one area in your life where you are facing a conflict. Rather than confronting it head-on, seek a peaceful solution. Use your wisdom and understanding to find a resolution that avoids the need for a battle. Goal: Practice the art of peace and diplomacy. Understand that sometimes, the greatest victory is in not fighting at all.'
+
+            },
         };
 
         let lastAudioDateKey = 'lastAudioDate';
@@ -2996,7 +3033,15 @@
                     style: 'Creative, eloquent, and dramatic',
                     relevance: 'Offers deep insights into human nature, emotion, and society through his literature, providing valuable lessons on storytelling, character development, and the complexities of human behavior',
                     length: '4-7 minutes'
+                },
+                'leonidas': {  
+                    role: "Ancient Spartan King and Warrior (540 to 480 BCE)",  
+                    style: "Disciplined, resilient, and strategic",  
+                    relevance: "Leonidas embodies strength, courage, and discipline, offering Spartan wisdom on mastering challenges, collaborating with humility, and leading with honor. His teachings inspire resilience, purposeful action, and unwavering commitment to one's values and community.",  
+                    length: "5-8 minutes"  
                 }
+
+
             }[philosopher];
 
             if (profile) {
@@ -3611,7 +3656,67 @@
                 document.getElementById('day27').style.display = 'inline-block';
                 document.getElementById('day28').style.display = 'inline-block';
                 document.getElementById('day29').style.display = 'inline-block';
+
+            } else if (philosopher === 'leonidas') {
+                audioSrcs = {
+                    'day1': 'audio77/leonidas1.mp3',
+                    'day2': 'audio77/leonidas2.mp3',
+                    'day3': 'audio77/leonidas3.mp3',
+                    'day4': 'audio77/leonidas4.mp3',
+                    'day5': 'audio78/leonidas5.mp3',
+                    'day6': 'audio78/leonidas6.mp3',
+                    'day7': 'audio78/leonidas7.mp3',
+                    'day8': 'audio78/leonidas8.mp3',
+                    'day9': 'audio79/leonidas9.mp3',
+                    'day10': 'audio79/leonidas10.mp3',
+                    'day11': 'audio79/leonidas11.mp3',
+                    'day12': 'audio79/leonidas12.mp3',
+                    'day13': 'audio80/leonidas13.mp3',
+                    'day14': 'audio80/leonidas14.mp3',
+                    'day15': 'audio80/leonidas15.mp3',
+                    'day16': 'audio80/leonidas16.mp3',
+                    'day17': 'audio81/leonidas17.mp3',
+                    'day18': 'audio81/leonidas18.mp3',
+                    'day19': 'audio81/leonidas19.mp3',
+                    'day20': 'audio81/leonidas20.mp3',
+                    'day21': 'audio82/leonidas21.mp3',
+                    'day22': 'audio82/leonidas22.mp3',
+                    'day23': 'audio82/leonidas23.mp3',
+                    'day24': 'audio82/leonidas24.mp3',
+                    'day25': 'audio83/leonidas25.mp3',
+                    'day26': 'audio83/leonidas26.mp3',
+                    'day27': 'audio83/leonidas27.mp3',
+                    'day28': 'audio84/leonidas28.mp3',
+                    'day29': 'audio84/leonidas29.mp3',
+                };
+                document.getElementById('day4').style.display = 'inline-block'; // Show Day 4 for Aurelius
+                document.getElementById('day5').style.display = 'inline-block';
+                document.getElementById('day6').style.display = 'inline-block';
+                document.getElementById('day7').style.display = 'inline-block'; 
+                document.getElementById('day8').style.display = 'inline-block';
+                document.getElementById('day9').style.display = 'inline-block';
+                document.getElementById('day10').style.display = 'inline-block';
+                document.getElementById('day11').style.display = 'inline-block';
+                document.getElementById('day12').style.display = 'inline-block';
+                document.getElementById('day13').style.display = 'inline-block';
+                document.getElementById('day14').style.display = 'inline-block';
+                document.getElementById('day15').style.display = 'inline-block';
+                document.getElementById('day16').style.display = 'inline-block';
+                document.getElementById('day17').style.display = 'inline-block';
+                document.getElementById('day18').style.display = 'inline-block';
+                document.getElementById('day19').style.display = 'inline-block';
+                document.getElementById('day20').style.display = 'inline-block';
+                document.getElementById('day21').style.display = 'inline-block';
+                document.getElementById('day22').style.display = 'inline-block';
+                document.getElementById('day23').style.display = 'inline-block';
+                document.getElementById('day24').style.display = 'inline-block';
+                document.getElementById('day25').style.display = 'inline-block';
+                document.getElementById('day26').style.display = 'inline-block';
+                document.getElementById('day27').style.display = 'inline-block';
+                document.getElementById('day28').style.display = 'inline-block';
+                document.getElementById('day29').style.display = 'inline-block';
             }
+
 
 
             // Show controls
