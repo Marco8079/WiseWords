@@ -86,7 +86,6 @@ h2 {
 
 
 
-
 /* Basis-CSS-Variablen für konsistente Stile */
 :root {
     --primary-color: #e74c3c; /* Kräftiges Rot */
@@ -445,7 +444,7 @@ h2 {
     width: 100%;
     height: 100%;
     background-color: rgba(0, 0, 0, 0.85); /* Halbtransparenter Hintergrund */
-    color: #e0e0e0;
+    color: #fffdfd;
     padding: 0; /* Kein Padding, um volle Breite zu gewährleisten */
     box-sizing: border-box;
     overflow: hidden; /* Verhindert Scrollen */
@@ -681,25 +680,46 @@ h2 {
 }
 
 
-/* Back-Button Style */
+/* Apple-inspirierter Back-Button */
 .back-button {
-    background-color: #2980b9; /* Hintergrundfarbe der Back-Schaltfläche */
-    color: #fff; /* Textfarbe */
-    border: none;
-    padding: 12px 20px;
-    margin: 10px 0;
+    background-color: #333; /* Dunkleres Grau, das zu einem modernen Design passt */
+    color: #fff; /* Weißer Text für hohen Kontrast */
+    border: 1px solid #444; /* Dünner Rahmen für eine elegantere, präzise Optik */
+    padding: 14px 28px; /* Gleichmäßiges und ausgewogenes Padding */
+    margin: 15px 0;
     cursor: pointer;
-    font-size: 1.2em;
-    border-radius: 8px;
+    font-size: 1.1em; /* Gut lesbare Schriftgröße */
+    font-weight: 400; /* Keine zu starke Schrift, eher subtil und klar */
+    border-radius: 25px; /* Sanfte abgerundete Ecken, typisch für Apple */
     display: inline-block;
     text-align: center;
-    transition: background-color 0.3s, transform 0.2s;
+    text-decoration: none;
+    transition: all 0.3s ease; /* Sanfte Übergänge bei Interaktionen */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2); /* Feiner, subtiler Schatten, typisch für Apple-Design */
+    letter-spacing: 0.5px; /* Leicht erweiterte Buchstaben für bessere Lesbarkeit */
 }
 
+/* Hover-Effekt für den Back-Button */
 .back-button:hover {
-    background-color: #3498db; /* Hellerer Blauton bei Hover */
-    transform: scale(1.05); /* Vergrößerung bei Hover */
+    background-color: #2c2c2c; /* Etwas dunklerer Farbton bei Hover für mehr Tiefe */
+    border-color: #666; /* Ein feinerer Rand, um den Hover-Effekt zu verstärken */
+    transform: translateY(-2px); /* Leichtes Anheben für Interaktivität */
+    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.25); /* Leichter verstärkter Schatten für einen professionellen Look */
 }
+
+/* Fokus-Effekt für Tastaturbenutzer */
+.back-button:focus {
+    outline: none; /* Entfernt die Standard-Fokus-Grenze */
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.5); /* Hellerer Fokus-Effekt für Zugänglichkeit */
+}
+
+/* Aktivierter Zustand des Back-Buttons */
+.back-button:active {
+    background-color: #222; /* Noch dunklerer Farbton bei Klick */
+    transform: translateY(1px); /* Button geht nach unten, um den Klick-Effekt zu simulieren */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Subtiler Schatten im aktiven Zustand */
+}
+
 
 /* Weitere Stile für Profil-Inhalt */
 .streak {
@@ -1363,7 +1383,7 @@ a.small-text:hover {
     flex-direction: column;
     justify-content: flex-start; /* Startet den Inhalt oben */
     align-items: center;
-    min-height: 300vh; /* Füllt den gesamten Bildschirm vertikal */
+    min-height: 210vh; /* Füllt den gesamten Bildschirm vertikal */
     padding: 40px 20px; /* Padding oben/unten und links/rechts */
     background-color: #333;
     margin: 0;
@@ -1877,11 +1897,13 @@ a.small-text:hover {
     border-radius: 15px;
     box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
     max-width: 600px;
-    margin: 20px auto; /* Added some margin to avoid edge collision */
+    margin: 50px auto; /* Added some margin to avoid edge collision */
     height: 600px; /* Feste Höhe für mehr Scrollen */
     overflow-y: auto; /* Enable scrolling inside the container if necessary */
     position: relative; /* Hinzugefügt, damit der z-index funktioniert */
     z-index: 10999;
+    padding: 50px 30px;
+    
 }
 
 /* Make sure wisdom-meter-page is correctly positioned */
