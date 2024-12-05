@@ -2268,7 +2268,7 @@
             <div class="qa-block">
                 <h3 class="qa-question">Question 1: How can I share the app with my <b>friends</b>?</h3>
                 <div class="qa-answer-container">
-                    <p class="qa-answer">Scroll to the bottom of the home page and click on "<b>Share download link with friends</b>". The link is now copied and can be sent via the platform of your choice, such as <b>WhatsApp</b>, <b>Facebook</b>, <b>Signal</b>, etc. (More informations about sharing the App via <b>About us</b>).</p>
+                    <p class="qa-answer">Click the <b>drop-down</b> menu and then click <b>Share Access</b>. The link is now copied and ready to share.</p>
                 </div>
             </div>
             
@@ -2575,25 +2575,28 @@
             <!-- Profile Image -->
             <img src="Abzeichen Route.png" alt="Profile Images">
         </div>
-        <div id="profile-info">
-            
-            <p><strong class="flame">🔥</strong> <span id="streak-days" style="font-size: 30px; font-weight: bold; ">0</span> Days</p>          
-            <button onclick="showInfoDialog()">i</button>
+        
+        <!-- Neuer Rahmen um die Flamme und Tage -->
+        <div id="profile-info" class="profile-section">
+            <p class="streak">
+                <strong class="flame">🔥</strong> 
+                <span id="streak-days" style="font-size: 30px; font-weight: bold;">0</span> Days
+            </p>          
+            <button onclick="showInfoDialog()" class="info-button">i</button>
         </div>
-
-
-            <!-- Neuer Button für die Schreibseite -->
+        
+        <!-- Neuer Rahmen um das Journal -->
+        <div class="profile-section journal-container">
             <button onclick="navigateToWritingPage()" class="journal-button">
                 <i class="fas fa-book"></i>
                 <span>Journal</span>
             </button>
-            
-
-
-
+        </div>
+        
         <div id="profile-image">
             <img src="Rewards.png" alt="Profile Image">
         </div>
+        
 
 
         
