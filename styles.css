@@ -15,7 +15,7 @@ body {
     text-align: center;
     width: 90%; /* Erhöhte Breite für mehr Inhalt */
     max-width: 700px; /* Größeres Maximum für mehr Flexibilität */
-    background-color: #222222; /* Leicht hellerer Hintergrund für Container */
+    background-color: #131313; /* Leicht hellerer Hintergrund für Container */
     border-radius: 8px;
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2); /* Stärkerer Schatten für Tiefe */
     padding: 20px;
@@ -88,20 +88,18 @@ h2 {
 
 /* Basis-CSS-Variablen für konsistente Stile */
 :root {
-    --primary-color: #e74c3c; /* Kräftiges Rot */
-    --primary-color-dark: #c0392b; /* Dunkleres Rot */
+    --primary-color: #000000; /* Schwarzer Hintergrund */
+    --hover-color: #333333; /* Dunkles Grau für Hover-Zustand */
+    --focus-color: rgba(231, 76, 60, 0.4); /* Fokusrahmen-Farbe */
     --white-color: #ffffff; /* Weiß für Text */
-    --focus-outline-color: rgba(231, 76, 60, 0.4); /* Fokusrahmen-Farbe */
+    --secondary-color: #2980b9; /* Blau für die Animation */
     --padding-large: 16px 32px; /* Größeres Padding für mehr Komfort */
-    --padding-small: 14px 24px; /* Padding für mobile Geräte */
     --font-size-large: 1.3em; /* Angemessene Schriftgröße */
-    --font-size-small: 1.1em; /* Kleinere Schriftgröße für mobile Geräte */
     --border-radius: 20px; /* Abgerundete Ecken */
-    --box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15); /* Tieferer Schatten für mehr Tiefe */
+    --box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15); /* Tieferer Schatten */
     --hover-box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2); /* Intensiverer Schatten bei Hover */
-    --hover-scale: 1.05; /* Sanftere Skalierung bei Hover */
-    --image-size: 100px; /* Größere Bildgröße */
-    --button-width: 340px; /* Breite der Buttons */
+    --image-size: 100px; /* Bildgröße */
+    --button-height: 150px; /* Erhöhte Höhe */
 }
 
 /* Container für die Philosophenliste */
@@ -109,163 +107,99 @@ h2 {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 13px; /* Größerer Abstand für eine luftige Anordnung */
-    margin-bottom: 40px; /* Genügend Platz unter dem Container */
+    gap: 20px; /* Abstand zwischen den Buttons */
+    margin-bottom: 40px;
 }
 
-/* Stil für die Philosophen-Buttons */
+/* Philosophen-Button ohne Animation */
 .philosopher-button {
-    background: linear-gradient(45deg, rgba(231, 76, 60, 1), rgba(231, 76, 60, 0.95), rgba(192, 57, 43, 1), rgba(192, 57, 43, 0.9)); /* Minimale Farbänderung mit intensiven Wellen */
-
-
-    background-size: 400% 400%; /* Größe für die Animation */
-    color: var(--white-color); /* Weißer Text */
-    border: none;
-    padding: var(--padding-large); /* Komfortables Padding */
-    margin: 12px; /* Ausreichender Abstand zwischen Buttons */
-    cursor: pointer;
-    font-size: var(--font-size-large); /* Angemessene Schriftgröße */
-    font-weight: 600; /* Leicht fettgedruckter Text für besseren Kontrast */
-    border-radius: var(--border-radius); /* Abgerundete Ecken */
-    box-shadow: var(--box-shadow); /* Tieferer Schatten */
-    transition: transform 0.2s ease; /* Sanfte Übergänge für Transformation */
+    position: relative;
     display: flex;
-    flex-direction: column; /* Bild und Text untereinander */
-    align-items: center; /* Zentrierte Ausrichtung */
-    justify-content: center; /* Vertikale Zentrierung */
-    gap: 12px; /* Abstand zwischen Bild und Text */
-    text-align: center; /* Zentrierter Text */
-    width: var(--button-width); /* Einheitliche Button-Breite */
-    height: auto; /* Automatische Höhe basierend auf Inhalt */
-    overflow: hidden; /* Verhindert Überlauf */
-    animation: waveColors 11s ease-in-out infinite; /* Wellenanimation */
+    flex-direction: row; /* Elemente nebeneinander anordnen */
+    align-items: center; /* Vertikale Ausrichtung der Elemente */
+    justify-content: center;
+    gap: 16px; /* Abstand zwischen Bild und Text */
+    padding: 20px 32px; /* Erhöhtes Padding für mehr Höhe */
+    width: 100%; /* Breite des Buttons passt sich an die Größe des Containers an */
+    max-width: 340px; /* Maximale Breite, um eine zu große Ausdehnung zu verhindern */
+    height: var(--button-height); /* Erhöhte Höhe */
+    background: var(--primary-color); /* Standard Hintergrund */
+    color: var(--white-color);
+    font-size: 1.1em; /* Schriftgröße leicht angepasst */
+    font-weight: 600;
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+    cursor: pointer;
+    overflow: hidden;
+    transition: all 0.5s ease-in-out; /* Sanfter Übergang für Hover- und Klick-Effekte */
 }
 
-/* Wellenförmige Farbänderung */
-@keyframes waveColors {
-    0% {
-        background-position: 0% 50%; /* Startposition */
-    }
-    25% {
-        background-position: 50% 50%; /* Zwischenposition für Wellenbewegung */
-    }
-    50% {
-        background-position: 100% 50%; /* Mittelposition */
-    }
-    75% {
-        background-position: 50% 50%; /* Rückkehr zur Zwischenposition */
-    }
-    100% {
-        background-position: 0% 50%; /* Endposition zurücksetzen */
-    }
+
+/* Hover-Effekt: Vergrößern des Buttons und verstärkter Schatten */
+.philosopher-button:hover {
+    transform: scale(1.05); /* Button leicht vergrößern */
+    box-shadow: var(--hover-box-shadow); /* Verstärkter Schatten */
 }
 
-/* Stil für die Philosophen-Bilder */
+/* Fokus-Effekt: Noch stärkere Vergrößerung und Fokus-Rahmen */
+.philosopher-button:focus {
+    transform: scale(1.1); /* Weiter vergrößern */
+    box-shadow: 0 0 10px rgba(231, 76, 60, 0.6); /* Sanfter Fokusrahmen */
+}
+
+/* Philosophen-Bild im Button */
 .philosopher-button img {
-    width: var(--image-size); /* Größere Bildbreite */
-    height: var(--image-size); /* Bildhöhe */
-    border-radius: 50%; /* Rundes Bild */
-    object-fit: cover; /* Bild passt sich dem Container an */
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15); /* Sanfterer Schatten um das Bild */
+    position: absolute;
+    left: 24px; /* Bild etwas weiter nach rechts verschieben */
+    top: 50%;
+    transform: translateY(-50%); /* Vertikale Zentrierung des Bildes */
+    width: var(--image-size);
+    height: var(--image-size);
+    border-radius: 50%;
+    object-fit: cover;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
 }
 
-/* Hover- und Fokus-Effekte, die die Farben nicht ändern */
-.philosopher-button:hover,
-.philosopher-button:focus {
-    transform: scale(var(--hover-scale)); /* Sanfte Skalierung */
-    box-shadow: var(--hover-box-shadow); /* Intensiverer Schatten */
-    outline: none; /* Fokusrahmen entfernen */
+/* Philosophen-Name im Button rechts unten */
+.philosopher-button span {
+    position: absolute;
+    bottom: 16px; /* Nach unten verschoben */
+    right: 20px;  /* Nach rechts verschoben */
+    font-size: 1em;
+    font-weight: bold;
 }
 
-/* Fokuszustand für bessere Zugänglichkeit */
-.philosopher-button:focus {
-    box-shadow: 0 0 0 4px var(--focus-outline-color); /* Fokusrahmen mit weichem Rand */
-}
-
-/* Responsive Anpassungen */
+/* Responsives Design für mobile Geräte */
 @media (max-width: 600px) {
-    .philosophers {
-        gap: 12px; /* Etwas weniger Abstand auf kleineren Bildschirmen */
-        margin-bottom: 30px; /* Weniger unterer Rand */
-    }
-
     .philosopher-button {
-        padding: var(--padding-small); /* Weniger Padding auf kleinen Bildschirmen */
-        font-size: var(--font-size-small); /* Kleinere Schriftgröße auf kleinen Bildschirmen */
-        width: 100%; /* Volle Breite auf mobilen Geräten */
+        padding: 14px 24px; /* Kleineres Padding */
+        height: 120px; /* Kleinere Höhe auf mobilen Geräten */
     }
 
     .philosopher-button img {
-        width: calc(var(--image-size) - 20px); /* Kleinere Bildgröße auf mobilen Geräten */
+        width: calc(var(--image-size) - 20px);
         height: calc(var(--image-size) - 20px);
     }
-}
 
-
-
-
-
-
-
-
-/* Optionale Variationen: Unterschiedliche Button-Stile */
-.philosopher-button--secondary {
-    background-color: #3498db; /* Alternative Farbe für sekundäre Buttons */
-    color: var(--white-color); /* Weißer Text */
-}
-
-.philosopher-button--secondary:hover {
-    background-color: #2980b9; /* Dunklerer Farbton bei Hover */
-}
-
-
-
-
-
-
-
-
-/* Tertiärer Button-Stil */
-.philosopher-button--tertiary {
-    background: linear-gradient(45deg, rgba(30, 30, 30, 0.8), rgba(0, 0, 0, 0.8), rgba(30, 30, 30, 0.8), rgba(0, 0, 0, 0.8)); /* Dunklerer Farbverlauf */
-    background-size: 400% 400%; /* Größe für die Animation */
-    color: var(--white-color); /* Weißer Text */
-    transition: color 0.3s ease, transform 0.3s ease; /* Übergang für Text und Transformation */
-    animation: waveColors 11s ease-in-out infinite; /* Wellenanimation mit geschmeidigerer Bewegung */
-    padding: 10px 20px; /* Innenabstand für den Button */
-    border: none; /* Keine Rahmen */
-    border-radius: var(--border-radius); /* Abgerundete Ecken */
-    cursor: pointer; /* Hand-Cursor */
-    margin: 13px; /* Abstand um den Button */
-    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15); /* Tieferer Schatten */
-    gap: 16px; /* Abstand zwischen den Inhalten */
-}
-
-/* Wellenförmige Farbänderung */
-@keyframes waveColors {
-    0% {
-        background-position: 0% 50%; /* Startposition */
-    }
-    25% {
-        background-position: 50% 50%; /* Zwischenposition für Wellenbewegung */
-    }
-    50% {
-        background-position: 100% 50%; /* Mittelposition */
-    }
-    75% {
-        background-position: 50% 50%; /* Rückkehr zur Zwischenposition */
-    }
-    100% {
-        background-position: 0% 50%; /* Endposition zurücksetzen */
+    .philosopher-button {
+        font-size: 0.9em; /* Kleinere Schriftgröße auf mobilen Geräten */
     }
 }
 
-/* Hover-Effekt */
-.philosopher-button--tertiary:hover {
-    background-color: rgba(20, 20, 20, 0.9); /* Noch dunklerer Farbton bei Hover */
-    color: #fff; /* Farbe des Textes bleibt gleich beim Hover */
-    transform: scale(1.05); /* Vergrößerung des Buttons um 5% */
-}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -582,40 +516,34 @@ h2 {
 
 
 
-/* CSS für das Info-Dialogfenster */
 #info-dialog {
-    display: none;
+    display: none; /* Standardmäßig ausgeblendet */
     position: fixed;
     top: 0;
     left: 0;
     width: 100vw; /* Volle Breite des Viewports */
     height: 100vh; /* Volle Höhe des Viewports */
-    background-color: rgba(0, 0, 0, 0.9); /* Sehr dunkler Hintergrund */
-    color: #f5f5f5;
-    padding: 0;
+    background-color: rgba(41, 41, 41, 0.9); /* Dunkler, halbtransparenter Hintergrund */
+    color: #f5f5f5; /* Heller Text für Kontrast */
     box-sizing: border-box;
-    z-index: 1100; /* Höher als andere Container */
-    overflow: hidden; /* Verhindert Scrollen */
-    display: flex;
-    justify-content: center; /* Zentriert den Inhalt horizontal */
-    align-items: center; /* Zentriert den Inhalt vertikal */
+    z-index: 1100; /* Über anderen Elementen */
+    overflow: hidden; /* Kein Scrollen außerhalb des Dialogs */
+    display: flex; /* Flex-Container */
+    justify-content: center; /* Inhalt horizontal zentrieren */
+    align-items: center; /* Inhalt vertikal zentrieren */
 }
 
-/* Innerer Container für den eigentlichen Dialoginhalt */
 #info-dialog .dialog-content {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    max-width: 80%; /* Maximale Breite des Inhalts */
-    max-height: 80%; /* Maximale Höhe des Inhalts */
-    background-color: #333;
-    padding: 40px;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.8); /* Schatten für mehr Tiefe */
-    text-align: center;
-    overflow: auto; /* Ermöglicht Scrollen innerhalb des Inhalts, falls nötig */
+    background-color: rgb(41, 41, 41); /* Gleiche Hintergrundfarbe wie im Overlay-Inhalt */
+    padding: 20px; /* Innenabstand */
+    border-radius: 10px; /* Abgerundete Ecken */
+    width: 80%; /* Breite des Dialoginhalts */
+    max-width: 600px; /* Maximale Breite */
+    max-height: 80%; /* Maximale Höhe */
+    text-align: center; /* Text zentrieren */
+    overflow-y: auto; /* Scrollbar bei Überlauf */
 }
+
 
 /* Schließen-Button */
 #info-dialog .close-button {
@@ -721,13 +649,7 @@ h2 {
 }
 
 
-/* Weitere Stile für Profil-Inhalt */
-.streak {
-    color: #e0e0e0; /* Textfarbe für Streak */
-    margin-top: 20px;
-    font-weight: bold;
-    text-decoration: underline;
-}
+
 
 .achieved-rewards {
     color: #e0e0e0; /* Textfarbe für Belohnungen */
@@ -743,6 +665,55 @@ h2 {
     overflow: auto;
     max-height: 80vh;
 }
+
+/* Allgemeine Stile für Profilabschnitte */
+.profile-section {
+    border: 2px solid #ffffff; /* Weißer Rahmen */
+    border-radius: 15px; /* Abgerundete Ecken */
+    padding: 15px; /* Innenabstand */
+    margin-bottom: 20px; /* Abstand zwischen Abschnitten */
+    background-color: rgba(0, 0, 0, 0.5); /* Halbtransparenter Hintergrund */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2); /* Schatten für Tiefe */
+}
+
+/* Stile für die Streak-Anzeige */
+.streak {
+    text-align: center; /* Zentriert den Text */
+    color: #ffcc00; /* Goldene Farbe für den Text */
+}
+
+/* Stile für die Journal-Schaltfläche */
+.journal-container {
+    display: flex;
+    justify-content: center; /* Zentriert den Button */
+    align-items: center; /* Zentriert den Button vertikal */
+}
+
+.journal-button {
+    background-color: #1a73e8; /* Blau für den Button */
+    color: white; /* Weiße Schriftfarbe */
+    padding: 10px 20px; /* Abstand innen */
+    font-size: 16px; /* Schriftgröße */
+    border: none; /* Kein Rahmen */
+    border-radius: 10px; /* Abgerundete Ecken */
+    cursor: pointer; /* Hand-Cursor bei Hover */
+    transition: all 0.3s ease; /* Animation für Hover */
+}
+
+.journal-button:hover {
+    background-color: #005cbf; /* Dunkleres Blau bei Hover */
+    transform: scale(1.05); /* Leichtes Vergrößern bei Hover */
+}
+
+/* Stile für den Info-Button */
+.info-button {
+    background: none;
+    border: none;
+    font-size: 18px;
+    cursor: pointer;
+    color: white;
+}
+
 
 #profile-image, #profile-image-a {
     text-align: center; /* zentriert das Bild horizontal */
@@ -957,7 +928,7 @@ body {
 
 
 .flame {
-    font-size: 40px; /* Größe der Flamme auf 40px ändern */
+    font-size: 43px; /* Größe der Flamme auf 40px ändern */
     position: relative;
     animation: flicker 1.5s infinite ease-in-out alternate, colorChange 3s infinite linear;
     transform-origin: center bottom;
@@ -1273,48 +1244,35 @@ a.small-text:hover {
 
 
 
-#profile-info {
-    display: flex;
-    flex-direction: column;
-    align-items: center; /* Zentriert den Inhalt horizontal */
-    justify-content: center; /* Zentriert den Inhalt vertikal */
-}
-
 #profile-info button {
     margin-top: 10px; /* Abstand nach oben */
-    background-color: #e74c3c;
-    color: white;
-    border: none;
-    border-radius: 50%;
-    width: 40px;
-    height: 40px;
-    font-size: 18px;
+    background-color: #2c2c2c; /* Dunkelgrauer Hintergrund */
+    color: white; /* Weiße Schriftfarbe */
+    border: 1px solid rgba(255, 255, 255, 0.4); /* Subtiler weißer Rand */
+    border-radius: 10px; /* Leicht abgerundete Ecken */
+    width: 45px; /* Neue Breite */
+    height: 27px; /* Neue Höhe */
+    font-size: 14px; /* Kleinere Schriftgröße */
     cursor: pointer;
     display: flex;
-    align-items: center;
-    justify-content: center;
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
-    transition: background-color 0.3s, transform 0.3s, box-shadow 0.3s;
+    align-items: center; /* Text vertikal zentriert */
+    justify-content: center; /* Text horizontal zentriert */
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2); /* Dezenter Schatten */
+    transition: background-color 0.3s, transform 0.3s, box-shadow 0.3s; /* Sanfte Animationen */
 }
 
 /* Hover-Effekt */
 #profile-info button:hover {
-    background-color: #c0392b;
-    transform: scale(1.1);
-    box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.3);
+    background-color: #3b3b3b; /* Etwas helleres Grau bei Hover */
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.3); /* Verstärkter Schatten */
 }
 
 /* Aktiver Zustand */
 #profile-info button:active {
-    background-color: #aa2b1d;
-    transform: scale(0.95);
+    background-color: #1e1e1e; /* Dunkleres Grau bei Aktivierung */
+    box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.2); /* Leichterer Schatten */
 }
 
-/* Fokus-Effekt */
-#profile-info button:focus {
-    outline: none;
-    box-shadow: 0px 0px 0px 2px rgba(218, 57, 51, 0.603);
-}
 
 
 
