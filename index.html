@@ -587,25 +587,200 @@
                 </button>
                 <hr class="separator-line">
                 <h1 id="quiz-heading">Choose Your Quiz</h1>
-                <button class="btn" onclick="startQuiz()">Stoicism-quiz
-                    <img src="Stoizismus.jpg">
+                <button class="quiz-button" data-quiz="stoicism-quiz" onclick="startQuiz(this)">
+                    <img src="Stoizismus.jpg" alt="Stoizismus Icon">
+                    <div class="text">
+                        <span>Stoicism-quiz</span>
+                    </div>
                     <img src="Belohnung.png" alt="Erfolgssymbol" class="reward-image">
                     <span class="tooltip">With Reward</span>
                 </button>
-                <button class="btn" onclick="startQuiz2()">Quotes-quiz
-                    <img src="sparta.jpg" alt="Philosophy">
+                
+                <button class="quiz-button" data-quiz="quotes-quiz" onclick="startQuiz(this)">
+                    <img src="sparta.jpg" alt="Philosophy Icon">
+                    <div class="text">
+                        <span>Quotes-quiz</span>
+                    </div>
                     <img src="Belohnung.png" alt="Erfolgssymbol" class="reward-image">
                     <span class="tooltip">With Reward</span>
                 </button>
-                <button class="btn" onclick="startQuiz3()">Dilemma-quiz
-                    <img src="king.jpg" alt="Quiz 3">
+                
+                <button class="quiz-button" data-quiz="dilemma-quiz" onclick="startQuiz(this)">
+                    <img src="king.jpg" alt="Quiz 3 Icon">
+                    <div class="text">
+                        <span>Dilemma-quiz</span>
+                    </div>
                     <img src="Belohnung.png" alt="Erfolgssymbol" class="reward-image">
                     <span class="tooltip">With Reward</span>
-                </button>               
+                </button>
+                
+                
+                          
                 <br><br>
             </div>
         </div>
         
+
+        <script>
+            function startQuiz(button) {
+                // Zugriff auf das data-Attribut für den jeweiligen Button
+                const quizType = button.getAttribute('data-quiz');
+
+                // Dynamische Auswahl der Quiz-Startfunktion basierend auf dem data-Attribut
+                switch (quizType) {
+                    case 'stoicism-quiz':
+                        startQuiz(); // Stoizismus Quiz
+                        break;
+                    case 'quotes-quiz':
+                        startQuiz2(); // Quotes Quiz
+                        break;
+                    case 'dilemma-quiz':
+                        startQuiz3(); // Dilemma Quiz
+                        break;
+                    default:
+                        console.log('Unknown quiz type');
+                }
+            }
+
+        </script>
+
+        <style>
+            /* Basis-CSS-Variablen für Button-spezifische Stile */
+            :root {
+                --button-primary-color: #000000; /* Schwarzer Hintergrund für Buttons */
+                --button-hover-color: #333333; /* Dunkles Grau für Hover-Zustand */
+                --button-focus-color: rgba(231, 76, 60, 0.4); /* Fokusrahmen-Farbe */
+                --button-text-color: #ffffff; /* Weiß für Button-Text */
+                --button-secondary-color: #2980b9; /* Blau für Animation bei Buttons */
+                --button-padding-large: 16px 32px; /* Größeres Padding für Button-Komfort */
+                --button-font-size-large: 1.3em; /* Größere Schriftgröße */
+                --button-border-radius: 20px; /* Abgerundete Ecken für Buttons */
+                --button-box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15); /* Tieferer Schatten für Buttons */
+                --button-hover-box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2); /* Verstärkter Schatten bei Hover */
+                --button-image-size: 100px; /* Bildgröße für Icons */
+                --button-height: 150px; /* Erhöhte Höhe für Buttons */
+            }
+
+            /* Container für die Buttons */
+            .quiz-buttons-container {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                gap: 20px; /* Abstand zwischen den Buttons */
+                margin-bottom: 40px;
+            }
+
+            /* Stil für jeden Button */
+            .quiz-button {
+                position: relative;
+                display: flex;
+                flex-direction: row; /* Elemente nebeneinander anordnen */
+                align-items: center; /* Vertikale Ausrichtung der Elemente */
+                justify-content: center;
+                gap: 16px; /* Abstand zwischen Bild und Text */
+                padding: var(--button-padding-large); /* Verwendung der definierten Variablen */
+                width: 100%; /* Breite des Buttons passt sich an die Größe des Containers an */
+                max-width: 340px; /* Maximale Breite, um eine zu große Ausdehnung zu verhindern */
+                height: var(--button-height); /* Erhöhte Höhe für Buttons */
+                background: var(--button-primary-color); /* Hintergrundfarbe für Buttons */
+                color: var(--button-text-color); /* Textfarbe für Buttons */
+                font-size: var(--button-font-size-large); /* Schriftgröße */
+                font-weight: 600;
+                border-radius: var(--button-border-radius); /* Abgerundete Ecken */
+                box-shadow: var(--button-box-shadow); /* Standard Schatten */
+                cursor: pointer;
+                overflow: hidden;
+                transition: all 0.5s ease-in-out; /* Sanfter Übergang für Hover- und Klick-Effekte */
+            }
+
+            /* Hover-Effekt für Buttons */
+            .quiz-button:hover {
+                transform: scale(1.05); /* Button leicht vergrößern */
+                box-shadow: var(--button-hover-box-shadow); /* Verstärkter Schatten */
+            }
+
+            /* Fokus-Effekt für Buttons */
+            .quiz-button:focus {
+                transform: scale(1.1); /* Button weiter vergrößern */
+                box-shadow: 0 0 10px var(--button-focus-color); /* Sanfter Fokusrahmen */
+            }
+
+            /* Bild im Button */
+            .quiz-button img {
+                position: absolute;
+                left: 24px; /* Bild leicht nach rechts verschieben */
+                top: 50%;
+                transform: translateY(-50%); /* Vertikale Zentrierung des Bildes */
+                width: var(--button-image-size);
+                height: var(--button-image-size);
+                border-radius: 50%;
+                object-fit: cover;
+                box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+            }
+
+            /* Text im Button */
+            .quiz-button .text {
+                position: absolute;
+                bottom: 16px; /* Text etwas nach unten verschieben */
+                right: 20px; /* Text nach rechts verschieben */
+                font-size: 1em;
+                font-weight: bold;
+            }
+
+            /* Tooltip für die Belohnung im Button */
+            .quiz-button .tooltip {
+                position: absolute;
+                bottom: 10px; /* Etwas höher als der Text */
+                left: 20px;
+                font-size: 0.8em;
+                color: #fff;
+                background: rgba(0, 0, 0, 0.7);
+                padding: 4px 8px;
+                border-radius: 5px;
+                display: none; /* Tooltip anfangs ausblenden */
+            }
+
+            /* Tooltip anzeigen beim Hover */
+            .quiz-button:hover .tooltip {
+                display: block; /* Tooltip sichtbar machen beim Hover */
+            }
+
+            /* Responsives Design für mobile Geräte */
+            @media (max-width: 600px) {
+                .quiz-button {
+                    padding: 14px 24px; /* Kleineres Padding auf mobilen Geräten */
+                    height: 120px; /* Kleinere Höhe auf mobilen Geräten */
+                }
+
+                .quiz-button img {
+                    width: calc(var(--button-image-size) - 20px);
+                    height: calc(var(--button-image-size) - 20px);
+                }
+
+                .quiz-button {
+                    font-size: 0.9em; /* Kleinere Schriftgröße auf mobilen Geräten */
+                }
+            }
+
+            /* Bild des Pokals nach oben links verschieben und kleiner machen */
+            .quiz-button .reward-image {
+                position: absolute;
+                top: 20px; /* Pokal an den oberen Rand verschieben */
+                left: 8px; /* Pokal an den linken Rand verschieben */
+                width: 22px; /* Pokalgröße weiter verkleinern */
+                height: 22px; /* Pokalgröße weiter verkleinern */
+                object-fit: cover; /* Bild wird an die festgelegte Größe angepasst */
+                box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Optionaler Schatten */
+            }
+
+            /* Optional: Wenn du den Tooltip auch anpassen möchtest */
+            .quiz-button:hover .reward-image {
+                box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2); /* Verstärkter Schatten beim Hover */
+            }
+
+
+
+        </style>
 
         <!-- Input-Feld für den Download-Link -->
         <input type="text" id="download-link" value="https://wisewords01.com/" readonly style="display: none;">
