@@ -587,7 +587,7 @@
                 </button>
                 <hr class="separator-line">
                 <h1 id="quiz-heading">Choose Your Quiz</h1>
-                <button class="quiz-button" data-quiz="stoicism-quiz" onclick="startQuiz(this)">
+                <button class="quiz-button" onclick="startQuiz()">
                     <img src="Stoizismus.jpg" alt="Stoizismus Icon">
                     <div class="text">
                         <span>Stoicism-quiz</span>
@@ -596,7 +596,7 @@
                     <span class="tooltip">With Reward</span>
                 </button>
                 
-                <button class="quiz-button" data-quiz="quotes-quiz" onclick="startQuiz(this)">
+                <button class="quiz-button" onclick="startQuiz2()">
                     <img src="sparta.jpg" alt="Philosophy Icon">
                     <div class="text">
                         <span>Quotes-quiz</span>
@@ -605,7 +605,7 @@
                     <span class="tooltip">With Reward</span>
                 </button>
                 
-                <button class="quiz-button" data-quiz="dilemma-quiz" onclick="startQuiz(this)">
+                <button class="quiz-button" onclick="startQuiz3()">
                     <img src="king.jpg" alt="Quiz 3 Icon">
                     <div class="text">
                         <span>Dilemma-quiz</span>
@@ -2532,7 +2532,7 @@
     
 
 
-
+    
 
     
 
@@ -2540,11 +2540,11 @@
 
 
 
+    
 
 
 
-
-
+    
 
 
 
@@ -2765,8 +2765,10 @@
             <button onclick="navigateToWritingPage()" class="journal-button">
                 <i class="fas fa-book"></i>
                 <span>Journal</span>
-            </button>
+            </button> 
         </div>
+
+        
         
         <div id="profile-image">
             <img src="Rewards.png" alt="Profile Image">
@@ -3163,6 +3165,7 @@
 
             },
         };
+        
 
         let lastAudioDateKey = 'lastAudioDate';
         let streakKey = 'streakDays';
