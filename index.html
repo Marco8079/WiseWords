@@ -3180,71 +3180,423 @@
             // Display philosopher's profile
             const profile = {
                 'aurelius': {
-                    role: 'Roman Emperor and Stoic Philosopher (121 to 180 CE)',
-                    style: 'Reflective, personal, and practical',
-                    relevance: 'Focuses on inner strength and personal ethics',
-                    length: '3-7 minutes'
-                },
-                'plato': {
-                    role: 'Greek Philosopher and Student of Socrates (428 to 347 BCE)',
-                    style: 'Idealistic, dialogical, and theoretical',
-                    relevance: 'Focuses on ideal forms and political philosophy',
-                    length: '3-7 minutes'
-                },
-                'aristotle': {
-                    role: 'Greek Philosopher and Scientist (384 to 322 BCE)',
-                    style: 'Empirical, systematic, and practical',
-                    relevance: 'Focuses on logic, ethics, and the nature of knowledge',
-                    length: '3-6 minutes'
-                },
-                'nietzsche': {
-                    role: 'German Philosopher and Cultural Critic (1844 to 1900)',
-                    style: 'Provocative, aphoristic, and existential',
-                    relevance: 'Explores will to power, "Übermensch", criticizes religion and morality',
-                    length: '4-6 minutes'
-                },
-                'cäsar': {
-                    role: 'Roman General and Statesman (100 to 44 BCE)',
-                    style: 'Feasible, Strategic, pragmatic',
-                    relevance: 'Insights and reflection into/on military strategy, political power dynamics and leadership during a pivotal historical transition',
-                    length: '3-5 minutes'
-                },
-                'leonardo': {
-                    role: 'Italian Polymath and Inventor (1452 to 1519)',
-                    style: 'Innovative, interdisciplinary, and visionary',
-                    relevance: 'Explores approaches to learning, combining art and science to push the boundaries of knowledge and innovation',
-                    length: '3-5 minutes'
-                },
-                'buddha': {
-                    role: 'Spiritual Teacher and Founder of Buddhism (563/480 to 483/400 BCE)',
-                    style: 'Contemplative, philosophical, and transformative',
-                    relevance: 'Offers profound insights into the nature of suffering, mindfulness, and the path to enlightenment, emphasizing compassion and inner peace',
-                    length: '3-5 minutes'
-                },
-                'marco': {
-                    role: 'Venetian Explorer and Merchant (1254 to 1324)',
-                    style: 'Observant, adventurous, and descriptive',
-                    relevance: 'Provides detailed accounts of distant lands, cultures, and trade routes, highlighting the importance of exploration and cross-cultural exchange',
-                    length: '3-7 minutes'
-                },
-                'cook': {
-                    role: 'British Explorer and Navigator (1728 to 1779)',
-                    style: 'Meticulous, daring, and exploratory',
-                    relevance: 'Offers lessons in how to navigate uncharted territories, and how to expand your understanding of the world through exploration and curiosity',
-                    length: '3-6 minutes'
-                },
-                'shakespeare': {
-                    role: 'English Playwright and Poet (1564 to 1616)',
-                    style: 'Creative, eloquent, and dramatic',
-                    relevance: 'Offers deep insights into human nature, emotion, and society through his literature, providing valuable lessons on storytelling, character development, and the complexities of human behavior',
-                    length: '4-7 minutes'
-                },
-                'leonidas': {  
-                    role: "Ancient Spartan King and Warrior (540 to 480 BCE)",  
-                    style: "Disciplined, resilient, and strategic",  
-                    relevance: "Leonidas embodies strength, courage, and discipline, offering Spartan wisdom on mastering challenges, collaborating with humility, and leading with honor. His teachings inspire resilience, purposeful action, and unwavering commitment to one's values and community.",  
-                    length: "5-8 minutes"  
-                }
+                role: 'Roman Emperor and Stoic Philosopher (121 to 180 CE)',
+                style: 'Reflective, personal, and practical',
+                relevance: 'Focuses on inner strength and personal ethics',
+                length: '3-7 minutes',
+                contents: [
+                    { title: "How to find inner peace in turbulent times?" },
+                    { title: "How to find peace and strength in the face of betrayal?" },
+                    { title: "How to find balance when making difficult decisions?" },
+                    { title: "How to Stay Calm and Wise During a Crisis: Lessons from the Antonine Plague" },
+                    { title: "Leadership and Forgiveness: What the Revolt of Avidius Cassius Taught Me" },
+                    { title: "Victory Through Patience: The Battle with the Germanic Tribes" },
+                    { title: "The True Battle Within: Overcoming Fear and Doubt in Leadership" },
+                    { title: "Can Inner Peace Be Found in the Midst of Chaos?" },
+                    { title: "How Do We Define Strength When Faced with Spectacles of Suffering?" },
+                    { title: "What Role Do Meaningful Conversations Play in Strengthening Our Relationships?" },
+                    { title: "How Can Patience and Subtlety Overcome Threats from Within?" },
+                    { title: "The Weight of Praise: Finding Humility in Glory" },
+                    { title: "Balancing Beliefs: Leadership in Times of Crisis" },
+                    { title: "A Moment of Mercy: Leadership Through Compassion" },
+                    { title: "The Symposium of Thought: A Convergence of Minds" },
+                    { title: "Can Power and Morality Coexist? A Soldier's Dilemma on the Nature of War" },                   
+                    { title: "How Can Critical Thinking Protect Us from the Dangers of Hasty Decisions?" },
+                    { title: "How Do We Balance Strategic Interests with Ethical Considerations in Leadership?" },
+                    { title: "How Can Simple Wisdom from Unexpected Sources Transform Our Leadership Approach?" },
+                    { title: "How Stoic wisdom can make you stronger on the battlefield and in life." },                   
+                    { title: "How Can Patience and Persistence Shape Your Approach to Challenges?" },
+                    { title: "What Role Does Rest and Renewal Play in Effective Leadership?" },
+                    { title: "How Can a Morning Ritual Set the Tone for Your Day?" },
+                    { title: "How Can Engaging with Opponents Lead to Constructive Dialogue?" },
+                    { title: "How Can the Acceptance of Aging Lead to Wisdom and Inner Strength?" },
+                    { title: "What Role Does Art and Literature Play in Shaping Our Identity?" },
+                    { title: "How Does Mentorship Shape Our Personal Growth and Understanding?" },
+                    { title: "What Strength Is Required to Uphold One's Principles Amidst False Accusations?" },
+                    { title: "Embracing mortality: How to live with acceptance and purpose?" },
+                ]
+            },
+            'plato': {
+                role: 'Greek Philosopher and Student of Socrates (428 to 347 BCE)',
+                style: 'Idealistic, dialogical, and theoretical',
+                relevance: 'Focuses on ideal forms and political philosophy',
+                length: '3-7 minutes',
+                contents: [
+                    { title: "How Do You Choose Between Truth and Stability?" },
+                    { title: "Can True Wisdom Be Found in Recognizing Our Limitations?" },
+                    { title: "What Does It Take to Persuade Others Effectively?" },
+                    { title: "What Happens When Ambition Meets the Challenge of True Art?" },
+                    { title: "How Can We Preserve Wisdom in a Democracy Shaped by Ignorance?" },
+                    { title: "What Lies Beyond Appearances in the Search for True Reality?" },
+                    { title: "How Can Loss Shape Our Quest for Meaning and Wisdom?" },
+                    { title: "Can Political Idealism Survive the Test of Reality?" },
+                    { title: "How Does Music Influence the Soul and Guide Virtue?" },
+                    { title: "What Can a Journey to Delphi Teach Us About the Limits of Human Understanding?" },
+                    { title: "How Does Confinement Challenge the Philosopher’s Pursuit of Wisdom?" },                   
+                    { title: "How Does the Acceptance of Mortality Shape Our Lives?" },
+                    { title: "Can Belief in the Immortality of the Soul Influence How We Live?" },
+                    { title: "Can Losing Your Way Lead to Greater Self-Knowledge?" },
+                    { title: "What Does the Loss of a Created Work Reveal About Ourselves?" },
+                    { title: "Can the Rhythm of the Sea Teach Us Patience and Perseverance?" },
+                    { title: "What Have You Neglected in Your Intellectual Journey That Deserves Another Look?" },
+                    { title: "How Does Being an Observer Shape Your Understanding of Reality?" },
+                    { title: "What Insights Can Silence After a Heated Discussion Reveal About Ourselves?" },
+                    { title: "How Does a Sleepless Night Reflect Your Inner Struggles and Self-Reflection?" },
+                    { title: "How Can You Protect Yourself from Deception in Everyday Life?" },
+                    { title: "How Can a Burdensome Task Lead to Personal Growth and Insight?" },
+                    { title: "How Can a Simple, Humble Object Hold the Key to Profound Meaning?" },
+                    { title: "How Can a Single Leaf Teach Us About the Human Struggle Against Time?" },
+                    { title: "What Does the Rejection of an Invitation Reveal About Our Inner Fears and Social Expectations?" },
+                    { title: "How Can Patience, Tested in the Quiet Rhythm of Life, Become a Source of True Strength?" },
+                    { title: "What Can the Echoes of Ancient Philosophy Teach Us About Our Own Reflections?" },
+                    { title: "How Can Struggles Shape Our Growth?" },
+                    { title: "Can Death Be a Path to Greater Knowledge?" },
+                ]
+            },
+            'aristotle': {
+                role: 'Greek Philosopher and Scientist (384 to 322 BCE)',
+                style: 'Empirical, systematic, and practical',
+                relevance: 'Focuses on logic, ethics, and the nature of knowledge',
+                length: '3-6 minutes',
+                contents: [
+                    { title: "How Can Balancing Justice and Compassion Lead to True Wisdom?" },
+                    { title: "How Can Failure Become the Key to Growth and Improvement?" },
+                    { title: "How Can Idealism and Pragmatism Shape Effective Leadership?" },
+                    { title: "What Can the Division of Labor in a Beehive Teach Us About Human Society?" },
+                    { title: "How Do Emotions Shape Decision-Making and Persuasion?" },
+                    { title: "What Is the True Value of Knowledge, and How Can It Be Safeguarded?" },
+                    { title: "What Lies Beyond Myths and Fear—Can We Trust What We Hear?" },
+                    { title: "What Can We Learn from Nature’s Hidden Truths, and How Far Are We Willing to Go to Discover Them?" },
+                    { title: "How Can Cross-Cultural Dialogues Challenge Our Understanding of Wisdom and Ethics?" },
+                    { title: "What Does It Take to Protect Knowledge and Principles in Times of Political Crisis?" }, 
+                    { title: "How Can Engaging with Different Theories Lead to Greater Scientific Understanding?" },
+                    { title: "How to debate?" },
+                    { title: "How to formulate an argument?" },
+                    { title: "How Does Formal Logic Transform Our Understanding of Reasoning?" }, 
+                    { title: "How Can Disagreements with Great Minds Shape Our Own Philosophical Evolution?" },               
+                    { title: "Can a Blend of Political Systems Offer the Best Governance?" },
+                    { title: "How Can Logic Illuminate the Complexities of Ethical Decision-Making?" },
+                    { title: "How Can Personal Exile Lead to Greater Introspection and Philosophical Growth?" },
+                    { title: "How Can Influential Relationships Shape Your Journey and Expand Your Impact?" },                   
+                    { title: "Why Are Intellectual Debates Crucial for Deepening Your Understanding?" },
+                    { title: "How Can Considering Multiple Perspectives Lead to a Deeper Understanding of Complex Phenomena?" },
+                    { title: "What Is the Foundation of a Systematic Approach to Knowledge?" },
+                    { title: "How Can We Understand Motion Beyond Its Surface?" },                   
+                    { title: "How Can We Reconcile the Ideal with the Material World?" },
+                    { title: "How Do Form and Matter Shape the Essence of a Thing?" },
+                    { title: "Can True Learning Only Come Through Experience?" },
+                    { title: "What Happens When We Challenge Our Teaching Methods?" },                   
+                    { title: "How Can Practical Knowledge Shape Our Lives?" },
+                    { title: "How Do We Resist the Temptation of Power?" },
+                ]
+            },
+            'nietzsche': {
+                role: 'German Philosopher and Cultural Critic (1844 to 1900)',
+                style: 'Provocative, aphoristic, and existential',
+                relevance: 'Explores will to power, "Übermensch", criticizes religion and morality',
+                length: '4-6 minutes',
+                contents: [
+                    { title: "How can you overcome your limits to reach your highest potential?" },
+                    { title: "What drives you to assert your own values against societal norms?" },                   
+                    { title: "How would your life change if you lived it as if you'd repeat it forever?" },
+                    { title: "What happens when you question existing moral values and create your own?" },
+                    { title: "How can you embrace life, even in the face of adversity?" },
+                    { title: "What happens when you leave traditional values behind to find your own path?" },                   
+                    { title: "How can you balance creative freedom and self-discipline?" },
+                    { title: "Why is true meaning found not only in knowledge, but in joy and humor?" },
+                    { title: "How can you accept and learn from your weaknesses?" },
+                    { title: "How can you think and live independently, beyond convention?" },         
+                    { title: "Resentment" },
+                    { title: "The Eternal Childhood of Man" },
+                    { title: "The Great Health" },
+                    { title: "Power of Habit" },         
+                    { title: "Zarathustra's Descent" },
+                    { title: "Contempt for the Everyday" },
+                    { title: "Philosopher as Warrior" },
+                    { title: "The Courage to Be Alone" },         
+                    { title: "Becoming Instead of Being" },
+                    { title: "How do we maintain equanimity when fate challenges us?" },
+                    { title: "Why are great upheavals necessary to uncover our true character?" },
+                    { title: "What happens when we view life as a creative game?" },         
+                    { title: "How can we become a higher person who rises above societal expectations?" },
+                    { title: "How can suffering become a source of creative power?" },
+                    { title: "How do we gain mastery over the present moment and live in the here and now?" },
+                    { title: "What is the art of seduction, and how does it change our world?" },
+                    { title: "Why is great solitude necessary to find oneself?" },         
+                    { title: "What awaits us when we take the risk of the unknown?" },
+                    { title: "How do we experience the ecstasy of life in its most intense form?" },
+                ]
+            },
+            'cäsar': {
+                role: 'Roman General and Statesman (100 to 44 BCE)',
+                style: 'Feasible, Strategic, pragmatic',
+                relevance: 'Insights and reflection into/on military strategy, political power dynamics and leadership during a pivotal historical transition',
+                length: '3-5 minutes',
+                contents: [
+                    { title: "What does it take to make a bold decision and seize power, even at great risk?" },
+                    { title: "How can strategic alliances open doors and drive ambitious goals?" },         
+                    { title: "What fuels unshakable ambition and drives us to pursue limitless power and influence?" },
+                    { title: "How can strategic thinking and effective planning lead to military success?" },
+                    { title: "How can charismatic leadership inspire loyalty and achieve extraordinary results?" },
+                    { title: "Can forgiveness be a powerful political tool to foster stability?" },
+                    { title: "How can reform drive the future of a nation and ensure its stability?" },         
+                    { title: "How does self-presentation shape how others perceive us and influence our success?" },
+                    { title: "How does controlling communication shape public perception and increase power?" },
+                    { title: "How can effective time and resource management lead to success in both personal and professional life?" },
+                    { title: "How does a strong self-presentation shape long-term influence and success?" },         
+                    { title: "How can loyalty be earned and maintained through recognition and rewards?" },
+                    { title: "How does flexibility and adaptability contribute to overcoming challenges and achieving success?" },
+                    { title: "How does patience and long-term planning lead to sustainable achievements?" },
+                    { title: "When is it necessary to take bold risks in order to achieve success?" },
+                    { title: "How can strategic relationships propel a career and solidify one's position?" },         
+                    { title: "How can technological and strategic innovation change the course of events?" },
+                    { title: "Why is thinking in long-term strategies essential for sustained success?" },
+                    { title: "How can believing in your own potential shape and define your future?" },
+                    { title: "What role do symbols play in shaping perception and legacy?" },
+                    { title: "The Importance of Setting Clear Goals" },
+                    { title: "The Power of Diplomacy" },         
+                    { title: "Creating a Legacy Through Narrative Control" },
+                    { title: "The Role of Emotional Intelligence in Leadership" },
+                    { title: "The Wise Use of Power" },
+                    { title: "The Art of Perfect Timing" },
+                    { title: "Continuous Self-Improvement as a Path to Success" },         
+                    { title: "Knowing When to Walk Away" },
+                    { title: "Beware of Betrayal" },
+                ]
+            },
+            'leonardo': {
+                role: 'Italian Polymath and Inventor (1452 to 1519)',
+                style: 'Innovative, interdisciplinary, and visionary',
+                relevance: 'Explores approaches to learning, combining art and science to push the boundaries of knowledge and innovation',
+                length: '3-5 minutes',
+                contents: [
+                    { title: "The Power of Curiosity" },
+                    { title: "The Value of Interdisciplinary Thinking" },
+                    { title: "The Pursuit of Perfection" },
+                    { title: "The Power of Observation" },
+                    { title: "Creative Problem-Solving" },
+                    { title: "The Importance of Drawing" },         
+                    { title: "Embracing the Unfinished" },
+                    { title: "The Quest for Beauty" },
+                    { title: "The Importance of Documentation" },
+                    { title: "Nature as a Teacher" },
+
+                    { title: "Patience and Persistence" },         
+                    { title: "Life as a Work of Art" },
+                    { title: "Independent Thinking" },
+                    { title: "The Value of Experimentation" },
+                    { title: "The Pursuit of Knowledge as a Lifelong Quest" },
+                    { title: "Humility Before the Infinite Knowledge" },         
+                    { title: "Visionary Imagination" },
+                    { title: "Collaboration and Exchange" },
+                    { title: "Self-Reflection and Criticism" },
+                    { title: "Lifelong Learning" },
+
+                    { title: "How Can Prioritizing Focus Drive Success?" },         
+                    { title: "How Can Retreat Foster Creative Insight?" },
+                    { title: "How Can Freedom from External Judgments Lead to Authenticity?" },
+                    { title: "How Does Curiosity About the Unknown Lead to Discovery?" },
+                    { title: "How Can Balance Between Art and Science Create Masterpieces?" },
+                    { title: "How Can Knowledge Be Innovatively Applied?" },         
+                    { title: "How Does Flexibility Enable Success in Multiple Fields?" },
+                    { title: "How Can Attention to Detail Elevate Excellence?" },
+                    { title: "How Does the Search for Harmony Shape a Balanced Life?" },
+                ]
+            },
+            'buddha': {
+                role: 'Spiritual Teacher and Founder of Buddhism (563/480 to 483/400 BCE)',
+                style: 'Contemplative, philosophical, and transformative',
+                relevance: 'Offers profound insights into the nature of suffering, mindfulness, and the path to enlightenment, emphasizing compassion and inner peace',
+                length: '3-5 minutes',
+                contents: [
+                    { title: "How Can Inner Peace Be Found Beyond Wealth and Power?" },         
+                    { title: "How Does Compassion Foster Fulfillment and Stronger Connections?" },
+                    { title: "How Can a Balanced Life Lead to Well-Being?" },
+                    { title: "How Does Acceptance of Life's Impermanence Lead to Peace?" },
+                    { title: "How Can the Recognition and Overcoming of Suffering Lead to Peace?" },
+                    { title: "How Can Ethical Living and Discipline Lead to Enlightenment?" },         
+                    { title: "How Can Mindfulness Transform Everyday Life?" },
+                    { title: "How Does Meditation Cultivate Clarity and Emotional Balance?" },
+                    { title: "How Can Our Actions Create Positive Outcomes Through Karma?" },
+                    { title: "How Does Letting Go of Attachments Free Us from Suffering?" },
+
+                    { title: "How Can Regular Self-Reflection Lead to Personal Growth?" },         
+                    { title: "How Can Acceptance of the Impermanence of the Self Lead to Greater Calm?" },
+                    { title: "How Can Unconditional Benevolence Foster Peace in the World and in Ourselves?" },
+                    { title: "How Does Patience and Serenity Help Us Navigate Challenges?" },
+                    { title: "How Can Renouncing Greed Lead to True Happiness?" },
+                    { title: "How Does Wisdom Lead to a Deeper Understanding of Life?" },         
+                    { title: "How Can Spiritual Community Support Personal and Spiritual Growth?" },
+                    { title: "Why is the Pursuit of Enlightenment an Noble Goal?" },
+                    { title: "How Does Silence and Retreat Help Us Gain Insight?" },
+                    { title: "How Can Forgiveness Free Us from Negative Karma and Resentment?" },
+
+                    { title: "How Does Recognizing the Illusion of the Ego Lead to More Peace and Less Conflict?" },         
+                    { title: "Why Is Righteousness the Foundation for a Peaceful and Fulfilling Life?" },
+                    { title: "How Can Acceptance of the Inevitable Bring Greater Peace and Calm?" },
+                    { title: "How Does Liberation from Worldly Attachments Lead to True Freedom?" },
+                    { title: "How Does the Pursuit of Inner Harmony Lead to a Balanced and Peaceful Life?" },
+                    { title: "Why Are Direct Experiences the Best Teachers on the Spiritual Path?" },         
+                    { title: "How Does Equanimity Foster Emotional Stability and a Calm Mind?" },
+                    { title: "How Can Gratitude Cultivate Satisfaction and Peace in Our Lives?" },
+                    { title: "How Can Accepting Life's Constant Change Lead to a More Fulfilled and Calm Existence?" },
+                ]
+            },
+            'marco': {
+                role: 'Venetian Explorer and Merchant (1254 to 1324)',
+                style: 'Observant, adventurous, and descriptive',
+                relevance: 'Provides detailed accounts of distant lands, cultures, and trade routes, highlighting the importance of exploration and cross-cultural exchange',
+                length: '3-7 minutes',
+                contents: [
+                    { title: "How a Spirit of Adventure Leads to Great Discoveries" },         
+                    { title: "How Openness to Other Cultures Can Build Valuable Relationships" },
+                    { title: "How Understanding Global Trade Systems Can Foster Innovation" },
+                    { title: "What We Can Learn from Historical Trade Routes and Cultural Exchange" },
+                    { title: "How Perseverance Helps Overcome Even the Toughest Challenges" },
+                    { title: "How Studying Military Strategies Can Improve Our Strategic Thinking" },         
+                    { title: "What the Achievements of Other Cultures Can Teach Us About Progress" },
+                    { title: "How Openness to Different Religions Fosters Tolerance and Understanding" },
+                    { title: "What We Can Learn from Efficient Administrative Systems" },
+                    { title: "How Curiosity About Other Cultures Can Enrich Our Lives" },
+
+                    { title: "How Patience and Perseverance Help Us Overcome Long Delays in Achieving Our Goals" },         
+                    { title: "How Openness to the Extraordinary and the Unknown Enhances Our Life Perspective" },
+                    { title: "How Accurate Documentation Can Propel Advancements in Various Fields of Knowledge" },
+                    { title: "How Flexibility and Adaptability Are Key to Success in International Business" },
+                    { title: "How Patience in Negotiations Leads to Successful and Sustainable Agreements" },
+                    { title: "How Understanding and Respecting Cultural Differences Improves Relationships" },         
+                    { title: "How Continuous Education and Learning Broaden Our Horizons and Open New Possibilities" },
+                    { title: "How Adaptability Is Crucial for Thriving Amidst Change and Uncertainty" },
+                    { title: "How Stories Shape Our Cultural Understanding and Perception of the World" },
+                    { title: "How Standing Firm in Your Beliefs and Experiences Can Strengthen Your Resolve Against Doubters" },
+
+                    { title: "How Teamwork and Collaboration Can Ease Life’s Challenges and Foster Success" },         
+                    { title: "How Effective Communication Bridges Cultural and Linguistic Barriers to Enhance Understanding" },
+                    { title: "How Traveling Expands Your Worldview and Promotes Personal Growth" },
+                    { title: "How Observation and Attention to Detail Lead to Valuable Insights and Discoveries" },
+                    { title: "How Determination and Perseverance Are Key to Achieving Big Goals and Overcoming Setbacks" },
+                    { title: "How Traveling Contributes to Knowledge Growth and Deepens Our Understanding of the World" },         
+                    { title: "How Courage to Explore the Unknown Can Lead to Major Discoveries and Success" },
+                    { title: "How the Quest for Truth and Accurate Reporting Builds Trust and Credibility" },
+                    { title: "How Documenting Experiences and Insights Helps Others Learn and Gain New Perspectives" },
+                ]
+            },
+            'cook': {
+                role: 'British Explorer and Navigator (1728 to 1779)',
+                style: 'Meticulous, daring, and exploratory',
+                relevance: 'Offers lessons in how to navigate uncharted territories, and how to expand your understanding of the world through exploration and curiosity',
+                length: '3-6 minutes',
+                contents: [
+                    { title: "How Determination and Curiosity Drive Exploration and Geographical Discovery" },         
+                    { title: "How Accuracy in Cartography Expands Geographical Knowledge and Understanding" },
+                    { title: "How Respectful Cultural Encounters Enhance Mutual Understanding and Enrich Experiences" },
+                    { title: "How Awareness of Environmental Risks Ensures Success in Exploration" },
+                    { title: "How Learning from Setbacks and Adversity Leads to Future Success" },
+                    { title: "How Systematic Exploration and Data Collection Drive Scientific Discovery" },         
+                    { title: "How Medical Innovations Improve Health and Enable Long-Term Success" },
+                    { title: "How Sensitivity and Respect for Indigenous Cultures Foster Peaceful Relationships" },
+                    { title: "How Exploring New Territories Broadens Our Understanding of the World" },
+                    { title: "How Precise Scientific Observations Contribute to Advancements in Astronomy" },
+
+                    { title: "How Exploring Extreme Conditions Demonstrates the Value of Determination and Scientific Curiosity" },         
+                    { title: "How Expertise in Navigation is Crucial for Successful Exploration of New Territories" },
+                    { title: "How Effective Resource Management Ensures Safe and Successful Expeditions" },
+                    { title: "How Documenting Cultural Practices Enhances Understanding and Appreciation of Human Diversity" },
+                    { title: "How Flexibility and Adaptability Help Overcome Challenges in Harsh Environments" },
+                    { title: "How Collaboration with Scientists Accelerates Research and Enhances Discoveries" },         
+                    { title: "How Discovery Expeditions Expand Geographical and Cultural Knowledge" },
+                    { title: "How Strategic Planning and Preparation Lead to Success in Complex Ventures" },
+                    { title: "How Creativity and Innovation Solve Medical Challenges in Long-Distance Travel" },
+                    { title: "How Leadership and Mentorship Inspire and Empower Others for Greater Success" },
+
+                    { title: "How Systematic Exploration and Documentation Open New Horizons for Future Discoveries" },         
+                    { title: "How Resilience and Adaptability in Harsh Conditions Determine Success" },
+                    { title: "How Effective Communication Prevents Misunderstandings and Fosters Collaboration" },
+                    { title: "How Scientific Discoveries in Botany Expand Knowledge of Plant Species and Ecosystems" },
+                    { title: "How Geographic Exploration Enriches Global Knowledge and Cultural Understanding" },
+                    { title: "How Respecting Local Traditions Promotes Harmony and Collaboration" },         
+                    { title: "How Overcoming Extreme Arctic Conditions Requires Innovation and Survival Skills" },
+                    { title: "How Accurate Data Collection of Tides and Currents Enhances Navigation and Scientific Progress" },
+                    { title: "How Mapping and Documenting New Islands Contribute to Global Connectivity and Understanding" },
+                ]
+            },
+            'shakespeare': {
+                role: 'English Playwright and Poet (1564 to 1616)',
+                style: 'Creative, eloquent, and dramatic',
+                relevance: 'Offers deep insights into human nature, emotion, and society through his literature, providing valuable lessons on storytelling, character development, and the complexities of human behavior',
+                length: '4-7 minutes',
+                contents: [
+                    { title: "How Deep Character Studies and Philosophical Questions Create Timeless Relevance" },         
+                    { title: "How Passion and Conflict Shape Powerful Stories and Human Emotions" },
+                    { title: "How Creative Collaboration and Performance Platforms Amplify Artistic Success" },
+                    { title: "How Humor and Fantasy Make Complex Human Relationships Accessible" },
+                    { title: "How Exploring Power and Moral Decay Intensifies Dramatic Storytelling" },
+                    { title: "How Addressing Social Prejudices in Literature Sparks Reflection and Awareness" },         
+                    { title: "How Personal and Creative Themes in a Final Work Reflect Life’s Lessons" },
+                    { title: "How Sonnet Forms Capture Complex Emotions and Philosophical Insights" },
+                    { title: "How Linguistic Innovation Can Have Lasting Cultural Impact" },
+                    { title: "How Political Intrigue and Power Struggles Are Universally Explored in Literature" },
+
+                    { title: "How Exploring Psychological Aspects of Madness and Betrayal Deepens Tragic Narratives" },         
+                    { title: "How Ambition and Moral Costs Lead to Personal Downfall" },
+                    { title: "How Comedy Challenges Societal Norms and Expectations on Love and Honor" },
+                    { title: "How Strong Female Characters Challenge Stereotypes and Present Diverse Perspectives" },
+                    { title: "How Loyalty and Betrayal are Explored Through Dramatic Conflict" },
+                    { title: "How Gender Roles and Social Expectations are Reflected in Historical Drama" },         
+                    { title: "How Existential Questions on Life and Death Provide Insights into Human Fears" },
+                    { title: "How Artistic Innovation in Language and Structure Transforms Theater" },
+                    { title: "How Loyalty, Jealousy, and Betrayal are Interwoven in Tragic Human Relationships" },
+                    { title: "How Love and War are Explored to Reflect Complex Social and Emotional Themes" },
+
+                    { title: "How Ethical and Moral Conflicts Illuminate Complex Human and Societal Questions" },         
+                    { title: "How Ambiguity and Symbolism Enrich Literary Works with Multiple Interpretations" },
+                    { title: "How Betrayal and Political Intrigue Offer Insights into Power Structures and Human Motivation" },
+                    { title: "How Integrating Classical Mythology Deepens Literary Themes and Character Complexity" },
+                    { title: "How National Identity and Political Power Struggles Shape Historical and Contemporary Narratives" },
+                    { title: "How Human Complexity in Relationships and Power Dynamics Reflects Political and Personal Realities" },         
+                    { title: "How Historical Dramas Serve as Critical Reflections on Society and Politics" },
+                    { title: "How Moral Dilemmas in Drama Enhance Understanding of Justice and Human Ethics" },
+                    { title: "How Political Intrigues and Human Egoism Expose the Fragility of Relationships and Values" },
+                ]
+            },
+            'leonidas': {
+                role: "Ancient Spartan King and Warrior (540 to 480 BCE)",
+                style: "Disciplined, resilient, and strategic",
+                relevance: "Leonidas embodies strength, courage, and discipline, offering Spartan wisdom on mastering challenges, collaborating with humility, and leading with honor. His teachings inspire resilience, purposeful action, and unwavering commitment to one's values and community.",
+                length: "5-8 minutes",
+                contents: [
+                    { title: "What Does True Leadership Require? The Power of Trust in Challenging Times" },         
+                    { title: "How Do Small Rituals Shape Greatness? The Role of Discipline in Spartan Victory" },
+                    { title: "What Happens When You Challenge Your Strategy? Lessons from an Exiled King" },
+                    { title: "How Can the Trials of the Agoge Teach Us the Power of Unity and Endurance?" },
+                    { title: "How Truth Empowers Us: The Lesson from the Proud Boy and the Cunning Fox" },
+                    { title: "Born for the Crown or the Battle? The True Meaning of Leadership and Choices" },    
+                    { title: "Unspoken Bonds: How Our Strength Shapes the Community" },
+                    { title: "Is Strategy More Powerful than Strength?" },
+                    { title: "What Can You Control When Facing the Inevitable?" },
+                    { title: "Is Your Legacy Defined by Deeds or Words?" },
+                    { title: "How Can Wisdom Come from Unexpected Places?" },         
+                    { title: "Is Confrontation Always the Best Answer to a Threat?" },
+                    { title: "Does True Strength Lie in Simplicity or Luxury?" },
+                    { title: "True Leadership: What Strength Looks Like When Tested by Temptation" },
+                    { title: "Destiny Is Not Written: The Power of Personal Decisions" },
+                    { title: "The True Leader's Response to Failure: Learn, Adapt, Overcome" },  
+                    { title: "How Can Words Defeat an Army?" },
+                    { title: "What Small Gesture Can Ignite Loyalty in a Soldier?" },
+                    { title: "How Can You Conquer Fear When the Darkness Looms?" },
+                    { title: "How Do Your Roots Define Your Strength?" },
+                    { title: "To what extent is true courage found in retreat?" },
+                    { title: "Can Strength Be Found in the Most Unexpected Places?" },   
+                    { title: "How Silence Became My Weapon in a Room Full of Noise" },
+                    { title: "What the Bees Taught Me About Leadership and Unity" },
+                    { title: "The Day I Lost My Spear and Gained a Greater Strength" },
+                    { title: "Does True Strength Lie in Power or Vigilance?" },
+                    { title: "How Can Patience Reveal the Truth in Times of Doubt?" },         
+                    { title: "Can Simplicity and Endurance Teach Us More Than Comfort?" },
+                    { title: "Is Victory Defined by Conquest or Wisdom?" },
+                ]
+            }
+
 
 
             }[philosopher];
@@ -3254,10 +3606,36 @@
                     <strong>Role:</strong> ${profile.role}<br>
                     <strong>Story Style:</strong> ${profile.style}<br>
                     <strong>Everyday Relevance:</strong> ${profile.relevance}<br>
-                    <strong>length:</strong> ${profile.length}
+                    <strong>length:</strong> ${profile.length}<br>
+                    <details>
+                        <summary><strong>Contents:</strong></summary>
+                        <div>
+                            ${profile.contents.map((item, index) => `
+                                <p>
+                                    <strong>Day ${index + 1}:</strong> ${item.title}
+                                </p>
+                            `).join('')}
+                        </div>
+                    </details>
+
+
+
+
+
                 `;
                 document.getElementById('philosopher-profile').style.display = 'block';
             }
+
+            
+
+
+
+
+
+
+
+
+
 
             // Set audio sources based on the chosen philosopher
             if (philosopher === 'aurelius') {
