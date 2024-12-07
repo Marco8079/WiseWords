@@ -21,6 +21,13 @@
         "type": "image/png",
         "sizes": "512x512"
       }
-    ]
+    ],
+    "splash_pages": [
+    {
+      "src": "Logo.png",
+      "background_color": "#000000",
+      "theme_color": "#FFD700"
+    }
+  ]
   }
   
