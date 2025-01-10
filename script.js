@@ -2,945 +2,6 @@ let currentAudio = null; // Variable, um die aktuelle Audiodatei zu speichern
 let audioElement = null;
 let currentTask = ''; // Variable für die aktuelle Aufgabe
 
-const starsContainer = document.getElementById('stars');
-for (let i = 0; i < 70; i++) {
-  const star = document.createElement('div');
-  star.className = 'star';
-  star.style.width = Math.random() * 3 + 'px';
-  star.style.height = star.style.width;
-  star.style.left = Math.random() * 100 + '%';
-  star.style.top = Math.random() * 100 + '%';
-  star.style.animationDelay = Math.random() * 1 + 's';
-  starsContainer.appendChild(star);
-}
-for (let i = 0; i < 30; i++) {
-    const starUnik = document.createElement('div');
-    starUnik.className = 'star_unik';
-    starUnik.style.width = Math.random() * 3 + 'px';
-    starUnik.style.height = starUnik.style.width;
-    starUnik.style.left = Math.random() * 103 + '%';
-    starUnik.style.top = Math.random() * 103 + '%';
-    starUnik.style.animationDelay = Math.random() * 1.2 + 's';
-    starsContainer.appendChild(starUnik);
-}
-
-const figures = [
-    { name: 'Marcus Aurelius', title: 'Roman Emperor & Philosopher', type: 'philosopher', image: 'aurelius.jpg', open: 'aurelius' },
-    { name: 'Plato', title: 'Greek Philosopher', type: 'philosopher', image: 'plato.jpg', open: 'plato' },
-    { name: 'Aristotle', title: 'Greek Philosopher', type: 'philosopher', image: 'aristoteles.jpg', open: 'aristotle' },
-    { name: 'Friedrich Nietzsche', title: 'German Philosopher', type: 'philosopher', image: 'nietzsche.jpg', open: 'nietzsche' },
-    { name: 'Julius Caesar', title: 'Roman Emperor', type: 'leader', image: 'cäsar.jpg', open: 'cäsar' },
-    { name: 'Leonardo da Vinci', title: 'Renaissance Polymath', type: 'artist', image: 'leonardo.jpg', open: 'leonardo' },
-    { name: 'Buddha', title: 'Spiritual Teacher', type: 'spiritual', image: 'buddha.jpg', open: 'buddha' },
-    { name: 'Marco Polo', title: 'Venetian Merchant', type: 'explorer', image: 'marco.jpg', open: 'marco' },
-    { name: 'James Cook', title: 'British Explorer', type: 'explorer', image: 'cook.jpg', open: 'cook' },
-    { name: 'William Shakespeare', title: 'English Playwright', type: 'artist', image: 'shakespeare.jpg', open: 'shapespeare' },
-    { name: 'Leonidas', title: 'Spartan King', type: 'leader', image: 'leonidas.jpg', open: 'leonidas' }
-];
-
-const carousel = document.getElementById('carousel');
-let currentRotation = 0;
-const radius = window.innerWidth <= 768 ? 300 : 400; // Smaller radius for mobile
-
-
-// Touch handling variables
-let touchStartX = 0;
-let touchEndX = 0;
-
-// Create cards
-figures.forEach((figure, index) => {
-    const card = document.createElement('div');
-    card.className = `card ${figure.type}`;
-    
-    const angle = (index * (360 / figures.length));
-    
-    card.style.transform = `
-      rotateY(${angle}deg)
-      translateZ(${radius}px)
-    `;
-
-    card.innerHTML = `
-        <div class="card-bg personality-card" data-personality="${figure.name}" onclick="showPhilosopher('${figure.open}')">
-            <div class="image-container">
-            <img src="${figure.image}" alt="${figure.name}">
-            </div>
-        </div>
-        <div class="card-content">
-            <div class="name">${figure.name}</div>
-            <div class="title">${figure.title}</div>
-        </div>
-    `;
-
-    carousel.appendChild(card);
-  });
-
-function rotate(direction) {
-  const step = 360 / figures.length;
-  if (direction === 'left') {
-    currentRotation += step;
-  } else {
-    currentRotation -= step;
-  }
-  carousel.style.transform = `rotateY(${currentRotation}deg)`;
-}
-
-// Touch event handlers
-document.addEventListener('touchstart', (e) => {
-  touchStartX = e.touches[0].clientX;
-});
-
-document.addEventListener('touchmove', (e) => {
-  touchEndX = e.touches[0].clientX;
-});
-
-document.addEventListener('touchend', () => {
-  const swipeThreshold = 48; // Minimum distance for a swipe
-  const swipeDistance = touchEndX - touchStartX;
-  
-  if (Math.abs(swipeDistance) > swipeThreshold) {
-    // If swipe distance is greater than threshold, rotate
-    if (swipeDistance > 0) {
-      rotate('left'); // Swipe right
-    } else {
-      rotate('right'); // Swipe left
-    }
-  }
-});
-
-// Keyboard controls
-document.addEventListener('keydown', (e) => {
-  if (e.key === 'ArrowLeft') rotate('left');
-  if (e.key === 'ArrowRight') rotate('right');
-});
-
-
-
-
-
-//Philosophers Audio Page
-// Personalities and their associated content
-const personalities = {
-  "Marcus Aurelius": {
-    title: "Roman Emperor & Philosopher",
-    quotes: [
-      '"The universe is change; our life is what our thoughts make it."',
-      '"Waste no more time arguing what a good man should be. Be one."',
-      '"The best revenge is to be unlike him who performed the injury."',
-      '"Everything we hear is an opinion, not a fact. Everything we see is a perspective, not the truth."' 
-    ],
-    tracks: [
-      { day: 1, audioFile: 'audio/marcus-aurelius1.mp3' },
-      { day: 2, audioFile: 'audio/marcus-aurelius2.mp3' },
-      { day: 3, audioFile: 'audio/marcus-aurelius3.mp3' },
-      { day: 4, audioFile: 'audio/marcus-aurelius4.mp3' },
-      { day: 5, audioFile: 'audio6/marcus-aurelius5.mp3' },
-      { day: 6, audioFile: 'audio6/marcus-aurelius6.mp3' },
-      { day: 7, audioFile: 'audio6/marcus-aurelius7.mp3' },
-      { day: 8, audioFile: 'audio6/marcus-aurelius8.mp3' },
-      { day: 9, audioFile: 'audio6/marcus-aurelius9.mp3' },
-      { day: 10, audioFile: 'audio6/marcus-aurelius10.mp3' },
-      { day: 11, audioFile: 'audio6/marcus-aurelius11.mp3' },
-      { day: 12, audioFile: 'audio5/marcus-aurelius12.mp3' },
-      { day: 13, audioFile: 'audio5/marcus-aurelius13.mp3' },
-      { day: 14, audioFile: 'audio5/marcus-aurelius14.mp3' },
-      { day: 15, audioFile: 'audio5/marcus-aurelius15.mp3' },
-      { day: 16, audioFile: 'audio4/marcus-aurelius16.mp3' },
-      { day: 17, audioFile: 'audio4/marcus-aurelius17.mp3' },
-      { day: 18, audioFile: 'audio4/marcus-aurelius18.mp3' },
-      { day: 19, audioFile: 'audio4/marcus-aurelius19.mp3' },
-      { day: 20, audioFile: 'audio3/marcus-aurelius20.mp3' },
-      { day: 21, audioFile: 'audio3/marcus-aurelius21.mp3' },
-      { day: 22, audioFile: 'audio3/marcus-aurelius22.mp3' },
-      { day: 23, audioFile: 'audio3/marcus-aurelius23.mp3' },
-      { day: 24, audioFile: 'audio3/marcus-aurelius24.mp3' },
-      { day: 25, audioFile: 'audio2/marcus-aurelius25.mp3' },
-      { day: 26, audioFile: 'audio2/marcus-aurelius26.mp3' },
-      { day: 27, audioFile: 'audio2/marcus-aurelius27.mp3' },
-      { day: 28, audioFile: 'audio2/marcus-aurelius28.mp3' },
-      { day: 29, audioFile: 'audio2/marcus-aurelius29.mp3' }
-    ]
-  },
-  "Plato": {
-    title: "Greek Philosopher",
-    quotes: [
-      '"The beginning is the most important part of the work."',       
-      '"We can easily forgive a child who is afraid of the dark; the real tragedy of life is when men are afraid of the light."',
-      '"Be kind, for everyone you meet is fighting a hard battle."',       
-      '"Wise men speak because they have something to say; fools because they have to say something."'  
-    ],
-    tracks: [
-      { day: 1, audioFile: 'audio/platon1.mp3' },
-      { day: 2, audioFile: 'audio/platon2.mp3' },
-      { day: 3, audioFile: 'audio/platon3.mp3' },
-      { day: 4, audioFile: 'audio7/platon4.mp3' },
-      { day: 5, audioFile: 'audio7/platon5.mp3' },
-      { day: 6, audioFile: 'audio7/platon6.mp3' },
-      { day: 7, audioFile: 'audio7/platon7.mp3' },
-      { day: 8, audioFile: 'audio8/platon8.mp3' },
-      { day: 9, audioFile: 'audio8/platon9.mp3' },
-      { day: 10, audioFile: 'audio8/platon10.mp3' },
-      { day: 11, audioFile: 'audio8/platon11.mp3' },
-      { day: 12, audioFile: 'audio9/platon12.mp3' },
-      { day: 13, audioFile: 'audio9/platon13.mp3' },
-      { day: 14, audioFile: 'audio9/platon14.mp3' },
-      { day: 15, audioFile: 'audio9/platon15.mp3' },
-      { day: 16, audioFile: 'audio10/platon16.mp3' },
-      { day: 17, audioFile: 'audio10/platon17.mp3' },
-      { day: 18, audioFile: 'audio10/platon18.mp3' },
-      { day: 19, audioFile: 'audio10/platon19.mp3' },
-      { day: 20, audioFile: 'audio11/platon20.mp3' },
-      { day: 21, audioFile: 'audio11/platon21.mp3' },
-      { day: 22, audioFile: 'audio11/platon22.mp3' },
-      { day: 23, audioFile: 'audio11/platon23.mp3' },
-      { day: 24, audioFile: 'audio12/platon24.mp3' },
-      { day: 25, audioFile: 'audio12/platon25.mp3' },
-      { day: 26, audioFile: 'audio12/platon26.mp3' },
-      { day: 27, audioFile: 'audio13/platon27.mp3' },
-      { day: 28, audioFile: 'audio13/platon28.mp3' },
-      { day: 29, audioFile: 'audio13/platon29.mp3' }
-    ]
-  },
-  "Aristotle": {
-    title: "Greek Philosopher",
-    quotes: [
-      '"We are what we repeatedly do. Excellence, then, is not an act, but a habit."',
-      '"The whole is greater than the sum of its parts."',
-      '"Knowing yourself is the beginning of all wisdom."',
-      '"Excellence is never an accident."'
-    ],
-    tracks: [
-      { day: 1, audioFile: 'audio/aristoteles1.mp3' },
-      { day: 2, audioFile: 'audio/aristoteles2.mp3' },
-      { day: 3, audioFile: 'audio/aristoteles3.mp3' },
-      { day: 4, audioFile: 'audio14/aristoteles4.mp3' },
-      { day: 5, audioFile: 'audio14/aristoteles5.mp3' },
-      { day: 6, audioFile: 'audio14/aristoteles6.mp3' },
-      { day: 7, audioFile: 'audio14/aristoteles7.mp3' },
-      { day: 8, audioFile: 'audio15/aristoteles8.mp3' },
-      { day: 9, audioFile: 'audio15/aristoteles9.mp3' },
-      { day: 10, audioFile: 'audio15/aristoteles10.mp3' },
-      { day: 11, audioFile: 'audio15/aristoteles11.mp3' },
-      { day: 12, audioFile: 'audio16/aristoteles13.mp3' },
-      { day: 13, audioFile: 'audio16/aristoteles14.mp3' },
-      { day: 14, audioFile: 'audio16/aristoteles15.mp3' },
-      { day: 15, audioFile: 'audio17/aristoteles16.mp3' },
-      { day: 16, audioFile: 'audio17/aristoteles17.mp3' },
-      { day: 17, audioFile: 'audio17/aristoteles18.mp3' },
-      { day: 18, audioFile: 'audio17/aristoteles19.mp3' },
-      { day: 19, audioFile: 'audio18/aristoteles20.mp3' },
-      { day: 20, audioFile: 'audio18/aristoteles21.mp3' },
-      { day: 21, audioFile: 'audio18/aristoteles22.mp3' },
-      { day: 22, audioFile: 'audio18/aristoteles23.mp3' },
-      { day: 23, audioFile: 'audio19/aristoteles24.mp3' },
-      { day: 24, audioFile: 'audio19/aristoteles25.mp3' },
-      { day: 25, audioFile: 'audio19/aristoteles26.mp3' },
-      { day: 26, audioFile: 'audio19/aristoteles27.mp3' },
-      { day: 27, audioFile: 'audio20/aristoteles28.mp3' },
-      { day: 28, audioFile: 'audio20/aristoteles29.mp3' },
-      { day: 29, audioFile: 'audio20/aristoteles30.mp3' },
-      { day: 30, audioFile: 'audio20/aristoteles31.mp3' }
-    ]
-  },
-  "Friedrich Nietzsche": {
-    title: "German Philosopher",
-    quotes: [
-      '"He who has a why to live can bear almost any how."',
-      '"That which does not kill us makes us stronger."',
-      '"There are no facts, only interpretations."',
-      '"Without music, life would be a mistake."'
-    ],
-    tracks: [
-      { day: 1, audioFile: 'audio21/nietzsche1.mp3' },
-      { day: 2, audioFile: 'audio21/nietzsche2.mp3' },
-      { day: 3, audioFile: 'audio21/nietzsche3.mp3' },
-      { day: 4, audioFile: 'audio21/nietzsche4.mp3' },
-      { day: 5, audioFile: 'audio22/nietzsche5.mp3' },
-      { day: 6, audioFile: 'audio22/nietzsche6.mp3' },
-      { day: 7, audioFile: 'audio22/nietzsche7.mp3' },
-      { day: 8, audioFile: 'audio22/nietzsche8.mp3' },
-      { day: 9, audioFile: 'audio23/nietzsche9.mp3' },
-      { day: 10, audioFile: 'audio23/nietzsche10.mp3' },
-      { day: 11, audioFile: 'audio23/nietzsche11.mp3' },
-      { day: 12, audioFile: 'audio23/nietzsche12.mp3' },
-      { day: 13, audioFile: 'audio24/nietzsche13.mp3' },
-      { day: 14, audioFile: 'audio24/nietzsche14.mp3' },
-      { day: 15, audioFile: 'audio24/nietzsche15.mp3' },
-      { day: 16, audioFile: 'audio24/nietzsche16.mp3' },
-      { day: 17, audioFile: 'audio25/nietzsche17.mp3' },
-      { day: 18, audioFile: 'audio25/nietzsche18.mp3' },
-      { day: 19, audioFile: 'audio26/nietzsche19.mp3' },
-      { day: 20, audioFile: 'audio26/nietzsche20.mp3' },
-      { day: 21, audioFile: 'audio26/nietzsche21.mp3' },
-      { day: 22, audioFile: 'audio26/nietzsche22.mp3' },
-      { day: 23, audioFile: 'audio27/nietzsche23.mp3' },
-      { day: 24, audioFile: 'audio27/nietzsche24.mp3' },
-      { day: 25, audioFile: 'audio27/nietzsche25.mp3' },
-      { day: 26, audioFile: 'audio27/nietzsche26.mp3' },
-      { day: 27, audioFile: 'audio28/nietzsche27.mp3' },
-      { day: 28, audioFile: 'audio28/nietzsche28.mp3' },
-      { day: 29, audioFile: 'audio28/nietzsche29.mp3' }
-    ]
-  },
-  "Julius Caesar": {
-    title: "Roman Emperor & Military Commander",
-    quotes: [
-      '"I came, I saw, I conquered."',
-      '"Experience is the teacher of all things."',
-      '"It is easier to find men who will volunteer to die than to find those who are willing to endure pain with patience."',
-      '"The die is cast."'
-    ],
-    tracks: [
-      { day: 1, audioFile: 'audio29/cäsar1.mp3' },
-      { day: 2, audioFile: 'audio29/cäsar2.mp3' },
-      { day: 3, audioFile: 'audio29/cäsar3.mp3' },
-      { day: 4, audioFile: 'audio29/cäsar4.mp3' },
-      { day: 5, audioFile: 'audio30/cäsar5.mp3' },
-      { day: 6, audioFile: 'audio30/cäsar6.mp3' },
-      { day: 7, audioFile: 'audio30/cäsar7.mp3' },
-      { day: 8, audioFile: 'audio30/cäsar8.mp3' },
-      { day: 9, audioFile: 'audio31/cäsar9.mp3' },
-      { day: 10, audioFile: 'audio31/cäsar10.mp3' },
-      { day: 11, audioFile: 'audio31/cäsar11.mp3' },
-      { day: 12, audioFile: 'audio31/cäsar12.mp3' },
-      { day: 13, audioFile: 'audio32/cäsar13.mp3' },
-      { day: 14, audioFile: 'audio32/cäsar14.mp3' },
-      { day: 15, audioFile: 'audio32/cäsar15.mp3' },
-      { day: 16, audioFile: 'audio32/cäsar16.mp3' },
-      { day: 17, audioFile: 'audio33/cäsar17.mp3' },
-      { day: 18, audioFile: 'audio33/cäsar18.mp3' },
-      { day: 19, audioFile: 'audio33/cäsar19.mp3' },
-      { day: 20, audioFile: 'audio33/cäsar20.mp3' },
-      { day: 21, audioFile: 'audio34/cäsar21.mp3' },
-      { day: 22, audioFile: 'audio34/cäsar22.mp3' },
-      { day: 23, audioFile: 'audio34/cäsar23.mp3' },
-      { day: 24, audioFile: 'audio34/cäsar24.mp3' },
-      { day: 25, audioFile: 'audio35/cäsar25.mp3' },
-      { day: 26, audioFile: 'audio35/cäsar26.mp3' },
-      { day: 27, audioFile: 'audio35/cäsar27.mp3' },
-      { day: 28, audioFile: 'audio36/cäsar28.mp3' },
-      { day: 29, audioFile: 'audio36/cäsar29.mp3' }
-    ]
-  },
-  "Leonardo Da Vinci": {
-    title: "Italian Polymath",
-    quotes: [
-      '"Learning never exhausts the mind."',
-      '"Simplicity is the ultimate sophistication."',
-      '"Art is never finished, only abandoned."',
-      '"I have been impressed with the urgency of doing. Knowing is not enough; we must apply."'
-    ],
-    tracks: [
-      { day: 1, audioFile: 'audio37/leonardo1.mp3' },
-      { day: 2, audioFile: 'audio37/leonardo2.mp3' },
-      { day: 3, audioFile: 'audio37/leonardo3.mp3' },
-      { day: 4, audioFile: 'audio37/leonardo4.mp3' },
-      { day: 5, audioFile: 'audio38/leonardo5.mp3' },
-      { day: 6, audioFile: 'audio38/leonardo6.mp3' },
-      { day: 7, audioFile: 'audio38/leonardo7.mp3' },
-      { day: 8, audioFile: 'audio38/leonardo8.mp3' },
-      { day: 9, audioFile: 'audio39/leonardo9.mp3' },
-      { day: 10, audioFile: 'audio39/leonardo10.mp3' },
-      { day: 11, audioFile: 'audio39/leonardo11.mp3' },
-      { day: 12, audioFile: 'audio39/leonardo12.mp3' },
-      { day: 13, audioFile: 'audio40/leonardo13.mp3' },
-      { day: 14, audioFile: 'audio40/leonardo14.mp3' },
-      { day: 15, audioFile: 'audio40/leonardo15.mp3' },
-      { day: 16, audioFile: 'audio40/leonardo16.mp3' },
-      { day: 17, audioFile: 'audio41/leonardo17.mp3' },
-      { day: 18, audioFile: 'audio41/leonardo18.mp3' },
-      { day: 19, audioFile: 'audio41/leonardo19.mp3' },
-      { day: 20, audioFile: 'audio41/leonardo20.mp3' },
-      { day: 21, audioFile: 'audio42/leonardo21.mp3' },
-      { day: 22, audioFile: 'audio42/leonardo22.mp3' },
-      { day: 23, audioFile: 'audio42/leonardo23.mp3' },
-      { day: 24, audioFile: 'audio42/leonardo24.mp3' },
-      { day: 25, audioFile: 'audio43/leonardo25.mp3' },
-      { day: 26, audioFile: 'audio43/leonardo26.mp3' },
-      { day: 27, audioFile: 'audio43/leonardo27.mp3' },
-      { day: 28, audioFile: 'audio44/leonardo28.mp3' },
-      { day: 29, audioFile: 'audio44/leonardo29.mp3' }
-    ]
-  },
-  "Buddha": {
-    title: "Spiritual Teacher",
-    quotes: [
-      '"Peace comes from within. Do not seek it without."',
-      '"Three things cannot be long hidden: the sun, the moon, and the truth."',
-      '"The mind is everything. What you think you become."',
-      '"Health is the greatest gift, contentment the greatest wealth."'
-    ],
-    tracks: [
-      { day: 1, audioFile: 'audio45/buddha1.mp3' },
-      { day: 2, audioFile: 'audio45/buddha2.mp3' },
-      { day: 3, audioFile: 'audio45/buddha3.mp3' },
-      { day: 4, audioFile: 'audio45/buddha4.mp3' },
-      { day: 5, audioFile: 'audio46/buddha5.mp3' },
-      { day: 6, audioFile: 'audio46/buddha6.mp3' },
-      { day: 7, audioFile: 'audio46/buddha7.mp3' },
-      { day: 8, audioFile: 'audio46/buddha8.mp3' },
-      { day: 9, audioFile: 'audio47/buddha9.mp3' },
-      { day: 10, audioFile: 'audio47/buddha10.mp3' },
-      { day: 11, audioFile: 'audio47/buddha11.mp3' },
-      { day: 12, audioFile: 'audio47/buddha12.mp3' },
-      { day: 13, audioFile: 'audio48/buddha13.mp3' },
-      { day: 14, audioFile: 'audio48/buddha14.mp3' },
-      { day: 15, audioFile: 'audio48/buddha15.mp3' },
-      { day: 16, audioFile: 'audio48/buddha16.mp3' },
-      { day: 17, audioFile: 'audio49/buddha17.mp3' },
-      { day: 18, audioFile: 'audio49/buddha18.mp3' },
-      { day: 19, audioFile: 'audio49/buddha19.mp3' },
-      { day: 20, audioFile: 'audio49/buddha20.mp3' },
-      { day: 21, audioFile: 'audio50/buddha21.mp3' },
-      { day: 22, audioFile: 'audio50/buddha22.mp3' },
-      { day: 23, audioFile: 'audio50/buddha23.mp3' },
-      { day: 24, audioFile: 'audio50/buddha24.mp3' },
-      { day: 25, audioFile: 'audio51/buddha25.mp3' },
-      { day: 26, audioFile: 'audio51/buddha26.mp3' },
-      { day: 27, audioFile: 'audio51/buddha27.mp3' },
-      { day: 28, audioFile: 'audio52/buddha28.mp3' },
-      { day: 29, audioFile: 'audio52/buddha29.mp3' }
-    ]
-  },
-  "Marco Polo": {
-    title: "Venetian Explorer",
-    quotes: [
-      '"I have not told half of what I saw."',
-      '"Without stones there is no arch."',
-      '"I did not tell half of what I saw, for I knew I would not be believed."',
-      '"Let me tell you what I have seen in the East."'
-    ],
-    tracks: [
-      { day: 1, audioFile: 'audio53/marco1.mp3' },
-      { day: 2, audioFile: 'audio53/marco2.mp3' },
-      { day: 3, audioFile: 'audio53/marco3.mp3' },
-      { day: 4, audioFile: 'audio53/marco4.mp3' },
-      { day: 5, audioFile: 'audio54/marco5.mp3' },
-      { day: 6, audioFile: 'audio54/marco6.mp3' },
-      { day: 7, audioFile: 'audio54/marco7.mp3' },
-      { day: 8, audioFile: 'audio54/marco8.mp3' },
-      { day: 9, audioFile: 'audio55/marco9.mp3' },
-      { day: 10, audioFile: 'audio55/marco10.mp3' },
-      { day: 11, audioFile: 'audio55/marco11.mp3' },
-      { day: 12, audioFile: 'audio55/marco12.mp3' },
-      { day: 13, audioFile: 'audio56/marco13.mp3' },
-      { day: 14, audioFile: 'audio56/marco14.mp3' },
-      { day: 15, audioFile: 'audio56/marco15.mp3' },
-      { day: 16, audioFile: 'audio56/marco16.mp3' },
-      { day: 17, audioFile: 'audio57/marco17.mp3' },
-      { day: 18, audioFile: 'audio57/marco18.mp3' },
-      { day: 19, audioFile: 'audio57/marco19.mp3' },
-      { day: 20, audioFile: 'audio57/marco20.mp3' },
-      { day: 21, audioFile: 'audio58/marco21.mp3' },
-      { day: 22, audioFile: 'audio58/marco22.mp3' },
-      { day: 23, audioFile: 'audio58/marco23.mp3' },
-      { day: 24, audioFile: 'audio58/marco24.mp3' },
-      { day: 25, audioFile: 'audio59/marco25.mp3' },
-      { day: 26, audioFile: 'audio59/marco26.mp3' },
-      { day: 27, audioFile: 'audio59/marco27.mp3' },
-      { day: 28, audioFile: 'audio60/marco28.mp3' },
-      { day: 29, audioFile: 'audio60/marco29.mp3' }
-    ]
-  },
-  "James Cook": {
-    title: "British Explorer & Navigator",
-    quotes: [
-      '"Ambition leads me not only farther than any other man has been before me, but as far as I think it possible for man to go."',
-      '"Do just once what others say you cannot do, and you will never pay attention to their limitations again."',
-      '"I had ambition not only to go farther than any man had ever been before, but as far as it was possible for a man to go."',
-      '"Bad weather has a way of following good sailors."'
-    ],
-    tracks: [
-      { day: 1, audioFile: 'audio61/cook1.mp3' },
-      { day: 2, audioFile: 'audio61/cook2.mp3' },
-      { day: 3, audioFile: 'audio61/cook3.mp3' },
-      { day: 4, audioFile: 'audio61/cook4.mp3' },
-      { day: 5, audioFile: 'audio62/cook5.mp3' },
-      { day: 6, audioFile: 'audio62/cook6.mp3' },
-      { day: 7, audioFile: 'audio62/cook7.mp3' },
-      { day: 8, audioFile: 'audio62/cook8.mp3' },
-      { day: 9, audioFile: 'audio63/cook9.mp3' },
-      { day: 10, audioFile: 'audio63/cook10.mp3' },
-      { day: 11, audioFile: 'audio63/cook11.mp3' },
-      { day: 12, audioFile: 'audio63/cook12.mp3' },
-      { day: 13, audioFile: 'audio64/cook13.mp3' },
-      { day: 14, audioFile: 'audio64/cook14.mp3' },
-      { day: 15, audioFile: 'audio64/cook15.mp3' },
-      { day: 16, audioFile: 'audio64/cook16.mp3' },
-      { day: 17, audioFile: 'audio65/cook17.mp3' },
-      { day: 18, audioFile: 'audio65/cook18.mp3' },
-      { day: 19, audioFile: 'audio65/cook19.mp3' },
-      { day: 20, audioFile: 'audio65/cook20.mp3' },
-      { day: 21, audioFile: 'audio66/cook21.mp3' },
-      { day: 22, audioFile: 'audio66/cook22.mp3' },
-      { day: 23, audioFile: 'audio66/cook23.mp3' },
-      { day: 24, audioFile: 'audio66/cook24.mp3' },
-      { day: 25, audioFile: 'audio67/cook25.mp3' },
-      { day: 26, audioFile: 'audio67/cook26.mp3' },
-      { day: 27, audioFile: 'audio67/cook27.mp3' },
-      { day: 28, audioFile: 'audio68/cook28.mp3' },
-      { day: 29, audioFile: 'audio68/cook29.mp3' }
-    ]
-  },
-  "William Shakespeare": {
-    title: "English Playwright & Poet",
-    quotes: [
-      '"All the world is a stage, and all the men and women merely players."',
-      '"We know what we are, but know not what we may be."',
-      '"To be, or not to be, that is the question."',
-      '"Love all, trust a few, do wrong to none."'
-    ],
-    tracks: [
-      { day: 1, audioFile: 'audio69/shakespear1.mp3' },
-      { day: 2, audioFile: 'audio69/shakespear2.mp3' },
-      { day: 3, audioFile: 'audio69/shakespear3.mp3' },
-      { day: 4, audioFile: 'audio69/shakespear4.mp3' },
-      { day: 5, audioFile: 'audio70/shakespear5.mp3' },
-      { day: 6, audioFile: 'audio70/shakespear6.mp3' },
-      { day: 7, audioFile: 'audio70/shakespear7.mp3' },
-      { day: 8, audioFile: 'audio70/shakespear8.mp3' },
-      { day: 9, audioFile: 'audio71/shakespear9.mp3' },
-      { day: 10, audioFile: 'audio71/shakespear10.mp3' },
-      { day: 11, audioFile: 'audio71/shakespear11.mp3' },
-      { day: 12, audioFile: 'audio71/shakespear12.mp3' },
-      { day: 13, audioFile: 'audio72/shakespear13.mp3' },
-      { day: 14, audioFile: 'audio72/shakespear14.mp3' },
-      { day: 15, audioFile: 'audio72/shakespear15.mp3' },
-      { day: 16, audioFile: 'audio72/shakespear16.mp3' },
-      { day: 17, audioFile: 'audio73/shakespear17.mp3' },
-      { day: 18, audioFile: 'audio73/shakespear18.mp3' },
-      { day: 19, audioFile: 'audio73/shakespear19.mp3' },
-      { day: 20, audioFile: 'audio73/shakespear20.mp3' },
-      { day: 21, audioFile: 'audio74/shakespear21.mp3' },
-      { day: 22, audioFile: 'audio74/shakespear22.mp3' },
-      { day: 23, audioFile: 'audio74/shakespear23.mp3' },
-      { day: 24, audioFile: 'audio74/shakespear24.mp3' },
-      { day: 25, audioFile: 'audio75/shakespear25.mp3' },
-      { day: 26, audioFile: 'audio75/shakespear26.mp3' },
-      { day: 27, audioFile: 'audio75/shakespear27.mp3' },
-      { day: 28, audioFile: 'audio76/shakespear28.mp3' },
-      { day: 29, audioFile: 'audio76/shakespear29.mp3' }
-    ]
-  }
-};
-
-function createBackgroundParticles() {
-  const particle = document.createElement('div');
-  particle.className = 'background-particle';
-  particle.style.cssText = `
-      position: fixed;
-      width: 3px;
-      height: 3px;
-      background: #ffd700;
-      pointer-events: none;
-  `;
-  
-  const startX = Math.random() * window.innerWidth;
-  const startY = Math.random() * window.innerHeight;
-  particle.style.left = `${startX}px`;
-  particle.style.top = `${startY}px`;
-  
-  document.body.appendChild(particle);
-  
-  const angle = Math.random() * Math.PI * 2;
-  const distance = Math.random() * 100 + 50;
-  const duration = Math.random() * 2000 + 3000;
-  
-  particle.animate([
-      { transform: 'translate(0, 0)', opacity: 0 },
-      { transform: `translate(${Math.cos(angle) * distance}px, ${Math.sin(angle) * distance}px)`, opacity: 0.5, offset: 0.5 },
-      { transform: `translate(${Math.cos(angle) * distance * 2}px, ${Math.sin(angle) * distance * 2}px)`, opacity: 0 }
-  ], {
-      duration: duration,
-      easing: 'ease-out'
-  }).onfinish = () => {
-      particle.remove();
-      createBackgroundParticles();
-  };
-}
-
-// Create initial background particles
-for (let i = 0; i < 20; i++) {
-  createBackgroundParticles();
-}
-
-class AudioPlayer {
-  constructor() {
-    this.initializeElements();
-    this.initializeState();
-    this.createLines();
-    this.setupEventListeners();
-    this.initializeQuoteRotation();
-    
-    // Set default personality
-    this.setActivePersonality("Marcus Aurelius");
-  }
-
-  initializeElements() {
-    // Audio elements
-    this.audio = new Audio();
-    this.playButton = document.querySelector('.play-button');
-    this.playIcon = document.querySelector('.play-icon');
-    this.pauseIcon = document.querySelector('.pause-icon');
-    this.progressRing = document.querySelector('.progress-ring');
-    this.timeDisplay = document.querySelector('.time-display');
-    this.personalityName = document.getElementById('personalityName');
-    this.dayTitle = document.getElementById('dayTitle');
-    
-    // Control buttons
-    this.prevDayBtn = document.querySelector('.prev-day');
-    this.nextDayBtn = document.querySelector('.next-day');
-    this.prevTrackBtn = document.getElementById('prev-track');
-    this.nextTrackBtn = document.getElementById('next-track');
-    this.rewindBtn = document.getElementById('rewind');
-    this.forwardBtn = document.getElementById('forward');
-    this.playPauseBtn = document.getElementById('play-pause');
-    this.muteBtn = document.getElementById('mute');
-    this.volumeSlider = document.getElementById('volume');
-    
-    // Progress elements
-    this.progressContainer = document.getElementById('progressContainer');
-    this.progressLine = document.getElementById('progressLine');
-    this.quoteElement = document.querySelector('.wisdom-quote');
-
-    // Add personality navigation buttons
-    this.prevPersonalityBtn = document.createElement('div');
-    this.nextPersonalityBtn = document.createElement('div');
-    this.prevPersonalityBtn.className = 'nav-arrow prev-personality';
-    this.nextPersonalityBtn.className = 'nav-arrow next-personality';
-    this.prevPersonalityBtn.innerHTML = '<i class="fas fa-chevron-left"></i>';
-    this.nextPersonalityBtn.innerHTML = '<i class="fas fa-chevron-right"></i>';
-
-    this.personalityTitle = document.getElementById('personalityTitle');
-    this.prevPersonalityBtn = document.querySelector('.prev-personality');
-    this.nextPersonalityBtn = document.querySelector('.next-personality');
-    this.dayTitle = document.getElementById('dayTitle');
-    this.prevDayBtn = document.querySelector('.prev-day');
-    this.nextDayBtn = document.querySelector('.next-day');
-
-    this.personalityCards = document.querySelectorAll('.personality-card');
-    
-    // Insert personality navigation before title container
-    const titleContainer = document.querySelector('.title-container');
-    titleContainer.parentNode.insertBefore(this.prevPersonalityBtn, titleContainer);
-    titleContainer.parentNode.insertBefore(this.nextPersonalityBtn, titleContainer.nextSibling);
-  }
-
-  initializeState() {
-    this.currentTrackIndex = 0;
-    this.isPlaying = false;
-    this.lastVolume = 1;
-    this.audio.volume = 1;
-    this.currentQuoteIndex = 0;
-  }
-
-  createLines() {
-    const linesContainer = document.querySelector('.lines');
-    for (let i = 0; i < 72; i++) {
-      const line = document.createElement('div');
-      line.className = 'line';
-      line.style.transform = `rotate(${i * 5}deg)`;
-      linesContainer.appendChild(line);
-    }
-  }
-
-  setupEventListeners() {
-    // Play/Pause
-    this.playButton.addEventListener('click', () => this.togglePlay());
-    this.playPauseBtn.addEventListener('click', () => this.togglePlay());
-    
-    // Navigation
-    this.prevDayBtn.addEventListener('click', () => this.previousTrack());
-    this.nextDayBtn.addEventListener('click', () => this.nextTrack());
-    this.prevTrackBtn.addEventListener('click', () => this.previousTrack());
-    this.nextTrackBtn.addEventListener('click', () => this.nextTrack());
-    
-    // Timeline and Progress
-    this.progressContainer.addEventListener('click', (e) => this.seek(e));
-    this.audio.addEventListener('timeupdate', () => this.updateProgress());
-    this.audio.addEventListener('ended', () => this.handleTrackEnd());
-    
-    // Controls
-    this.rewindBtn.addEventListener('click', () => this.rewind());
-    this.forwardBtn.addEventListener('click', () => this.forward());
-    this.muteBtn.addEventListener('click', () => this.toggleMute());
-    this.volumeSlider.addEventListener('input', (e) => this.setVolume(e.target.value));
-    
-    // Speed Control
-    document.querySelectorAll('.speed-button').forEach(button => {
-      button.addEventListener('click', () => this.setSpeed(button));
-    });
-
-    // Add personality navigation listeners
-    this.prevPersonalityBtn.addEventListener('click', () => this.previousPersonality());
-    this.nextPersonalityBtn.addEventListener('click', () => this.nextPersonality());
-
-     // Add personality navigation
-     this.prevPersonalityBtn.addEventListener('click', () => this.changePersonality('prev'));
-     this.nextPersonalityBtn.addEventListener('click', () => this.changePersonality('next'));
-     
-     // Add day navigation
-     this.prevDayBtn.addEventListener('click', () => this.changeDay('prev'));
-     this.nextDayBtn.addEventListener('click', () => this.changeDay('next'));
-    
-     // Add card click listeners
-    this.personalityCards.forEach(card => {
-      card.addEventListener('click', () => {
-        const personalityName = card.dataset.personality;
-        this.setActivePersonality(personalityName);
-      });
-    });
-  }
-
-  setActivePersonality(personalityName) {
-    // Update active card visual state
-    this.personalityCards.forEach(card => {
-      card.classList.toggle('active', card.dataset.personality === personalityName);
-    });
-
-    // Update current personality
-    this.currentPersonality = personalityName;
-    this.currentDay = 1;
-    
-    // Update display
-    this.updateDisplay();
-    
-    // Reset and start playing first track
-    this.loadTrack(0);
-    
-    // Update quote
-    this.currentQuoteIndex = 0;
-    this.updateQuote();
-  }
-
-  changePersonality(direction) {
-    const personalityNames = Object.keys(personalities);
-    let currentIndex = personalityNames.indexOf(this.currentPersonality);
-    
-    if (direction === 'prev' && currentIndex > 0) {
-      currentIndex--;
-    } else if (direction === 'next' && currentIndex < personalityNames.length - 1) {
-      currentIndex++;
-    }
-    
-    this.currentPersonality = personalityNames[currentIndex];
-    this.currentDay = 1; // Reset day when changing personality
-    this.updateDisplay();
-  }
-
-  changeDay(direction) {
-    const personality = personalities[this.currentPersonality];
-    const maxDays = personality.tracks.length;
-    
-    if (direction === 'prev' && this.currentDay > 1) {
-      this.currentDay--;
-    } else if (direction === 'next' && this.currentDay < maxDays) {
-      this.currentDay++;
-    }
-    
-    this.updateDisplay();
-    this.loadTrack(this.currentDay - 1);
-  }
-
-  updateDisplay() {
-    const personality = personalities[this.currentPersonality];
-    
-    // Update personality info
-    document.getElementById('personalityName').textContent = this.currentPersonality;
-    document.getElementById('personalityTitle').textContent = personality.title;
-    document.getElementById('dayTitle').textContent = `DAY ${this.currentDay}`;
-  }
-
-  updateNavigationState() {
-    const personalityNames = Object.keys(personalities);
-    const currentIndex = personalityNames.indexOf(this.currentPersonality);
-    const maxDays = personalities[this.currentPersonality].tracks.length;
-    
-    // Update personality navigation
-    this.prevPersonalityBtn.disabled = currentIndex === 0;
-    this.nextPersonalityBtn.disabled = currentIndex === personalityNames.length - 1;
-    
-    // Update day navigation
-    this.prevDayBtn.disabled = this.currentDay === 1;
-    this.nextDayBtn.disabled = this.currentDay === maxDays;
-  }
-
-  previousPersonality() {
-    const personalityNames = Object.keys(personalities);
-    const currentIndex = personalityNames.indexOf(this.currentPersonality);
-    if (currentIndex > 0) {
-      this.changePersonality(personalityNames[currentIndex - 1]);
-    }
-  }
-
-  nextPersonality() {
-    const personalityNames = Object.keys(personalities);
-    const currentIndex = personalityNames.indexOf(this.currentPersonality);
-    if (currentIndex < personalityNames.length - 1) {
-      this.changePersonality(personalityNames[currentIndex + 1]);
-    }
-  }
-
-  updateQuote() {
-    const personality = personalities[this.currentPersonality];
-    const quoteElement = document.querySelector('.wisdom-quote');
-    quoteElement.style.opacity = '0';
-    
-    setTimeout(() => {
-      quoteElement.textContent = `${personality.quotes[this.currentQuoteIndex]} - ${this.currentPersonality}`;
-      quoteElement.style.opacity = '0.8';
-    }, 1000);
-  }
-
-  initializeQuoteRotation() {
-    setInterval(() => {
-      const personality = personalities[this.currentPersonality];
-      this.currentQuoteIndex = (this.currentQuoteIndex + 1) % personality.quotes.length;
-      this.updateQuote();
-    }, 10000);
-  }
-
-  loadTrack(index) {
-    const personality = personalities[this.currentPersonality];
-    const track = personality.tracks[index];
-    
-    if (!track) return;
-    
-    this.audio.src = track.audioFile;
-    
-    // Update the day number separately
-    this.dayTitle.textContent = `DAY ${track.day}`;
-    
-    this.currentTrackIndex = index;
-    this.resetPlayState();
-  }
-
-  togglePlay() {
-    if (this.audio.paused) {
-      this.audio.play();
-      this.playIcon.style.display = 'none';
-      this.pauseIcon.style.display = 'block';
-      this.playButton.classList.add('playing');
-    } else {
-      this.audio.pause();
-      this.playIcon.style.display = 'block';
-      this.pauseIcon.style.display = 'none';
-      this.playButton.classList.remove('playing');
-    }
-    this.isPlaying = !this.audio.paused;
-  }
-
-  previousTrack() {
-    if (this.currentTrackIndex > 0) {
-      this.loadTrack(this.currentTrackIndex - 1);
-      if (this.isPlaying) {
-        this.audio.play();
-        this.playButton.classList.add('playing');
-      }
-    }
-  }
-
-  nextTrack() {
-    const personality = personalities[this.currentPersonality];
-    if (this.currentTrackIndex < personality.tracks.length - 1) {
-      this.loadTrack(this.currentTrackIndex + 1);
-      if (this.isPlaying) {
-        this.audio.play();
-        this.playButton.classList.add('playing');
-      }
-    }
-  }
-
-  seek(event) {
-    const rect = this.progressContainer.getBoundingClientRect();
-    const clickPosition = (event.clientX - rect.left) / rect.width;
-    this.audio.currentTime = clickPosition * this.audio.duration;
-  }
-
-  updateProgress() {
-    const progress = (this.audio.currentTime / this.audio.duration) * 100;
-    this.progressLine.style.width = `${progress}%`;
-    this.progressRing.style.background = `conic-gradient(from 0deg, goldenrod ${progress}%, transparent ${progress}%)`;
-    
-    const currentTime = this.formatTime(this.audio.currentTime);
-    const duration = this.formatTime(this.audio.duration);
-    this.timeDisplay.textContent = `${currentTime} / ${duration}`;
-  }
-
-  handleTrackEnd() {
-    this.playButton.classList.remove('playing');
-    const personality = personalities[this.currentPersonality];
-    if (this.currentTrackIndex < personality.tracks.length - 1) {
-      this.nextTrack();
-    } else {
-      this.resetPlayState();
-    }
-  }
-
-  rewind() {
-    this.audio.currentTime = Math.max(0, this.audio.currentTime - 10);
-  }
-
-  forward() {
-    this.audio.currentTime = Math.min(this.audio.duration, this.audio.currentTime + 10);
-  }
-
-  toggleMute() {
-    if (this.audio.volume > 0) {
-      this.lastVolume = this.audio.volume;
-      this.setVolume(0);
-    } else {
-      this.setVolume(this.lastVolume);
-    }
-  }
-
-  setVolume(value) {
-    this.audio.volume = value;
-    this.volumeSlider.value = value;
-    this.updateVolumeIcon(value);
-  }
-
-  updateVolumeIcon(volume) {
-    const icon = this.muteBtn.querySelector('i');
-    icon.className = 'fas';
-    
-    if (volume === 0) {
-      icon.classList.add('fa-volume-mute');
-    } else if (volume < 0.5) {
-      icon.classList.add('fa-volume-down');
-    } else {
-      icon.classList.add('fa-volume-up');
-    }
-  }
-
-  setSpeed(button) {
-    const speed = parseFloat(button.dataset.speed);
-    this.audio.playbackRate = speed;
-    
-    document.querySelectorAll('.speed-button').forEach(btn => {
-      btn.classList.toggle('active', btn === button);
-    });
-  }
-
-  resetPlayState() {
-    this.playIcon.style.display = 'block';
-    this.pauseIcon.style.display = 'none';
-    this.playButton.classList.remove('playing');
-    this.isPlaying = false;
-  }
-
-  formatTime(seconds) {
-    if (isNaN(seconds)) return "0:00";
-    const minutes = Math.floor(seconds / 60);
-    const remainingSeconds = Math.floor(seconds % 60);
-    return `${minutes}:${remainingSeconds.toString().padStart(2, '0')}`;
-  }
-}
-
-// Initialize player when DOM is loaded
-document.addEventListener('DOMContentLoaded', () => {
-  new AudioPlayer();
-});
-
 
 
 // Funktion zum Anzeigen des Philosophenprofils
@@ -949,7 +10,7 @@ function showPhilosopher(philosopher) {
     document.getElementById('philosopher-page').style.display = 'block';
 
     const philosopherName = philosopher.charAt(0).toUpperCase() + philosopher.slice(1);
-    document.getElementById('personalityName').textContent = philosopherName;
+    document.getElementById('philosopher-name').textContent = philosopherName;
 
     // Setze den Steckbrief des Philosophen
     setPhilosopherProfile(philosopher);
@@ -958,10 +19,68 @@ function showPhilosopher(philosopher) {
     setupAudioButtons(philosopher);
 }
 
+// Funktion zum Setzen des Philosophenprofils
+function setPhilosopherProfile(philosopher) {
+    const profile = document.getElementById('philosopher-profile');
+    switch (philosopher) {
+        case 'aurelius':
+            profile.innerHTML = `
+                <h3>Profile of Marcus Aurelius</h3>
+                <ul>
+                    <li>Occupation/Role: Roman Emperor and Philosopher</li>
+                    <li>Story Style: Reflective, philosophical, and introspective</li>
+                    <li>Everyday Relevance: Demonstrates how to maintain inner peace and clarity during challenging times and make ethical decisions</li>
+                    <li>length: 3-7 minutes</li>
+                </ul>
+            `;
+            break;
+        case 'plato':
+            profile.innerHTML = `
+                <h3>Profile of Plato</h3>
+                <ul>
+                    <li>Occupation/Role: Ancient Greek Philosopher</li>
+                    <li>Story Style: Dialogues exploring philosophical ideas and theories</li>
+                    <li>Everyday Relevance: Challenges assumptions and encourages critical thinking about justice, ethics, and knowledge</li>
+                    <li>length: 3-7 minutes</li>
+                </ul>
+            `;
+            break;
+        case 'aristotle':
+            profile.innerHTML = `
+                <h3>Profile of Aristotle</h3>
+                <ul>
+                    <li>Occupation/Role: Greek Philosopher and Scientist</li>
+                    <li>Story Style: Systematic and empirical approach to philosophy and science</li>
+                    <li>Everyday Relevance: Provides insights into logic, ethics, and the natural world, promoting practical wisdom</li>
+                    <li>length: 3-6 minutes</li>
+                </ul>
+            `;
+            break;           
+        case 'nietzsche':
+            profile.innerHTML = `
+                <h3>Profile of Nietzsche</h3>
+                <ul>
+                    <li>Occupation/Role: Greek Philosopher and Scientist</li>
+                    <li>Story Style: Systematic and empirical approach to philosophy and science</li>
+                    <li>Everyday Relevance: Provides insights into logic, ethics, and the natural world, promoting practical wisdom</li>
+                    <li>length: 3-6 minutes</li>
+                </ul>
+            `;
+            break;
+    }
+}
 
 
 
+// Funktion zum Anzeigen der Anweisungsseite
+function showAppInstruction() {
+    document.getElementById('app-instruction-page').style.display = 'flex';
+}
 
+// Funktion zum Schließen der Anweisungsseite
+function closeAppInstruction() {
+    document.getElementById('app-instruction-page').style.display = 'none';
+}
 
 
 
@@ -990,8 +109,22 @@ function setupAudioButtons(philosopher) {
     // Verberge den Tag 5-Button, wenn es sich nicht um Aurelius handelt
     if (philosopher !== 'aurelius') {
         const day5Button = document.getElementById('day5');
-       
+        
     }
+}
+
+function showPhilosopher(philosopher) {
+    document.getElementById('start-page').style.display = 'none';
+    document.getElementById('philosopher-page').style.display = 'block';
+
+    const philosopherName = philosopher.charAt(0).toUpperCase() + philosopher.slice(1);
+    document.getElementById('philosopher-name').textContent = philosopherName;
+
+    // Setze den Steckbrief des Philosophen
+    setPhilosopherProfile(philosopher);
+
+    // Setze die Day-Buttons für den jeweiligen Philosophen
+    setupAudioButtons(philosopher);
 }
 
 
@@ -1075,7 +208,7 @@ function setTask(philosopher, day) {
             27: 'Reflect on someone who has shaped your growth. How can you continue learning from them or similar influences?',
             28: 'Reflect on a time of criticism or false accusations. How did you respond, and how can you maintain your integrity in future challenges?',
             29: 'Reflect on how understanding mortality shapes your actions. Embrace acceptance to live purposefully.'
-           
+            
         },
         'plato': {
             1: 'Reflect on a truth-related decision. List aspects and consequences, then act wisely.',
@@ -1138,7 +271,7 @@ function setTask(philosopher, day) {
             27: 'If you make a mistake today, remember that failure is not an end but a beginning.',
             28: 'Learn from unexpected teachers. Let their experiences broaden your understanding and shape your knowledge.',
             29: 'Reflect on temptations and demands. Stay true to your values for lasting satisfaction.',
-            30: 'Reflect on your path. Pursue goals with passion and integrity. The journey and truths define you, not the end.',  
+            30: 'Reflect on your path. Pursue goals with passion and integrity. The journey and truths define you, not the end.',   
         }
     };
 
@@ -1172,11 +305,11 @@ document.addEventListener('DOMContentLoaded', () => {
     document.querySelector('#audio-controls button[data-speed="1"]').addEventListener('click', () => {
         if (currentAudio) currentAudio.playbackRate = 1.0;
     });
-   
+    
     document.querySelector('#audio-controls button[data-speed="1.5"]').addEventListener('click', () => {
         if (currentAudio) currentAudio.playbackRate = 1.5;
     });
-   
+    
     document.querySelector('#audio-controls button[data-speed="1.2"]').addEventListener('click', () => {
         if (currentAudio) currentAudio.playbackRate = 1.2;
     });
@@ -1184,7 +317,7 @@ document.addEventListener('DOMContentLoaded', () => {
     document.querySelector('#audio-controls button[data-speed="2"]').addEventListener('click', () => {
         if (currentAudio) currentAudio.playbackRate = 2.0;
     });
-   
+    
     // Event Listener für das Schließen des Aufgaben-Dialogs
     document.querySelector('#task-dialog button').addEventListener('click', () => {
         document.getElementById('task-dialog').style.display = 'none';
@@ -1196,6 +329,39 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// Profil-Seite Funktionen
+function showProfile() {
+    document.getElementById('start-page').style.display = 'none';
+    document.getElementById('philosopher-page').style.display = 'none';
+    document.getElementById('user-profile').style.display = 'block';
+    
+    // Profilbild und Informationen anzeigen
+    document.getElementById('profile-image-rewards').src = 'Abzeichen Route.png'; // Profilbild-URL einfügen
+    document.getElementById('streak-days').textContent = getCurrentStreak(); // Anzahl der Streak-Tage anzeigen
+}
+
+function hideProfile() {
+    document.getElementById('user-profile').style.display = 'none';
+    document.getElementById('start-page').style.display = 'block';
+}
 
 // Funktion zum Speichern des Besuchstags
 function recordVisitedDay() {
@@ -1238,3 +404,19 @@ function updateProfile() {
     const streak = getCurrentStreak();
     document.getElementById('streak-days').textContent = streak;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
