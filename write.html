@@ -3,278 +3,267 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Write Something</title>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+    <title>Stoic Reflections</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
 
     <style>
+        :root {
+            --primary-bg: #1a1a1a;
+            --secondary-bg: #242424;
+            --accent-color: #c0a080;
+            --text-primary: #e0e0e0;
+            --text-secondary: #a0a0a0;
+            --border-color: rgba(192, 160, 128, 0.2);
+        }
+
         body {
-            font-family: 'Cinzel', serif;
-            background: #1e1e1e;
-            color: #e0e0e0;
+            font-family: 'Inter', sans-serif;
+            background: var(--primary-bg);
+            color: var(--text-primary);
             margin: 0;
             padding: 0;
+            min-height: 100vh;
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: center;
-            min-height: 100vh; /* Sicherstellen, dass es immer mindestens 100% der Bildschirmhöhe einnimmt */
-            text-align: center;
-            padding: 20px; /* Genügend Abstand von den Rändern */
-            box-sizing: border-box;
+            line-height: 1.6;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 900px;
+            margin: 2rem auto;
+            padding: 2rem;
         }
 
         .back-arrow {
-            font-size: 30px;
-            color: #aaaaaa;
-            cursor: pointer;
+            position: fixed;
+            top: 2rem;
+            left: 2rem;
+            font-size: 1.5rem;
+            color: var(--accent-color);
             text-decoration: none;
-            position: absolute;
-            top: 20px;
-            left: 20px;
-            font-weight: bold;
-            transition: color 0.3s ease;
+            opacity: 0.7;
+            transition: opacity 0.3s ease;
         }
 
         .back-arrow:hover {
-            color: #e0e0e0;
+            opacity: 1;
         }
 
         h1 {
-            font-size: 50px;
-            color: #ffffff;
-            margin-bottom: 10px;
-            text-transform: uppercase;
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 3rem;
+            font-weight: 300;
+            color: var(--accent-color);
+            margin: 2rem 0;
+            text-align: center;
+            letter-spacing: 2px;
         }
 
         #current-folder {
-            font-size: 18px;
-            color: #cccccc;
-            margin-bottom: 10px;
+            text-align: center;
+            color: var(--text-secondary);
+            margin-bottom: 2rem;
+            font-size: 0.9rem;
+            letter-spacing: 1px;
         }
 
-        input[type="text"] {
-            font-size: 16px;
-            padding: 10px; /* Etwas mehr Padding für mehr Platz */
-            width: 90%;
+        #folder-input {
+            width: 100%;
             max-width: 400px;
-            margin-bottom: 20px;
-            border: 2px solid #444;
-            border-radius: 8px;
-            background: #333;
-            color: #e0e0e0;
-            box-sizing: border-box;
+            padding: 1rem;
+            margin: 1rem auto;
+            display: block;
+            background: transparent;
+            border: 1px solid var(--border-color);
+            color: var(--text-primary);
+            font-family: 'Inter', sans-serif;
+            font-size: 0.9rem;
+            border-radius: 4px;
+            transition: border-color 0.3s ease;
+        }
+
+        #folder-input:focus {
+            outline: none;
+            border-color: var(--accent-color);
         }
 
         textarea {
-            width: 90%;            /* 90% der verfügbaren Breite für den Container */
-            max-width: 800px;      /* Maximale Breite von 800px */
-            min-width: 300px;      /* Minimale Breite von 300px, um sicherzustellen, dass es nicht zu schmal wird */
-            height: 300px;
-            font-size: 16px;
-            font-family: 'Roboto', sans-serif;
-            background: #333;
-            border: 2px solid #444;
-            border-radius: 12px;
-            color: #e0e0e0;
-            padding: 20px;
-            resize: none;
-            box-sizing: border-box;
+            width: 100%;
+            height: 400px;
+            padding: 1.5rem;
+            background: var(--secondary-bg);
+            border: 1px solid var(--border-color);
+            color: var(--text-primary);
+            font-family: 'Inter', sans-serif;
+            font-size: 1rem;
+            line-height: 1.8;
+            border-radius: 8px;
+            resize: vertical;
+            margin: 1rem 0;
+            transition: border-color 0.3s ease;
         }
 
+        textarea:focus {
+            outline: none;
+            border-color: var(--accent-color);
+        }
 
-
-
+        .button-group {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            margin-top: 2rem;
+        }
 
         button {
-            margin-top: 20px;
-            padding: 12px 24px; /* Mehr Padding für bessere Benutzererfahrung */
-            font-size: 16px;
-            background-color: #444;
-            color: #fff;
-            border: none;
-            border-radius: 8px;
+            background: transparent;
+            border: 1px solid var(--accent-color);
+            color: var(--accent-color);
+            padding: 0.8rem 2rem;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.9rem;
             cursor: pointer;
-            transition: background-color 0.3s ease;
-            width: auto; /* Die Breite passt sich nun an den Inhalt an */
-            max-width: 300px; /* Maximalbreite des Buttons, damit er auf größeren Bildschirmen nicht zu breit wird */
-            text-align: center; /* Text innerhalb des Buttons zentrieren */
+            border-radius: 4px;
+            transition: all 0.3s ease;
+            letter-spacing: 1px;
         }
 
         button:hover {
-            background-color: #555;
+            background: var(--accent-color);
+            color: var(--primary-bg);
         }
 
         #folder-list-modal {
-            display: none;
-            position: fixed;
-            top: 10%;
-            left: 50%;
-            transform: translate(-50%, 0);
-            background: #222;
-            border-radius: 10px;
-            padding: 20px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
-            z-index: 1000;
+            background: var(--secondary-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 2rem;
             width: 90%;
-            max-width: 400px;
-            color: #e0e0e0;
-            box-sizing: border-box;
-        }
-
-        #folder-list {
-            list-style-type: none;
-            padding: 0;
-            margin: 0;
-            max-height: 200px;
-            overflow-y: auto;
-        }
-
-        .folder-item {
-            cursor: pointer;
-            margin-bottom: 10px;
-            padding: 10px;
-            background: #333;
-            border-radius: 5px;
-            transition: background-color 0.3s ease;
-            color: #e0e0e0;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .folder-item:hover {
-            background-color: #444;
-        }
-
-        #overlay {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.8);
-            z-index: 999;
+            max-width: 500px;
         }
 
         #close-modal {
-            color: #fff;
+            color: var(--text-secondary);
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
             cursor: pointer;
             text-align: right;
         }
 
-        #close-modal:hover {
-            text-decoration: underline;
+        .folder-item {
+            background: var(--primary-bg);
+            border: 1px solid var(--border-color);
+            padding: 1rem;
+            margin-bottom: 0.5rem;
+            border-radius: 4px;
+            transition: all 0.3s ease;
         }
 
-        .trash-icon {
-            cursor: pointer;
-            width: 20px;
-            height: 20px;
-            background: url('https://img.icons8.com/ios/452/trash.png') no-repeat center center;
-            background-size: contain;
-        }
-
-        .trash-icon:hover {
-            transform: scale(1.1); /* Vergrößern bei Hover für mehr Interaktivität */
+        .folder-item:hover {
+            border-color: var(--accent-color);
         }
 
         .folder-name {
-            flex-grow: 1;
-            cursor: pointer;
+            color: var(--text-primary);
+            font-size: 0.9rem;
+            letter-spacing: 0.5px;
         }
 
-        /* Media Query für kleinere Geräte */
-        @media (max-width: 600px) {
+        .trash-icon {
+            opacity: 0.7;
+            transition: opacity 0.3s ease;
+            filter: invert(1);
+        }
+
+        .trash-icon:hover {
+            opacity: 1;
+        }
+
+        #overlay {
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(4px);
+        }
+
+        @media (max-width: 768px) {
             h1 {
-                font-size: 32px; /* Kleinere Schrift auf mobilen Geräten */
+                font-size: 2rem;
             }
 
-            input[type="text"], textarea, button {
-                width: 100%; /* Inputs und Buttons nehmen die volle Breite ein */
-                max-width: 100%; /* Keine maximale Breite auf kleineren Bildschirmen */
+            .container {
+                padding: 1rem;
             }
 
-            #folder-list-modal {
-                width: 90%; /* Modal wird auf kleineren Bildschirmen größer */
+            .button-group {
+                flex-direction: column;
             }
 
-            .folder-item {
-                padding: 15px;
+            button {
+                width: 100%;
             }
         }
-
     </style>
 </head>
 <body>
-    <a class="back-arrow" href="index.html" onclick="showProfile();">←</a>
+    <div class="container">
+        <a class="back-arrow" href="index.html" onclick="showProfile();">←</a>
 
-    <h1>Project your thoughts</h1>
-    <div id="current-folder">Current Folder: <strong id="folder-name"></strong></div>
-    <input type="text" id="folder-input" placeholder="Enter folder name..." value="">
+        <h1>Daily Reflections</h1>
+        <div id="current-folder">Journal Entry: <strong id="folder-name"></strong></div>
+        <input type="text" id="folder-input" placeholder="Name your reflection..." value="">
 
-    <div>
-        <textarea id="text-input" placeholder="Start writing here..."></textarea>
+        <textarea id="text-input" placeholder="Begin your philosophical journey here...&#10;&#10;'The happiness of your life depends upon the quality of your thoughts.' - Marcus Aurelius"></textarea>
+
+        <div class="button-group">
+            <button onclick="saveText()">Preserve Thoughts</button>
+            <button onclick="openFolderOverview()">View Journal</button>
+        </div>
     </div>
 
-    <button onclick="saveText()">Save</button>
-    <button onclick="openFolderOverview()">Go to Overview</button>
-
-    <!-- Overlay and Modal -->
     <div id="overlay"></div>
     <div id="folder-list-modal">
-        <div id="close-modal" onclick="closeModal()">✖ Close</div>
-        <h3>Available Folders</h3>
+        <div id="close-modal" onclick="closeModal()">×</div>
+        <h3>Journal Entries</h3>
         <ul id="folder-list"></ul>
     </div>
-    <p id="status-message"></p> <!-- Statusmeldung -->
-
 
     <script>
+        // Keep the original JavaScript, just update the folder name
         let currentFolder = getTodayFolderName();
-        let textData = {}; // Object to store the text data by folder
+        let textData = {};
+
         function showProfile() {
-            // Beispiel für eine Funktion, die Profilinformationen anzeigt oder etwas anderes tut
-            console.log('Profil wird angezeigt');
+            console.log('Profile view');
         }
 
         // Initialize
         updateFolderNameDisplay();
         loadTextForCurrentFolder();
-    
+
         function updateFolderNameDisplay() {
             const folderInput = document.getElementById('folder-input');
             folderInput.value = currentFolder;
             document.getElementById('folder-name').textContent = currentFolder;
         }
-    
+
         function saveText() {
             const folderName = document.getElementById('folder-input').value.trim();
-            
-            // Überprüfen, ob der Ordnername gültig ist
-            if (!folderName) {
-                return; // Keine Aktion, wenn der Ordnername nicht gültig ist
-            }
+            if (!folderName) return;
 
             currentFolder = folderName;
             const text = document.getElementById('text-input').value.trim();
+            if (!text) return;
 
-            // Überprüfen, ob Text vorhanden ist
-            if (!text) {
-                return; // Keine Aktion, wenn kein Text geschrieben wurde
-            }
-
-            // Textdaten in localStorage und im textData-Objekt speichern
             const entries = JSON.parse(localStorage.getItem(currentFolder)) || [];
             const timestamp = new Date().toLocaleTimeString();
             entries.push(`[${timestamp}] ${text}`);
             localStorage.setItem(currentFolder, JSON.stringify(entries));
-            textData[currentFolder] = text; // Text im textData-Objekt aktualisieren
+            textData[currentFolder] = text;
 
-            document.getElementById('text-input').value = ''; // Textfeld leeren
-            updateFolderNameDisplay(); // Ordneranzeige aktualisieren
+            document.getElementById('text-input').value = '';
+            updateFolderNameDisplay();
 
-            // Ordner zur Ordnerliste hinzufügen, falls er noch nicht vorhanden ist
             const folderList = JSON.parse(localStorage.getItem('folderList')) || [];
             if (!folderList.includes(currentFolder)) {
                 folderList.push(currentFolder);
@@ -282,21 +271,18 @@
             }
         }
 
-
-    
         function openFolderOverview() {
             const folderList = JSON.parse(localStorage.getItem('folderList')) || [];
             const folderListElement = document.getElementById('folder-list');
             folderListElement.innerHTML = '';
-    
+
             if (folderList.length === 0) {
-                folderListElement.innerHTML = '<li>No folders available.</li>';
+                folderListElement.innerHTML = '<li class="folder-item">No entries yet.</li>';
             } else {
                 folderList.forEach((folder) => {
                     const li = document.createElement('li');
                     li.className = 'folder-item';
-    
-                    // Folder name with click to view
+
                     const folderName = document.createElement('span');
                     folderName.className = 'folder-name';
                     folderName.textContent = folder;
@@ -306,59 +292,49 @@
                         loadTextForCurrentFolder();
                         closeModal();
                     };
-    
-                    // Trash icon for delete
+
                     const trashIcon = document.createElement('div');
                     trashIcon.className = 'trash-icon';
                     trashIcon.onclick = (e) => {
-                        e.stopPropagation(); // Prevent triggering folder open
+                        e.stopPropagation();
                         deleteFolder(folder);
                     };
-    
+
                     li.appendChild(folderName);
                     li.appendChild(trashIcon);
                     folderListElement.appendChild(li);
                 });
             }
-    
+
             document.getElementById('overlay').style.display = 'block';
             document.getElementById('folder-list-modal').style.display = 'block';
         }
-    
+
         function loadTextForCurrentFolder() {
             const entries = JSON.parse(localStorage.getItem(currentFolder)) || [];
             const contentDisplay = entries.map(entry => {
-                // Remove the timestamp part using regex
-                return entry.replace(/\[\d{2}:\d{2}:\d{2}\]/, '').trim(); // Removes the time part from each entry
-            }).join('\n'); // Join entries with newline characters
-            document.getElementById('text-input').value = contentDisplay; // Load the cleaned text into the textarea
+                return entry.replace(/\[\d{2}:\d{2}:\d{2}\]/, '').trim();
+            }).join('\n');
+            document.getElementById('text-input').value = contentDisplay;
         }
-    
+
         function deleteFolder(folder) {
-            
-                // Remove folder data from localStorage
-                localStorage.removeItem(folder);
-    
-                // Remove folder from the folder list
-                const folderList = JSON.parse(localStorage.getItem('folderList')) || [];
-                const updatedFolderList = folderList.filter((f) => f !== folder);
-                localStorage.setItem('folderList', JSON.stringify(updatedFolderList));
-    
-                
-                openFolderOverview(); // Refresh the folder list modal
-        
+            localStorage.removeItem(folder);
+            const folderList = JSON.parse(localStorage.getItem('folderList')) || [];
+            const updatedFolderList = folderList.filter((f) => f !== folder);
+            localStorage.setItem('folderList', JSON.stringify(updatedFolderList));
+            openFolderOverview();
         }
-    
+
         function closeModal() {
             document.getElementById('overlay').style.display = 'none';
             document.getElementById('folder-list-modal').style.display = 'none';
         }
-    
+
         function getTodayFolderName() {
             const today = new Date();
             return today.toISOString().split('T')[0];
         }
     </script>
-    
 </body>
 </html>
