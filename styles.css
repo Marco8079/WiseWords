@@ -816,7 +816,7 @@ h2 {
 
 /* Form elements */
 input[type="text"] {
-  width: 100%;
+  width: 90%;
   padding: 0.8rem 1rem;
   margin-bottom: 1rem;
   background: rgba(255, 255, 255, 0.03);
