@@ -125,7 +125,11 @@ const personalities = {
       '"The universe is change; our life is what our thoughts make it."',
       '"Waste no more time arguing what a good man should be. Be one."',
       '"The best revenge is to be unlike him who performed the injury."',
-      '"Everything we hear is an opinion, not a fact. Everything we see is a perspective, not the truth."' 
+      '"Everything we hear is an opinion, not a fact. Everything we see is a perspective, not the truth."',
+      '"You have power over your mind, not external events. Realize this, and you will find strength."',
+      '"The impediment to action advances action. What stands in the way becomes the way."',
+      '"The happiness of your life depends upon the quality of your thoughts. Therefore, guard your thoughts and take care that they align with virtue and reason."',
+      '"When you wake up, remind yourself: Today I will meet difficult people, but they cannot harm me if I stay true to myself and the good."' 
     ],
     tracks: [
       { day: 1, audioFile: 'audio/marcus-aurelius1.mp3' },
@@ -165,7 +169,11 @@ const personalities = {
       '"The beginning is the most important part of the work."',       
       '"We can easily forgive a child who is afraid of the dark; the real tragedy of life is when men are afraid of the light."',
       '"Be kind, for everyone you meet is fighting a hard battle."',       
-      '"Wise men speak because they have something to say; fools because they have to say something."'  
+      '"Wise men speak because they have something to say; fools because they have to say something."',
+      '"Wisdom begins in wonder."',       
+      '"The measure of a man is what he does with power."',
+      '"Education is the kindling of a flame, not the filling of a vessel."',       
+      '"He who learns to rule himself is greater than he who rules others.."'   
     ],
     tracks: [
       { day: 1, audioFile: 'audio/platon1.mp3' },
@@ -205,7 +213,11 @@ const personalities = {
       '"We are what we repeatedly do. Excellence, then, is not an act, but a habit."',
       '"The whole is greater than the sum of its parts."',
       '"Knowing yourself is the beginning of all wisdom."',
-      '"Excellence is never an accident."'
+      '"Excellence is never an accident."',
+      '"The aim of the wise is not to secure pleasure, but to avoid pain."',
+      '"It is the mark of an educated mind to entertain a thought without accepting it."',
+      '"Educating the mind without educating the heart is no education at all."',
+      '"Happiness depends upon ourselves."'
     ],
     tracks: [
       { day: 1, audioFile: 'audio/aristoteles1.mp3' },
@@ -246,7 +258,11 @@ const personalities = {
       '"He who has a why to live can bear almost any how."',
       '"That which does not kill us makes us stronger."',
       '"There are no facts, only interpretations."',
-      '"Without music, life would be a mistake."'
+      '"Without music, life would be a mistake."',
+      '"The individual has always had to struggle to keep from being overwhelmed by the tribe."',
+      '"The man of knowledge must be able not only to love his enemies but also to hate his friends."',
+      '"In every real man, a child is hidden that wants to play."',
+      '"No one can build you the bridge on which you must cross the river of life—only you can."'
     ],
     tracks: [
       { day: 1, audioFile: 'audio21/nietzsche1.mp3' },
@@ -286,7 +302,11 @@ const personalities = {
       '"I came, I saw, I conquered."',
       '"Experience is the teacher of all things."',
       '"It is easier to find men who will volunteer to die than to find those who are willing to endure pain with patience."',
-      '"The die is cast."'
+      '"The die is cast."',
+      '"Cowards die many times before their actual deaths."',
+      '"It is not these well-fed long-haired men that I fear, but the pale and the hungry-looking."',
+      '"If you must break the law, do it to seize power: in all other cases observe it."',
+      '"Fortune favors the bold."'
     ],
     tracks: [
       { day: 1, audioFile: 'audio29/cäsar1.mp3' },
@@ -323,10 +343,14 @@ const personalities = {
   "Leonardo da Vinci": {
     title: "Italian Polymath",
     quotes: [
-      '"Learning never exhausts the mind."',
+      '"Learning never exhausts the mind, it only ignites it."',
       '"Simplicity is the ultimate sophistication."',
       '"Art is never finished, only abandoned."',
-      '"I have been impressed with the urgency of doing. Knowing is not enough; we must apply."'
+      '"I have been impressed with the urgency of doing. Knowing is not enough; we must apply."',
+      '"Art is the queen of all sciences communicating knowledge to all the generations of the world."',
+      '"The greatest deception men suffer is from their own opinions."',
+      '"You can have no dominion greater or less than that over yourself."',
+      '"Nature is the source of all true knowledge. She has her own logic, her own laws, she has no effect without cause, nor invention without necessity."'
     ],
     tracks: [
       { day: 1, audioFile: 'audio37/leonardo1.mp3' },
@@ -366,7 +390,11 @@ const personalities = {
       '"Peace comes from within. Do not seek it without."',
       '"Three things cannot be long hidden: the sun, the moon, and the truth."',
       '"The mind is everything. What you think you become."',
-      '"Health is the greatest gift, contentment the greatest wealth."'
+      '"Health is the greatest gift, contentment the greatest wealth."',
+      '"You only lose what you cling to."',
+      '"It is better to travel well than to arrive."',
+      '"Health is the greatest gift, contentment the greatest wealth, faithfulness the best relationship."',
+      '"Holding onto anger is like drinking poison and expecting the other person to die."'
     ],
     tracks: [
       { day: 1, audioFile: 'audio45/buddha1.mp3' },
@@ -406,7 +434,11 @@ const personalities = {
       '"I have not told half of what I saw."',
       '"Without stones there is no arch."',
       '"I did not tell half of what I saw, for I knew I would not be believed."',
-      '"Let me tell you what I have seen in the East."'
+      '"You can’t cross the sea merely by standing and staring at the water."',
+      '"The world is a book, and those who do not travel read only one page."',
+      '"A man who is not a good servant will not be a good master."',
+      '"The greatest adventure is what lies ahead."',
+      '"There is a world of difference between the knowledge gained through experience and the knowledge found in books."'
     ],
     tracks: [
       { day: 1, audioFile: 'audio53/marco1.mp3' },
@@ -446,7 +478,11 @@ const personalities = {
       '"Ambition leads me not only farther than any other man has been before me, but as far as I think it possible for man to go."',
       '"Do just once what others say you cannot do, and you will never pay attention to their limitations again."',
       '"I had ambition not only to go farther than any man had ever been before, but as far as it was possible for a man to go."',
-      '"Bad weather has a way of following good sailors."'
+      '"Bad weather has a way of following good sailors."',
+      '"I am not afraid to die, but I am afraid of the loss of the opportunity to do good."',
+      '"We must not forget that it is not the size of the ship, but the ability of the crew, that makes a successful voyage."',
+      '"No great discovery was ever made without a bold guess."',
+      '"I am not a man who seeks praise, but I do seek to leave a legacy of discovery."'
     ],
     tracks: [
       { day: 1, audioFile: 'audio61/cook1.mp3' },
@@ -486,7 +522,11 @@ const personalities = {
       '"All the world is a stage, and all the men and women merely players."',
       '"We know what we are, but know not what we may be."',
       '"To be, or not to be, that is the question."',
-      '"Love all, trust a few, do wrong to none."'
+      '"Love all, trust a few, do wrong to none."',
+      '"This above all: to thine own self be true, and it must follow, as the night the day, thou canst not then be false to any man."',
+      '"It is not in the stars to hold our destiny but in ourselves."',
+      '"The better part of Valour, is Discretion."',
+      '"We know what we are, but know not what we may be."'
     ],
     tracks: [
       { day: 1, audioFile: 'audio69/shakespear1.mp3' },
@@ -526,7 +566,12 @@ const personalities = {
       '"Come and take them!"',
       '"Eat well, for tonight we dine in Hades."',
       '"This is Spartas law: Either come back with your shield or on it."',
-      '"Better to fight for something than live for nothing."'
+      '"Better to fight for something than live for nothing."',
+      '"Freedom is the only worthy goal in life. It is won by disregarding fear."',
+      '"With courage, we conquer not just our enemies, but ourselves."',
+      '"The strength of a warrior is not measured by the sword, but by the heart that wields it."',
+      '"A man who fights with honor is never defeated, no matter the outcome."',
+      '"In unity, there is power; in division, there is defeat."'
     ],
     tracks: [
       { day: 2, audioFile: 'audio77/leonidas1.mp3' },
