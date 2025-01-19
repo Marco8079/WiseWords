@@ -459,6 +459,87 @@
             width: 90%;
         }
     }
+    /* Gemeinsamer Container für die Buttons */
+    /* Gemeinsamer Container für die Buttons */
+    /* Gemeinsamer Container für die Buttons */
+    .button-container {
+        position: absolute; /* Container nach unten verschieben */
+        bottom: 20px; /* Abstand zum unteren Bildschirmrand */
+        left: 50%;
+        transform: translateX(-50%);
+        display: flex;
+        gap: 8px; /* Kleinerer Abstand zwischen den Buttons */
+        background-color: rgba(0, 0, 0, 0.7); /* Dunkler Hintergrund mit Transparenz */
+        border: 1px solid #fff;
+        border-radius: 12px;
+        padding: 5px 10px; /* Kleinere Polsterung */
+        width: fit-content; /* Container passt sich der Button-Größe an */
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3); /* Schatten für bessere Optik */
+    }
+
+    /* Journal- und Streak-Buttons */
+    .journal-button,
+    .rewards-button {
+        padding: 8px 12px; /* Kleinere Buttons */
+        font-size: 14px; /* Kleinere Schriftgröße */
+        background-color: transparent; /* Hintergrund transparent */
+        color: white; /* Weißer Text */
+        border: none; /* Kein Rand */
+        cursor: pointer;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 8px;
+        border-radius: 8px;
+        transition: background-color 0.3s ease, transform 0.2s ease;
+    }
+
+    /* Stil für das Journal-Icon und -Text */
+    .journal-button i {
+        font-size: 18px; /* Etwas größere Icons */
+    }
+
+    /* Stil für das Rewards-Icon und -Text */
+    .rewards-button i {
+        font-size: 18px; /* Etwas größere Icons */
+    }
+
+    /* Anpassung für den Geschenk-Button */
+    .rewards-button {
+        background-color: transparent; /* Hintergrund transparent */
+        padding: 10px 15px;
+        border-radius: 12px;
+        border: none; /* Kein Rand */
+    }
+
+    /* Farbverlauf für den Text im Geschenk-Button */
+    .rewards-button span {
+        background: linear-gradient(45deg, red, #ff6347); /* Rot und Tomatenrot */
+        -webkit-background-clip: text;
+        color: transparent;
+        font-weight: bold;
+    }
+
+    /* Hover-Effekt für den Geschenk-Button */
+    .rewards-button:hover {
+        background-color: rgba(255, 255, 255, 0.2); /* Leichter weißer Hintergrund bei Hover */
+        transform: scale(1.05); /* Leichtes Vergrößern des Buttons */
+    }
+
+    /* Responsives Design für Buttons */
+    @media (max-width: 768px) {
+        .button-container {
+            bottom: 10px; /* Weniger Abstand bei kleinen Geräten */
+            gap: 4px;
+        }
+
+        .journal-button,
+        .rewards-button {
+            font-size: 12px;
+            padding: 6px 8px;
+        }
+    }
+
     </style>
     
     
@@ -1273,15 +1354,19 @@
         </div>
     </div>
        
-        <!-- Neuer Rahmen um das Journal-->
-        <div class="profile-section journal-container">
+        <!-- Container für Journal- und Streak-Rewards-Button -->
+        <div class="profile-section button-container">
             <button onclick="navigateToWritingPage()" class="journal-button">
                 <i class="fas fa-book"></i>
                 <span>Journal</span>
-            </button> 
+            </button>
+            <button onclick="navigateToRewardsPage()" class="rewards-button">
+                <i class="fas fa-gift"></i>
+                <span>Streak-Rewards</span>
+            </button>
         </div>
 
-        
+
         
         
     </div>
@@ -1293,6 +1378,11 @@
 
         //User Profile Page
 const streakCounter = document.querySelector('.streak-counter');
+
+    function navigateToRewardsPage() {
+        window.location.href = "streak-rewards.html";
+    }
+
 
 class StreakManager {
     constructor() {
@@ -2999,9 +3089,12 @@ const centralOrb = document.querySelector('.central-orb');
         function closeInfoDialog() {
             document.getElementById('info-dialog').style.display = 'none';
         }
+        
+        
 
-
+        
     </script>
+
     
 </body>
 </html>
