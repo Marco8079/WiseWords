@@ -1,0 +1,602 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Streak Rewards Shop</title>
+    <style>
+        
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        header {
+            background-color: #2c3e50;
+            color: white;
+            padding: 20px 0;
+            width: 100%;
+            text-align: center;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 20px auto 0;
+            text-align: center;
+        }
+
+        h1.shop-title {
+            font-size: 2.5rem;
+            margin: 0 0 10px;
+        }
+
+        .streak-display {
+            font-size: 1.2rem;
+            margin-top: 5px;
+        }
+
+        .flame-icon {
+            color: orange;
+            font-size: 1.5rem;
+            vertical-align: middle;
+        }
+
+        main {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 20px;
+        }
+
+        .rewards-section {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
+            align-items: flex-start;
+            margin-top: 20px;
+        }
+
+        .reward-card {
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            align-items: center;
+            text-align: center;
+            padding: 20px;
+            width: 300px;
+            height: 500px; /* Größere Höhe, damit alle Inhalte gut passen */
+            max-height: 500px; /* Maximale Höhe auf 500px gesetzt */
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between; /* Gleichmäßige Verteilung der Inhalte */
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+
+
+        .reward-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .reward-title {
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+
+        .reward-image {
+            width: 150px;
+            height: 150px;
+            position: absolute;
+            top: 110px;
+            left: 50%;
+            border-radius: 10px;
+            border: 2px solid #2c3e50;
+            margin-bottom: 15px;
+            object-fit: cover;
+            transform: translateX(-50%); /* Exakte Zentrierung */
+        }
+
+        .reward-description {
+            flex-grow: 1; /* Flexibel, damit die Beschreibung genug Platz bekommt */
+            margin-bottom: 15px;
+            margin-top: 180px; /* Platz schaffen, damit die Beschreibung unter dem Bild beginnt */
+        }
+
+        .reward-details ul {
+            list-style: none;
+            padding: 0;
+            margin: 0 0 15px;
+        }
+
+        .reward-details li {
+            font-size: 0.9rem;
+            color: #333;
+            margin: 5px 0;
+        }
+
+        .reward-button {
+            background-color: #34495e;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+
+        .reward-button:hover {
+            background-color: #2c3e50;
+            transform: scale(1.05);
+        }
+
+        .reward-button:disabled {
+            background-color: #95a5a6;
+            cursor: not-allowed;
+        }
+
+        footer {
+            background-color: #2c3e50;
+            color: white;
+            text-align: center;
+            padding: 15px;
+            width: 100%;
+            margin-top: 20px;
+        }
+
+        .back-arrow {
+            position: fixed; /* Bleibt an der gleichen Position beim Scrollen */
+            top: 20px; /* Abstand von oben */
+            left: 20px; /* Abstand von links */
+            font-size: 24px; /* Größe des Pfeils */
+            color: #8B4513; /* Bräunliche Farbe */
+            text-decoration: none; /* Kein Unterstrich */
+            transition: transform 0.2s; /* Animation beim Hover */
+        }
+
+        .back-arrow:hover {
+            transform: scale(1.2); /* Leichte Vergrößerung beim Hover */
+        }
+
+
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <!-- Header -->
+            <header class="shop-header">
+                <a href="index.html" class="back-arrow" title="Go back to the main page">&#8592;</a>
+                <h1 class="shop-title">Streak Rewards Shop</h1>
+            </header>
+    
+            <!-- Streak-Anzeige -->
+            <section class="streak-container">
+                <p id="streak-display" class="streak-display">
+                    <span class="flame-icon">&#x1F525;</span> <span id="streak-value">0</span> Days
+                </p>
+            </section>
+        </div>
+    
+        <script src="streak-rewards.js"></script>
+        
+    </header>
+
+    <!-- Main Content -->
+    <!-- Main Content -->
+    <!-- Main Content -->
+    <main>
+        <section class="rewards-section">
+            <!-- Reward Card 1 -->
+            <div class="reward-card">
+                <h3 class="reward-title">Motivating Background Image</h3>
+                <img src="x_1.jpg" alt="Exclusive Ebook" class="reward-image">
+                <p class="reward-description">Unlock an exclusive background image to keep you motivated and focused on your goals.</p>
+                <div class="reward-details">
+                    <ul>
+                        <li><strong>Unlock after:</strong> 2 Days Streak</li>
+                        <li><strong>Size:</strong> 32KB</li>
+                        <li><strong>Format:</strong> PNG</li>
+                    </ul>
+                </div>
+                <button class="reward-button" data-required-streak="2" data-download-url="2-day reward.png" onclick="redeemReward(2)">Download Now</button>
+
+
+            </div>
+
+            <!-- Reward Card 2 -->
+            <div class="reward-card">
+                <h3 class="reward-title">Useful Daily Focus Planner</h3>
+                <img src="x_2.jpg" alt="Study Guide" class="reward-image">
+                <p class="reward-description">A simple focus planner for the day that deepens your focus for greater achievement.</p>
+                <div class="reward-details">
+                    <ul>
+                        <li><strong>Unlock after:</strong> 7 Days Streak</li>
+                        <li><strong>Size:</strong> 127KB</li>
+                        <li><strong>Format:</strong> PDF</li>
+                    </ul>
+                </div>
+                <button class="reward-button" data-required-streak="7" data-download-url="7-day reward.pdf" onclick="redeemReward(7)">Download Now</button>
+            </div>
+
+            <!-- Reward Card 3 -->
+            <div class="reward-card">
+                <h3 class="reward-title">Guided Stoic Meditation</h3>
+                <img src="x_3.jpg" alt="Cheatsheet" class="reward-image">
+                <p class="reward-description">A Marcus Aurelius-inspired meditation for inner peace, gratitude, and clarity.</p>
+                <div class="reward-details">
+                    <ul>
+                        <li><strong>Unlock after:</strong> 14 Days Streak</li>
+                        <li><strong>Size:</strong> 8 Min</li>
+                        <li><strong>Format:</strong> MP3</li>
+                    </ul>
+                </div>
+                <button class="reward-button" data-required-streak="14" data-download-url="14-day reward.mp3" onclick="redeemReward(14)">Download Now</button>
+            </div>
+
+            <!-- Reward Card 4 -->
+            <div class="reward-card">
+                <h3 class="reward-title">Brief Summary Of Epictetus' Philosophy</h3>
+                <img src="x_4.jpg" alt="Reflection Journal" class="reward-image">
+                <p class="reward-description">A practical guide to applying Epictetus' Stoic principles for daily peace.</p>
+                <div class="reward-details">
+                    <ul>
+                        <li><strong>Unlock after:</strong> 21 Days Streak</li>
+                        <li><strong>Size:</strong> 84KB</li>
+                        <li><strong>Format:</strong> PDF</li>
+                    </ul>
+                </div>
+                <button class="reward-button" data-required-streak="21" data-download-url="21-day reward.pdf" onclick="redeemReward(21)">Download Now</button>
+            </div>
+
+            <!-- Reward Card 5 -->
+            <div class="reward-card">
+                <h3 class="reward-title">Comprehensive Creativity Guide</h3>
+                <img src="x_5.jpg" alt="Daily Planner" class="reward-image">
+                <p class="reward-description">A Comprehensive Guide to Stimulating Innovation and Problem-Solving.</p>
+                <div class="reward-details">
+                    <ul>
+                        <li><strong>Unlock after:</strong> 30 Days Streak</li>
+                        <li><strong>Size:</strong> 344KB</li>
+                        <li><strong>Format:</strong> PDF</li>
+                    </ul>
+                </div>
+                <button class="reward-button" data-required-streak="30" data-download-url="30-day reward.pdf" onclick="redeemReward(30)">Download Now</button>
+            </div>
+
+            <!-- Reward Card 6 -->
+            <div class="reward-card">
+                <h3 class="reward-title">Empowering Background Image</h3>
+                <img src="x_6.jpg" alt="Quote Compilation" class="reward-image">
+                <p class="reward-description">Unlock an exclusive background image to keep you motivated and focused on your goals.</p>
+                <div class="reward-details">
+                    <ul>
+                        <li><strong>Unlock after:</strong> 45 Days Streak</li>
+                        <li><strong>Size:</strong> 1MB</li>
+                        <li><strong>Format:</strong> PNG</li>
+                    </ul>
+                </div>
+                <button class="reward-button" data-required-streak="45" data-download-url="45-day reward.png" onclick="redeemReward(45)">Download Now</button>
+            </div>
+
+            <!-- Reward Card 7 -->
+            <div class="reward-card">
+                <h3 class="reward-title">Daily Reflection Journal</h3>
+                <img src="x_7.jpg" alt="Advanced Workbook" class="reward-image">
+                <p class="reward-description">A simple journal that helps you document your progress and celebrate your successes.</p>
+                <div class="reward-details">
+                    <ul>
+                        <li><strong>Unlock after:</strong> 60 Days Streak</li>
+                        <li><strong>Size:</strong> 40KB</li>
+                        <li><strong>Format:</strong> PDF</li>
+                    </ul>
+                </div>
+                <button class="reward-button" data-required-streak="60" data-download-url="60-day reward.pdf" onclick="redeemReward(60)">Download Now</button>
+            </div>
+
+            <!-- Reward Card 8 -->
+            <div class="reward-card">
+                <h3 class="reward-title">Minimalist's Productivity Guide</h3>
+                <img src="x_8.jpg" alt="Meditation Guide" class="reward-image">
+                <p class="reward-description">A simple but extremely effective system for increasing productivity, inspired by Zen practices.</p>
+                <div class="reward-details">
+                    <ul>
+                        <li><strong>Unlock after:</strong> 75 Days Streak</li>
+                        <li><strong>Size:</strong> 62KB</li>
+                        <li><strong>Format:</strong> PDF</li>
+                    </ul>
+                </div>
+                <button class="reward-button" data-required-streak="75" data-download-url="75-day reward.pdf" onclick="redeemReward(75)">Download Now</button>
+            </div>
+
+            <!-- Reward Card 9 -->
+            <div class="reward-card">
+                <h3 class="reward-title">How to Overcome Self-Doubt</h3>
+                <img src="x_9.jpg" alt="Daily Practices" class="reward-image">
+                <p class="reward-description">A dialogue between Shakespeare and Aurelius about dealing with self-doubt.</p>
+                <div class="reward-details">
+                    <ul>
+                        <li><strong>Unlock after:</strong> 100 Days Streak</li>
+                        <li><strong>Size:</strong> 5MB</li>
+                        <li><strong>Format:</strong> MP3</li>
+                    </ul>
+                </div>
+                <button class="reward-button" data-required-streak="100" data-download-url="100-day reward.mp3" onclick="redeemReward(100)">Download Now</button>
+            </div>
+
+            <!-- Reward Card 10 -->
+            <div class="reward-card">
+                <h3 class="reward-title">Practical Guide to Aristotle's Ethics</h3>
+                <img src="x_10.jpg" alt="Habits Tracker" class="reward-image">
+                <p class="reward-description">A brief guide to applying Aristotle's ethical principles in daily life with clear implementation steps.</p>
+                <div class="reward-details">
+                    <ul>
+                        <li><strong>Unlock after:</strong> 130 Days Streak</li>
+                        <li><strong>Size:</strong> 83KB</li>
+                        <li><strong>Format:</strong> PDF</li>
+                    </ul>
+                </div>
+                <button class="reward-button" data-required-streak="130" data-download-url="130-day reward.pdf" onclick="redeemReward(130)">Download Now</button>
+            </div>
+
+            <!-- Reward Card 11 -->
+            <div class="reward-card">
+                <h3 class="reward-title">Nietzsches' Philosophy Explained</h3>
+                <img src="x_11.jpg" alt="Life Strategy" class="reward-image">
+                <p class="reward-description">The Three Metamorphoses of the Spirit: A Guide to Nietzsche’s Philosophy & Practical Application.</p>
+                <div class="reward-details">
+                    <ul>
+                        <li><strong>Unlock after:</strong> 170 Days Streak</li>
+                        <li><strong>Size:</strong> 79KB</li>
+                        <li><strong>Format:</strong> PDF</li>
+                    </ul>
+                </div>
+                <button class="reward-button" data-required-streak="170" data-download-url="170-day reward.pdf" onclick="redeemReward(170)">Download Now</button>
+            </div>
+
+            <!-- Reward Card 12 -->
+            <div class="reward-card">
+                <h3 class="reward-title">A Guide to Platos' Logic</h3>
+                <img src="x_12.jpg" alt="Emotional Mastery" class="reward-image">
+                <p class="reward-description">A Guide with xercises for applying Platos logic to everyday decision making and problem solving.</p>
+                <div class="reward-details">
+                    <ul>
+                        <li><strong>Unlock after:</strong> 200 Days Streak</li>
+                        <li><strong>Size:</strong> 81KB</li>
+                        <li><strong>Format:</strong> PDF</li>
+                    </ul>
+                </div>
+                <button class="reward-button" data-required-streak="200" data-download-url="200-day reward.pdf" onclick="redeemReward(200)">Download Now</button>
+            </div>
+
+            <!-- Reward Card 13 -->
+            <div class="reward-card">
+                <h3 class="reward-title">Übermensch Guide And Workbook</h3>
+                <img src="x_13.jpg" alt="Reflection Worksheet" class="reward-image">
+                <p class="reward-description">Becoming the Übermensch: A Practical Guide and Workbook</p>
+                <div class="reward-details">
+                    <ul>
+                        <li><strong>Unlock after:</strong> 235 Days Streak</li>
+                        <li><strong>Size:</strong> 82KB</li>
+                        <li><strong>Format:</strong> PDF</li>
+                    </ul>
+                </div>
+                <button class="reward-button" data-required-streak="235" data-download-url="235-day reward.pdf" onclick="redeemReward(235)">Download Now</button>
+            </div>
+
+            <!-- Reward Card 14 -->
+            <div class="reward-card">
+                <h3 class="reward-title">A Conversation Between Great Minds</h3>
+                <img src="x_14.jpg" alt="Conflict Resolution" class="reward-image">
+                <p class="reward-description">Discussion on the Meaning of Life: Plato, Aurelius and Shakespeare.</p>
+                <div class="reward-details">
+                    <ul>
+                        <li><strong>Unlock after:</strong> 275 Days Streak</li>
+                        <li><strong>Size:</strong> 8 Min</li>
+                        <li><strong>Format:</strong> MP3</li>
+                    </ul>
+                </div>
+                <button class="reward-button" data-required-streak="275" data-download-url="275-day reward.mp3" onclick="redeemReward(275)">Download Now</button>
+            </div>
+
+            <!-- Reward Card 15 -->
+            <div class="reward-card">
+                <h3 class="reward-title">A Guide to Purposeful Exploration</h3>
+                <img src="x_15.jpg" alt="Focus Guide" class="reward-image">
+                <p class="reward-description">The Importance of Traveling: Lessons from Captain Cook and Marco Polo.</p>
+                <div class="reward-details">
+                    <ul>
+                        <li><strong>Unlock after:</strong> 320 Days Streak</li>
+                        <li><strong>Size:</strong> 240KB</li>
+                        <li><strong>Format:</strong> PDF</li>
+                    </ul>
+                </div>
+                <button class="reward-button" data-required-streak="320" data-download-url="320-day reward.pdf" onclick="redeemReward(320)">Download Now</button>
+            </div>
+
+            <!-- Reward Card 16 -->
+            <div class="reward-card">
+                <h3 class="reward-title">How and When to Take Risks</h3>
+                <img src="x_16.jpg" alt="Strength Guide" class="reward-image">
+                <p class="reward-description">A Practical Guide to Mastering Calculated Risk in Your Life and Career - inspired by Julius Cäsar.</p>
+                <div class="reward-details">
+                    <ul>
+                        <li><strong>Unlock after:</strong> 365 Days Streak</li>
+                        <li><strong>Size:</strong> 347KB</li>
+                        <li><strong>Format:</strong> PDF</li>
+                    </ul>
+                </div>
+                <button class="reward-button" data-required-streak="365" data-download-url="365-day reward.pdf" onclick="redeemReward(365)">Download Now</button>
+            </div>
+
+            <!-- Reward Card 17 -->
+            <div class="reward-card">
+                <h3 class="reward-title">5-Year Planning Tool Inspired by Leonidas</h3>
+                <img src="x_17.jpg" alt="Emotional Ebook" class="reward-image">
+                <p class="reward-description">An interactive e-book with specific questions to help you develop your 5-year plan.</p>
+                <div class="reward-details">
+                    <ul>
+                        <li><strong>Unlock after:</strong> 410 Days Streak</li>
+                        <li><strong>Size:</strong> 265KB</li>
+                        <li><strong>Format:</strong> PDF</li>
+                    </ul>
+                </div>
+                <button class="reward-button" data-required-streak="410" data-download-url="410-day reward.pdf" onclick="redeemReward(410)">Download Now</button>
+            </div>
+
+            <!-- Reward Card 18 -->
+            <div class="reward-card">
+                <h3 class="reward-title">A High Value Motivational Poster</h3>
+                <img src="x_18.jpg" alt="Performance Ebook" class="reward-image">
+                <p class="reward-description">Motivational poster with a powerful design that visually reinforces determination and progress.</p>
+                <div class="reward-details">
+                    <ul>
+                        <li><strong>Unlock after:</strong> 480 Days Streak</li>
+                        <li><strong>Size:</strong> 1,5MB</li>
+                        <li><strong>Format:</strong> PNG</li>
+                    </ul>
+                </div>
+                <button class="reward-button" data-required-streak="480" data-download-url="480-day reward.png" onclick="redeemReward(480)">Download Now</button>
+            </div>
+
+            <!-- Reward Card 19 -->
+            <div class="reward-card">
+                <h3 class="reward-title">A Guide to Dark Psychology</h3>
+                <img src="x_19.jpg" alt="Discipline Ebook" class="reward-image">
+                <p class="reward-description">An ebook that teaches you how to recognise and protect yourself from dark psychological manipulation.</p>
+                <div class="reward-details">
+                    <ul>
+                        <li><strong>Unlock after:</strong> 530 Days Streak</li>
+                        <li><strong>Size:</strong> 183KB</li>
+                        <li><strong>Format:</strong> PDF</li>
+                    </ul>
+                </div>
+                <button class="reward-button" data-required-streak="530" data-download-url="530-day reward.pdf" onclick="redeemReward(530)">Download Now</button>
+            </div>
+
+            <!-- Reward Card 20 -->
+            <div class="reward-card">
+                <h3 class="reward-title">The Art of Warfare and Strategic Thinking</h3>
+                <img src="x_20.jpg" alt="Focus Ebook" class="reward-image">
+                <p class="reward-description">Unlock techniques to enhance your focus and concentration, making you more productive every day.</p>
+                <div class="reward-details">
+                    <ul>
+                        <li><strong>Unlock after:</strong> 600 Days Streak</li>
+                        <li><strong>Size:</strong> 157KB</li>
+                        <li><strong>Format:</strong> PDF</li>
+                    </ul>
+                </div>
+                <button class="reward-button" data-required-streak="600" data-download-url="600-day reward.pdf" onclick="redeemReward(600)">Download Now</button>
+            </div>
+
+        </section>
+    </main>
+
+
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 WiseWords | All Rights Reserved</p>
+        </div>
+    </footer>
+
+    <script>
+        // Schlüssel für den Streak im localStorage
+        const streakKey = 'stoicStreak'; // Der gleiche Schlüssel, den du auf der Startseite verwendest.
+    
+        // Funktion: Synchronisiere den Streak auf der Rewards-Seite
+        function syncStreakDisplay() {
+            // Abrufen des aktuellen Streak-Werts aus localStorage
+            const streak = parseInt(localStorage.getItem(streakKey)) || 0;
+    
+            // Element für die Streak-Anzeige finden
+            const streakDisplay = document.getElementById('streak-value');
+    
+            // Streak-Wert in der Anzeige aktualisieren
+            if (streakDisplay) {
+                streakDisplay.textContent = streak;
+            }
+    
+            // Belohnungen aktivieren/deaktivieren je nach Streak
+            const rewardButtons = document.querySelectorAll('.reward-button');
+            rewardButtons.forEach(button => {
+                const requiredStreak = parseInt(button.getAttribute('data-required-streak'));
+                if (streak >= requiredStreak) {
+                    button.disabled = false; // Aktivieren des Buttons, wenn der Streak ausreicht
+                    button.classList.remove('disabled');
+                } else {
+                    button.disabled = true; // Deaktivieren des Buttons, wenn der Streak nicht ausreicht
+                    button.classList.add('disabled');
+                }
+            });
+        }
+    
+        // Führe die Synchronisation beim Laden der Seite durch
+        document.addEventListener('DOMContentLoaded', syncStreakDisplay);
+    
+        // Funktion, um eine Belohnung herunterzuladen
+        function redeemReward(requiredStreak) {
+            const streak = parseInt(localStorage.getItem(streakKey)) || 0;
+            
+            if (streak >= requiredStreak) {
+                // Hier kannst du den Download der Belohnung initiieren (z.B. ein neues Fenster öffnen)
+                alert(`Belohnung für ${requiredStreak} Tage Streak freigeschaltet!`);
+                // Beispiel: openDownloadLink();
+            } else {
+                alert(`Du brauchst mindestens ${requiredStreak} Tage Streak, um diese Belohnung freizuschalten.`);
+            }
+        }
+
+        // Funktion, um eine Belohnung herunterzuladen
+        function redeemReward(requiredStreak) {
+            const streak = parseInt(localStorage.getItem('stoicStreak')) || 0;
+            
+            if (streak >= requiredStreak) {
+                // Holen der URL aus dem Button
+                const button = event.target;
+                const downloadUrl = button.getAttribute('data-download-url');
+                
+                if (downloadUrl) {
+                    const link = document.createElement('a');
+                    link.href = downloadUrl;
+                    link.download = downloadUrl.split('/').pop(); // Der Dateiname wird automatisch vom URL extrahiert
+                    link.click(); // Simuliere einen Klick, um den Download zu starten
+                } else {
+                    alert("No rewards available for this Streak.");
+                }
+            } else {
+                alert(`You need at least ${requiredStreak} days of streak to unlock this reward.`);
+            }
+        }
+        const downloadUrl = event.target.getAttribute('data-download-url');
+        const link = document.createElement('a');
+        link.href = downloadUrl;
+        link.download = downloadUrl.split('/').pop(); // Extrahiert den Dateinamen
+        link.click(); // Führt den Download aus
+
+
+    </script>
+    
+</body>
+</html>
