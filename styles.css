@@ -427,12 +427,12 @@ h2 {
             animation: halo-pulse 4s infinite 2s;
         }
 
-        .progress-ring {
-            position: absolute;
-            width: 190px;
-            height: 190px;
-            transform: rotate(-90deg);
-        }
+        .progress-streak-ring {
+          position: absolute;
+          width: 190px;
+          height: 190px;
+          transform: rotate(-90deg);
+        } 
 
         .progress-ring-circle {
             transition: stroke-dashoffset 0.5s ease;
@@ -1012,7 +1012,7 @@ input[type="text"] {
     width: 260px;
     height: 260px;
     border-radius: 50%;
-    background-image: url('WiseWords.png');
+    background-image: url('WiseWords.jpg');
     background-position: center;
     background-size: cover;
     position: relative;
@@ -2169,7 +2169,7 @@ input[type="text"] {
 }
 
 .journal-button:hover {
-    background-color: #005cbf; /* Dunkleres Blau bei Hover */
+    background-color: rgba(255, 255, 255, 0.2); /* Dunkleres Blau bei Hover */
     transform: scale(1.05); /* Leichtes Vergrößern bei Hover */
 }
 
