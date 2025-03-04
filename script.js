@@ -34,12 +34,24 @@ const figures = [
   { name: 'Marco Polo', title: 'Venetian Merchant', type: 'explorer', image: 'marco.jpg', open: 'marco' },
   { name: 'James Cook', title: 'British Explorer', type: 'explorer', image: 'cook.jpg', open: 'cook' },
   { name: 'William Shakespeare', title: 'English Playwright', type: 'artist', image: 'shakespeare.jpg', open: 'shapespeare' },
-  { name: 'Leonidas', title: 'Spartan King', type: 'leader', image: 'leonidas.jpg', open: 'leonidas' }
+  { name: 'Leonidas', title: 'Spartan King', type: 'leader', image: 'leonidas.jpg', open: 'leonidas' },
+  { name: 'Socrates', title: 'Greek Philosopher', type: 'philosopher', image: 'Socrates.jpg', open: 'nietzsche' },
 ];
+
+
+
+
+
+
+
+
+
+
+
 
 const carousel = document.getElementById('carousel');
 let currentRotation = 0;
-const radius = window.innerWidth <= 768 ? 300 : 400; // Smaller radius for mobile
+const radius = window.innerWidth <= 768 ? 327 : 437; // Smaller radius for mobile
 
 
 // Touch handling variables
@@ -120,7 +132,7 @@ document.addEventListener('keydown', (e) => {
 // Personalities and their associated content
 const personalities = {
   "Marcus Aurelius": {
-    title: "Roman Emperor & Philosopher",
+    title: "Roman Emperor & Philosopher (121–180)",
     quotes: [
       '"The universe is change; our life is what our thoughts make it."',
       '"Waste no more time arguing what a good man should be. Be one."',
@@ -164,7 +176,7 @@ const personalities = {
     ]
   },
   "Plato": {
-    title: "Greek Philosopher",
+    title: "Greek Philosopher (c. 427–347 BCE)",
     quotes: [
       '"The beginning is the most important part of the work."',       
       '"We can easily forgive a child who is afraid of the dark; the real tragedy of life is when men are afraid of the light."',
@@ -208,7 +220,7 @@ const personalities = {
     ]
   },
   "Aristotle": {
-    title: "Greek Philosopher",
+    title: "Greek Philosopher (384–322 BCE)",
     quotes: [
       '"We are what we repeatedly do. Excellence, then, is not an act, but a habit."',
       '"The whole is greater than the sum of its parts."',
@@ -253,7 +265,7 @@ const personalities = {
     ]
   },
   "Friedrich Nietzsche": {
-    title: "German Philosopher",
+    title: "German Philosopher (1844–1900)",
     quotes: [
       '"He who has a why to live can bear almost any how."',
       '"That which does not kill us makes us stronger."',
@@ -297,7 +309,7 @@ const personalities = {
     ]
   },
   "Julius Caesar": {
-    title: "Roman Emperor & Military Commander",
+    title: "Roman Emperor & Military Commander (100–44 BCE)",
     quotes: [
       '"I came, I saw, I conquered."',
       '"Experience is the teacher of all things."',
@@ -341,7 +353,7 @@ const personalities = {
     ]
   },
   "Leonardo da Vinci": {
-    title: "Italian Polymath",
+    title: "Italian Polymath (1452–1519)",
     quotes: [
       '"Learning never exhausts the mind, it only ignites it."',
       '"Simplicity is the ultimate sophistication."',
@@ -385,7 +397,7 @@ const personalities = {
     ]
   },
   "Buddha": {
-    title: "Spiritual Teacher",
+    title: "Spiritual Teacher (c. 563–483 BCE)",
     quotes: [
       '"Peace comes from within. Do not seek it without."',
       '"Three things cannot be long hidden: the sun, the moon, and the truth."',
@@ -429,7 +441,7 @@ const personalities = {
     ]
   },
   "Marco Polo": {
-    title: "Venetian Explorer",
+    title: "Venetian Explorer (1254–1324)",
     quotes: [
       '"I have not told half of what I saw."',
       '"Without stones there is no arch."',
@@ -473,7 +485,7 @@ const personalities = {
     ]
   },
   "James Cook": {
-    title: "British Explorer & Navigator",
+    title: "British Explorer & Navigator (1728–1779)",
     quotes: [
       '"Ambition leads me not only farther than any other man has been before me, but as far as I think it possible for man to go."',
       '"Do just once what others say you cannot do, and you will never pay attention to their limitations again."',
@@ -517,7 +529,7 @@ const personalities = {
     ]
   },
   "William Shakespeare": {
-    title: "English Playwright & Poet",
+    title: "English Playwright & Poet (1564–1616)",
     quotes: [
       '"All the world is a stage, and all the men and women merely players."',
       '"We know what we are, but know not what we may be."',
@@ -561,7 +573,7 @@ const personalities = {
     ]
   },
   "Leonidas": {
-    title: "Spartan King and Warrior",
+    title: "Spartan King and Warrior (c. 540–480 BCE)",
     quotes: [
       '"Come and take them!"',
       '"Eat well, for tonight we dine in Hades."',
@@ -603,6 +615,50 @@ const personalities = {
       { day: 27, audioFile: 'audio83/leonidas27.mp3' },
       { day: 28, audioFile: 'audio84/leonidas28.mp3' },
       { day: 29, audioFile: 'audio84/leonidas29.mp3' }
+    ]
+  },
+  "Socrates": {
+    title: "Greek Philosopher (469–399 BCE)",
+    quotes: [
+      '"The way to gain a good reputation is to endeavor to be what you desire to appear."',
+      '"Smart people learn from everything and everyone, average people from their experiences, stupid people already have all the answers."',
+      '"He who wants to change the world should first change himself."',
+      '"Understanding a question is half an answer."',
+      '"A multitude of books distracts the mind."',
+      '"We cannot live better than in seeking to become better."',
+      '"I call myself a peaceful warrior because the battles we fight are on the inside."',
+      '"Be slow to fall into friendship, but when thou art in, continue firm and constant."'
+    ],
+    tracks: [
+      { day: 1, audioFile: 'audio88/Socrates1.mp3' },
+      { day: 2, audioFile: 'audio88/Socrates2.mp3' },
+      { day: 3, audioFile: 'audio88/Socrates3.mp3' },
+      { day: 4, audioFile: 'audio88/Socrates4.mp3' },
+      { day: 5, audioFile: 'audio89/Socrates5.mp3' },
+      { day: 6, audioFile: 'audio89/Socrates6.mp3' },
+      { day: 7, audioFile: 'audio89/Socrates7.mp3' },
+      { day: 8, audioFile: 'audio89/Socrates8.mp3' },
+      { day: 9, audioFile: 'audio90/Socrates9.mp3' },
+      { day: 10, audioFile: 'audio90/Socrates10.mp3' },
+      { day: 11, audioFile: 'audio90/Socrates11.mp3' },
+      { day: 12, audioFile: 'audio90/Socrates12.mp3' },
+      { day: 13, audioFile: 'audio91/Socrates13.mp3' },
+      { day: 14, audioFile: 'audio91/Socrates14.mp3' },
+      { day: 15, audioFile: 'audio91/Socrates15.mp3' },
+      { day: 16, audioFile: 'audio91/Socrates16.mp3' },
+      { day: 17, audioFile: 'audio92/Socrates17.mp3' },
+      { day: 18, audioFile: 'audio92/Socrates18.mp3' },
+      { day: 19, audioFile: 'audio92/Socrates19.mp3' },
+      { day: 20, audioFile: 'audio92/Socrates20.mp3' },
+      { day: 21, audioFile: 'audio93/Socrates21.mp3' },
+      { day: 22, audioFile: 'audio93/Socrates22.mp3' },
+      { day: 23, audioFile: 'audio93/Socrates23.mp3' },
+      { day: 24, audioFile: 'audio93/Socrates24.mp3' },
+      { day: 25, audioFile: 'audio94/Socrates25.mp3' },
+      { day: 26, audioFile: 'audio94/Socrates26.mp3' },
+      { day: 27, audioFile: 'audio94/Socrates27.mp3' },
+      { day: 28, audioFile: 'audio95/Socrates28.mp3' },
+      { day: 29, audioFile: 'audio95/Socrates29.mp3' }
     ]
   }
 };
@@ -1438,7 +1494,38 @@ const TaskManager = {
                 '28': 'Find a situation today where you can embrace discomfort or challenge. Whether it\'s something physical, emotional, or mental, take a step toward simplicity and strength. Do something that takes you out of your comfort zone and strengthens you in ways that luxury never could. Goal: Strengthen your mind and body by embracing simplicity and challenge. Remember that true resilience comes from the struggle, not the comfort.',  
                 '29': 'Identify one area in your life where you are facing a conflict. Rather than confronting it head-on, seek a peaceful solution. Use your wisdom and understanding to find a resolution that avoids the need for a battle. Goal: Practice the art of peace and diplomacy. Understand that sometimes, the greatest victory is in not fighting at all.'
 
-            }
+            },
+            'Socrates': {
+                '1': 'When you face a setback today—big or small—pause and ask yourself: “Why did this happen? How can I learn from it?” Don’t just react; question, seek, and grow.',
+                '2': 'When something you’ve worked on—effort, plans, anything—crumbles today, stop. Ask: “Why did this break? How can I rebuild it stronger?” Don’t give in to ruin; fight for meaning instead.',
+                '3': 'When someone dismisses or silences you today, pause. Ask: “Why do you insist on this? What do you truly know?” Don’t bow to force; seek truth instead.',
+                '4': 'Before you begin any task today, pause. Ask: “What’s my goal? How will I measure it?” Don’t move until it’s sharp in your mind—clarity first, action second.',
+                '5': 'Before reacting in any conflict today, pause and ask yourself: “Am I seeking the truth, or am I simply trying to be right?” Approach your conversations with clarity and calm, focusing on understanding rather than winning.',
+                '6': 'Today, consider a small situation where it might be easier to avoid the truth. Ask yourself: “What is the right thing to do here? Can I remain honest, even if it’s uncomfortable?”',
+                '7': 'Think of someone in your life who has supported you. Today, do something for them without expecting anything in return. Reflect on how it feels to act out of loyalty, rather than self-interest.',
+                '8': 'Today, when you feel discomfort or stress, focus on a greater purpose or task. Notice how shifting your mind away from the discomfort can help you endure the challenge with more composure.',
+                '9': 'Today, notice the things you cling to—whether material possessions or expectations. Try to live without one of these for the day and observe how it changes your experience of freedom.',
+                '10': 'Today, reflect on something you think you know well. Challenge yourself to admit what you don’t know about it. Observe how this changes your perspective and opens your mind to learning.',
+                '11': 'Think about a conversation you had recently where you were persuaded by someone. What questions could you have asked to reveal the deeper truth behind their words? Reflect on how asking the right questions could have changed the outcome.',
+                '12': 'Think of a time when someone asked for your help. Could you have helped them without offering material support? Consider how asking the right questions might inspire someone to find their own solutions. What questions might you have asked?',
+                '13': 'Reflect on a recent speech or statement you’ve heard. Did the speaker truly understand the topic, or were they simply appealing to emotions and generalities? Ask yourself: What questions would you ask to test the depth of their understanding?',
+                '14': 'Think about a recent disagreement or moment of tension. Instead of focusing on winning the argument, ask yourself: What is the real concern behind the frustration? How can you approach the situation with a mindset of understanding rather than conflict?',
+                '15': 'Reflect on a piece of advice or guidance you have received recently. Is it something you accepted without question? Consider how you could apply your own reasoning to it. What might you learn by challenging it?',
+                '16': 'Identify one material possession or luxury you regularly indulge in, and for today, choose to do without it. Reflect on how it feels to embrace simplicity. Does it bring you peace, or does it stir an unexpected sense of freedom?',
+                '17': 'When faced with a stressful situation today, instead of reacting immediately, pause and ask yourself: Why am I feeling this way? Reflect on the root cause of your emotions, and express them thoughtfully. Notice how this shift in perspective changes your response.',
+                '18': 'Reflect on one habit you perform daily without much thought. Today, do it with intention and awareness, considering how it aligns with your values.',
+                '19': 'Today, focus on learning something new and immediately apply it in a practical way.',
+                '20': 'Think of a time when you were tempted to bend the truth or tell a lie. Reflect on how it would feel now if you had chosen the truth instead. How might it have changed your life?',
+                '21': 'Choose something you take for granted and ask yourself a question about it. Seek the answer to open new insights and rekindle your curiosity.',
+                '22': 'Reflect on a belief you hold. Is there room to question it? Take time today to challenge your own assumptions, and seek a deeper understanding.',
+                '23': 'Reflect on an area of your life where you may be hiding behind a mask. Today, take one step to be more authentic, even if it feels uncomfortable.',
+                '24': 'Think of a situation in your life where you’ve been tempted to act out of convenience rather than principle. Today, choose to act according to your values, even if it brings discomfort.',
+                '25': 'Reflect on something in your life that you are unsure about. Instead of seeking certainty, embrace the uncertainty and ask more questions about it. Let your curiosity guide you.',
+                '26': 'Reflect deeply on the question: “What is a good life?” Let the uncertainty of the answer guide you today. Allow it to challenge you and lead you to further questions, for in the search itself, you will find your way.',
+                '27': 'Today, take a moment to simplify your surroundings. Remove one unnecessary thing from your life, whether it’s a physical object, a distraction, or a thought. Notice how the space you create gives you the freedom to focus on what is truly important.',
+                '28': 'Take a moment today to ask yourself a profound question. What do you truly understand about your own motivations, desires, and limitations? Reflect on this with sincerity, for in knowing yourself lies the key to unlocking deeper wisdom.',
+                '29': 'Reflect on your life today. Are your actions aligned with your true self, or are they shaped by external pressures? Take a moment to identify one small change you can make today to live more authentically, without regret.',
+            },
   },
 
   init() {
