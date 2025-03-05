@@ -35,7 +35,8 @@ const figures = [
   { name: 'James Cook', title: 'British Explorer', type: 'explorer', image: 'cook.jpg', open: 'cook' },
   { name: 'William Shakespeare', title: 'English Playwright', type: 'artist', image: 'shakespeare.jpg', open: 'shapespeare' },
   { name: 'Leonidas', title: 'Spartan King', type: 'leader', image: 'leonidas.jpg', open: 'leonidas' },
-  { name: 'Socrates', title: 'Greek Philosopher', type: 'philosopher', image: 'Socrates.jpg', open: 'nietzsche' },
+  { name: 'Confucius', title: 'Chinese philosopher', type: 'philosopher', image: 'Confucius.jpg', open: 'confucius' },
+  { name: 'Socrates', title: 'Greek Philosopher', type: 'philosopher', image: 'Socrates.jpg', open: 'socrates' },
 ];
 
 
@@ -51,7 +52,7 @@ const figures = [
 
 const carousel = document.getElementById('carousel');
 let currentRotation = 0;
-const radius = window.innerWidth <= 768 ? 327 : 437; // Smaller radius for mobile
+const radius = window.innerWidth <= 768 ? 355 : 474; // Smaller radius for mobile
 
 
 // Touch handling variables
@@ -659,6 +660,52 @@ const personalities = {
       { day: 27, audioFile: 'audio94/Socrates27.mp3' },
       { day: 28, audioFile: 'audio95/Socrates28.mp3' },
       { day: 29, audioFile: 'audio95/Socrates29.mp3' }
+    ]
+  },
+  "Confucius": {
+    
+    "title": "Chinese Philosopher (551–479 BCE)",
+    "quotes": [
+      "The superior man is modest in his speech but exceeds in his actions.",
+      "Real knowledge is to know the extent of one’s ignorance.",
+      "When we see men of a contrary character, we should turn inwards and examine ourselves.",
+      "Ignorance is the night of the mind, but a night without moon and star.",
+      "The superior man acts before he speaks, and afterwards speaks according to his actions.",
+      "If we don't know life, how can we know death?",
+      "The strength of a nation derives from the integrity of the home.",
+      "He who learns but does not think, is lost. He who thinks but does not learn is in great danger."
+    ],
+    
+    tracks: [
+      { day: 1, audioFile: 'audio96/Confucius1.mp3' },
+      { day: 2, audioFile: 'audio96/Confucius2.mp3' },
+      { day: 3, audioFile: 'audio96/Confucius3.mp3' },
+      { day: 4, audioFile: 'audio96/Confucius4.mp3' },
+      { day: 5, audioFile: 'audio97/Confucius5.mp3' },
+      { day: 6, audioFile: 'audio97/Confucius6.mp3' },
+      { day: 7, audioFile: 'audio97/Confucius7.mp3' },
+      { day: 8, audioFile: 'audio97/Confucius8.mp3' },
+      { day: 9, audioFile: 'audio98/Confucius9.mp3' },
+      { day: 10, audioFile: 'audio98/Confucius10.mp3' },
+      { day: 11, audioFile: 'audio98/Confucius11.mp3' },
+      { day: 12, audioFile: 'audio98/Confucius12.mp3' },
+      { day: 13, audioFile: 'audio99/Confucius13.mp3' },
+      { day: 14, audioFile: 'audio99/Confucius14.mp3' },
+      { day: 15, audioFile: 'audio99/Confucius15.mp3' },
+      { day: 16, audioFile: 'audio99/Confucius16.mp3' },
+      { day: 17, audioFile: 'audio100/Confucius17.mp3' },
+      { day: 18, audioFile: 'audio100/Confucius18.mp3' },
+      { day: 19, audioFile: 'audio100/Confucius19.mp3' },
+      { day: 20, audioFile: 'audio100/Confucius20.mp3' },
+      { day: 21, audioFile: 'audio101/Confucius21.mp3' },
+      { day: 22, audioFile: 'audio101/Confucius22.mp3' },
+      { day: 23, audioFile: 'audio101/Confucius23.mp3' },
+      { day: 24, audioFile: 'audio101/Confucius24.mp3' },
+      { day: 25, audioFile: 'audio102/Confucius25.mp3' },
+      { day: 26, audioFile: 'audio102/Confucius26.mp3' },
+      { day: 27, audioFile: 'audio102/Confucius27.mp3' },
+      { day: 28, audioFile: 'audio103/Confucius28.mp3' },
+      { day: 29, audioFile: 'audio103/Confucius29.mp3' }
     ]
   }
 };
@@ -1495,37 +1542,38 @@ const TaskManager = {
                 '29': 'Identify one area in your life where you are facing a conflict. Rather than confronting it head-on, seek a peaceful solution. Use your wisdom and understanding to find a resolution that avoids the need for a battle. Goal: Practice the art of peace and diplomacy. Understand that sometimes, the greatest victory is in not fighting at all.'
 
             },
-            'Socrates': {
-                '1': 'When you face a setback today—big or small—pause and ask yourself: “Why did this happen? How can I learn from it?” Don’t just react; question, seek, and grow.',
-                '2': 'When something you’ve worked on—effort, plans, anything—crumbles today, stop. Ask: “Why did this break? How can I rebuild it stronger?” Don’t give in to ruin; fight for meaning instead.',
-                '3': 'When someone dismisses or silences you today, pause. Ask: “Why do you insist on this? What do you truly know?” Don’t bow to force; seek truth instead.',
-                '4': 'Before you begin any task today, pause. Ask: “What’s my goal? How will I measure it?” Don’t move until it’s sharp in your mind—clarity first, action second.',
-                '5': 'Before reacting in any conflict today, pause and ask yourself: “Am I seeking the truth, or am I simply trying to be right?” Approach your conversations with clarity and calm, focusing on understanding rather than winning.',
-                '6': 'Today, consider a small situation where it might be easier to avoid the truth. Ask yourself: “What is the right thing to do here? Can I remain honest, even if it’s uncomfortable?”',
-                '7': 'Think of someone in your life who has supported you. Today, do something for them without expecting anything in return. Reflect on how it feels to act out of loyalty, rather than self-interest.',
-                '8': 'Today, when you feel discomfort or stress, focus on a greater purpose or task. Notice how shifting your mind away from the discomfort can help you endure the challenge with more composure.',
-                '9': 'Today, notice the things you cling to—whether material possessions or expectations. Try to live without one of these for the day and observe how it changes your experience of freedom.',
-                '10': 'Today, reflect on something you think you know well. Challenge yourself to admit what you don’t know about it. Observe how this changes your perspective and opens your mind to learning.',
-                '11': 'Think about a conversation you had recently where you were persuaded by someone. What questions could you have asked to reveal the deeper truth behind their words? Reflect on how asking the right questions could have changed the outcome.',
-                '12': 'Think of a time when someone asked for your help. Could you have helped them without offering material support? Consider how asking the right questions might inspire someone to find their own solutions. What questions might you have asked?',
-                '13': 'Reflect on a recent speech or statement you’ve heard. Did the speaker truly understand the topic, or were they simply appealing to emotions and generalities? Ask yourself: What questions would you ask to test the depth of their understanding?',
-                '14': 'Think about a recent disagreement or moment of tension. Instead of focusing on winning the argument, ask yourself: What is the real concern behind the frustration? How can you approach the situation with a mindset of understanding rather than conflict?',
-                '15': 'Reflect on a piece of advice or guidance you have received recently. Is it something you accepted without question? Consider how you could apply your own reasoning to it. What might you learn by challenging it?',
-                '16': 'Identify one material possession or luxury you regularly indulge in, and for today, choose to do without it. Reflect on how it feels to embrace simplicity. Does it bring you peace, or does it stir an unexpected sense of freedom?',
-                '17': 'When faced with a stressful situation today, instead of reacting immediately, pause and ask yourself: Why am I feeling this way? Reflect on the root cause of your emotions, and express them thoughtfully. Notice how this shift in perspective changes your response.',
-                '18': 'Reflect on one habit you perform daily without much thought. Today, do it with intention and awareness, considering how it aligns with your values.',
-                '19': 'Today, focus on learning something new and immediately apply it in a practical way.',
-                '20': 'Think of a time when you were tempted to bend the truth or tell a lie. Reflect on how it would feel now if you had chosen the truth instead. How might it have changed your life?',
-                '21': 'Choose something you take for granted and ask yourself a question about it. Seek the answer to open new insights and rekindle your curiosity.',
-                '22': 'Reflect on a belief you hold. Is there room to question it? Take time today to challenge your own assumptions, and seek a deeper understanding.',
-                '23': 'Reflect on an area of your life where you may be hiding behind a mask. Today, take one step to be more authentic, even if it feels uncomfortable.',
-                '24': 'Think of a situation in your life where you’ve been tempted to act out of convenience rather than principle. Today, choose to act according to your values, even if it brings discomfort.',
-                '25': 'Reflect on something in your life that you are unsure about. Instead of seeking certainty, embrace the uncertainty and ask more questions about it. Let your curiosity guide you.',
-                '26': 'Reflect deeply on the question: “What is a good life?” Let the uncertainty of the answer guide you today. Allow it to challenge you and lead you to further questions, for in the search itself, you will find your way.',
-                '27': 'Today, take a moment to simplify your surroundings. Remove one unnecessary thing from your life, whether it’s a physical object, a distraction, or a thought. Notice how the space you create gives you the freedom to focus on what is truly important.',
-                '28': 'Take a moment today to ask yourself a profound question. What do you truly understand about your own motivations, desires, and limitations? Reflect on this with sincerity, for in knowing yourself lies the key to unlocking deeper wisdom.',
-                '29': 'Reflect on your life today. Are your actions aligned with your true self, or are they shaped by external pressures? Take a moment to identify one small change you can make today to live more authentically, without regret.',
-            },
+            'Confucius': {
+              '1': 'Today, as you learn something new, ask yourself not only "How does this work?" but also "Why does it work this way, and not another?" Let the search for deeper understanding guide you.',
+              '2': 'Today, when faced with criticism or provocation, pause and reflect. Ask yourself, "Will responding to this lead to wisdom or simply to conflict?" Let this question guide you in choosing whether to speak or remain silent.',
+              '3': 'Identify one habit you wish to change. Do not focus on simply stopping it. Instead, find a positive habit that fills the same need—whether physical, emotional, or mental. Begin today by replacing the bad habit with the good, and notice how it shapes your life.',
+              '4': 'Reflect on the people you interact with today. What are their core desires? What do they value most? Consider how you can align their values with your goals. Lead by understanding, not by command. The key to convincing others lies in knowing what drives them and shaping your message to match.',
+              '5': 'Next time anger rises, wait three days before acting. In this time, reflect and allow your emotions to settle. You may find that, in the end, no action is needed at all.',
+              '6': 'Today, pay close attention to any mistakes you make. Instead of feeling discouraged, embrace each one as an opportunity to learn. After each mistake, pause and ask yourself: What went wrong? What can I learn from this experience? How can I apply this lesson in the future? Write down at least one lesson you have learned today, and consider how it can shape your actions tomorrow.',
+              '7': 'Evaluate your current environment and identify one change you can make today, whether it’s connecting with a more supportive person, seeking wisdom from a book, or joining a like-minded group.',
+              '8': 'Today, choose one task you normally see as tedious or mundane, and approach it with mindfulness and a mindset of artistic expression, seeking perfection in every small detail.',
+              '9': 'Today, choose one task that seems overwhelming and dedicate yourself to it fully. Clear your mind of distractions, and complete it with full focus.',
+              '10': 'Choose one piece of knowledge you’ve only understood theoretically and apply it in practice today. Reflect on what you learned, regardless of the outcome.',
+              '11': 'Observe your decisions today. For small choices, decide quickly. For bigger ones, take time to reflect. At the end of the day, note how you approached each decision and what you learned.',
+              '12': 'Before bed, reflect quietly on your day. Ask yourself, "Am I better than I was yesterday?" Focus on small improvements—whether in patience, understanding, or kindness. Write down one area where you\'ve grown. Progress is measured not by comparison to others, but by surpassing your former self.',
+              '13': 'Choose a skill you are currently learning and focus solely on the fundamentals today. Practice them until they become second nature. Ask yourself: "Have I truly mastered the basics?"',
+              '14': 'Notice when someone crosses a line today. Decide if it’s a minor error or a pattern. If it\'s the third time, ask yourself: "How can I safeguard my peace?"',
+              '15': 'Today, observe the praises of those around you. Listen carefully when someone speaks highly of another’s strength, wealth, or beauty. What do their words tell you about their inner world? Reflect on your own praises and ask yourself: Why do I admire these qualities? What does it reveal about me?',
+              '16': 'Identify one area of your life where you feel stagnant. Today, take one small step to change your environment—whether it’s reaching out to someone who inspires you, changing your routine, or distancing yourself from a negative influence.',
+              '17': 'Choose a skill or habit you wish to improve. Find someone who excels at it and observe their method closely. Try to imitate their approach for the day. Tomorrow, reflect on how you can adapt it to suit your own style.',
+              '18': 'Today, listen not only to what people say, but also to what they leave unsaid. Pay attention to any silences or omissions and reflect on what they might reveal about their true thoughts or feelings.',
+              '19': 'When you feel insulted or disrespected today, pause before responding. Reflect on whether your reaction comes from emotion or reason. Practice restraint and choose not to engage in unnecessary conflict. How does this calm response strengthen your character?',
+              '20': 'Observe someone today. Identify their patterns and motivations. How can this knowledge help you act more strategically?',
+              '21': 'Reflect on your relationship with wealth. In what areas of your life have you placed material gain above your core values? How can you realign your actions to prioritize virtue over riches today?',
+              '22': 'Today, reflect on a situation where you have avoided standing for what you believe in, simply to maintain peace or gain favor. What principles can you stand firm on, even if it means facing opposition?',
+              '23': 'Reflect on a recent piece of criticism you received. Ask yourself: "Has this person walked the same path I seek to follow?" If they have not, consider how their perspective might be limited. Seek advice from those who have experienced what you aim to achieve.',
+              '24': 'Today, in moments when you feel upset or challenged, take a moment to breathe and pause. Ask yourself, "Can I control myself? Can I tame my impulses and respond with wisdom?" Practice self-restraint and feel the strength that lies in control over your own mind.',
+              '25': 'Reflect on an area of your life where you\'re struggling or pushing too hard. Ask yourself: "Am I holding on because it’s truly worth it, or out of fear?"',
+              '26': 'Reflect on one responsibility you currently hold. How could you teach someone else to handle it? Begin by showing them one key step today, so they can continue if needed.',
+              '27': 'Reflect on one action today where you can choose integrity over convenience. How can this decision strengthen your reputation?',
+              '28': 'Help someone today—whether by offering advice, sharing knowledge, or providing support. Afterward, reflect on how this act benefits both them and you. Write down how lifting others can strengthen your own path to success.',
+              '29': 'Choose a task today where you usually seek quick results. Focus on the process, not the outcome. Reflect on what you learn by embracing patience. Write down your insights.'
+          },
+
   },
 
   init() {
