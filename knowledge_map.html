@@ -5,53 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Knowledge Map</title>
     <style>
-        /* Grundlegende Styles für den Home-Button */
-        .home-button {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-decoration: none;
-            background-color: transparent;
-            border: none;
-            padding: 8px; /* Weniger Abstand für ein kompakteres Design */
-            border-radius: 50%; /* Rundung für den Button */
-            color: #333; /* Dunkle Farbe für den Button */
-        }
-
-        /* Emoji-Styling */
-        .home-icon {
-            font-size: 20px; /* Kleinere Größe des Haus-Emojis */
-            color: #333; /* Dunkle Farbe für das Emoji */
-        }
-
-        /* Entfernen des Hover-Hintergrunds */
-        .home-button:hover {
-            background-color: transparent; /* Kein Hintergrund beim Hover */
-        }
-
-        /* Positionierung des Buttons auf der Seite */
-        .home-button {
-            position: absolute;
-            top: 25px;  /* Etwas weiter unten als der obere Button */
-            left: 200px; /* Etwas Abstand vom linken Rand */
-            z-index: 1;
-        }
-
-        /* Mobile-Optimierung */
-        @media (max-width: 768px) {
-            .home-button {
-                top: 70px;  /* Etwas weiter unten auf Smartphones */
-                left: 15px;  /* Anpassung des Abstands für kleinere Bildschirme */
-            }
-            .home-icon {
-                font-size: 18px; /* Noch kleinere Icons auf mobilen Geräten */
-            }
-        }
-
-
-
-
-        
         * {
             margin: 0;
             padding: 0;
@@ -1337,208 +1290,127 @@
             opacity: 1;
         }
 
-        @tailwind base;
-        @tailwind components;
-        @tailwind utilities;
-
-        @layer base {
-        :root {
-            --background: 0 0% 100%;
-            --foreground: 0 0% 3.9%;
-            --card: 0 0% 100%;
-            --card-foreground: 0 0% 3.9%;
-            --popover: 0 0% 100%;
-            --popover-foreground: 0 0% 3.9%;
-            --primary: 0 0% 9%;
-            --primary-foreground: 0 0% 98%;
-            --secondary: 0 0% 96.1%;
-            --secondary-foreground: 0 0% 9%;
-            --muted: 0 0% 96.1%;
-            --muted-foreground: 0 0% 45.1%;
-            --accent: 0 0% 96.1%;
-            --accent-foreground: 0 0% 9%;
-            --destructive: 0 84.2% 60.2%;
-            --destructive-foreground: 0 0% 98%;
-            --border: 0 0% 89.8%;
-            --input: 0 0% 89.8%;
-            --ring: 0 0% 3.9%;
-            --chart-1: 12 76% 61%;
-            --chart-2: 173 58% 39%;
-            --chart-3: 197 37% 24%;
-            --chart-4: 43 74% 66%;
-            --chart-5: 27 87% 67%;
-            --radius: 0.5rem;
-            --sidebar-background: 0 0% 98%;
-            --sidebar-foreground: 240 5.3% 26.1%;
-            --sidebar-primary: 240 5.9% 10%;
-            --sidebar-primary-foreground: 0 0% 98%;
-            --sidebar-accent: 240 4.8% 95.9%;
-            --sidebar-accent-foreground: 240 5.9% 10%;
-            --sidebar-border: 220 13% 91%;
-            --sidebar-ring: 217.2 91.2% 59.8%;
-        }
-
-        .dark {
-            --background: 0 0% 3.9%;
-            --foreground: 0 0% 98%;
-            --card: 0 0% 3.9%;
-            --card-foreground: 0 0% 98%;
-            --popover: 0 0% 3.9%;
-            --popover-foreground: 0 0% 98%;
-            --primary: 0 0% 98%;
-            --primary-foreground: 0 0% 9%;
-            --secondary: 0 0% 14.9%;
-            --secondary-foreground: 0 0% 98%;
-            --muted: 0 0% 14.9%;
-            --muted-foreground: 0 0% 63.9%;
-            --accent: 0 0% 14.9%;
-            --accent-foreground: 0 0% 98%;
-            --destructive: 0 62.8% 30.6%;
-            --destructive-foreground: 0 0% 98%;
-            --border: 0 0% 14.9%;
-            --input: 0 0% 14.9%;
-            --ring: 0 0% 83.1%;
-            --chart-1: 220 70% 50%;
-            --chart-2: 160 60% 45%;
-            --chart-3: 30 80% 55%;
-            --chart-4: 280 65% 60%;
-            --chart-5: 340 75% 55%;
-            --sidebar-background: 240 5.9% 10%;
-            --sidebar-foreground: 240 4.8% 95.9%;
-            --sidebar-primary: 224.3 76.3% 48%;
-            --sidebar-primary-foreground: 0 0% 100%;
-            --sidebar-accent: 240 3.7% 15.9%;
-            --sidebar-accent-foreground: 240 4.8% 95.9%;
-            --sidebar-border: 240 3.7% 15.9%;
-            --sidebar-ring: 217.2 91.2% 59.8%;
-        }
-        }
-
-        @layer base {
-        * {
-            @apply border-border;
-        }
-        body {
-            @apply bg-background text-foreground;
-            -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
-            text-rendering: optimizeLegibility;
-        }
-        
-        /* Optimize text rendering for all devices */
-        h1, h2, h3, h4, h5, h6, p, span, a, button, input, textarea, select {
-            -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
-            text-rendering: optimizeLegibility;
-        }
-        
-        /* Force hardware acceleration for smoother animations */
-        .hardware-accelerated {
-            transform: translateZ(0);
-            backface-visibility: hidden;
-            perspective: 1000px;
-        }
-        }
-
-        main {
-        @apply min-h-screen w-full;
+        /* Mobile-specific optimizations */
+        @media (max-width: 480px) {
+            /* Adjust UI elements for very small screens */
+            .points-counter {
+                top: 10px;
+                right: 10px;
+                padding: 8px 12px;
+                font-size: 12px;
+            }
+            
+            .progress-bar {
+                top: 10px;
+                left: 10px;
+                width: 140px;
+                padding: 8px 10px;
+            }
+            
+            .nav-helper {
+                bottom: 10px;
+                left: 10px;
+                padding: 8px 12px;
+                font-size: 12px;
+            }
+            
+            /* Make content more readable on small screens */
+            .content-preview h2, .content-full h2 {
+                font-size: 1.1rem;
+            }
+            
+            .content-preview p, .content-full p {
+                font-size: 0.95rem;
+            }
+            
+            /* Ensure comet is visible on small screens */
+            .comet-head {
+                width: 18px; /* Even larger comet head for visibility */
+                height: 18px;
+            }
+            
+            .comet-tail {
+                width: 200px;
+                height: 6px;
+            }
+            
+            /* Enhance quiz visibility */
+            .question-text {
+                font-size: 1rem;
+            }
+            
+            .option label {
+                font-size: 0.95rem;
+            }
         }
 
         /* High-DPI screen optimizations */
         @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
-        /* Sharper text rendering */
-        .node-label, .content-title, .content-preview p, .content-full p, 
-        .key-points li, .question-text, .option label {
-            -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
-        }
-        
-        /* Enhance visual elements */
-        .comet-head, .comet-tail, .comet-dust {
-            transform: translateZ(0); /* Force GPU rendering */
-            will-change: transform; /* Hint to browser about animation */
-        }
-        
-        /* Sharper borders */
-        .node, .content-panel, .quiz-question, .option {
-            border-width: 0.5px; /* Thinner borders for high-DPI */
-        }
-        }
-
-        /* Mobile-specific optimizations */
-        @media (max-width: 480px) {
-        /* Adjust UI elements for very small screens */
-        .points-counter {
-            top: 10px;
-            right: 10px;
-            padding: 8px 12px;
-            font-size: 12px;
-        }
-        
-        .progress-bar {
-            top: 10px;
-            left: 10px;
-            width: 140px;
-            padding: 8px 10px;
-        }
-        
-        .nav-helper {
-            bottom: 10px;
-            left: 10px;
-            padding: 8px 12px;
-            font-size: 12px;
-        }
-        
-        /* Make content more readable on small screens */
-        .content-preview h2, .content-full h2 {
-            font-size: 1.1rem;
-        }
-        
-        .content-preview p, .content-full p {
-            font-size: 0.95rem;
-        }
-        
-        /* Ensure comet is visible on small screens */
-        .comet-head {
-            width: 18px; /* Even larger comet head for visibility */
-            height: 18px;
-        }
-        
-        .comet-tail {
-            width: 200px;
-            height: 6px;
-        }
-        
-        /* Enhance quiz visibility */
-        .question-text {
-            font-size: 1rem;
-        }
-        
-        .option label {
-            font-size: 0.95rem;
-        }
+            /* Sharper text rendering */
+            .node-label, .content-title, .content-preview p, .content-full p, 
+            .key-points li, .question-text, .option label {
+                -webkit-font-smoothing: antialiased;
+                -moz-osx-font-smoothing: grayscale;
+            }
+            
+            /* Enhance visual elements */
+            .comet-head, .comet-tail, .comet-dust {
+                transform: translateZ(0); /* Force GPU rendering */
+            }
+            
+            /* Sharper borders */
+            .node, .content-panel, .quiz-question, .option {
+                border-width: 0.5px; /* Thinner borders for high-DPI */
+            }
         }
 
-        /* Additional optimization for different pixel densities */
-        @media (-webkit-min-device-pixel-ratio: 3), (min-resolution: 288dpi) {
-        /* Ultra high-DPI screens (iPhone Pro, etc.) */
-        body {
-            -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
-        }
-        
-        /* Even sharper borders */
-        .node, .content-panel, .quiz-question, .option {
-            border-width: 0.33px;
-        }
+        @media (max-width: 768px) {
+            #map-container {
+                overflow-x: scroll; /* Erzwingt horizontales Scrollen auf mobilen Geräten */
+                -webkit-overflow-scrolling: touch;
+            }
+            
+            .knowledge-map {
+                width: 1500px; /* Sicherstellen, dass die Breite auch auf Mobilgeräten groß genug ist */
+            }
         }
 
+        /* Grundlegende Styles für den Home-Button */
+        .home-button {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            background-color: transparent;
+            border: none;
+            padding: 8px; /* Weniger Abstand für ein kompakteres Design */
+            border-radius: 50%; /* Rundung für den Button */
+            color: #fff8f8; /* Dunkle Farbe für den Button */
+        }
+
+        /* Emoji-Styling */
+        .home-icon {
+            font-size: 20px; /* Kleinere Größe des Haus-Emojis */
+            color: #535353; /* Dunkle Farbe für das Emoji */
+        }
+
+        /* Entfernen des Hover-Hintergrunds */
+        .home-button:hover {
+            background-color: transparent; /* Kein Hintergrund beim Hover */
+        }
+
+        /* Positionierung des Buttons auf der Seite */
+        .home-button {
+            position: absolute;
+            top: 60px;  /* Etwas weiter unten als der obere Button */
+            left: 20px; /* Etwas Abstand vom linken Rand */
+            z-index: 1;
+        }
 
         
     </style>
 </head>
 <body>
-
     <canvas id="universe"></canvas>
     
     <div id="map-container">
@@ -1572,9 +1444,6 @@
     <a href="index.html" class="home-button">
         <span class="home-icon">→</span>
     </a>
-
-    
-
 
     <script>
         // Configuration
@@ -2013,34 +1882,6 @@
                 updateProgress();
                 saveProgress();
             }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
             
             // Set content
             contentTitle.textContent = node.dataset.title;
@@ -2900,228 +2741,117 @@
             }
         }
 
+        // Generate quiz questions based on node content
         function generateQuizForNode(node) {
+            // Simple algorithm to generate questions based on content
+            // In a real application, these would be carefully crafted
+            const content = node.content;
             const title = node.title;
-            const description = node.description;
             
-            // Create domain-specific terminology based on the node title
-            const domainTerms = getDomainTerms(title);
-            
+            // Default quiz with 10 questions
             return [
                 {
-                    question: `How do experts in ${title} approach ${domainTerms.coreActivity} differently from novices?`,
+                    question: `Which of the following best describes ${title}?`,
                     options: [
-                        `By analyzing variables in isolation`,
-                        `Through ${domainTerms.expertProcess} that reveals underlying patterns and principles`,
-                        `Through intuitive leaps without verification`,
-                        `By rigidly applying memorized frameworks regardless of context, often leading to inflexible solutions that fail to adapt to the unique characteristics of novel situations`
-                    ],
-                    correctAnswer: 1
-                },
-                {
-                    question: `Which insight from ${domainTerms.keyThinker}'s work transformed our understanding of ${title}?`,
-                    options: [
-                        `Their rejection of empirical methods`,
-                        `Nothing significant - they merely repackaged existing ideas`,
-                        `The integration of ${domainTerms.concept1} with ${domainTerms.concept2}`,
-                        `Their exclusive focus on commercial applications at the expense of theoretical depth, which ultimately limited the long-term impact of their work despite initial popularity in applied settings`
-                    ],
-                    correctAnswer: 2
-                },
-                {
-                    question: `What fundamental shift occurred during the ${domainTerms.historicalShift} that changed ${title} practice?`,
-                    options: [
-                        `Nothing changed fundamentally`,
-                        `It eliminated specialized knowledge requirements`,
-                        `It oversimplified complex ideas for mass appeal, sacrificing nuance for accessibility in ways that continue to create misconceptions among practitioners today`,
-                        `It revealed critical limitations in the ${domainTerms.oldParadigm} model`
-                    ],
-                    correctAnswer: 3
-                },
-                {
-                    question: `How can you apply ${domainTerms.technique} to improve your personal mastery of ${title}?`,
-                    options: [
-                        `By following procedures mechanically`,
-                        `By focusing exclusively on quantifiable metrics`,
-                        `By creating connections between theoretical understanding and practical application`,
-                        `You can't - it's purely theoretical and has little relevance to real-world practice despite its prominence in academic literature and educational contexts`
-                    ],
-                    correctAnswer: 2
-                },
-                {
-                    question: `What personal breakthrough often occurs when people understand that ${domainTerms.misconception} is false?`,
-                    options: [
-                        `They recognize that structured practice, not just talent, drives expertise`,
-                        `They prioritize theory over practice, creating an intellectual framework that often becomes disconnected from practical application and fails to translate into improved performance`,
-                        `Nothing changes in their approach`,
-                        `They abandon formal education entirely`
+                        node.description,
+                        "A field unrelated to knowledge",
+                        "A physical object",
+                        "A mythological concept"
                     ],
                     correctAnswer: 0
                 },
                 {
-                    question: `How would adopting ${domainTerms.methodology} rather than ${domainTerms.alternativeApproach} change your results?`,
+                    question: `${title} is primarily concerned with:`,
                     options: [
-                        `Results would come faster but with less depth`,
-                        `No meaningful difference would occur`,
-                        `It would require more resources but yield identical results, creating unnecessary complexity that ultimately serves only to signal sophistication rather than improve outcomes`,
-                        `It would enhance ${domainTerms.methodologicalDifference} in your work`
-                    ],
-                    correctAnswer: 3
-                },
-                {
-                    question: `How can you harness the tension in ${domainTerms.paradox} to advance your understanding of ${title}?`,
-                    options: [
-                        `By treating it as merely a teaching metaphor`,
-                        `By waiting until you have more expertise, as attempting to engage with such complex tensions prematurely can lead to confusion and misapplication of fundamental principles`,
-                        `By using it to challenge boundaries and drive innovation in your thinking`,
-                        `You can't - it's an unresolved contradiction`
+                        "Financial transactions",
+                        "Physical exercise",
+                        node.description.toLowerCase(),
+                        "None of the above"
                     ],
                     correctAnswer: 2
                 },
                 {
-                    question: `How has digital transformation created new opportunities for applying ${domainTerms.principle} in your ${title} practice?`,
+                    question: `What distinguishes ${title} from related fields?`,
                     options: [
-                        `Through more precise but potentially biased measurement`,
-                        `By making traditional approaches obsolete, though this obsolescence is often overstated by technology advocates who fail to recognize the enduring value of established methodologies`,
-                        `It hasn't - digital tools are irrelevant here`,
-                        `By revealing new dimensions of ${domainTerms.digitalImpact}`
-                    ],
-                    correctAnswer: 3
-                },
-                {
-                    question: `What valuable insight might you gain by applying ${title} frameworks to ${domainTerms.crossDisciplinaryField}?`,
-                    options: [
-                        `That established theories need complete revision`,
-                        `The discovery of ${domainTerms.insight}`,
-                        `That cross-disciplinary application is impossible due to fundamental epistemological differences between fields that create insurmountable barriers to meaningful knowledge transfer`,
-                        `Nothing significant`
+                        "It has no distinguishing characteristics",
+                        "Its focus on " + node.description.toLowerCase(),
+                        "Its exclusive use of quantitative methods",
+                        "Its rejection of theoretical frameworks"
                     ],
                     correctAnswer: 1
                 },
                 {
-                    question: `Why should you persist with ${domainTerms.practice} despite experiencing ${domainTerms.limitation} initially?`,
+                    question: `Which cognitive skills are most important when studying ${title}?`,
                     options: [
-                        `Only for credentials and professional recognition, as the practice itself has been largely superseded by more efficient approaches that don't require the same initial performance sacrifices`,
-                        `Purely out of respect for tradition`,
-                        `Because it develops ${domainTerms.benefit} that transforms your capabilities`,
-                        `You shouldn't - most experts reject this practice`
+                        "Memorization only",
+                        "Critical thinking and analytical reasoning",
+                        "Physical coordination",
+                        "Social networking"
+                    ],
+                    correctAnswer: 1
+                },
+                {
+                    question: `How does ${title} contribute to our understanding of the world?`,
+                    options: [
+                        "It has no significant contribution",
+                        "By providing frameworks for understanding " + node.description.toLowerCase(),
+                        "Only through technological applications",
+                        "Exclusively through entertainment value"
+                    ],
+                    correctAnswer: 1
+                },
+                {
+                    question: `What methodological approaches are commonly used in ${title}?`,
+                    options: [
+                        "Only qualitative analysis",
+                        "Only quantitative measurement",
+                        "A combination of analytical approaches appropriate to the subject matter",
+                        "No methodological approaches are used"
+                    ],
+                    correctAnswer: 2
+                },
+                {
+                    question: `How has the field of ${title} evolved over time?`,
+                    options: [
+                        "It has remained completely unchanged",
+                        "It has developed through cumulative knowledge and changing paradigms",
+                        "It was discovered fully formed in the 20th century",
+                        "It has become progressively less relevant"
+                    ],
+                    correctAnswer: 1
+                },
+                {
+                    question: `What is the relationship between theory and practice in ${title}?`,
+                    options: [
+                        "They are completely unrelated",
+                        "Theory informs practice, and practice refines theory in an ongoing dialogue",
+                        "Only theory matters, practice is irrelevant",
+                        "Only practice matters, theory is irrelevant"
+                    ],
+                    correctAnswer: 1
+                },
+                {
+                    question: `What ethical considerations are important in ${title}?`,
+                    options: [
+                        "Ethics are irrelevant to this field",
+                        "Only legal compliance matters",
+                        "Responsible application of knowledge and consideration of impacts",
+                        "Profit maximization is the only ethical concern"
+                    ],
+                    correctAnswer: 2
+                },
+                {
+                    question: `How might ${title} develop in the future?`,
+                    options: [
+                        "It will likely disappear entirely",
+                        "It will remain exactly as it is now",
+                        "It will likely continue to evolve with new discoveries and changing contexts",
+                        "It will be replaced entirely by artificial intelligence"
                     ],
                     correctAnswer: 2
                 }
             ];
         }
-
-        // Helper function to generate domain-specific terminology
-        function getDomainTerms(title) {
-            // Default terms
-            let terms = {
-                coreActivity: "problem-solving",
-                expertProcess: "systematic pattern recognition",
-                keyThinker: "Kahneman",
-                concept1: "dual-process theory",
-                concept2: "heuristic evaluation",
-                concept3: "deliberate practice",
-                historicalShift: "cognitive revolution",
-                oldParadigm: "behaviorist",
-                technique: "metacognitive reflection",
-                misconception: "expertise develops primarily through talent rather than structured practice",
-                methodology: "empirical validation",
-                alternativeApproach: "intuitive reasoning",
-                methodologicalDifference: "falsifiability and replicability",
-                paradox: "novice-expert reversal effect",
-                principle: "transfer of learning",
-                digitalImpact: "contextual application",
-                crossDisciplinaryField: "decision science",
-                insight: "domain-general principles underlying seemingly domain-specific skills",
-                practice: "deliberate difficulty",
-                limitation: "initial performance decrease",
-                benefit: "adaptive expertise"
-            };
-            
-            // Customize terms based on domain
-            if (title.toLowerCase().includes("art") || title.toLowerCase().includes("creativ")) {
-                terms = {
-                    coreActivity: "creative expression",
-                    expertProcess: "divergent ideation",
-                    keyThinker: "Csikszentmihalyi",
-                    concept1: "flow state",
-                    concept2: "intrinsic motivation",
-                    concept3: "creative constraints",
-                    historicalShift: "postmodern movement",
-                    oldParadigm: "representational",
-                    technique: "lateral thinking",
-                    misconception: "creativity emerges only from complete freedom rather than structured constraints",
-                    methodology: "iterative prototyping",
-                    alternativeApproach: "formulaic production",
-                    methodologicalDifference: "emergent discovery versus predetermined outcomes",
-                    paradox: "constraint-creativity enhancement",
-                    principle: "aesthetic coherence",
-                    digitalImpact: "democratized production",
-                    crossDisciplinaryField: "therapeutic practice",
-                    insight: "neurological similarities between analytical and creative processes",
-                    practice: "technical mastery",
-                    limitation: "expressive limitation",
-                    benefit: "intuitive fluency"
-                };
-            } else if (title.toLowerCase().includes("science") || title.toLowerCase().includes("research")) {
-                terms = {
-                    coreActivity: "empirical investigation",
-                    expertProcess: "hypothesis testing",
-                    keyThinker: "Popper",
-                    concept1: "falsifiability",
-                    concept2: "empirical verification",
-                    concept3: "paradigm shifts",
-                    historicalShift: "quantum revolution",
-                    oldParadigm: "Newtonian",
-                    technique: "controlled experimentation",
-                    misconception: "scientific progress occurs through steady accumulation rather than revolutionary shifts",
-                    methodology: "statistical inference",
-                    alternativeApproach: "deductive reasoning",
-                    methodologicalDifference: "probabilistic versus deterministic conclusions",
-                    paradox: "observer effect",
-                    principle: "replicability",
-                    digitalImpact: "big data analysis",
-                    crossDisciplinaryField: "social systems",
-                    insight: "emergent properties that transcend reductionist explanation",
-                    practice: "methodological rigor",
-                    limitation: "apparent inefficiency",
-                    benefit: "reliability"
-                };
-            } else if (title.toLowerCase().includes("philosophy") || title.toLowerCase().includes("ethics")) {
-                terms = {
-                    coreActivity: "conceptual analysis",
-                    expertProcess: "dialectical reasoning",
-                    keyThinker: "Wittgenstein",
-                    concept1: "language games",
-                    concept2: "family resemblance",
-                    concept3: "categorical imperative",
-                    historicalShift: "linguistic turn",
-                    oldParadigm: "metaphysical",
-                    technique: "thought experiments",
-                    misconception: "philosophical questions have definitive answers rather than evolving frameworks",
-                    methodology: "conceptual clarification",
-                    alternativeApproach: "mystical intuition",
-                    methodologicalDifference: "analytical precision versus synthetic breadth",
-                    paradox: "sorites problem",
-                    principle: "logical consistency",
-                    digitalImpact: "distributed epistemology",
-                    crossDisciplinaryField: "cognitive science",
-                    insight: "embodied nature of seemingly abstract reasoning",
-                    practice: "charitable interpretation",
-                    limitation: "apparent impracticality",
-                    benefit: "conceptual clarity"
-                };
-            }
-            
-            return terms;
-        }
-
-
-
-
-
-
-
 
 
         // Modify the knowledgeStructure to add quiz questions to each node
