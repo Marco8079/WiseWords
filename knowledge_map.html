@@ -1,0 +1,3570 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Knowledge Map</title>
+    <style>
+        /* Grundlegende Styles für den Home-Button */
+        .home-button {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            background-color: transparent;
+            border: none;
+            padding: 8px; /* Weniger Abstand für ein kompakteres Design */
+            border-radius: 50%; /* Rundung für den Button */
+            color: #333; /* Dunkle Farbe für den Button */
+        }
+
+        /* Emoji-Styling */
+        .home-icon {
+            font-size: 20px; /* Kleinere Größe des Haus-Emojis */
+            color: #333; /* Dunkle Farbe für das Emoji */
+        }
+
+        /* Entfernen des Hover-Hintergrunds */
+        .home-button:hover {
+            background-color: transparent; /* Kein Hintergrund beim Hover */
+        }
+
+        /* Positionierung des Buttons auf der Seite */
+        .home-button {
+            position: absolute;
+            top: 25px;  /* Etwas weiter unten als der obere Button */
+            left: 200px; /* Etwas Abstand vom linken Rand */
+            z-index: 1;
+        }
+
+        /* Mobile-Optimierung */
+        @media (max-width: 768px) {
+            .home-button {
+                top: 70px;  /* Etwas weiter unten auf Smartphones */
+                left: 15px;  /* Anpassung des Abstands für kleinere Bildschirme */
+            }
+            .home-icon {
+                font-size: 18px; /* Noch kleinere Icons auf mobilen Geräten */
+            }
+        }
+
+
+
+
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Montserrat', 'Arial', sans-serif;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        body {
+            overflow: hidden;
+            position: relative;
+            width: 100vw;
+            height: 100vh;
+            background: radial-gradient(ellipse at bottom, #1B2735 0%, #090A0F 100%);
+            color-scheme: dark;
+        }
+
+        /* Enhanced Universe Background */
+        #universe {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            background: linear-gradient(125deg, rgba(26,32,44,0.8) 0%, rgba(8,9,22,0.9) 100%);
+        }
+
+        /* Nebula Effect */
+        .nebula {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(40px);
+            opacity: 0.15;
+            z-index: 0;
+            animation: nebulaPulse 15s infinite alternate;
+        }
+
+        @keyframes nebulaPulse {
+            0% { opacity: 0.1; transform: scale(1); }
+            50% { opacity: 0.2; transform: scale(1.05); }
+            100% { opacity: 0.1; transform: scale(1); }
+        }
+
+        /* Ultra-Realistic Comet */
+        .comet {
+            position: absolute;
+            z-index: 5;
+            pointer-events: none;
+            opacity: 0;
+            animation: cometFly 30s linear infinite;
+        }
+
+        .comet-head {
+            position: absolute;
+            width: 12px;
+            height: 12px;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 50%;
+            box-shadow: 
+                0 0 15px 4px rgba(255, 255, 255, 0.8),
+                0 0 30px 8px rgba(173, 216, 230, 0.6),
+                0 0 50px 15px rgba(135, 206, 235, 0.4);
+        }
+
+        .comet-tail {
+            position: absolute;
+            top: 6px;
+            left: 6px;
+            width: 200px;
+            height: 4px;
+            background: linear-gradient(to left, rgba(255, 255, 255, 0.95), rgba(255, 255, 255, 0));
+            transform-origin: left center;
+            transform: rotate(180deg);
+            border-radius: 50%;
+            filter: blur(1px);
+            box-shadow: 
+                0 0 8px 2px rgba(255, 255, 255, 0.4),
+                0 0 15px 4px rgba(173, 216, 230, 0.3);
+        }
+
+        .comet-dust {
+            position: absolute;
+            top: 6px;
+            left: 6px;
+            width: 150px;
+            height: 20px;
+            background: linear-gradient(to left, rgba(173, 216, 230, 0.4), rgba(173, 216, 230, 0));
+            transform-origin: left center;
+            transform: rotate(180deg);
+            filter: blur(4px);
+            opacity: 0.6;
+        }
+
+        @keyframes cometFly {
+            0% {
+                top: -50px;
+                left: 110%;
+                transform: rotate(-30deg);
+                opacity: 0;
+            }
+            5% {
+                opacity: 1;
+            }
+            95% {
+                opacity: 1;
+            }
+            100% {
+                top: 120%;
+                left: -10%;
+                transform: rotate(-30deg);
+                opacity: 0;
+            }
+        }
+
+        /* Second Comet */
+        .comet2 {
+            position: absolute;
+            z-index: 5;
+            pointer-events: none;
+            opacity: 0;
+            animation: cometFly2 45s linear infinite;
+            animation-delay: 15s;
+        }
+
+        .comet2 .comet-head {
+            width: 8px;
+            height: 8px;
+            background: rgba(255, 240, 220, 0.95);
+            box-shadow: 
+                0 0 12px 3px rgba(255, 240, 220, 0.8),
+                0 0 25px 7px rgba(255, 223, 186, 0.6),
+                0 0 40px 12px rgba(255, 200, 150, 0.4);
+        }
+
+        .comet2 .comet-tail {
+            top: 4px;
+            left: 4px;
+            width: 180px;
+            height: 3px;
+            background: linear-gradient(to left, rgba(255, 240, 220, 0.95), rgba(255, 240, 220, 0));
+        }
+
+        .comet2 .comet-dust {
+            top: 4px;
+            left: 4px;
+            width: 130px;
+            height: 15px;
+            background: linear-gradient(to left, rgba(255, 223, 186, 0.4), rgba(255, 223, 186, 0));
+        }
+
+        @keyframes cometFly2 {
+            0% {
+                top: 20%;
+                left: 110%;
+                transform: rotate(-20deg);
+                opacity: 0;
+            }
+            5% {
+                opacity: 1;
+            }
+            95% {
+                opacity: 1;
+            }
+            100% {
+                top: 70%;
+                left: -10%;
+                transform: rotate(-20deg);
+                opacity: 0;
+            }
+        }
+
+        /* Shooting Stars */
+        .shooting-star {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background-color: white;
+            border-radius: 50%;
+            opacity: 0;
+            pointer-events: none;
+            z-index: 2;
+        }
+
+        .shooting-star::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100px;
+            height: 1px;
+            background: linear-gradient(to left, rgba(255, 255, 255, 0.8), transparent);
+            transform-origin: right center;
+            transform: rotate(180deg);
+        }
+
+        @keyframes shootingStar {
+            0% {
+                transform: translateX(0) translateY(0);
+                opacity: 1;
+            }
+            100% {
+                transform: translateX(calc(-100vw - 200px)) translateY(calc(100vh + 200px));
+                opacity: 0;
+            }
+        }
+
+        #map-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            z-index: 1;
+            transition: all 0.5s cubic-bezier(0.19, 1, 0.22, 1);
+            -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
+        }
+
+        .knowledge-map {
+            position: relative;
+            width: 100%;
+            height: 5000px; /* Extra space for scrolling */
+            padding-top: 2500px; /* Position starting point near bottom */
+        }
+
+        /* Enhanced Node Styling */
+        .node {
+            position: absolute;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            text-align: center;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            z-index: 10;
+            font-size: calc(0.12em + 0.5vmin);
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px); /* For Safari */
+            overflow: hidden;
+            will-change: transform, opacity; /* Performance optimization */
+            transform: translateZ(0); /* Force GPU acceleration */
+        }
+
+        .node::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            z-index: -1;
+            animation: rotateGradient 6s linear infinite;
+        }
+
+        @keyframes rotateGradient {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .node::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: 50%;
+            background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.2), transparent 70%);
+            z-index: -1;
+        }
+
+        .node:hover {
+            transform: scale(1.15);
+            z-index: 20;
+            box-shadow: 
+                0 0 15px rgba(255, 255, 255, 0.5),
+                0 0 30px rgba(255, 255, 255, 0.2);
+        }
+
+        .node-label {
+            padding: 5px;
+            pointer-events: none;
+            max-width: 100%;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            font-weight: 500;
+            letter-spacing: 0.5px;
+            text-shadow: 0 0 10px rgba(0, 0, 0, 0.8);
+        }
+
+        .base-node {
+            background: rgba(255, 215, 0, 0.2);
+            border: 2px solid rgba(255, 215, 0, 0.7);
+            font-size: calc(0.65em + 0.7vmin);
+            box-shadow: 
+                0 0 15px rgba(255, 215, 0, 0.4),
+                0 0 30px rgba(255, 215, 0, 0.2),
+                inset 0 0 15px rgba(255, 215, 0, 0.2);
+        }
+
+        .level-1-node {
+            background: rgba(135, 206, 235, 0.2);
+            border: 2px solid rgba(135, 206, 235, 0.7);
+            font-size: calc(0.65em + 0.6vmin);
+            box-shadow: 
+                0 0 15px rgba(135, 206, 235, 0.4),
+                0 0 30px rgba(135, 206, 235, 0.2),
+                inset 0 0 15px rgba(135, 206, 235, 0.2);
+        }
+
+        .level-2-node {
+            background: rgba(144, 238, 144, 0.2);
+            border: 2px solid rgba(144, 238, 144, 0.7);
+            font-size: calc(0.3em + 0.8vmin);
+            box-shadow: 
+                0 0 15px rgba(144, 238, 144, 0.4),
+                0 0 30px rgba(144, 238, 144, 0.2),
+                inset 0 0 15px rgba(144, 238, 144, 0.2);
+        }
+
+        /* Enhanced Connection Lines */
+        .line {
+            position: absolute;
+            background: linear-gradient(90deg, 
+                rgba(255, 255, 255, 0.1), 
+                rgba(255, 255, 255, 0.3), 
+                rgba(255, 255, 255, 0.1));
+            transform-origin: 0 0;
+            pointer-events: none;
+            z-index: 5;
+            box-shadow: 0 0 8px rgba(255, 255, 255, 0.2);
+        }
+
+        /* Pulsating Connection Effect */
+        .line.pulsating {
+            animation: pulseLine 3s infinite;
+        }
+
+        @keyframes pulseLine {
+            0%, 100% { opacity: 0.2; }
+            50% { opacity: 0.6; }
+        }
+
+        /* Enhanced Content Panel Styling */
+        .content-panel {
+            position: fixed;
+            top: 60%;
+            left: 50%;
+            transform: translate(-50%, 0);
+            width: 90%;
+            max-width: 600px;
+            height: 40%;
+            background: rgba(15, 15, 40, 0.85);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 15px;
+            z-index: 100;
+            display: none;
+            flex-direction: column;
+            color: white;
+            box-shadow: 
+                0 0 30px rgba(0, 0, 255, 0.3),
+                0 0 60px rgba(0, 0, 255, 0.1);
+            overflow: hidden;
+            transition: all 0.5s cubic-bezier(0.19, 1, 0.22, 1);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px); /* For Safari */
+            will-change: transform, opacity; /* Performance optimization */
+        }
+
+        /* Glass morphism effect */
+        .content-panel::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0));
+            border-radius: 15px;
+            z-index: -1;
+        }
+
+        /* Content formatting improvements */
+        .content-preview, .content-full {
+            padding: 25px;
+            overflow-y: auto;
+            flex-grow: 1;
+            line-height: 1.7;
+            font-weight: 300;
+            -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
+        }
+
+        /* Style for expanded panel */
+        .content-panel.expanded {
+            border-radius: 0;
+            box-shadow: none;
+            background: rgba(15, 15, 40, 0.95);
+        }
+
+        /* Dim the map when panel is expanded */
+        .map-container.dimmed {
+            filter: blur(8px) brightness(0.5);
+            opacity: 0.5;
+            pointer-events: none;
+            transition: all 0.7s cubic-bezier(0.19, 1, 0.22, 1);
+        }
+
+        /* Adjust content title size for expanded view */
+        .content-panel.expanded .content-title {
+            font-size: 2.2rem;
+            background: linear-gradient(90deg, #fff, #a0d8ef);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 10px rgba(160, 216, 239, 0.5);
+        }
+
+        /* Make the close button more prominent in expanded view */
+        .content-panel.expanded .close-button {
+            font-size: 32px;
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+        }
+
+        /* Add visual hierarchy with headings */
+        .content-preview h2, .content-full h2 {
+            color: rgba(135, 206, 235, 1);
+            margin-bottom: 20px;
+            font-size: 1.4rem;
+            border-bottom: 1px solid rgba(135, 206, 235, 0.4);
+            padding-bottom: 10px;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            text-shadow: 0 0 15px rgba(135, 206, 235, 0.5);
+        }
+
+        /* Improve paragraph readability */
+        .content-preview p, .content-full p {
+            margin-bottom: 18px;
+            font-size: 1.05rem;
+            text-shadow: 0 0 2px rgba(0, 0, 0, 0.8);
+            letter-spacing: 0.3px;
+        }
+
+        /* Add visual cues with bullets */
+        .key-points {
+            margin: 20px 0;
+            padding-left: 20px;
+        }
+
+        .key-points li {
+            margin-bottom: 12px;
+            list-style-type: none;
+            position: relative;
+            padding-left: 25px;
+            line-height: 1.6;
+        }
+
+        .key-points li:before {
+            content: "•";
+            color: rgba(144, 238, 144, 1);
+            font-size: 1.5em;
+            position: absolute;
+            left: 0;
+            top: -5px;
+            text-shadow: 0 0 10px rgba(144, 238, 144, 0.7);
+        }
+
+        /* Highlight important concepts */
+        .highlight {
+            background: linear-gradient(90deg, rgba(70, 130, 180, 0.3), rgba(70, 130, 180, 0.1));
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-weight: 500;
+            border-left: 2px solid rgba(70, 130, 180, 0.8);
+            text-shadow: 0 0 5px rgba(70, 130, 180, 0.5);
+        }
+
+        /* Visual separator for sections */
+        .content-separator {
+            height: 1px;
+            background: linear-gradient(90deg, 
+                transparent, 
+                rgba(255, 255, 255, 0.3), 
+                transparent);
+            margin: 25px 0;
+            position: relative;
+        }
+
+        .content-separator::before {
+            content: '✧';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: rgba(15, 15, 40, 0.95);
+            padding: 0 15px;
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 12px;
+        }
+
+        /* Related topics section */
+        .related-topics {
+            margin-top: 25px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
+            position: relative;
+        }
+
+        .related-topics::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, 
+                transparent, 
+                rgba(255, 255, 255, 0.5), 
+                transparent);
+        }
+
+        .related-topics h3 {
+            color: rgba(144, 238, 144, 1);
+            font-size: 1.1rem;
+            margin-bottom: 15px;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            text-shadow: 0 0 10px rgba(144, 238, 144, 0.5);
+        }
+
+        .related-topics ul {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .related-topics li {
+            background: rgba(70, 130, 180, 0.3);
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            border: 1px solid rgba(70, 130, 180, 0.5);
+            box-shadow: 0 0 10px rgba(70, 130, 180, 0.2);
+        }
+
+        .related-topics li:hover {
+            background: rgba(70, 130, 180, 0.5);
+            transform: scale(1.08) translateY(-2px);
+            box-shadow: 0 5px 15px rgba(70, 130, 180, 0.3);
+        }
+        
+        .content-header {
+            padding: 20px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: linear-gradient(to bottom, 
+                rgba(30, 30, 60, 0.9), 
+                rgba(15, 15, 40, 0.7));
+        }
+
+        .content-title {
+            font-size: 1.6rem;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .close-button {
+            cursor: pointer;
+            font-size: 26px;
+            color: rgba(255, 255, 255, 0.7);
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            -webkit-tap-highlight-color: transparent; /* Remove tap highlight on mobile */
+        }
+
+        .close-button:hover {
+            color: white;
+            background: rgba(255, 255, 255, 0.1);
+            transform: rotate(90deg);
+        }
+
+        .show-more-button {
+            display: block;
+            margin: 25px auto 15px;
+            padding: 12px 25px;
+            background: linear-gradient(135deg, 
+                rgba(70, 130, 180, 0.7), 
+                rgba(70, 130, 180, 0.5));
+            border: none;
+            color: white;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            -webkit-tap-highlight-color: transparent; /* Remove tap highlight on mobile */
+        }
+
+        .show-more-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, 
+                transparent, 
+                rgba(255, 255, 255, 0.2), 
+                transparent);
+            transition: all 0.5s ease;
+        }
+
+        .show-more-button:hover, .show-more-button:active {
+            background: linear-gradient(135deg, 
+                rgba(70, 130, 180, 0.8), 
+                rgba(70, 130, 180, 0.6));
+            transform: translateY(-3px);
+            box-shadow: 0 7px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .show-more-button:hover::before {
+            left: 100%;
+        }
+
+        /* Points system */
+        .points-counter {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: rgba(15, 15, 40, 0.7);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 30px;
+            padding: 12px 20px;
+            color: white;
+            font-size: 16px;
+            z-index: 50;
+            display: flex;
+            align-items: center;
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px); /* For Safari */
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .points-counter:hover {
+            background: rgba(15, 15, 40, 0.9);
+            transform: translateY(-2px);
+            box-shadow: 0 7px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .points-icon {
+            margin-right: 12px;
+            font-size: 20px;
+            color: gold;
+            text-shadow: 0 0 10px rgba(255, 215, 0, 0.7);
+        }
+
+        /* Star animation */
+        .star {
+            position: absolute;
+            background-color: white;
+            border-radius: 50%;
+            z-index: 0;
+            will-change: transform, opacity; /* Performance optimization */
+        }
+
+        /* Large stars with glow */
+        .star.large {
+            box-shadow: 
+                0 0 10px 2px rgba(255, 255, 255, 0.4),
+                0 0 20px 5px rgba(255, 255, 255, 0.1);
+        }
+
+        /* Twinkling stars */
+        .star.twinkle {
+            animation: twinkle 4s infinite ease-in-out;
+        }
+
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.2; }
+            50% { opacity: 1; }
+        }
+
+        /* Colored stars */
+        .star.blue {
+            background-color: #a0d8ef;
+            box-shadow: 0 0 10px 2px rgba(160, 216, 239, 0.5);
+        }
+
+        .star.red {
+            background-color: #ffb3ba;
+            box-shadow: 0 0 10px 2px rgba(255, 179, 186, 0.5);
+        }
+
+        .star.yellow {
+            background-color: #ffffba;
+            box-shadow: 0 0 10px 2px rgba(255, 255, 186, 0.5);
+        }
+
+        /* Responsive styles */
+        @media (max-width: 768px) {
+            .node-label {
+                font-size: 14px; /* Slightly larger for better readability */
+                font-weight: 600; /* Bolder for better visibility */
+            }
+            
+            .content-panel {
+                width: 95%;
+                height: 80%; /* Slightly smaller to ensure it fits on mobile screens */
+                top: 55%; /* Position it a bit higher */
+            }
+            
+            .content-title {
+                font-size: 1.3rem;
+            }
+
+            .expanded .content-title {
+                font-size: 1.5rem;
+            }
+            
+            .points-counter, .progress-bar, .nav-helper {
+                padding: 8px 12px;
+                font-size: 14px;
+            }
+            
+            /* Adjust content padding for mobile */
+            .content-preview, .content-full {
+                padding: 15px;
+            }
+            
+            /* Make buttons larger for touch targets */
+            .close-button {
+                width: 44px;
+                height: 44px;
+                font-size: 28px;
+            }
+            
+            .show-more-button {
+                padding: 14px 25px;
+                font-size: 16px;
+                width: 90%; /* Wider button for easier tapping */
+            }
+            
+            /* Adjust quiz elements for mobile */
+            .option {
+                padding: 12px 15px; /* Larger touch target */
+            }
+            
+            .option input[type="radio"] {
+                width: 22px; /* Larger radio button */
+                height: 22px;
+            }
+            
+            /* Ensure comet is visible on mobile */
+            .comet-head {
+                width: 15px; /* Larger comet head */
+                height: 15px;
+            }
+            
+            .comet-tail {
+                width: 180px; /* Slightly shorter tail */
+                height: 5px; /* Thicker tail */
+            }
+        }
+
+        /* Verbesserte Navigation */
+        .nav-helper {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            background: rgba(15, 15, 40, 0.7);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 30px;
+            padding: 12px 20px;
+            color: white;
+            font-size: 16px;
+            z-index: 50;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px); /* For Safari */
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            -webkit-tap-highlight-color: transparent; /* Remove tap highlight on mobile */
+        }
+
+        .nav-helper:hover, .nav-helper:active {
+            background: rgba(15, 15, 40, 0.9);
+            transform: scale(1.05) translateY(-3px);
+            box-shadow: 0 7px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .nav-icon {
+            font-size: 18px;
+            color: rgba(135, 206, 235, 1);
+            text-shadow: 0 0 10px rgba(135, 206, 235, 0.7);
+        }
+
+        /* Progress indicator */
+        .progress-bar {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            background: rgba(15, 15, 40, 0.7);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 30px;
+            padding: 10px 15px;
+            z-index: 50;
+            width: 180px;
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px); /* For Safari */
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .progress-bar:hover {
+            transform: scale(1.05) translateY(-2px);
+            background: rgba(15, 40, 0.9);
+            box-shadow: 0 7px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .progress-inner {
+            height: 8px;
+            border-radius: 4px;
+            background: linear-gradient(90deg, 
+                rgba(135, 206, 235, 0.9), 
+                rgba(144, 238, 144, 0.9));
+            width: 0%;
+            transition: width 0.8s cubic-bezier(0.19, 1, 0.22, 1);
+            box-shadow: 0 0 10px rgba(135, 206, 235, 0.5);
+        }
+
+        .progress-text {
+            text-align: center;
+            color: white;
+            font-size: 13px;
+            margin-top: 5px;
+            font-weight: 500;
+            letter-spacing: 0.5px;
+        }
+
+        /* Connection animation */
+        @keyframes pulse {
+            0% { opacity: 0.2; box-shadow: 0 0 5px rgba(255, 255, 255, 0.1); }
+            50% { opacity: 0.8; box-shadow: 0 0 15px rgba(255, 255, 255, 0.3); }
+            100% { opacity: 0.2; box-shadow: 0 0 5px rgba(255, 255, 255, 0.1); }
+        }
+
+        .content-preview, .content-full {
+            padding: 20px;
+        }
+        
+        .content-preview h2, .content-full h2 {
+            font-size: 1.2rem;
+        }
+        
+        .content-preview p, .content-full p {
+            font-size: 1rem;
+        }
+        
+        .key-points li {
+            font-size: 1rem;
+        }
+    
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+
+        /* Animation für neue Knoten */
+        @keyframes nodeAppear {
+            0% {
+                opacity: 0;
+                transform: scale(0) rotate(-180deg);
+            }
+            60% {
+                transform: scale(1.2) rotate(10deg);
+            }
+            100% {
+                opacity: 1;
+                transform: scale(1) rotate(0deg);
+            }
+        }
+
+        .node.appearing {
+            animation: nodeAppear 1s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+        }
+
+        /* Scrollbar-Styling */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: rgba(15, 15, 40, 0.3);
+            border-radius: 10px;
+            margin: 5px;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(to bottom, 
+                rgba(70, 130, 180, 0.7), 
+                rgba(70, 130, 180, 0.5));
+            border-radius: 10px;
+            border: 2px solid transparent;
+            background-clip: padding-box;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: linear-gradient(to bottom, 
+                rgba(70, 130, 180, 0.9), 
+                rgba(70, 130, 180, 0.7));
+        }
+
+        /* Verbesserte Trennstriche */
+        .thin-hr {
+            border: 0;
+            height: 1px;
+            background: linear-gradient(90deg, 
+                transparent, 
+                rgba(224, 224, 224, 0.5), 
+                transparent);
+            margin: 25px 0;
+            position: relative;
+        }
+
+        .thin-hr::after {
+            content: '•';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: rgba(15, 15, 40, 0.95);
+            padding: 0 10px;
+            color: rgba(224, 224, 224, 0.7);
+            font-size: 10px;
+        }
+
+        /* Link-Stil */
+        .custom-link {
+            color: #4da6ff;
+            text-decoration: none;
+            font-weight: 600;
+            margin-bottom: 12px;
+            display: block;
+            position: relative;
+            padding-left: 5px;
+            transition: all 0.3s ease;
+        }
+
+        .custom-link::before {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background: linear-gradient(90deg, #4da6ff, transparent);
+            transition: width 0.3s ease;
+        }
+
+        .custom-link:hover, .custom-link:active {
+            color: #80bdff;
+            transform: translateX(3px);
+        }
+
+        .custom-link:hover::before, .custom-link:active::before {
+            width: 100%;
+        }
+
+        /* Listenspezifische Anpassungen */
+        .custom-list {
+            list-style-type: none;
+            padding-left: 5px;
+        }
+
+        .custom-list li {
+            margin-bottom: 18px;
+            font-size: 16px;
+            line-height: 1.7;
+            position: relative;
+            padding-left: 20px;
+        }
+
+        .custom-list li::before {
+            content: '→';
+            position: absolute;
+            left: 0;
+            color: rgba(135, 206, 235, 0.9);
+            font-weight: bold;
+        }
+
+        h3 {
+            font-size: 22px;
+            margin-top: 35px;
+            margin-bottom: 15px;
+            color: rgba(144, 238, 144, 0.9);
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            text-shadow: 0 0 10px rgba(144, 238, 144, 0.3);
+            position: relative;
+            padding-bottom: 8px;
+        }
+
+        h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 2px;
+            background: linear-gradient(90deg, 
+                rgba(144, 238, 144, 0.9), 
+                transparent);
+        }
+
+        p {
+            font-size: 16px;
+            line-height: 1.7;
+            margin-bottom: 22px;
+            letter-spacing: 0.3px;
+        }
+
+        /* Quiz Styling Enhancement */
+        .quiz-container {
+            margin-top: 25px;
+            padding: 20px;
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 15px;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px); /* For Safari */
+        }
+        
+        .start-quiz-button, .submit-quiz-button, .close-quiz-button, .retake-quiz-button {
+            background: linear-gradient(135deg, #4a90e2, #3a7bc8);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 30px;
+            font-size: 16px;
+            cursor: pointer;
+            margin: 15px 0;
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            position: relative;
+            overflow: hidden;
+            -webkit-tap-highlight-color: transparent; /* Remove tap highlight on mobile */
+        }
+
+        .start-quiz-button::before, .submit-quiz-button::before, 
+        .close-quiz-button::before, .retake-quiz-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, 
+                transparent, 
+                rgba(255, 255, 255, 0.2), 
+                transparent);
+            transition: all 0.5s ease;
+        }
+
+        .start-quiz-button:hover, .submit-quiz-button:hover, 
+        .close-quiz-button:hover, .retake-quiz-button:hover,
+        .start-quiz-button:active, .submit-quiz-button:active, 
+        .close-quiz-button:active, .retake-quiz-button:active {
+            background: linear-gradient(135deg, #3a7bc8, #2a6cb8);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .start-quiz-button:hover::before, .submit-quiz-button:hover::before,
+        .close-quiz-button:hover::before, .retake-quiz-button:hover::before {
+            left: 100%;
+        }
+        
+        .quiz-questions {
+            padding: 15px;
+        }
+        
+        .quiz-question {
+            margin-bottom: 30px;
+            padding: 20px;
+            background: rgba(0, 0, 0, 0.15);
+            border-radius: 12px;
+            border-left: 4px solid transparent;
+            transition: all 0.3s ease;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .question-text {
+            font-weight: 600;
+            margin-bottom: 15px;
+            font-size: 1.1rem;
+            letter-spacing: 0.3px;
+            line-height: 1.5;
+        }
+        
+        .options-container {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        
+        .option {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 10px 15px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 8px;
+            transition: all 0.2s ease;
+        }
+        
+        .option:hover, .option:active {
+            background: rgba(255, 255, 255, 0.1);
+            transform: translateX(3px);
+        }
+        
+        .option input[type="radio"] {
+            cursor: pointer;
+            width: 18px;
+            height: 18px;
+            accent-color: #4a90e2;
+        }
+        
+        .option label {
+            cursor: pointer;
+            flex-grow: 1;
+            font-size: 1rem;
+            line-height: 1.5;
+        }
+        
+        .quiz-controls {
+            margin-top: 30px;
+            text-align: center;
+        }
+        
+        .quiz-results {
+            margin-top: 25px;
+            padding: 25px;
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 15px;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+            animation: fadeIn 0.5s ease-out;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .correct-answer {
+            border-left: 4px solid #4CAF50;
+            background: linear-gradient(90deg, rgba(76, 175, 80, 0.15), rgba(76, 175, 80, 0.05));
+            box-shadow: 0 3px 10px rgba(76, 175, 80, 0.1);
+        }
+        
+        .wrong-answer {
+            border-left: 4px solid #F44336;
+            background: linear-gradient(90deg, rgba(244, 67, 54, 0.15), rgba(244, 67, 54, 0.05));
+            box-shadow: 0 3px 10px rgba(244, 67, 54, 0.1);
+        }
+        
+        .unanswered {
+            border-left: 4px solid #FFC107;
+            background: linear-gradient(90deg, rgba(255, 193, 7, 0.15), rgba(255, 193, 7, 0.05));
+            box-shadow: 0 3px 10px rgba(255, 193, 7, 0.1);
+        }
+        
+        .points-animation {
+            position: absolute;
+            color: #4CAF50;
+            font-weight: bold;
+            pointer-events: none;
+            animation: float-up 1.5s ease-out forwards, fade-out 1.5s ease-out forwards;
+            text-shadow: 0 0 10px rgba(76, 175, 80, 0.5);
+            font-size: 1.2rem;
+        }
+        
+        @keyframes float-up {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(-120px); }
+        }
+        
+        @keyframes fade-out {
+            0% { opacity: 1; }
+            80% { opacity: 0.8; }
+            100% { opacity: 0; }
+        }
+
+        /* Constellation Effect */
+        .constellation {
+            position: absolute;
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        .constellation-line {
+            stroke: rgba(255, 255, 255, 0.2);
+            stroke-width: 1px;
+        }
+
+        .constellation-star {
+            fill: rgba(255, 255, 255, 0.8);
+        }
+
+        /* Dust particles effect */
+        .dust-particle {
+            position: absolute;
+            background-color: rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 1;
+            animation: floatDust 15s linear infinite;
+        }
+
+        @keyframes floatDust {
+            0% { transform: translateY(0) translateX(0); opacity: 0; }
+            10% { opacity: 0.5; }
+            90% { opacity: 0.5; }
+            100% { transform: translateY(-100px) translateX(50px); opacity: 0; }
+        }
+
+        /* Glowing effect for active nodes */
+        .node.active {
+            animation: nodeGlow 2s infinite alternate;
+        }
+
+        @keyframes nodeGlow {
+            0% { box-shadow: 0 0 15px rgba(255, 255, 255, 0.5), 0 0 30px rgba(255, 255, 255, 0.2); }
+            100% { box-shadow: 0 0 25px rgba(255, 255, 255, 0.7), 0 0 50px rgba(255, 255, 255, 0.4); }
+        }
+
+        /* Tooltip for nodes */
+        .node-tooltip {
+            position: absolute;
+            background: rgba(15, 15, 40, 0.9);
+            color: white;
+            padding: 8px 12px;
+            border-radius: 8px;
+            font-size: 14px;
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            z-index: 100;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+            max-width: 200px;
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px); /* For Safari */
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .node:hover .node-tooltip {
+            opacity: 1;
+        }
+
+        @tailwind base;
+        @tailwind components;
+        @tailwind utilities;
+
+        @layer base {
+        :root {
+            --background: 0 0% 100%;
+            --foreground: 0 0% 3.9%;
+            --card: 0 0% 100%;
+            --card-foreground: 0 0% 3.9%;
+            --popover: 0 0% 100%;
+            --popover-foreground: 0 0% 3.9%;
+            --primary: 0 0% 9%;
+            --primary-foreground: 0 0% 98%;
+            --secondary: 0 0% 96.1%;
+            --secondary-foreground: 0 0% 9%;
+            --muted: 0 0% 96.1%;
+            --muted-foreground: 0 0% 45.1%;
+            --accent: 0 0% 96.1%;
+            --accent-foreground: 0 0% 9%;
+            --destructive: 0 84.2% 60.2%;
+            --destructive-foreground: 0 0% 98%;
+            --border: 0 0% 89.8%;
+            --input: 0 0% 89.8%;
+            --ring: 0 0% 3.9%;
+            --chart-1: 12 76% 61%;
+            --chart-2: 173 58% 39%;
+            --chart-3: 197 37% 24%;
+            --chart-4: 43 74% 66%;
+            --chart-5: 27 87% 67%;
+            --radius: 0.5rem;
+            --sidebar-background: 0 0% 98%;
+            --sidebar-foreground: 240 5.3% 26.1%;
+            --sidebar-primary: 240 5.9% 10%;
+            --sidebar-primary-foreground: 0 0% 98%;
+            --sidebar-accent: 240 4.8% 95.9%;
+            --sidebar-accent-foreground: 240 5.9% 10%;
+            --sidebar-border: 220 13% 91%;
+            --sidebar-ring: 217.2 91.2% 59.8%;
+        }
+
+        .dark {
+            --background: 0 0% 3.9%;
+            --foreground: 0 0% 98%;
+            --card: 0 0% 3.9%;
+            --card-foreground: 0 0% 98%;
+            --popover: 0 0% 3.9%;
+            --popover-foreground: 0 0% 98%;
+            --primary: 0 0% 98%;
+            --primary-foreground: 0 0% 9%;
+            --secondary: 0 0% 14.9%;
+            --secondary-foreground: 0 0% 98%;
+            --muted: 0 0% 14.9%;
+            --muted-foreground: 0 0% 63.9%;
+            --accent: 0 0% 14.9%;
+            --accent-foreground: 0 0% 98%;
+            --destructive: 0 62.8% 30.6%;
+            --destructive-foreground: 0 0% 98%;
+            --border: 0 0% 14.9%;
+            --input: 0 0% 14.9%;
+            --ring: 0 0% 83.1%;
+            --chart-1: 220 70% 50%;
+            --chart-2: 160 60% 45%;
+            --chart-3: 30 80% 55%;
+            --chart-4: 280 65% 60%;
+            --chart-5: 340 75% 55%;
+            --sidebar-background: 240 5.9% 10%;
+            --sidebar-foreground: 240 4.8% 95.9%;
+            --sidebar-primary: 224.3 76.3% 48%;
+            --sidebar-primary-foreground: 0 0% 100%;
+            --sidebar-accent: 240 3.7% 15.9%;
+            --sidebar-accent-foreground: 240 4.8% 95.9%;
+            --sidebar-border: 240 3.7% 15.9%;
+            --sidebar-ring: 217.2 91.2% 59.8%;
+        }
+        }
+
+        @layer base {
+        * {
+            @apply border-border;
+        }
+        body {
+            @apply bg-background text-foreground;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            text-rendering: optimizeLegibility;
+        }
+        
+        /* Optimize text rendering for all devices */
+        h1, h2, h3, h4, h5, h6, p, span, a, button, input, textarea, select {
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            text-rendering: optimizeLegibility;
+        }
+        
+        /* Force hardware acceleration for smoother animations */
+        .hardware-accelerated {
+            transform: translateZ(0);
+            backface-visibility: hidden;
+            perspective: 1000px;
+        }
+        }
+
+        main {
+        @apply min-h-screen w-full;
+        }
+
+        /* High-DPI screen optimizations */
+        @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+        /* Sharper text rendering */
+        .node-label, .content-title, .content-preview p, .content-full p, 
+        .key-points li, .question-text, .option label {
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+        
+        /* Enhance visual elements */
+        .comet-head, .comet-tail, .comet-dust {
+            transform: translateZ(0); /* Force GPU rendering */
+            will-change: transform; /* Hint to browser about animation */
+        }
+        
+        /* Sharper borders */
+        .node, .content-panel, .quiz-question, .option {
+            border-width: 0.5px; /* Thinner borders for high-DPI */
+        }
+        }
+
+        /* Mobile-specific optimizations */
+        @media (max-width: 480px) {
+        /* Adjust UI elements for very small screens */
+        .points-counter {
+            top: 10px;
+            right: 10px;
+            padding: 8px 12px;
+            font-size: 12px;
+        }
+        
+        .progress-bar {
+            top: 10px;
+            left: 10px;
+            width: 140px;
+            padding: 8px 10px;
+        }
+        
+        .nav-helper {
+            bottom: 10px;
+            left: 10px;
+            padding: 8px 12px;
+            font-size: 12px;
+        }
+        
+        /* Make content more readable on small screens */
+        .content-preview h2, .content-full h2 {
+            font-size: 1.1rem;
+        }
+        
+        .content-preview p, .content-full p {
+            font-size: 0.95rem;
+        }
+        
+        /* Ensure comet is visible on small screens */
+        .comet-head {
+            width: 18px; /* Even larger comet head for visibility */
+            height: 18px;
+        }
+        
+        .comet-tail {
+            width: 200px;
+            height: 6px;
+        }
+        
+        /* Enhance quiz visibility */
+        .question-text {
+            font-size: 1rem;
+        }
+        
+        .option label {
+            font-size: 0.95rem;
+        }
+        }
+
+        /* Additional optimization for different pixel densities */
+        @media (-webkit-min-device-pixel-ratio: 3), (min-resolution: 288dpi) {
+        /* Ultra high-DPI screens (iPhone Pro, etc.) */
+        body {
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+        
+        /* Even sharper borders */
+        .node, .content-panel, .quiz-question, .option {
+            border-width: 0.33px;
+        }
+        }
+
+
+        
+    </style>
+</head>
+<body>
+
+    <canvas id="universe"></canvas>
+    
+    <div id="map-container">
+        <div class="knowledge-map" id="knowledge-map"></div>
+    </div>
+    
+    <div class="content-panel" id="content-panel">
+        <div class="content-header">
+            <div class="content-title" id="content-title">Node Title</div>
+            <div class="close-button" id="close-button">&times;</div>
+        </div>
+        <div class="content-preview" id="content-preview"></div>
+        <button class="show-more-button" id="show-more-button">Explore Deeper</button>
+        <div class="content-full" id="content-full"></div>
+    </div>
+    
+    <div class="points-counter">
+        <span class="points-icon">✦</span>
+        <span id="points-display">0 points</span>
+    </div>
+    
+    <div class="progress-bar">
+        <div class="progress-inner" id="progress-bar"></div>
+        <div class="progress-text" id="progress-text">0% explored</div>
+    </div>
+    
+    <div class="nav-helper" id="nav-helper">
+        Return to Base
+    </div>
+    <!-- Home Button auf der Seite knowledge_map.html -->
+    <a href="index.html" class="home-button">
+        <span class="home-icon">→</span>
+    </a>
+
+    
+
+
+    <script>
+        // Configuration
+        const config = {
+            baseNodeSize: 120,
+            level1NodeSize: 93,
+            level2NodeSize: 50,
+            lineWidth: 2,
+            maxStars: 200,
+            nodeSpacing: {
+                level1: 300,
+                level2: 200
+            },
+            starSizes: {
+                min: 1,
+                max: 3
+            },
+            starSpeed: {
+                min: 0.05,
+                max: 0.15
+            },
+            basePosition: { x: 0.5, y: 0.9 }, // Starting point position (relative to container)
+            maxPoints: 0 // Will be set based on node count
+        };
+
+        // Knowledge structure
+        const knowledgeStructure = {
+            title: "Knowledge Base",
+            description: "The foundation of all knowledge and understanding. This is where your journey begins.",
+            content: "<h2>You’ve just unlocked the heart of your learning journey!</h2> <p>The <b>Knowledge Base</b> connects <b>Art & Creativity</b>, <b>Self-Mastery</b>, and <b>Philosophy</b> to help you grow in a unique way. It’s all about seeing how these areas link together to make you more <b>creative</b>, <b>focused</b>, and <b>thoughtful</b>.</p><br><h3>Quick Start:</h3> <p>Try the <i><b>\"Knowledge Web\"</b></i> exercise. Pick one idea from each area—like <b>Writing</b>, <b>Mindfulness</b>, and <b>Ethics</b>. Take <b>10 minutes</b> to write how they connect in your life (e.g., how <i>mindful writing</i> helps with <i>ethical decisions</i>). This will spark new insights and show you the bigger picture.</p><br><h3>Your Knowledge Base is your hub for growth.</h3> <p>Come back often to reflect and track your progress. <span style='font-weight: bold; color: #007bff;'>Ready to dive in?</span> <span style='font-style: italic;'>Which area will you explore first?</span></p>",
+
+            children: [
+                {
+                    title: "Art & Creativity",
+                    description: "Exploration of human creative skills and imagination, producing works to be appreciated for their beauty or emotional power.",
+                    content: "Art & Creativity<br><hr class='thin-hr'><h3>1. Core Principles</h3><p>Creativity is not magic—it is structured problem-solving and the ability to combine old ideas in new ways. Every great artist, writer, and innovator follows specific mental processes to unlock creativity.</p><hr class='thin-hr'><h3>2. Foundational Knowledge</h3><ul class='custom-list'><li>The brain operates in two modes: Focused Mode (deliberate effort) and Diffuse Mode (subconscious problem-solving).</li><li>Creativity thrives when switching between these states through deep work and relaxation.</li><li>Constraints boost creativity: Limitations force new solutions.</li></ul><hr class='thin-hr'><h3>3. Practical Exercises</h3><ul class='custom-list'><li>10-Minute Constraints: Set a timer and create something within fixed rules (e.g., draw with only three colors, write a story with only 100 words).</li><li>Idea Splicing: Take two unrelated concepts and merge them into something new.</li><li>Reverse Engineering: Take an artwork, a piece of music, or a story and recreate it differently.</li></ul><hr class='thin-hr'><h3>4. Mastery Techniques</h3><ul class='custom-list'><li>Daily Creativity Rituals: Schedule time every day for creative output.</li><li>Divergent Thinking Challenges: Force yourself to generate at least 10 different solutions to a single problem.</li><li>Lifelong Learning: Study different disciplines (music, painting, architecture) to cross-pollinate ideas.</li></ul><hr class='thin-hr'><h3>5. Learn More</h3><hr class='thin-hr'><b>YouTube:</b><br><a href='https://youtu.be/B2bHy6o7i1A?si=m3D_ifquz9e3Fey0' class='custom-link'>How To Think Like History’s Greatest Genius - Michael Gelb</a><br><a href='https://youtu.be/kshboJxmU7k?si=xqW6gAMA4h88Pc0M' class='custom-link'>How to be a more creative person | Bill Stainton | TEDxStanleyPark</a><br><hr class='thin-hr'><b>Articles:</b><br><a href='https://pmc.ncbi.nlm.nih.gov/articles/PMC8305859/' class='custom-link'>Being Creative Makes You Happier: The Positive Effect of Creativity on Subjective Well-Being</a><br><a href='https://pmc.ncbi.nlm.nih.gov/articles/PMC6440443/' class='custom-link'>The Link Between Creativity, Cognition, and Creative Drives and Underlying Neural Mechanisms</a><br><hr class='thin-hr'><b>Books:</b><br><a href='https://amzn.to/41yV2za' class='custom-link'>The Creative Act: A Way of Being</a><br><a href='https://amzn.to/43Rjlei' class='custom-link'>How to Think Like Leonardo da Vinci: Seven Steps to Genius Every Day</a>",
+                    children: [
+                        {
+                            title: "Architecture",
+                            description: "The art and science of designing buildings and structures.",
+                            content: "Architecture<br><hr class='thin-hr'><h3>1. Core Principles</h3><p>Architecture is the balance of aesthetic design, functionality, and structural integrity.</p><hr class='thin-hr'><h3>2. Foundational Knowledge</h3><ul class='custom-list'><li>Learn the Golden Ratio and proportion systems.</li><li>Study material properties and their impact on design.</li><li>Understand spatial psychology: How spaces affect human behavior.</li></ul><hr class='thin-hr'><h3>3. Practical Exercises</h3><ul class='custom-list'><li>Daily Sketching: Draw buildings with correct perspective.</li><li>Structure Breakdown: Analyze famous buildings and their blueprints.</li><li>Material Experimentation: Create small models using different materials.</li></ul><hr class='thin-hr'><h3>4. Mastery Techniques</h3><ul class='custom-list'><li>Form & Function Challenges: Design a space that maximizes both.</li><li>Historic Study: Learn how architecture evolved over centuries.</li><li>Real-World Observations: Visit buildings and sketch design improvements.</li></ul><hr class='thin-hr'><h3>5. Learn More</h3><hr class='thin-hr'><b>YouTube:</b><br><a href='https://www.youtube.com/watch?v=k4dVgbuxBAw' class='custom-link'>Architecture Short Course: How to Develop a Design Concept</a><br><a href='https://www.youtube.com/watch?v=KUjomyjbdQU' class='custom-link'>Architectural Design Process Explained</a><br><hr class='thin-hr'><b>Books:</b><br><a href='https://amzn.to/3XU0OKw' class='custom-link'>Architecture: A Visual History (DK Ultimate Guides)</a><br><a href='https://amzn.to/4iuauU3' class='custom-link'>The Architecture Book (DK Big Ideas)</a>"
+                        },
+                        {
+                            title: "Arts",
+                            description: "Art forms that create works that are primarily visual in nature.",
+                            content: "Arts<br><hr class='thin-hr'><h3>1. Core Principles</h3><p>Art is about expressing ideas, emotions, and perspectives through visual forms. It has technical aspects (color theory, composition) and emotional depth.</p><hr class='thin-hr'><h3>2. Foundational Knowledge</h3><ul class='custom-list'><li>Study composition rules: Rule of thirds, balance, negative space.</li><li>Learn color psychology: How colors evoke emotions.</li><li>Understand light and shadow: Contrast is key to realism and depth.</li></ul><hr class='thin-hr'><h3>3. Practical Exercises</h3><ul class='custom-list'><li>Daily Sketching: Draw simple objects with different lighting angles.</li><li>Master Imitation: Recreate a famous painting, then change one element.</li><li>Minimalism Challenge: Create an artwork using only two colors and five shapes.</li></ul><hr class='thin-hr'><h3>4. Mastery Techniques</h3><ul class='custom-list'><li>Storytelling in Art: Every piece should communicate an idea.</li><li>Portfolio Evolution: Constantly refine and critique your past works.</li><li>Multi-Medium Exploration: Experiment with digital, sculpture, and mixed media.</li></ul><hr class='thin-hr'><h3>5. Learn More</h3><hr class='thin-hr'><b>YouTube:</b><br><a href='https://youtu.be/v3MsfZ-wjzA?si=xn3f8I9rhw9VrhUp' class='custom-link'>How to shade everything</a><br><a href='https://www.youtube.com/watch?v=ewMksAbgdBI&list=PL1HIh25sbqZnkA1T09UtVHoyjYaMJuK0a' class='custom-link'>Learn to Draw</a><br><hr class='thin-hr'><b>Articles:</b><br><a href='https://uxpamagazine.org/design_like_da_vinci/' class='custom-link'>Design Like da Vinci: Sketching Lessons from the Original Renaissance Man</a><br><a href='https://www.researchgate.net/publication/261698095_Research_in_Art_and_Design_a_common_ground_between_science_and_creative_practice' class='custom-link'>Research in Art and Design: A common ground between science and creative practice</a><br><hr class='thin-hr'><b>Books:</b><br><a href='https://amzn.to/4kpNh7j' class='custom-link'>How to Draw Cool Stuff: A Drawing Guide for Teachers and Students</a><br><a href='https://amzn.to/4kpNqaR' class='custom-link'>Leonardo Da Vinci and Anatomy: The Mechanics of Life</a><br><a href='https://amzn.to/43NdB5i' class='custom-link'>Leonardo da Vinci: A Life in Drawing</a>"
+                        },
+                        {
+                            title: "Music",
+                            description: "The art of arranging sounds in time to produce a composition.",
+                            content: "Music<br><hr class='thin-hr'><h3>1. Core Principles</h3><p>Music is the structured manipulation of sound and rhythm. True mastery blends technical skill with emotional intuition.</p><hr class='thin-hr'><h3>2. Foundational Knowledge</h3><ul class='custom-list'><li>Musical Structure: Understand chord progressions, scales, and modes.</li><li>Ear Training: Recognize intervals, harmonies, and key changes.</li><li>Rhythm Mastery: Internalize different time signatures and syncopation.</li></ul><hr class='thin-hr'><h3>3. Practical Exercises</h3><ul class='custom-list'><li>Daily Ear Training: Identify notes and chords by ear.</li><li>Minimalist Composition: Write a melody using only three notes.</li><li>Rhythm Challenge: Tap complex beats and improvise variations.</li></ul><hr class='thin-hr'><h3>4. Mastery Techniques</h3><ul class='custom-list'><li>Song Deconstruction: Analyze famous compositions to understand their structure.</li><li>Improvisation Sessions: Experiment freely to develop musical instincts.</li><li>Cross-Genre Study: Explore different styles to broaden your musical vocabulary.</li></ul><hr class='thin-hr'><h3>5. Learn More</h3><hr class='thin-hr'><b>Articles:</b><br><a href='https://en.blog.newzik.com/blog/conseils-apprendr-composer-premier-morceau-musique' class='custom-link'>Tips for learning to compose music</a><br><a href='https://suno.com/home' class='custom-link'>Create music with AI</a><br><hr class='thin-hr'><b>YouTube:</b><br><a href='https://youtu.be/ZdhdC2wx2Ew?si=4ZRPYhIbz090mAQg' class='custom-link'>How to create music</a><br><a href='https://youtu.be/mdJU5ogrPMY?si=2fIwb_fl2AHwaZtN' class='custom-link'>Classical music for studying</a><br><hr class='thin-hr'><b>Books:</b><br><a href='https://amzn.to/4iPKEdc' class='custom-link'>Music Beginner Guide</a><br><a href='https://amzn.to/4itCGX5' class='custom-link'>100 of the Most Beautiful Piano Pieces (Sheet Music)</a>"
+                        },
+                        {
+                            title: "Writing",
+                            description: "Original composition that expresses ideas, thoughts or emotions in a literary form.",
+                            content: "Writing<br><hr class='thin-hr'><h3>1. Core Principles</h3><p>Writing is the art of communicating ideas clearly and effectively through the written word. Whether creative, academic, or professional, good writing conveys meaning in a way that resonates with readers.</p><hr class='thin-hr'><h3>2. Foundational Knowledge</h3><ul class='custom-list'><li><b>Structure and Organization:</b> Clear organization enhances readability (Introduction, Body, Conclusion).</li><li><b>Style and Voice:</b> Develop a unique writing style appropriate for the context.</li><li><b>Grammar and Syntax:</b> Mastering language rules ensures clarity.</li><li><b>Audience Awareness:</b> Tailor content to the needs of your readers.</li></ul><hr class='thin-hr'><h3>3. Practical Exercises</h3><ul class='custom-list'><li><b>Outline Your Ideas:</b> Structure thoughts before writing.</li><li><b>Daily Writing Practice:</b> Write 500 words daily to build fluency.</li><li><b>Read Aloud:</b> Identify awkward phrasing and errors.</li><li><b>Focus on Clarity:</b> Express complex ideas simply.</li></ul><hr class='thin-hr'><h3>4. Mastery Techniques</h3><ul class='custom-list'><li><b>Peer Review and Feedback:</b> Refine style through critique.</li><li><b>Experiment with Genres:</b> Gain versatility by exploring different formats.</li><li><b>Edit Ruthlessly:</b> Remove unnecessary elements.</li><li><b>Strong Introductions and Conclusions:</b> Hook readers and leave impact.</li><li><b>Master Storytelling:</b> Even non-fiction benefits from compelling narratives.</li><li><b>Use Advanced Stylistic Devices:</b> Employ metaphor, allegory, and symbolism.</li></ul><hr class='thin-hr'><h3>5. Learn More</h3><hr class='thin-hr'><b>Resources:</b><br><a href='https://jordanbpeterson.com/wp-content/uploads/2018/02/Essay_Writing_Guide.docx' class='custom-link'>Essay Writing Guide</a><br><a href='https://craigdilouie.com/this-is-your-brain-on-writing/' class='custom-link'>This is Your Brain on Writing – Craig DiLouie</a><br><hr class='thin-hr'><b>YouTube:</b><br><a href='https://youtu.be/Kwjw2J6ByJo?si=11zdJGPF9GkoX1sY' class='custom-link'>Jordan Peterson on Writing</a><br><a href='https://youtu.be/65U5byDZ55M?si=Nf5zdstYT5kYGIJL' class='custom-link'>How to Use Writing to Improve Your Thinking</a><br><hr class='thin-hr'><b>Books:</b><br><a href='https://amzn.to/4hClyNR' class='custom-link'>How to Write It</a><br><a href='https://amzn.to/4bGKG4P' class='custom-link'>How to Write Poetry</a>"
+                        }
+                    ]
+                },
+            
+                {
+                    title: "Philosophy",
+                    description: "The study of fundamental questions about existence, knowledge, values, reason, mind, and language.",
+                    content: "Philosophy<br><hr class='thin-hr'><h3>1. Core Principles</h3><p>Philosophy explores existence, knowledge, ethics, and reason—training the mind for clarity and logical thought.</p><hr class='thin-hr'><h3>2. Foundational Knowledge</h3><ul class='custom-list'><li>Question Everything: Challenge assumptions rigorously.</li><li>Schools of Thought: Stoicism, Existentialism, Rationalism, etc.</li><li>Applied Philosophy: Ideas must have real-world impact.</li></ul><hr class='thin-hr'><h3>3. Practical Exercises</h3><ul class='custom-list'><li>Daily Thought Experiment: Challenge one belief per day.</li><li>Philosophical Debates: Defend a viewpoint you disagree with.</li><li>Read Primary Sources: Engage with original philosophical texts.</li></ul><hr class='thin-hr'><h3>4. Mastery Techniques</h3><ul class='custom-list'><li>Logical Breakdown: Identify fallacies in arguments.</li><li>Writing Philosophical Essays: Develop precise articulation of ideas.</li><li>Living Philosophy: Apply philosophical principles to daily choices.</li></ul><hr class='thin-hr'><h3>5. Learn More</h3><hr class='thin-hr'><b>Articles:</b><br><a href='https://www.swarthmore.edu/writing/philosophy-writing-guide' class='custom-link'>Philosophy Writing Guide</a><br><a href='https://www.thephilosophyman.com/blog/16-ways-to-create-philosophical-questions' class='custom-link'>16 Ways to Create Philosophical Questions</a><br><hr class='thin-hr'><b>YouTube:</b><br><a href='https://youtu.be/hlFOlJ_qZI0?si=qg-gABCFXzhXOcH4' class='custom-link'>Every Philosophical Ideology Explained</a><br><hr class='thin-hr'><b>Books:</b><br><a href='https://amzn.to/4hJjZO9' class='custom-link'>The World as Will and Representation (Schopenhauer)</a><br><a href='https://amzn.to/3DJg71Y' class='custom-link'>The World as Will and Representation Vol. 2</a><br><a href='https://amzn.to/41AeFa4' class='custom-link'>Friedrich Nietzsche Books</a><br><a href='https://amzn.to/4kuuVSz' class='custom-link'>Immanuel Kant Books</a><br><a href='https://amzn.to/4kwMhyc' class='custom-link'>Stoicism (Ancient Philosophies)</a><br><a href='https://amzn.to/41VJrdp' class='custom-link'>Meditations (Marcus Aurelius)</a><br><a href='https://amzn.to/43PMO8k' class='custom-link'>The Art of War</a><br><a href='https://amzn.to/3FAVC88' class='custom-link'>Plato Complete Works</a>",
+                    children: [
+                        {
+                            title: "Metaphysics",
+                            description: "Branch of philosophy dealing with the fundamental nature of reality.",
+                            content: "Metaphysics<br><hr class='thin-hr'><h3>1. Core Principles</h3><p>Metaphysics explores reality, existence, and what lies beyond the physical world. It asks fundamental questions: What is real? What is the nature of time, space, and consciousness?</p><hr class='thin-hr'><h3>2. Foundational Knowledge</h3><ul class='custom-list'><li>Ontology: The study of existence and being (What exists?).</li><li>Dualism vs. Materialism: Does only the physical world exist, or is there more?</li><li>The Nature of Time & Space: Are time and space real or just concepts?</li><li>Consciousness & Free Will: Is the mind separate from the body?</li></ul><hr class='thin-hr'><h3>3. Practical Exercises</h3><ul class='custom-list'><li>Question Assumptions: Ask, 'What if reality is not what I think it is?'</li><li>Mind-Body Reflection: Observe your own consciousness. Is it separate from your body?</li><li>Simulated Reality Thought Experiment: How would you know if you're in a simulation?</li><li>Categorize Existence: List things that exist (physical, abstract, mental).</li></ul><hr class='thin-hr'><h3>4. Mastery Techniques</h3><ul class='custom-list'><li>Debate the Nature of Reality: Argue both for and against materialism.</li><li>Compare Philosophical Theories: Analyze Plato’s Forms vs. Aristotle’s substance.</li><li>Apply Metaphysics to Science: Study how physics interacts with metaphysics (e.g., quantum mechanics).</li><li>Develop Your Own Theory: Write a structured argument about the nature of reality.</li></ul><hr class='thin-hr'><h3>5. Learn More</h3><hr class='thin-hr'><b>Articles:</b><br><a href='https://en.wikipedia.org/wiki/Metaphysics' class='custom-link'>Metaphysics (Wikipedia)</a><br><a href='https://plato.stanford.edu/entries/metaphysics/' class='custom-link'>Stanford Encyclopedia of Philosophy - Metaphysics</a><br><hr class='thin-hr'><b>YouTube:</b><br><a href='https://youtu.be/qKq0Afmsj-U?si=oY3AGXXUmBL1gPpz' class='custom-link'>Introduction to Metaphysics</a><br><hr class='thin-hr'><b>Books:</b><br><a href='https://amzn.to/4bykyJs' class='custom-link'>Metaphysics by Aristotle</a>"
+                        },
+                        {
+                            title: "Ethics",
+                            description: "Branch of philosophy that involves systematizing, defending, and recommending concepts of right and wrong behavior.",
+                            content: "Ethics<br><hr class='thin-hr'><h3>1. Core Principles</h3><p>Ethics is the study of morality, right and wrong, and how we should act. It influences personal behavior, law, and society.</p><hr class='thin-hr'><h3>2. Foundational Knowledge</h3><ul class='custom-list'><li>Virtue Ethics (Aristotle): Being good is about cultivating virtues like courage and wisdom.</li><li>Deontology (Kant): Moral duties are absolute, regardless of consequences.</li><li>Utilitarianism (Mill, Bentham): Actions are right if they maximize happiness.</li><li>Moral Relativism vs. Objectivism: Are ethics universal or culture-dependent?</li></ul><hr class='thin-hr'><h3>3. Practical Exercises</h3><ul class='custom-list'><li>Moral Dilemma Reflection: What would you do in a life-or-death situation?</li><li>Apply Ethical Theories: Justify a real-life decision using Kantian ethics vs. Utilitarianism.</li><li>Analyze Your Own Moral Code: Write down your top 3 ethical principles.</li><li>Moral Case Studies: Study historical moral dilemmas (e.g., Just War Theory).</li></ul><hr class='thin-hr'><h3>4. Mastery Techniques</h3><ul class='custom-list'><li>Engage in Ethical Debates: Defend and critique moral theories.</li><li>Explore Game Theory & Ethics: How does cooperation evolve?</li><li>Test Ethical Principles in Action: Live by a strict ethical rule for one week.</li><li>Study Ethics in AI & Tech: Consider how ethics applies to modern challenges (e.g., AI decision-making).</li></ul><hr class='thin-hr'><h3>5. Learn More</h3><hr class='thin-hr'><b>Articles:</b><br><a href='https://en.wikipedia.org/wiki/Ethics' class='custom-link'>Learn about Ethics (Wikipedia)</a><br><hr class='thin-hr'><b>YouTube:</b><br><a href='https://youtu.be/DLCUn6h7qRo?si=ULrzDRo1rBZ3V0W2' class='custom-link'>The Fastest Ethics Course</a><br><hr class='thin-hr'><b>Books:</b><br><a href='https://amzn.to/4hJ1TMm' class='custom-link'>Ethics (Book)</a>"
+                        },
+                        {
+                            title: "Epistemology",
+                            description: "Branch of philosophy concerned with the theory of knowledge.",
+                            content: "Epistemology<br><hr class='thin-hr'><h3>1. Core Principles</h3><p>Epistemology is the study of knowledge—what it is, how we get it, and how we can be certain of anything.</p><hr class='thin-hr'><h3>2. Foundational Knowledge</h3><ul class='custom-list'><li>Rationalism vs. Empiricism: Is knowledge gained through reason (Descartes) or experience (Locke)?</li><li>The Problem of Skepticism: Can we know anything for sure?</li><li>Justified True Belief: What makes a belief 'true' and 'justified'?</li><li>The Role of Perception: How much do our senses deceive us?</li></ul><hr class='thin-hr'><h3>3. Practical Exercises</h3><ul class='custom-list'><li>Identify Your Own Biases: Reflect on what beliefs you take for granted.</li><li>Test a Knowledge Claim: Find evidence for and against something you 'know.'</li><li>Philosophical Skepticism Exercise: Question whether you can prove anything with absolute certainty.</li><li>Analyze News & Media: How do you know if something is true?</li></ul><hr class='thin-hr'><h3>4. Mastery Techniques</h3><ul class='custom-list'><li>Write a Knowledge Hierarchy: Organize what you know from most to least certain.</li><li>Defend an Epistemological Position: Argue for rationalism, empiricism, or skepticism.</li><li>Use Bayesian Thinking: Update beliefs based on new evidence.</li><li>Study Cognitive Science & AI: Explore how knowledge and learning work in artificial intelligence.</li></ul><hr class='thin-hr'><h3>5. Learn More</h3><hr class='thin-hr'><b>Articles:</b><br><a href='https://en.wikipedia.org/wiki/Epistemology' class='custom-link'>Epistemology (Wikipedia)</a><br><a href='https://onlinelibrary.wiley.com/doi/abs/10.1002/tea.21257' class='custom-link'>Epistemologies in Practice</a><br><hr class='thin-hr'><b>YouTube:</b><br><a href='https://youtu.be/r_Y3utIeTPg?si=ss159RzU1H2nGeOr' class='custom-link'>Theory of Epistemology</a><br><a href='https://youtu.be/L1MB0l74Onc?si=4MGu-n2lSUTYv7T_' class='custom-link'>Epistemology - A Beginner's Guide</a><br><hr class='thin-hr'><b>Books:</b><br><a href='https://amzn.to/3DNncyA' class='custom-link'>Epistemology: A Contemporary Introduction to the Theory of Knowledge</a>"
+                        },
+                        {
+                            title: "Logic",
+                            description: "The systematic study of valid inference and reasoning.",
+                            content: "Logic<br><hr class='thin-hr'><h3>1. Core Principles</h3><p>Logic is the foundation of clear thinking and rational decision-making.</p><hr class='thin-hr'><h3>2. Foundational Knowledge</h3><ul class='custom-list'><li>Deductive vs. Inductive Reasoning: Absolute proof vs. probability.</li><li>Logical Fallacies: Learn to spot flawed arguments.</li><li>Syllogisms & Proofs: Train structured thinking.</li></ul><hr class='thin-hr'><h3>3. Practical Exercises</h3><ul class='custom-list'><li>Daily Logical Puzzle: Solve a reasoning problem daily.</li><li>Fallacy Hunting: Identify errors in everyday conversations.</li><li>Argue Like a Philosopher: Defend a position with pure logic.</li></ul><hr class='thin-hr'><h3>4. Mastery Techniques</h3><ul class='custom-list'><li>Socratic Questioning: Ask deeper follow-up questions.</li><li>Formal Logic Practice: Study symbolic logic and proofs.</li><li>Applied Rationality: Use logic in financial, political, and ethical decisions.</li></ul><hr class='thin-hr'><h3>5. Learn More</h3><hr class='thin-hr'><b>Articles:</b><br><a href='https://onlinelibrary.wiley.com/doi/book/10.1002/9781405164801' class='custom-link'>The Blackwell Guide to Logic</a><br><hr class='thin-hr'><b>YouTube:</b><br><a href='https://youtu.be/R2zElslG_tE?si=_KhwGS_KwdVl9hXb' class='custom-link'>Introduction to Logic</a><br><hr class='thin-hr'><b>Books:</b><br><a href='https://amzn.to/3RfS51u' class='custom-link'>Socratic Logic</a><br><a href='https://amzn.to/4bDhXhs' class='custom-link'>Aristotle - The Organon</a><br><a href='https://amzn.to/3DPAquz' class='custom-link'>Aristotle's Categories & Propositions</a><br><a href='https://amzn.to/3FA1Cy5' class='custom-link'>The Power of Logical Thinking - Marilyn Vos Savant</a>"
+                        }
+                    ]
+                },
+                {
+                    title: "Self-Mastery",
+                    description: "Activities that improve awareness and identity, develop talents and potential, and contribute to the realization of dreams and aspirations.",
+                    content: "<h2>Self-Mastery</h2><br><h3>1. Core Principles:</h3><p>Self-mastery is the ability to control emotions, habits, and actions to achieve long-term goals. It is built through self-awareness and discipline.</p><br><h3>2. Foundational Knowledge:</h3><ul class='custom-list'><li><b>Know Your Weaknesses:</b> Identify what holds you back.</li><li><b>Delayed Gratification:</b> Short-term pain leads to long-term success.</li><li><b>Identity Shaping:</b> Actions shape who you become.</li></ul><br><h3>3. Practical Exercises:</h3><ul class='custom-list'><li><b>Daily Self-Assessment:</b> Reflect on three key wins and mistakes.</li><li><b>Temptation Resistance:</b> Delay a reward for 10 minutes every day.</li><li><b>Self-Identity Writing:</b> Define who you want to be and act accordingly.</li></ul><br><h3>4. Mastery Techniques:</h3><ul class='custom-list'><li><b>Accountability Systems:</b> Track habits publicly or with a partner.</li><li><b>Stress Testing:</b> Put yourself in difficult situations to grow resilience.</li><li><b>Hard Choices Training:</b> Regularly choose the harder but better path.</li></ul><br><h3>5. Learn More:</h3><hr class='thin-hr'><b>Articles:</b><br><a href='https://dobetterwithdan.wordpress.com/2020/11/12/self-mastery-self-discipline-and-freedom/' class='custom-link'>What is Self-Mastery</a><br><hr class='thin-hr'><b>YouTube:</b><br><a href='https://youtu.be/7hIIKxEQrmg?si=UrJCZV2aRD2ID77T' class='custom-link'>Way to Self-Master yourself</a><br><a href='https://youtu.be/SWE_Da6UUBI?si=qKwMc-IMu6CWrYYW' class='custom-link'>Self-Mastery Philosophical Guide</a><br><hr class='thin-hr'><b>Books:</b><br><a href='https://shaolin.online/de' class='custom-link'>Shaolin Self-Mastery</a><br><a href='https://amzn.to/43SzC2C' class='custom-link'>Self-Mastery</a>",
+                    children: [
+                        {
+                            title: "Leadership",
+                            description: "The art of motivating a group of people to act toward achieving a common goal.",
+                            content: "<h2>Leadership</h2><br><h3>1. Core Principles:</h3><p>Leadership is about influence, responsibility, and decision-making. Great leaders inspire rather than command.</p><br><h3>2. Foundational Knowledge:</h3><ul class='custom-list'><li><b>Lead by Example:</b> People follow actions, not words.</li><li><b>Communication is Key:</b> Clarity and persuasion matter more than authority.</li><li><b>Emotional Intelligence:</b> Understanding people is more important than technical skill.</li></ul><br><h3>3. Practical Exercises:</h3><ul class='custom-list'><li><b>Daily Decision Review:</b> Analyze one leadership choice each day.</li><li><b>Difficult Conversations:</b> Initiate one uncomfortable but necessary talk per week.</li><li><b>Rapid Delegation:</b> Identify tasks others can do and assign them.</li></ul><br><h3>4. Mastery Techniques:</h3><ul class='custom-list'><li><b>Crisis Simulation:</b> Train decision-making under stress.</li><li><b>Reverse Leadership:</b> Let someone else lead and give feedback.</li><li><b>Ethical Dilemmas:</b> Study history’s toughest leadership decisions.</li></ul><br><h3>5. Learn More:</h3><hr class='thin-hr'><b>Articles:</b><br><a href='https://www.success.com/8-essential-qualities-of-successful-leaders/' class='custom-link'>8 Essential Qualities of Leadership</a><br><hr class='thin-hr'><b>YouTube:</b><br><a href='https://youtu.be/XWVwFVgA4b4?si=VZYsFVviwojoYhOS' class='custom-link'>Jordan Peterson's Guide to Leadership</a><br><hr class='thin-hr'><b>Books:</b><br><a href='https://amzn.to/4kWVCPS' class='custom-link'>21 Irrefutable Laws of Leadership</a>"
+                        },
+                        {
+                            title: "Discipline",
+                            description: "Training to establish self-control and willpower to achieve consistent results.",
+                            content: "<h2>Discipline</h2><br><h3>1. Core Principles:</h3><p>Discipline is the ability to take consistent action regardless of motivation. It is built through routine, commitment, and resilience.</p><br><h3>2. Foundational Knowledge:</h3><ul class='custom-list'><li><b>Habits &gt; Motivation:</b> Willpower is unreliable; systems are key.</li><li><b>Time Blocking:</b> Schedule tasks to remove decision fatigue.</li><li><b>Momentum Matters:</b> Small wins lead to bigger progress.</li></ul><br><h3>3. Practical Exercises:</h3><ul class='custom-list'><li><b>Non-Negotiable Task:</b> Pick one task you must do daily, no matter what.</li><li><b>5-Second Rule:</b> Take action within five seconds before excuses form.</li><li><b>Environmental Control:</b> Remove distractions before starting work.</li></ul><br><h3>4. Mastery Techniques:</h3><ul class='custom-list'><li><b>Pre-Commitment:</b> Announce goals publicly for accountability.</li><li><b>Pain Exposure:</b> Embrace discomfort to train mental toughness.</li><li><b>Failure Tracking:</b> Analyze missed tasks and improve systems.</li></ul><br><h3>5. Learn More:</h3><hr class='thin-hr'><b>Research Papers:</b><br><a href='https://www.diva-portal.org/smash/get/diva2:1248151/FULLTEXT01.pdf' class='custom-link'>Research Paper on Discipline</a><br><hr class='thin-hr'><b>Articles:</b><br><a href='https://livingwithlimerence.com/the-neuroscience-of-temptation/' class='custom-link'>The Neuroscience of Discipline</a><br><hr class='thin-hr'><b>YouTube:</b><br><a href='https://youtu.be/W2Jzkl8J2nM?si=vu0WV-ISYNUi5Q2F' class='custom-link'>Why Being Disciplined Makes You Successful</a><br><a href='https://youtu.be/k0ytdAqRpE4?si=Ns1Aa_yJ-nwhdIV4' class='custom-link'>A Guide to Extreme Self-Discipline</a><br><hr class='thin-hr'><b>Books:</b><br><a href='https://amzn.to/4hFNxw6' class='custom-link'>Discipline Equals Freedom</a>"
+                        },
+                        {
+                            title: "Emotional Intelligence",
+                            description: "The capacity to be aware of, control, and express one's emotions, and to handle interpersonal relationships judiciously and empathetically.",
+                            content: "<h2>Emotional Intelligence</h2><br><h3>1. Core Principles:</h3><p>Emotional intelligence is the ability to understand, regulate, and respond to emotions—both your own and others’.</p><br><h3>2. Foundational Knowledge:</h3><ul class='custom-list'><li><b>Self-Awareness:</b> Recognize and name your emotions.</li><li><b>Empathy Matters:</b> Understanding others is a skill.</li><li><b>Emotions Influence Logic:</b> Decisions are never purely rational.</li></ul><br><h3>3. Practical Exercises:</h3><ul class='custom-list'><li><b>Emotional Journaling:</b> Track your moods and triggers daily.</li><li><b>Empathy Mapping:</b> Try to see situations from another’s perspective.</li><li><b>Pause Before Reacting:</b> Wait 5 seconds before responding emotionally.</li></ul><br><h3>4. Mastery Techniques:</h3><ul class='custom-list'><li><b>Role Reversal:</b> Argue the opposite side of a conflict.</li><li><b>Social Pattern Recognition:</b> Identify common emotional triggers in others.</li><li><b>Mindful Listening:</b> Focus 100% on what someone says without forming a response.</li></ul><br><h3>5. Learn More:</h3><hr class='thin-hr'><b>Research Paper:</b><br><a href='https://pmc.ncbi.nlm.nih.gov/articles/PMC6014059/#:~:text=Emerging%20neuroscience%20studies%20have%20revealed,Krueger%20et%20al.%2C%202009%3B' class='custom-link'>Emotional Intelligence and Your Brain</a><br><hr class='thin-hr'><b>YouTube:</b><br><a href='https://youtu.be/kG5Qb9sr0YQ?si=3zMUMJFQASMYZN2W' class='custom-link'>How to Improve Emotional Intelligence</a><br><hr class='thin-hr'><b>Books:</b><br><a href='https://amzn.to/41u6LPv' class='custom-link'>How to Master Emotional Intelligence</a>"
+                        },
+                        {
+                            title: "Mindfulness",
+                            description: "The psychological process of purposely bringing one's attention to experiences occurring in the present moment without judgment.",
+                            content: "<h2>Mindfulness</h2><br><h3>1. Core Principles:</h3><p>Mindfulness is the practice of awareness without judgment, leading to better focus, emotional control, and well-being.</p><br><h3>2. Foundational Knowledge:</h3><ul class='custom-list'><li><b>Attention is a Skill:</b> Training focus improves all areas of life.</li><li><b>Thoughts are not Reality:</b> Observing thoughts reduces stress.</li><li><b>The Present Moment Matters:</b> The past and future only exist in your mind.</li></ul><br><h3>3. Practical Exercises:</h3><ul class='custom-list'><li><b>5-Minute Breath Focus:</b> Observe your breath without controlling it.</li><li><b>Body Scan:</b> Notice every part of your body in detail.</li><li><b>Single-Tasking:</b> Do one task with full attention (no distractions).</li></ul><br><h3>4. Mastery Techniques:</h3><ul class='custom-list'><li><b>Extended Meditation:</b> Gradually increase mindful time.</li><li><b>Stoic Rehearsal:</b> Visualize worst-case scenarios calmly.</li><li><b>Mindful Action:</b> Apply awareness to daily tasks (eating, walking, talking).</li></ul><br><h3>5. Learn More:</h3><hr class='thin-hr'><b>Articles:</b><br><a href='https://www.mindful.org/getting-started-with-mindfulness/' class='custom-link'>Getting Started with Mindfulness</a><br><a href='https://www.health.harvard.edu/mind-and-mood/can-mindfulness-change-your-brain' class='custom-link'>Can Mindfulness Change Your Brain?</a><br><hr class='thin-hr'><b>YouTube:</b><br><a href='https://youtu.be/1nP5oedmzkM?si=9M-A-5WdzVPxYwc3' class='custom-link'>Self-Transformation Through Mindfulness</a><br><hr class='thin-hr'><b>Books:</b><br><a href='https://amzn.to/4bYrJKX' class='custom-link'>An Eight-Week Plan for Finding Peace in a Frantic World</a>"
+                        }
+                    ]
+                }
+            ]
+        };
+
+        
+        function createComet() {
+            const comet = document.createElement('div');
+            comet.className = 'comet';
+            
+            const head = document.createElement('div');
+            head.className = 'comet-head';
+            
+            const tail = document.createElement('div');
+            tail.className = 'comet-tail';
+            
+            const dust = document.createElement('div');
+            dust.className = 'comet-dust';
+            
+            comet.appendChild(head);
+            comet.appendChild(tail);
+            comet.appendChild(dust);
+            
+            document.getElementById('universe').appendChild(comet);
+            
+            // Create second comet with delay
+            setTimeout(() => {
+                const comet2 = document.createElement('div');
+                comet2.className = 'comet2';
+                
+                const head2 = document.createElement('div');
+                head2.className = 'comet-head';
+                
+                const tail2 = document.createElement('div');
+                tail2.className = 'comet-tail';
+                
+                const dust2 = document.createElement('div');
+                dust2.className = 'comet-dust';
+                
+                comet2.appendChild(head2);
+                comet2.appendChild(tail2);
+                comet2.appendChild(dust2);
+                
+                document.getElementById('universe').appendChild(comet2);
+            }, 15000);
+        }
+        
+        // Call this function after the universe is initialized
+        createComet();
+        
+
+
+        // Initialize variables
+        let points = 0;
+        let visitedNodes = new Set();
+        let stars = [];
+        let universe;
+        let universeCtx;
+        let mapContainer;
+        let knowledgeMap;
+        let contentPanel;
+        let contentPreview;
+        let contentFull;
+        let showMoreButton;
+        let closeButton;
+        let contentTitle;
+        let pointsDisplay;
+        let progressBar;
+        let progressText;
+        let navHelper;
+        let totalNodes = 0;
+
+        function loadSavedProgress() {
+            // Load points
+            points = parseInt(localStorage.getItem('knowledgePoints') || '0');
+            pointsDisplay.textContent = `${points} points`;
+            
+            // Load visited nodes
+            const savedNodes = JSON.parse(localStorage.getItem('visitedNodes') || '[]');
+            visitedNodes = new Set(savedNodes);
+            
+            // Load completed quizzes
+            const savedQuizzes = JSON.parse(localStorage.getItem('completedQuizzes') || '[]');
+            completedQuizzes = new Set(savedQuizzes);
+            
+            // Count total nodes first
+            totalNodes = countNodes(knowledgeStructure);
+            
+            // Update progress display immediately
+            const visitedProgress = visitedNodes.size;
+            const quizProgress = completedQuizzes.size;
+            const totalProgress = visitedProgress + quizProgress;
+            const maxProgress = totalNodes * 2; // Multiply by 2 since each node can be visited and have its quiz completed
+            
+            const progressPercentage = Math.floor((totalProgress / maxProgress) * 100);
+            
+            // Update DOM elements directly
+            progressBar.style.width = `${progressPercentage}%`;
+            progressText.textContent = `${progressPercentage}% explored`;
+        }
+
+
+        // Count total nodes for progress tracking
+        function countNodes(node) {
+            let count = 1; // Count the node itself
+            if (node.children) {
+                for (const child of node.children) {
+                    count += countNodes(child);
+                }
+            }
+            return count;
+        }
+
+        // Initialize the application when DOM is loaded
+        document.addEventListener('DOMContentLoaded', function() {
+            // Get DOM elements
+            universe = document.getElementById('universe');
+            universeCtx = universe.getContext('2d');
+            mapContainer = document.getElementById('map-container');
+            knowledgeMap = document.getElementById('knowledge-map');
+            contentPanel = document.getElementById('content-panel');
+            contentPreview = document.getElementById('content-preview');
+            contentFull = document.getElementById('content-full');
+            showMoreButton = document.getElementById('show-more-button');
+            closeButton = document.getElementById('close-button');
+            contentTitle = document.getElementById('content-title');
+            pointsDisplay = document.getElementById('points-display');
+            progressBar = document.getElementById('progress-bar');
+            progressText = document.getElementById('progress-text');
+            navHelper = document.getElementById('nav-helper');
+            // Load saved progress before initializing
+            loadSavedProgress();
+            // Count total nodes and set max points
+            totalNodes = countNodes(knowledgeStructure);
+            config.maxPoints = totalNodes * 10;
+
+            // Count total nodes and set max points
+            totalNodes = countNodes(knowledgeStructure);
+            config.maxPoints = totalNodes * 20;
+            
+            // Initialize the universe
+            initUniverse();
+            
+            // Create the knowledge map
+            createMap();
+            
+            // Set up event listeners
+            setupEventListeners();
+            
+            // Start animations
+            animate();
+            
+            // Initial scroll to base node
+            setTimeout(() => {
+                scrollToBaseNode();
+            }, 500);
+        });
+
+        // Initialize the starry universe background
+        function initUniverse() {
+            // Set canvas dimensions
+            resizeUniverse();
+            
+            // Create stars
+            createStars();
+            
+            // Handle window resize
+            window.addEventListener('resize', function() {
+                resizeUniverse();
+            });
+        }
+
+        // Resize universe canvas
+        function resizeUniverse() {
+            universe.width = window.innerWidth;
+            universe.height = window.innerHeight;
+        }
+
+        // Create stars for the universe background
+        function createStars() {
+            stars = [];
+            for (let i = 0; i < config.maxStars; i++) {
+                stars.push({
+                    x: Math.random() * universe.width,
+                    y: Math.random() * universe.height,
+                    size: config.starSizes.min + Math.random() * (config.starSizes.max - config.starSizes.min),
+                    speed: config.starSpeed.min + Math.random() * (config.starSpeed.max - config.starSpeed.min),
+                    brightness: 0.2 + Math.random() * 0.8,
+                    blinking: Math.random() > 0.8,
+                    blinkPhase: Math.random() * Math.PI * 2
+                });
+            }
+        }
+
+        // Create the knowledge map
+        function createMap() {
+            // Calculate base position
+            const baseX = knowledgeMap.offsetWidth * config.basePosition.x;
+            const baseY = knowledgeMap.offsetHeight * config.basePosition.y;
+            
+            // Create the base node
+            createNode(knowledgeStructure, baseX, baseY, 0, 0);
+        }
+
+        // Create a node in the knowledge map
+        function createNode(nodeData, x, y, level, angle) {
+            // Determine node size based on level
+            let size;
+            let nodeClass;
+            
+            if (level === 0) {
+                size = config.baseNodeSize;
+                nodeClass = 'base-node';
+            } else if (level === 1) {
+                size = config.level1NodeSize;
+                nodeClass = 'level-1-node';
+            } else {
+                size = config.level2NodeSize;
+                nodeClass = 'level-2-node';
+            }
+            
+            // Create node element
+            const node = document.createElement('div');
+            node.className = `node ${nodeClass}`;
+            node.style.width = `${size}px`;
+            node.style.height = `${size}px`;
+            node.style.left = `${x - size/2}px`;
+            node.style.top = `${y - size/2}px`;
+            
+            // Create label
+            const label = document.createElement('div');
+            label.className = 'node-label';
+            label.textContent = nodeData.title;
+            node.appendChild(label);
+            
+            // Store node data
+            node.dataset.title = nodeData.title;
+            node.dataset.description = nodeData.description;
+            node.dataset.content = nodeData.content;
+            node.dataset.level = level;
+            
+            // Add node to the map
+            knowledgeMap.appendChild(node);
+            
+            // Create child nodes if any
+            if (nodeData.children && nodeData.children.length > 0) {
+                const spacing = level === 0 ? config.nodeSpacing.level1 : config.nodeSpacing.level2;
+                const angleStep = (Math.PI * 2) / nodeData.children.length;
+                let startAngle = level === 0 ? -Math.PI / 2 : angle - (Math.PI / 3);
+                
+                // Adjust start angle based on level
+                if (level === 0) {
+                    startAngle = -Math.PI / 2; // Start from top
+                } else if (level === 1) {
+                    // Adjust angle to spread children in 120-degree arc
+                    startAngle = angle - Math.PI / 3;
+                }
+                
+                // Create children
+                for (let i = 0; i < nodeData.children.length; i++) {
+                    const childAngle = startAngle + (i * angleStep);
+                    const childX = x + Math.cos(childAngle) * spacing;
+                    const childY = y + Math.sin(childAngle) * spacing;
+                    
+                    // Create line connection
+                    createLine(x, y, childX, childY);
+                    
+                    // Create child node
+                    createNode(nodeData.children[i], childX, childY, level + 1, childAngle);
+                }
+            }
+        }
+
+        // Create a line connecting nodes
+        function createLine(x1, y1, x2, y2) {
+            const dx = x2 - x1;
+            const dy = y2 - y1;
+            const distance = Math.sqrt(dx * dx + dy * dy);
+            const angle = Math.atan2(dy, dx);
+            
+            const line = document.createElement('div');
+            line.className = 'line';
+            line.style.width = `${distance}px`;
+            line.style.height = `${config.lineWidth}px`;
+            line.style.left = `${x1}px`;
+            line.style.top = `${y1}px`;
+            line.style.transform = `rotate(${angle}rad)`;
+            
+            knowledgeMap.appendChild(line);
+        }
+
+        // Setup event listeners
+        function setupEventListeners() {
+            // Node click event
+            knowledgeMap.addEventListener('click', function(event) {
+                const node = event.target.closest('.node');
+                if (node) {
+                    openNodeContent(node);
+                }
+            });
+            
+            // Close button event
+            closeButton.addEventListener('click', function() {
+                closeContent();
+            });
+            
+            // Show more button event
+            showMoreButton.addEventListener('click', function() {
+                showFullContent();
+            });
+            
+            // Nav helper event
+            navHelper.addEventListener('click', function() {
+                scrollToBaseNode();
+            });
+        }
+
+        // Add to the openNodeContent function to show quiz option
+        function openNodeContent(node) {
+            // Check if node has been visited
+            const nodeId = node.dataset.title;
+            if (!visitedNodes.has(nodeId)) {
+                visitedNodes.add(nodeId);
+                updateProgress();
+                saveProgress();
+            }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            
+            // Set content
+            contentTitle.textContent = node.dataset.title;
+            contentPreview.textContent = node.dataset.description;
+            
+            // Get the node data from the knowledge structure
+            const nodeData = findNodeData(knowledgeStructure, node.dataset.title);
+            
+            contentFull.innerHTML = `
+                <p>${node.dataset.content}</p>
+                <div class="quiz-container">
+                    <h3>Knowledge Quiz</h3>
+                    <p>Test your understanding and earn points!</p>
+                    <button class="start-quiz-button" id="start-quiz-button">Start Quiz</button>
+                </div>
+            `;
+            
+            // Store the node data for quiz access
+            contentFull.dataset.nodeTitle = node.dataset.title;
+            
+            // Show preview, hide full content
+            contentPreview.style.display = 'block';
+            contentFull.style.display = 'none';
+            showMoreButton.style.display = 'block';
+            
+            // Show the panel with compact height
+            contentPanel.style.display = 'flex';
+            contentPanel.style.height = '40%'; // Make it shorter initially
+            contentPanel.style.top = '60%'; // Position from bottom
+            contentPanel.style.transform = 'translate(-50%, -50%)'; // Adjust transform for bottom positioning
+            contentPanel.classList.remove('expanded');
+            
+            // Add highlight effect to the node
+            const allNodes = document.querySelectorAll('.node');
+            allNodes.forEach(n => n.style.opacity = '0.5');
+            node.style.opacity = '1';
+            node.style.transform = 'scale(1.2)';
+            node.style.boxShadow = '0 0 30px rgba(255, 255, 255, 0.7)';
+            
+            // Highlight connected lines
+            highlightConnectedLines(node);
+
+            // Don't fully dim the map yet
+            document.getElementById('map-container').classList.remove('dimmed');
+        }
+
+        // Find node data in the knowledge structure by title
+        function findNodeData(structure, title) {
+            if (structure.title === title) {
+                return structure;
+            }
+            
+            if (structure.children) {
+                for (const child of structure.children) {
+                    const found = findNodeData(child, title);
+                    if (found) return found;
+                }
+            }
+            
+            return null;
+        }
+
+        // Highlight lines connected to the active node
+        function highlightConnectedLines(node) {
+            const nodeRect = node.getBoundingClientRect();
+            const mapRect = knowledgeMap.getBoundingClientRect();
+            
+            const nodeCenterX = parseInt(node.style.left) + parseInt(node.style.width) / 2;
+            const nodeCenterY = parseInt(node.style.top) + parseInt(node.style.height) / 2;
+            
+            const lines = document.querySelectorAll('.line');
+            lines.forEach(line => {
+                line.classList.remove('pulse');
+                line.style.opacity = '0.2';
+                
+                const lineX = parseInt(line.style.left);
+                const lineY = parseInt(line.style.top);
+                const lineLength = parseInt(line.style.width);
+                const lineAngle = parseFloat(line.style.transform.replace('rotate(', '').replace('rad)', ''));
+                
+                const lineEndX = lineX + Math.cos(lineAngle) * lineLength;
+                const lineEndY = lineY + Math.sin(lineAngle) * lineLength;
+                
+                // Check if line starts or ends at node center (with tolerance)
+                const tolerance = 40;
+                const isConnected = 
+                    (Math.abs(lineX - nodeCenterX) < tolerance && Math.abs(lineY - nodeCenterY) < tolerance) ||
+                    (Math.abs(lineEndX - nodeCenterX) < tolerance && Math.abs(lineEndY - nodeCenterY) < tolerance);
+                
+                if (isConnected) {
+                    line.style.opacity = '0.8';
+                    line.style.backgroundColor = 'rgba(255, 255, 255, 0.8)';
+                    line.classList.add('pulse');
+                }
+            });
+        }
+
+        // Show full content - modified to expand panel to full screen
+        function showFullContent() {
+            contentPreview.style.display = 'none';
+            contentFull.style.display = 'block';
+            showMoreButton.style.display = 'none';
+            
+            // Expand panel to full screen
+            contentPanel.style.height = '100%';
+            contentPanel.style.width = '100%';
+            contentPanel.style.maxWidth = '100%';
+            contentPanel.style.maxHeight = '100%';
+            contentPanel.style.top = '50%';
+            contentPanel.style.transform = 'translate(-50%, -50%)';
+            contentPanel.classList.add('expanded');
+            
+            // Fully dim the map
+            document.getElementById('map-container').classList.add('dimmed');
+            
+            // Award points for exploring deeper
+            addPoints(5);
+        }
+
+        // Close content panel - restore original size when closing
+        function closeContent() {
+            contentPanel.style.display = 'none';
+            contentPanel.style.height = '40%'; // Reset height
+            contentPanel.style.width = '80%'; // Reset width
+            contentPanel.style.maxWidth = '600px'; // Reset max width
+            contentPanel.style.top = '60%'; // Reset position
+            contentPanel.style.transform = 'translate(-50%, 0)'; // Reset transform
+            contentPanel.classList.remove('expanded');
+            
+            // Remove dimming from map
+            document.getElementById('map-container').classList.remove('dimmed');
+            
+            // Remove highlight effects
+            const allNodes = document.querySelectorAll('.node');
+            allNodes.forEach(n => {
+                n.style.opacity = '1';
+                n.style.transform = '';
+                n.style.boxShadow = '';
+            });
+            
+            const lines = document.querySelectorAll('.line');
+            lines.forEach(line => {
+                line.classList.remove('pulse');
+                line.style.opacity = '0.3';
+                line.style.backgroundColor = 'rgba(255, 255, 255, 0.3)';
+            });
+        }
+
+        // Update the addPoints function to show animation
+        function addPoints(value) {
+            points += value;
+            pointsDisplay.textContent = `${points} points`;
+            
+            // Show animation for points
+            pointsDisplay.style.transform = 'scale(1.2)';
+            setTimeout(() => {
+                pointsDisplay.style.transform = 'scale(1)';
+            }, 300);
+            
+            // Show floating animation
+            if (value > 0) {
+                const pointsAnim = document.createElement('div');
+                pointsAnim.className = 'points-animation';
+                pointsAnim.textContent = `+${value} points`;
+                pointsAnim.style.left = `${Math.random() * 80 + 10}%`;
+                pointsAnim.style.top = `${Math.random() * 30 + 50}%`;
+                document.body.appendChild(pointsAnim);
+                
+                // Remove element after animation
+                setTimeout(() => {
+                    document.body.removeChild(pointsAnim);
+                }, 1500);
+            }
+            // Save progress
+            saveProgress();
+        }
+
+        function updateProgress() {
+            // Calculate progress based on visited nodes
+            const visitedProgress = visitedNodes.size;
+            const quizProgress = completedQuizzes.size;
+            
+            // Total progress is the sum of visited nodes and completed quizzes
+            const totalProgress = visitedProgress + quizProgress;
+            const maxProgress = totalNodes * 2; // Multiply by 2 since each node can be visited and have its quiz completed
+            
+            const progressPercentage = Math.floor((totalProgress / maxProgress) * 100);
+            
+            progressBar.style.width = `${progressPercentage}%`;
+            progressText.textContent = `${progressPercentage}% explored`;
+        }
+
+
+
+        function saveProgress() {
+            // Save points
+            localStorage.setItem('knowledgePoints', points.toString());
+            
+            // Save visited nodes as array
+            localStorage.setItem('visitedNodes', JSON.stringify([...visitedNodes]));
+            
+            // Save completed quizzes as array
+            localStorage.setItem('completedQuizzes', JSON.stringify([...completedQuizzes]));
+            
+            // Update progress display
+            updateProgress();
+        }
+
+
+        // Call to add styles on load
+        document.addEventListener('DOMContentLoaded', function() {
+            addQuizStyles();
+            // Rest of the existing code...
+        });
+
+        // Scroll to base node
+        function scrollToBaseNode() {
+            const baseNode = document.querySelector('.base-node');
+            if (baseNode) {
+                const baseRect = baseNode.getBoundingClientRect();
+                const mapRect = mapContainer.getBoundingClientRect();
+                
+                const scrollX = parseInt(baseNode.style.left) + parseInt(baseNode.style.width) / 2 - mapRect.width / 2;
+                const scrollY = parseInt(baseNode.style.top) + parseInt(baseNode.style.height) / 2 - mapRect.height / 2;
+                
+                mapContainer.scrollTo({
+                    left: scrollX,
+                    top: scrollY,
+                    behavior: 'smooth'
+                });
+            }
+        }
+
+        // Function to show node content after quiz
+        function showNodeContent(nodeTitle) {
+            const nodeData = findNodeData(knowledgeStructure, nodeTitle);
+            
+            contentFull.innerHTML = `
+                <p>${nodeData.content}</p>
+                <div class="quiz-container">
+                    <h3>Knowledge Quiz</h3>
+                    <p>You've completed this quiz!</p>
+                    <button class="retake-quiz-button" id="retake-quiz-button">Retake Quiz</button>
+                </div>
+            `;
+            
+            // Add event listener to retake button
+            document.getElementById('retake-quiz-button').addEventListener('click', function() {
+                startQuiz(nodeTitle);
+            });
+        }
+
+        // Function to submit and grade quiz
+        function submitQuiz(quiz, nodeTitle) {
+            let correctAnswers = 0;
+            let totalQuestions = quiz.length;
+            
+            // Check each question
+            quiz.forEach((q, index) => {
+                const selectedOption = document.querySelector(`input[name="q${index}"]:checked`);
+                const questionElement = document.getElementById(`question-${index}`);
+                
+                if (selectedOption) {
+                    const selectedValue = parseInt(selectedOption.value);
+                    
+                    if (selectedValue === q.correctAnswer) {
+                        correctAnswers++;
+                        questionElement.classList.add('correct-answer');
+                    } else {
+                        questionElement.classList.add('wrong-answer');
+                    }
+                } else {
+                    questionElement.classList.add('unanswered');
+                }
+            });
+            
+            // Calculate points - 10 points per correct answer
+            const earnedPoints = correctAnswers * 10;
+            
+            // Check if quiz was already completed
+            const quizKey = `quiz_${nodeTitle}`;
+            if (!completedQuizzes.has(quizKey)) {
+                addPoints(earnedPoints);
+                completedQuizzes.add(quizKey);
+                saveProgress();
+            }
+            
+            // Show results
+            const resultsContainer = document.createElement('div');
+            resultsContainer.className = 'quiz-results';
+            
+            resultsContainer.innerHTML = `
+                <h3>Quiz Results</h3>
+                <p>You answered ${correctAnswers} out of ${totalQuestions} questions correctly.</p>
+                <p>Points earned: ${earnedPoints}</p>
+                ${completedQuizzes.has(quizKey) ? '<p>You\'ve already completed this quiz before. No additional points awarded.</p>' : ''}
+                <button class="close-quiz-button" id="close-quiz-button">Continue Learning</button>
+            `;
+            
+            contentFull.appendChild(resultsContainer);
+            
+            // Add event listener to close button
+            document.getElementById('close-quiz-button').addEventListener('click', function() {
+                // Show the original content
+                showNodeContent(nodeTitle);
+            });
+        }
+
+        // Function to start the quiz
+        function startQuiz(nodeTitle) {
+            const nodeData = findNodeData(knowledgeStructure, nodeTitle);
+            
+            if (!nodeData || !nodeData.quiz) {
+                contentFull.innerHTML += '<p>No quiz available for this topic yet.</p>';
+                return;
+            }
+            
+            const quiz = nodeData.quiz;
+            const quizContainer = document.createElement('div');
+            quizContainer.className = 'quiz-questions';
+            
+            let quizHTML = '<h3>Knowledge Quiz</h3>';
+            
+            quiz.forEach((q, index) => {
+                quizHTML += `
+                    <div class="quiz-question" id="question-${index}">
+                        <p class="question-text">${q.question}</p>
+                        <div class="options-container">
+                `;
+                
+                q.options.forEach((option, optIndex) => {
+                    quizHTML += `
+                        <div class="option">
+                            <input type="radio" id="q${index}-opt${optIndex}" name="q${index}" value="${optIndex}">
+                            <label for="q${index}-opt${optIndex}">${option}</label>
+                        </div>
+                    `;
+                });
+                
+                quizHTML += `
+                        </div>
+                    </div>
+                `;
+            });
+            
+            quizHTML += `
+                <div class="quiz-controls">
+                    <button class="submit-quiz-button" id="submit-quiz-button">Submit Answers</button>
+                </div>
+            `;
+            
+            quizContainer.innerHTML = quizHTML;
+            
+            // Replace content with quiz
+            contentFull.innerHTML = '';
+            contentFull.appendChild(quizContainer);
+            
+            // Add event listener to submit button
+            document.getElementById('submit-quiz-button').addEventListener('click', function() {
+                submitQuiz(quiz, nodeTitle);
+            });
+        }
+
+        // Animation loop
+        function animate() {
+            // Clear canvas
+            universeCtx.clearRect(0, 0, universe.width, universe.height);
+            
+            // Draw and update stars
+            drawStars();
+            
+            // Request next frame
+            requestAnimationFrame(animate);
+        }
+
+        // Draw stars
+        function drawStars() {
+            for (let i = 0; i < stars.length; i++) {
+                const star = stars[i];
+                
+                // Update star position
+                star.y += star.speed;
+                if (star.y > universe.height) {
+                    star.y = 0;
+                    star.x = Math.random() * universe.width;
+                }
+                
+                // Calculate brightness
+                let brightness = star.brightness;
+                if (star.blinking) {
+                    star.blinkPhase += 0.02;
+                    brightness *= (0.5 + 0.5 * Math.sin(star.blinkPhase));
+                }
+                
+                // Draw star
+                universeCtx.fillStyle = `rgba(255, 255, 255, ${brightness})`;
+                universeCtx.beginPath();
+                universeCtx.arc(star.x, star.y, star.size, 0, Math.PI * 2);
+                universeCtx.fill();
+                
+                // Add glow effect for brighter stars
+                if (star.size > 2) {
+                    universeCtx.globalAlpha = 0.2 * brightness;
+                    universeCtx.beginPath();
+                    universeCtx.arc(star.x, star.y, star.size * 2, 0, Math.PI * 2);
+                    universeCtx.fill();
+                    universeCtx.globalAlpha = 1.0;
+                }
+            }
+        }
+
+        // Add constellation-like patterns in the background
+        function drawConstellations() {
+            universeCtx.strokeStyle = 'rgba(255, 255, 255, 0.2)';
+            universeCtx.lineWidth = 0.5;
+            
+            // Select random stars to form constellations
+            for (let i = 0; i < 5; i++) {
+                const constellationSize = 3 + Math.floor(Math.random() * 4);
+                const constellationStars = [];
+                
+                // Select random stars
+                for (let j = 0; j < constellationSize; j++) {
+                    const starIndex = Math.floor(Math.random() * stars.length);
+                    constellationStars.push(stars[starIndex]);
+                }
+                
+                // Draw lines between stars
+                universeCtx.beginPath();
+                universeCtx.moveTo(constellationStars[0].x, constellationStars[0].y);
+                for (let j = 1; j < constellationStars.length; j++) {
+                    universeCtx.lineTo(constellationStars[j].x, constellationStars[j].y);
+                }
+                universeCtx.stroke();
+            }
+        }
+
+        // Mobile touch support
+        function setupTouchSupport() {
+            let touchStartX = 0;
+            let touchStartY = 0;
+            let touchMoved = false;
+            
+            mapContainer.addEventListener('touchstart', function(e) {
+                touchStartX = e.touches[0].clientX;
+                touchStartY = e.touches[0].clientY;
+                touchMoved = false;
+            });
+            
+            mapContainer.addEventListener('touchmove', function(e) {
+                if (e.touches.length > 0) {
+                    const deltaX = touchStartX - e.touches[0].clientX;
+                    const deltaY = touchStartY - e.touches[0].clientY;
+                    
+                    if (Math.abs(deltaX) > 10 || Math.abs(deltaY) > 10) {
+                        touchMoved = true;
+                    }
+                }
+            });
+            
+            mapContainer.addEventListener('touchend', function(e) {
+                if (!touchMoved) {
+                    // Simulate click if touch didn't move much
+                    const touch = e.changedTouches[0];
+                    const element = document.elementFromPoint(touch.clientX, touch.clientY);
+                    
+                    const node = element.closest('.node');
+                    if (node) {
+                        openNodeContent(node);
+                    }
+                }
+            });
+        }
+
+        // Add to event listeners
+        function setupEventListeners() {
+            // Node click event
+            knowledgeMap.addEventListener('click', function(event) {
+                const node = event.target.closest('.node');
+                if (node) {
+                    openNodeContent(node);
+                }
+            });
+            
+            // Close button event
+            closeButton.addEventListener('click', function() {
+                closeContent();
+            });
+            
+            // Show more button event
+            showMoreButton.addEventListener('click', function() {
+                showFullContent();
+            });
+            
+            // Nav helper event
+            navHelper.addEventListener('click', function() {
+                scrollToBaseNode();
+            });
+            
+            // Event delegation for quiz buttons
+            contentPanel.addEventListener('click', function(event) {
+                if (event.target.id === 'start-quiz-button') {
+                    const nodeTitle = contentFull.dataset.nodeTitle;
+                    startQuiz(nodeTitle);
+                }
+            });
+        }
+
+        // Additional variables needed for quiz system
+        let completedQuizzes = new Set(JSON.parse(localStorage.getItem('completedQuizzes') || '[]'));
+
+        // Modify the existing functions
+        function showFullContent() {
+            contentPreview.style.display = 'none';
+            contentFull.style.display = 'block';
+            showMoreButton.style.display = 'none';
+            
+            // Expand panel to full screen
+            contentPanel.style.height = '100%';
+            contentPanel.style.width = '100%';
+            contentPanel.style.maxWidth = '100%';
+            contentPanel.style.maxHeight = '100%';
+            contentPanel.style.top = '50%';
+            contentPanel.style.transform = 'translate(-50%, -50%)';
+            contentPanel.classList.add('expanded');
+            
+            // Fully dim the map
+            document.getElementById('map-container').classList.add('dimmed');
+        }
+
+        // Document ready function changes
+        document.addEventListener('DOMContentLoaded', function() {
+            // Get DOM elements
+            universe = document.getElementById('universe');
+            universeCtx = universe.getContext('2d');
+            mapContainer = document.getElementById('map-container');
+            knowledgeMap = document.getElementById('knowledge-map');
+            contentPanel = document.getElementById('content-panel');
+            contentPreview = document.getElementById('content-preview');
+            contentFull = document.getElementById('content-full');
+            showMoreButton = document.getElementById('show-more-button');
+            closeButton = document.getElementById('close-button');
+            contentTitle = document.getElementById('content-title');
+            pointsDisplay = document.getElementById('points-display');
+            progressBar = document.getElementById('progress-bar');
+            progressText = document.getElementById('progress-text');
+            navHelper = document.getElementById('nav-helper');
+            // Update display with saved values
+            pointsDisplay.textContent = `${points} points`;
+            // Now load saved progress
+            loadSavedProgress();
+            // Add quizzes to knowledge structure
+            knowledgeStructure = addQuizzesToKnowledgeStructure(knowledgeStructure);
+            
+            // Count total nodes and set max points
+            totalNodes = countNodes(knowledgeStructure);
+            config.maxPoints = totalNodes * 20; // Increase max points for quizzes
+
+            // Update progress display
+            updateProgress();
+            
+            // Initialize the universe
+            initUniverse();
+            
+            // Create the knowledge map
+            createMap();
+            
+            // Set up event listeners
+            setupEventListeners();
+            
+            // Start animations
+            animate();
+            
+            // Initial scroll to base node
+            setTimeout(() => {
+                scrollToBaseNode();
+            }, 500);
+        });
+
+        // Add CSS styles
+        function addQuizStyles() {
+            const styleSheet = document.createElement("style");
+            styleSheet.innerText = `
+                .quiz-container {
+                    margin-top: 30px;
+                    padding: 25px;
+                    background: rgba(13, 17, 23, 0.75);
+                    border-radius: 16px;
+                    text-align: center;
+                    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+                    backdrop-filter: blur(8px);
+                    border: 1px solid rgba(255, 255, 255, 0.1);
+                    max-width: 800px;
+                    margin-left: auto;
+                    margin-right: auto;
+                }
+                
+                .start-quiz-button, .submit-quiz-button, .close-quiz-button, .retake-quiz-button {
+                    background: linear-gradient(135deg, #4a90e2 0%, #2a65c0 100%);
+                    color: white;
+                    border: none;
+                    padding: 12px 28px;
+                    border-radius: 8px;
+                    font-size: 16px;
+                    font-weight: 600;
+                    cursor: pointer;
+                    margin: 15px 0;
+                    transition: all 0.3s ease;
+                    box-shadow: 0 4px 12px rgba(42, 101, 192, 0.3);
+                    text-transform: uppercase;
+                    letter-spacing: 0.5px;
+                }
+
+                .start-quiz-button:hover, .submit-quiz-button:hover, .close-quiz-button:hover, .retake-quiz-button:hover {
+                    background: linear-gradient(135deg, #3a7bc8 0%, #1a55b0 100%);
+                    transform: translateY(-2px);
+                    box-shadow: 0 6px 16px rgba(42, 101, 192, 0.4);
+                }
+                
+                .start-quiz-button:active, .submit-quiz-button:active, .close-quiz-button:active, .retake-quiz-button:active {
+                    transform: translateY(1px);
+                    box-shadow: 0 2px 8px rgba(42, 101, 192, 0.3);
+                }
+                
+                .quiz-questions {
+                    padding: 20px;
+                    display: flex;
+                    flex-direction: column;
+                    gap: 24px;
+                }
+                
+                .quiz-question {
+                    margin-bottom: 24px;
+                    padding: 20px 24px;
+                    background: rgba(255, 255, 255, 0.05);
+                    border-radius: 12px;
+                    border-left: 4px solid transparent;
+                    transition: all 0.3s ease;
+                    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+                }
+                
+                .quiz-question:hover {
+                    background: rgba(255, 255, 255, 0.08);
+                    transform: translateY(-2px);
+                    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+                }
+                
+                .question-text {
+                    font-weight: bold;
+                    margin-bottom: 16px;
+                    font-size: 18px;
+                    color: rgba(255, 255, 255, 0.95);
+                    line-height: 1.5;
+                }
+                
+                .options-container {
+                    display: flex;
+                    flex-direction: column;
+                    gap: 12px;
+                    padding-left: 8px;
+                }
+                
+                .option {
+                    display: flex;
+                    align-items: center;
+                    gap: 12px;
+                    padding: 12px 16px;
+                    border-radius: 8px;
+                    background: rgba(255, 255, 255, 0.03);
+                    transition: all 0.2s ease;
+                    border: 1px solid rgba(255, 255, 255, 0.05);
+                }
+                
+                .option:hover {
+                    background: rgba(255, 255, 255, 0.08);
+                    border-color: rgba(255, 255, 255, 0.1);
+                }
+                
+                .option input[type="radio"] {
+                    cursor: pointer;
+                    width: 20px;
+                    height: 20px;
+                    accent-color: #4a90e2;
+                }
+                
+                .option label {
+                    cursor: pointer;
+                    flex-grow: 1;
+                    font-size: 16px;
+                    line-height: 1.5;
+                    color: rgba(255, 255, 255, 0.9);
+                }
+                
+                .quiz-controls {
+                    margin-top: 30px;
+                    text-align: center;
+                    padding: 10px;
+                }
+                
+                .quiz-results {
+                    margin-top: 30px;
+                    padding: 25px;
+                    background: rgba(13, 17, 23, 0.8);
+                    border-radius: 16px;
+                    text-align: center;
+                    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+                    backdrop-filter: blur(8px);
+                    border: 1px solid rgba(255, 255, 255, 0.1);
+                    animation: fadeIn 0.5s ease-out;
+                }
+                
+                @keyframes fadeIn {
+                    from { opacity: 0; transform: translateY(20px); }
+                    to { opacity: 1; transform: translateY(0); }
+                }
+                
+                .quiz-results h3 {
+                    font-size: 24px;
+                    margin-bottom: 16px;
+                    color: rgba(255, 255, 255, 0.95);
+                }
+                
+                .quiz-results p {
+                    font-size: 18px;
+                    margin-bottom: 12px;
+                    color: rgba(255, 255, 255, 0.9);
+                }
+                
+                .correct-answer {
+                    border-left: 4px solid #4CAF50;
+                    background: rgba(76, 175, 80, 0.08);
+                    position: relative;
+                    overflow: hidden;
+                }
+                
+                .correct-answer::after {
+                    content: "✓";
+                    position: absolute;
+                    top: 10px;
+                    right: 15px;
+                    color: #4CAF50;
+                    font-size: 20px;
+                    font-weight: bold;
+                }
+                
+                .wrong-answer {
+                    border-left: 4px solid #F44336;
+                    background: rgba(244, 67, 54, 0.08);
+                    position: relative;
+                    overflow: hidden;
+                }
+                
+                .wrong-answer::after {
+                    content: "✗";
+                    position: absolute;
+                    top: 10px;
+                    right: 15px;
+                    color: #F44336;
+                    font-size: 20px;
+                    font-weight: bold;
+                }
+                
+                .unanswered {
+                    border-left: 4px solid #FFC107;
+                    background: rgba(255, 193, 7, 0.08);
+                    position: relative;
+                    overflow: hidden;
+                }
+                
+                .unanswered::after {
+                    content: "!";
+                    position: absolute;
+                    top: 10px;
+                    right: 15px;
+                    color: #FFC107;
+                    font-size: 20px;
+                    font-weight: bold;
+                }
+                
+                .points-animation {
+                    position: absolute;
+                    color: #4CAF50;
+                    font-weight: bold;
+                    font-size: 20px;
+                    pointer-events: none;
+                    animation: float-up 1.5s ease-out forwards, fade-out 1.5s ease-out forwards;
+                    text-shadow: 0 0 10px rgba(76, 175, 80, 0.5);
+                    z-index: 1000;
+                }
+                
+                @keyframes float-up {
+                    0% { transform: translateY(0) scale(1); }
+                    50% { transform: translateY(-50px) scale(1.2); }
+                    100% { transform: translateY(-100px) scale(1); }
+                }
+                
+                @keyframes fade-out {
+                    0% { opacity: 1; }
+                    70% { opacity: 0.7; }
+                    100% { opacity: 0; }
+                }
+                
+                /* Responsive adjustments */
+                @media (max-width: 768px) {
+                    .quiz-container, .quiz-results {
+                        padding: 15px;
+                        margin-top: 20px;
+                    }
+                    
+                    .quiz-question {
+                        padding: 15px;
+                    }
+                    
+                    .question-text {
+                        font-size: 16px;
+                    }
+                    
+                    .option {
+                        padding: 10px;
+                    }
+                    
+                    .option label {
+                        font-size: 14px;
+                    }
+                }
+            `;
+            document.head.appendChild(styleSheet);
+        }
+
+
+        // Funktion aufrufen, um die Stile hinzuzufügen
+        addQuizStyles();
+        
+
+        // Setup device orientation for mobile devices
+        function setupDeviceOrientation() {
+            if (window.DeviceOrientationEvent) {
+                window.addEventListener('deviceorientation', function(event) {
+                    const tiltX = event.beta;  // -90 to 90
+                    const tiltY = event.gamma; // -90 to 90
+                    
+                    if (tiltX !== null && tiltY !== null) {
+                        // Adjust star movement based on device tilt
+                        for (let i = 0; i < stars.length; i++) {
+                            const star = stars[i];
+                            star.x += tiltY * star.speed * 0.1;
+                            star.y += tiltX * star.speed * 0.1;
+                            
+                            // Keep stars within bounds
+                            if (star.x < 0) star.x = universe.width;
+                            if (star.x > universe.width) star.x = 0;
+                            if (star.y < 0) star.y = universe.height;
+                            if (star.y > universe.height) star.y = 0;
+                        }
+                    }
+                });
+            }
+        }
+
+        function generateQuizForNode(node) {
+            const title = node.title;
+            const description = node.description;
+            
+            // Create domain-specific terminology based on the node title
+            const domainTerms = getDomainTerms(title);
+            
+            return [
+                {
+                    question: `How do experts in ${title} approach ${domainTerms.coreActivity} differently from novices?`,
+                    options: [
+                        `By analyzing variables in isolation`,
+                        `Through ${domainTerms.expertProcess} that reveals underlying patterns and principles`,
+                        `Through intuitive leaps without verification`,
+                        `By rigidly applying memorized frameworks regardless of context, often leading to inflexible solutions that fail to adapt to the unique characteristics of novel situations`
+                    ],
+                    correctAnswer: 1
+                },
+                {
+                    question: `Which insight from ${domainTerms.keyThinker}'s work transformed our understanding of ${title}?`,
+                    options: [
+                        `Their rejection of empirical methods`,
+                        `Nothing significant - they merely repackaged existing ideas`,
+                        `The integration of ${domainTerms.concept1} with ${domainTerms.concept2}`,
+                        `Their exclusive focus on commercial applications at the expense of theoretical depth, which ultimately limited the long-term impact of their work despite initial popularity in applied settings`
+                    ],
+                    correctAnswer: 2
+                },
+                {
+                    question: `What fundamental shift occurred during the ${domainTerms.historicalShift} that changed ${title} practice?`,
+                    options: [
+                        `Nothing changed fundamentally`,
+                        `It eliminated specialized knowledge requirements`,
+                        `It oversimplified complex ideas for mass appeal, sacrificing nuance for accessibility in ways that continue to create misconceptions among practitioners today`,
+                        `It revealed critical limitations in the ${domainTerms.oldParadigm} model`
+                    ],
+                    correctAnswer: 3
+                },
+                {
+                    question: `How can you apply ${domainTerms.technique} to improve your personal mastery of ${title}?`,
+                    options: [
+                        `By following procedures mechanically`,
+                        `By focusing exclusively on quantifiable metrics`,
+                        `By creating connections between theoretical understanding and practical application`,
+                        `You can't - it's purely theoretical and has little relevance to real-world practice despite its prominence in academic literature and educational contexts`
+                    ],
+                    correctAnswer: 2
+                },
+                {
+                    question: `What personal breakthrough often occurs when people understand that ${domainTerms.misconception} is false?`,
+                    options: [
+                        `They recognize that structured practice, not just talent, drives expertise`,
+                        `They prioritize theory over practice, creating an intellectual framework that often becomes disconnected from practical application and fails to translate into improved performance`,
+                        `Nothing changes in their approach`,
+                        `They abandon formal education entirely`
+                    ],
+                    correctAnswer: 0
+                },
+                {
+                    question: `How would adopting ${domainTerms.methodology} rather than ${domainTerms.alternativeApproach} change your results?`,
+                    options: [
+                        `Results would come faster but with less depth`,
+                        `No meaningful difference would occur`,
+                        `It would require more resources but yield identical results, creating unnecessary complexity that ultimately serves only to signal sophistication rather than improve outcomes`,
+                        `It would enhance ${domainTerms.methodologicalDifference} in your work`
+                    ],
+                    correctAnswer: 3
+                },
+                {
+                    question: `How can you harness the tension in ${domainTerms.paradox} to advance your understanding of ${title}?`,
+                    options: [
+                        `By treating it as merely a teaching metaphor`,
+                        `By waiting until you have more expertise, as attempting to engage with such complex tensions prematurely can lead to confusion and misapplication of fundamental principles`,
+                        `By using it to challenge boundaries and drive innovation in your thinking`,
+                        `You can't - it's an unresolved contradiction`
+                    ],
+                    correctAnswer: 2
+                },
+                {
+                    question: `How has digital transformation created new opportunities for applying ${domainTerms.principle} in your ${title} practice?`,
+                    options: [
+                        `Through more precise but potentially biased measurement`,
+                        `By making traditional approaches obsolete, though this obsolescence is often overstated by technology advocates who fail to recognize the enduring value of established methodologies`,
+                        `It hasn't - digital tools are irrelevant here`,
+                        `By revealing new dimensions of ${domainTerms.digitalImpact}`
+                    ],
+                    correctAnswer: 3
+                },
+                {
+                    question: `What valuable insight might you gain by applying ${title} frameworks to ${domainTerms.crossDisciplinaryField}?`,
+                    options: [
+                        `That established theories need complete revision`,
+                        `The discovery of ${domainTerms.insight}`,
+                        `That cross-disciplinary application is impossible due to fundamental epistemological differences between fields that create insurmountable barriers to meaningful knowledge transfer`,
+                        `Nothing significant`
+                    ],
+                    correctAnswer: 1
+                },
+                {
+                    question: `Why should you persist with ${domainTerms.practice} despite experiencing ${domainTerms.limitation} initially?`,
+                    options: [
+                        `Only for credentials and professional recognition, as the practice itself has been largely superseded by more efficient approaches that don't require the same initial performance sacrifices`,
+                        `Purely out of respect for tradition`,
+                        `Because it develops ${domainTerms.benefit} that transforms your capabilities`,
+                        `You shouldn't - most experts reject this practice`
+                    ],
+                    correctAnswer: 2
+                }
+            ];
+        }
+
+        // Helper function to generate domain-specific terminology
+        function getDomainTerms(title) {
+            // Default terms
+            let terms = {
+                coreActivity: "problem-solving",
+                expertProcess: "systematic pattern recognition",
+                keyThinker: "Kahneman",
+                concept1: "dual-process theory",
+                concept2: "heuristic evaluation",
+                concept3: "deliberate practice",
+                historicalShift: "cognitive revolution",
+                oldParadigm: "behaviorist",
+                technique: "metacognitive reflection",
+                misconception: "expertise develops primarily through talent rather than structured practice",
+                methodology: "empirical validation",
+                alternativeApproach: "intuitive reasoning",
+                methodologicalDifference: "falsifiability and replicability",
+                paradox: "novice-expert reversal effect",
+                principle: "transfer of learning",
+                digitalImpact: "contextual application",
+                crossDisciplinaryField: "decision science",
+                insight: "domain-general principles underlying seemingly domain-specific skills",
+                practice: "deliberate difficulty",
+                limitation: "initial performance decrease",
+                benefit: "adaptive expertise"
+            };
+            
+            // Customize terms based on domain
+            if (title.toLowerCase().includes("art") || title.toLowerCase().includes("creativ")) {
+                terms = {
+                    coreActivity: "creative expression",
+                    expertProcess: "divergent ideation",
+                    keyThinker: "Csikszentmihalyi",
+                    concept1: "flow state",
+                    concept2: "intrinsic motivation",
+                    concept3: "creative constraints",
+                    historicalShift: "postmodern movement",
+                    oldParadigm: "representational",
+                    technique: "lateral thinking",
+                    misconception: "creativity emerges only from complete freedom rather than structured constraints",
+                    methodology: "iterative prototyping",
+                    alternativeApproach: "formulaic production",
+                    methodologicalDifference: "emergent discovery versus predetermined outcomes",
+                    paradox: "constraint-creativity enhancement",
+                    principle: "aesthetic coherence",
+                    digitalImpact: "democratized production",
+                    crossDisciplinaryField: "therapeutic practice",
+                    insight: "neurological similarities between analytical and creative processes",
+                    practice: "technical mastery",
+                    limitation: "expressive limitation",
+                    benefit: "intuitive fluency"
+                };
+            } else if (title.toLowerCase().includes("science") || title.toLowerCase().includes("research")) {
+                terms = {
+                    coreActivity: "empirical investigation",
+                    expertProcess: "hypothesis testing",
+                    keyThinker: "Popper",
+                    concept1: "falsifiability",
+                    concept2: "empirical verification",
+                    concept3: "paradigm shifts",
+                    historicalShift: "quantum revolution",
+                    oldParadigm: "Newtonian",
+                    technique: "controlled experimentation",
+                    misconception: "scientific progress occurs through steady accumulation rather than revolutionary shifts",
+                    methodology: "statistical inference",
+                    alternativeApproach: "deductive reasoning",
+                    methodologicalDifference: "probabilistic versus deterministic conclusions",
+                    paradox: "observer effect",
+                    principle: "replicability",
+                    digitalImpact: "big data analysis",
+                    crossDisciplinaryField: "social systems",
+                    insight: "emergent properties that transcend reductionist explanation",
+                    practice: "methodological rigor",
+                    limitation: "apparent inefficiency",
+                    benefit: "reliability"
+                };
+            } else if (title.toLowerCase().includes("philosophy") || title.toLowerCase().includes("ethics")) {
+                terms = {
+                    coreActivity: "conceptual analysis",
+                    expertProcess: "dialectical reasoning",
+                    keyThinker: "Wittgenstein",
+                    concept1: "language games",
+                    concept2: "family resemblance",
+                    concept3: "categorical imperative",
+                    historicalShift: "linguistic turn",
+                    oldParadigm: "metaphysical",
+                    technique: "thought experiments",
+                    misconception: "philosophical questions have definitive answers rather than evolving frameworks",
+                    methodology: "conceptual clarification",
+                    alternativeApproach: "mystical intuition",
+                    methodologicalDifference: "analytical precision versus synthetic breadth",
+                    paradox: "sorites problem",
+                    principle: "logical consistency",
+                    digitalImpact: "distributed epistemology",
+                    crossDisciplinaryField: "cognitive science",
+                    insight: "embodied nature of seemingly abstract reasoning",
+                    practice: "charitable interpretation",
+                    limitation: "apparent impracticality",
+                    benefit: "conceptual clarity"
+                };
+            }
+            
+            return terms;
+        }
+
+
+
+
+
+
+
+
+
+        // Modify the knowledgeStructure to add quiz questions to each node
+        function addQuizzesToKnowledgeStructure(structure) {
+            // Add quiz to base node
+            structure.quiz = [
+                {
+                    question: "What is knowledge often characterized as?",
+                    options: [
+                        "Physical objects",
+                        "Theoretical or practical understanding of a subject",
+                        "Mathematical formulas only",
+                        "Government secrets"
+                    ],
+                    correctAnswer: 1
+                },
+                {
+                    question: "Which feature has been central throughout human history?",
+                    options: [
+                        "The pursuit of wealth",
+                        "The pursuit of knowledge",
+                        "The pursuit of power",
+                        "The pursuit of entertainment"
+                    ],
+                    correctAnswer: 1
+                },
+                {
+                    question: "Which philosophical concept is most closely associated with the nature of knowledge?",
+                    options: [
+                        "Ontology",
+                        "Epistemology",
+                        "Axiology",
+                        "Phenomenology"
+                    ],
+                    correctAnswer: 1
+                },
+                {
+                    question: "What distinguishes tacit knowledge from explicit knowledge?",
+                    options: [
+                        "Tacit knowledge is more valuable",
+                        "Explicit knowledge is always scientific",
+                        "Tacit knowledge is difficult to transfer through verbal means",
+                        "Explicit knowledge cannot be documented"
+                    ],
+                    correctAnswer: 2
+                },
+                {
+                    question: "Which cognitive process is most fundamental to knowledge acquisition?",
+                    options: [
+                        "Memorization",
+                        "Perception",
+                        "Calculation",
+                        "Imagination"
+                    ],
+                    correctAnswer: 1
+                },
+                {
+                    question: "In epistemology, what is meant by 'justified true belief'?",
+                    options: [
+                        "Religious doctrine that has been proven",
+                        "A classical definition of knowledge",
+                        "A legal standard for evidence",
+                        "A psychological state of certainty"
+                    ],
+                    correctAnswer: 1
+                },
+                {
+                    question: "How does the concept of 'knowledge transfer' relate to organizational learning?",
+                    options: [
+                        "It refers only to formal education programs",
+                        "It's the process of moving physical documents between departments",
+                        "It describes how knowledge moves between individuals and groups within organizations",
+                        "It's a technical term for data migration between systems"
+                    ],
+                    correctAnswer: 2
+                },
+                {
+                    question: "What is the 'knowledge economy' characterized by?",
+                    options: [
+                        "An economy where physical goods are the primary value",
+                        "An economy where intellectual capabilities are more important than physical inputs or natural resources",
+                        "An economy based primarily on agricultural production",
+                        "An economy where all information is freely available"
+                    ],
+                    correctAnswer: 1
+                },
+                {
+                    question: "Which cognitive bias most directly interferes with knowledge acquisition?",
+                    options: [
+                        "Confirmation bias",
+                        "Gambler's fallacy",
+                        "Dunning-Kruger effect",
+                        "Hindsight bias"
+                    ],
+                    correctAnswer: 0
+                },
+                {
+                    question: "What is the relationship between data, information, and knowledge in the DIKW pyramid?",
+                    options: [
+                        "They are synonymous terms with no hierarchical relationship",
+                        "Data is processed into information, which is then contextualized into knowledge",
+                        "Knowledge is processed into information, which is then broken down into data",
+                        "They represent completely separate and unrelated concepts"
+                    ],
+                    correctAnswer: 1
+                }
+            ];
+            
+            // Add quizzes to first level children
+            if (structure.children) {
+                // Art & Creativity
+                structure.children[0].quiz = [
+                    {
+                        question: "What does art encompass?",
+                        options: [
+                            "Only visual arts",
+                            "Only performing arts",
+                            "Diverse range of human creative activities",
+                            "Only digital creations"
+                        ],
+                        correctAnswer: 2
+                    },
+                    {
+                        question: "What are the two processes involved in creativity?",
+                        options: [
+                            "Planning and executing",
+                            "Thinking and producing",
+                            "Learning and copying",
+                            "Designing and selling"
+                        ],
+                        correctAnswer: 1
+                    },
+                    {
+                        question: "Which cognitive process is most strongly associated with artistic creativity?",
+                        options: [
+                            "Convergent thinking",
+                            "Divergent thinking",
+                            "Analytical reasoning",
+                            "Deductive logic"
+                        ],
+                        correctAnswer: 1
+                    },
+                    {
+                        question: "What is the 'flow state' in creative work?",
+                        options: [
+                            "A technique for applying paint smoothly",
+                            "A psychological state of complete immersion and focus in an activity",
+                            "A business model for selling art",
+                            "A method for organizing creative projects"
+                        ],
+                        correctAnswer: 1
+                    },
+                    {
+                        question: "How does constraint paradoxically affect creativity?",
+                        options: [
+                            "It always inhibits creative expression",
+                            "It has no effect on creativity",
+                            "It often enhances creativity by providing boundaries within which to innovate",
+                            "It only affects novice artists, not professionals"
+                        ],
+                        correctAnswer: 2
+                    },
+                    {
+                        question: "What distinguishes artistic expression from other forms of communication?",
+                        options: [
+                            "It always requires specialized tools",
+                            "It emphasizes aesthetic and emotional qualities",
+                            "It must be understood by everyone",
+                            "It cannot convey specific messages"
+                        ],
+                        correctAnswer: 1
+                    },
+                    {
+                        question: "Which neurological process is most closely associated with creative insight?",
+                        options: [
+                            "Alpha wave synchronization",
+                            "Increased activity in the prefrontal cortex",
+                            "Remote association between previously unconnected neural networks",
+                            "Decreased brain activity overall"
+                        ],
+                        correctAnswer: 2
+                    },
+                    {
+                        question: "What is the relationship between technical skill and creativity in art?",
+                        options: [
+                            "Technical skill is irrelevant to creativity",
+                            "Technical skill is the same as creativity",
+                            "Technical skill provides the foundation that enables creative expression",
+                            "Technical skill inhibits true creativity"
+                        ],
+                        correctAnswer: 2
+                    },
+                    {
+                        question: "How does intrinsic motivation differ from extrinsic motivation in creative work?",
+                        options: [
+                            "Intrinsic motivation comes from external rewards like money or recognition",
+                            "Extrinsic motivation comes from internal satisfaction",
+                            "Intrinsic motivation comes from enjoyment of the process itself",
+                            "There is no difference between the two types of motivation"
+                        ],
+                        correctAnswer: 2
+                    },
+                    {
+                        question: "What is 'creative destruction' in the context of artistic innovation?",
+                        options: [
+                            "The physical destruction of artworks",
+                            "The process by which new artistic movements replace established conventions",
+                            "Vandalism of public art",
+                            "The deterioration of artistic skills over time"
+                        ],
+                        correctAnswer: 1
+                    }
+                ];
+                
+                // Philosophy
+                structure.children[1].quiz = [
+                    {
+                        question: "What is philosophy?",
+                        options: [
+                            "The study of the cosmos",
+                            "The systematic study of fundamental questions",
+                            "The practice of meditation",
+                            "The study of historical events"
+                        ],
+                        correctAnswer: 1
+                    },
+                    {
+                        question: "How does philosophy approach issues differently from other fields?",
+                        options: [
+                            "Through laboratory experiments",
+                            "Through empirical observation only",
+                            "Through critical discussion and rational argument",
+                            "Through religious teachings"
+                        ],
+                        correctAnswer: 2
+                    },
+                    {
+                        question: "What is the primary concern of epistemology?",
+                        options: [
+                            "The nature of existence",
+                            "The nature of knowledge and justified belief",
+                            "The nature of beauty",
+                            "The nature of moral values"
+                        ],
+                        correctAnswer: 1
+                    },
+                    {
+                        question: "Which philosophical concept addresses the question 'What exists?'",
+                        options: [
+                            "Epistemology",
+                            "Ethics",
+                            "Ontology",
+                            "Aesthetics"
+                        ],
+                        correctAnswer: 2
+                    },
+                    {
+                        question: "What is the 'mind-body problem' in philosophy?",
+                        options: [
+                            "A medical condition affecting philosophers",
+                            "The question of how physical exercise affects thinking",
+                            "The question of how mental phenomena relate to physical phenomena",
+                            "A debate about the importance of physical education"
+                        ],
+                        correctAnswer: 2
+                    },
+                    {
+                        question: "What distinguishes analytic philosophy from continental philosophy?",
+                        options: [
+                            "Analytic philosophy focuses on precise language and logical analysis",
+                            "Continental philosophy is only practiced in Europe",
+                            "Analytic philosophy rejects all metaphysical questions",
+                            "Continental philosophy never uses logical arguments"
+                        ],
+                        correctAnswer: 0
+                    },
+                    {
+                        question: "What is the 'categorical imperative' in Kant's moral philosophy?",
+                        options: [
+                            "A suggestion to categorize all moral actions",
+                            "A principle that one should act only according to that maxim by which you can at the same time will that it should become a universal law",
+                            "The idea that consequences determine moral worth",
+                            "The belief that moral rules are relative to cultures"
+                        ],
+                        correctAnswer: 1
+                    },
+                    {
+                        question: "What is the 'problem of induction' in philosophy of science?",
+                        options: [
+                            "The difficulty of inducing students to study science",
+                            "The challenge of establishing general laws from specific observations",
+                            "The problem of scientific recruitment",
+                            "The challenge of applying scientific theories in technology"
+                        ],
+                        correctAnswer: 1
+                    },
+                    {
+                        question: "What is 'phenomenology' primarily concerned with?",
+                        options: [
+                            "Supernatural phenomena",
+                            "The structure of conscious experience as experienced from the first-person perspective",
+                            "Physical phenomena in nature",
+                            "Social phenomena in groups"
+                        ],
+                        correctAnswer: 1
+                    },
+                    {
+                        question: "What is the 'is-ought problem' in ethics?",
+                        options: [
+                            "The question of whether ethics should be studied at all",
+                            "The problem of determining what one ought to do",
+                            "The difficulty of deriving prescriptive statements (what ought to be) from descriptive statements (what is)",
+                            "The challenge of implementing ethical theories in practice"
+                        ],
+                        correctAnswer: 2
+                    }
+                ];
+                
+                // Personal Development
+                structure.children[2].quiz = [
+                    {
+                        question: "What does personal development encompass?",
+                        options: [
+                            "Only professional skills",
+                            "Only academic achievements",
+                            "Activities that improve awareness, identity and potential",
+                            "Only physical fitness"
+                        ],
+                        correctAnswer: 2
+                    },
+                    {
+                        question: "Personal development is limited to:",
+                        options: [
+                            "Early childhood development",
+                            "Professional development",
+                            "Self-help books",
+                            "It is not limited to one period and spans a person's entire life"
+                        ],
+                        correctAnswer: 3
+                    },
+                    {
+                        question: "What is the concept of 'growth mindset' in personal development?",
+                        options: [
+                            "The belief that intelligence and abilities are fixed traits",
+                            "The belief that intelligence and abilities can be developed through dedication and hard work",
+                            "A focus exclusively on physical growth",
+                            "A marketing strategy for self-help products"
+                        ],
+                        correctAnswer: 1
+                    },
+                    {
+                        question: "How does metacognition contribute to personal development?",
+                        options: [
+                            "It has no relationship to personal development",
+                            "It refers to physical exercise that enhances cognitive function",
+                            "It involves awareness and understanding of one's own thought processes",
+                            "It's a technique for memorizing information quickly"
+                        ],
+                        correctAnswer: 2
+                    },
+                    {
+                        question: "What is the 'zone of proximal development' in learning theory?",
+                        options: [
+                            "The physical location where learning best occurs",
+                            "The gap between what a learner can do without help and what they can achieve with guidance",
+                            "The maximum potential a person can reach in their lifetime",
+                            "The ideal temperature range for studying"
+                        ],
+                        correctAnswer: 1
+                    },
+                    {
+                        question: "How does 'deliberate practice' differ from regular practice?",
+                        options: [
+                            "It requires more time but not more effort",
+                            "It focuses on quantity rather than quality",
+                            "It involves purposeful focus on improving specific aspects with feedback",
+                            "It can only be done with a professional coach"
+                        ],
+                        correctAnswer: 2
+                    },
+                    {
+                        question: "What is emotional intelligence in the context of personal development?",
+                        options: [
+                            "The ability to suppress all emotions",
+                            "The capacity to be aware of, control, and express emotions, and handle interpersonal relationships judiciously and empathetically",
+                            "A measure of how emotionally sensitive someone is",
+                            "A pseudoscientific concept with no practical application"
+                        ],
+                        correctAnswer: 1
+                    },
+                    {
+                        question: "What role does self-reflection play in personal growth?",
+                        options: [
+                            "It's unnecessary and can be counterproductive",
+                            "It's only useful for people with specific personality types",
+                            "It facilitates learning from experience and developing self-awareness",
+                            "It's only effective when guided by a professional therapist"
+                        ],
+                        correctAnswer: 2
+                    },
+                    {
+                        question: "How does the concept of 'neuroplasticity' relate to personal development?",
+                        options: [
+                            "It suggests that brain development stops after childhood",
+                            "It refers to the brain's ability to reorganize itself by forming new neural connections throughout life",
+                            "It's a medical condition that inhibits learning",
+                            "It's only relevant for recovery from brain injuries"
+                        ],
+                        correctAnswer: 1
+                    },
+                    {
+                        question: "What is the relationship between goal-setting and personal development?",
+                        options: [
+                            "Effective personal development requires specific, measurable, achievable, relevant, and time-bound goals",
+                            "Goals are irrelevant to personal development",
+                            "Only long-term goals matter for personal development",
+                            "Goal-setting is harmful to authentic personal growth"
+                        ],
+                        correctAnswer: 0
+                    }
+                ];
+                
+                // Add quizzes to second level children
+                for (let i = 0; i < structure.children.length; i++) {
+                    if (structure.children[i].children) {
+                        for (let j = 0; j < structure.children[i].children.length; j++) {
+                            const secondLevelNode = structure.children[i].children[j];
+                            secondLevelNode.quiz = generateQuizForNode(secondLevelNode);
+                        }
+                    }
+                }
+            }
+            
+            return structure;
+        }
+
+
+        // Initialize mobile support
+        if ('ontouchstart' in window || navigator.maxTouchPoints > 0) {
+            setupTouchSupport();
+            setupDeviceOrientation();
+        }
+
+    </script>
+</body>
+</html>
