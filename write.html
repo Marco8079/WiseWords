@@ -3,21 +3,100 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Stoic Reflections</title>
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
-
+    <meta name="description" content="Stoic Reflections Journal - A digital sanctuary for philosophical contemplation and personal growth">
+    <meta name="keywords" content="stoicism, journal, philosophy, reflection, marcus aurelius, seneca, epictetus">
+    <meta name="author" content="Stoic Reflections">
+    <meta property="og:title" content="Stoic Reflections Journal">
+    <meta property="og:description" content="Cultivate wisdom through daily contemplation">
+    <meta property="og:type" content="website">
+    <meta name="theme-color" content="#121212">
+    <title>Stoic Reflections Journal | Cultivate Wisdom</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400;1,600&family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;1,400;1,600&display=swap" rel="stylesheet">
     <style>
+        /* CSS Custom Properties for Theming */
         :root {
-            --primary-bg: #1a1a1a;
-            --secondary-bg: #242424;
+            /* Core Colors */
+            --primary-bg: #121212;
+            --secondary-bg: #1e1e1e;
+            --tertiary-bg: #252525;
             --accent-color: #c0a080;
-            --text-primary: #e0e0e0;
+            --accent-hover: #d4b795;
+            --accent-muted: rgba(192, 160, 128, 0.15);
+            --accent-dark: #a88c6d;
+            --text-primary: #f0f0f0;
             --text-secondary: #a0a0a0;
+            --text-tertiary: #707070;
             --border-color: rgba(192, 160, 128, 0.2);
+            --shadow-color: rgba(0, 0, 0, 0.5);
+            --success-color: #4a9d7e;
+            --success-light: rgba(74, 157, 126, 0.2);
+            --error-color: #b85c5c;
+            --error-light: rgba(184, 92, 92, 0.2);
+            --warning-color: #d7a456;
+            --warning-light: rgba(215, 164, 86, 0.2);
+            --info-color: #5c8cb8;
+            --info-light: rgba(92, 140, 184, 0.2);
+            
+            /* Gradients */
+            --gradient-accent: linear-gradient(135deg, var(--accent-color) 0%, var(--accent-dark) 100%);
+            --gradient-success: linear-gradient(135deg, var(--success-color) 0%, #3a7d64 100%);
+            --gradient-error: linear-gradient(135deg, var(--error-color) 0%, #964a4a 100%);
+            
+            /* Typography */
+            --font-heading: 'Playfair Display', serif;
+            --font-body: 'Inter', sans-serif;
+            --font-quote: 'Cormorant Garamond', serif;
+            
+            /* Spacing */
+            --space-xs: 0.25rem;
+            --space-sm: 0.5rem;
+            --space-md: 1rem;
+            --space-lg: 1.5rem;
+            --space-xl: 2rem;
+            --space-xxl: 3rem;
+            
+            /* Borders & Shadows */
+            --radius-sm: 4px;
+            --radius-md: 8px;
+            --radius-lg: 12px;
+            --radius-xl: 16px;
+            --radius-round: 50%;
+            --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.1);
+            --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.15);
+            --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.2);
+            --shadow-xl: 0 12px 36px rgba(0, 0, 0, 0.25);
+            
+            /* Animations */
+            --transition-fast: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+            --transition-standard: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            --transition-slow: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            --transition-bounce: all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            
+            /* Z-index layers */
+            --z-base: 1;
+            --z-above: 10;
+            --z-modal: 100;
+            --z-toast: 1000;
+        }
+
+        /* Reset & Base Styles */
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            font-size: 16px;
+            scroll-behavior: smooth;
+            height: 100%;
         }
 
         body {
-            font-family: 'Inter', sans-serif;
+            font-family: var(--font-body);
             background: var(--primary-bg);
             color: var(--text-primary);
             margin: 0;
@@ -27,174 +106,1070 @@
             flex-direction: column;
             align-items: center;
             line-height: 1.6;
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(192, 160, 128, 0.03) 0%, transparent 20%),
+                radial-gradient(circle at 90% 80%, rgba(192, 160, 128, 0.03) 0%, transparent 20%);
+            position: relative;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            transition: var(--transition-standard);
         }
 
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23c0a080' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+            z-index: -1;
+            opacity: 0.8;
+            transition: var(--transition-standard);
+        }
+
+        /* Main Container */
         .container {
             width: 90%;
             max-width: 900px;
             margin: 2rem auto;
-            padding: 2rem;
+            padding: 2.5rem;
+            background: var(--secondary-bg);
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-lg);
+            position: relative;
+            overflow: hidden;
+            animation: fadeIn 0.8s ease-out;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
         }
 
+        .container::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: var(--gradient-accent);
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.2); opacity: 0.7; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes shimmer {
+            0% { background-position: -200% 0; }
+            100% { background-position: 200% 0; }
+        }
+
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+
+        /* Navigation */
         .back-arrow {
-            position: fixed;
+            position: absolute;
             top: 2rem;
             left: 2rem;
             font-size: 1.5rem;
             color: var(--accent-color);
             text-decoration: none;
             opacity: 0.7;
-            transition: opacity 0.3s ease;
+            transition: var(--transition-standard);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            z-index: var(--z-above);
         }
 
         .back-arrow:hover {
             opacity: 1;
+            transform: translateX(-3px);
+        }
+
+        .back-arrow span {
+            font-size: 0.9rem;
+            font-weight: 500;
+            letter-spacing: 1px;
+            opacity: 0;
+            transform: translateX(-10px);
+            transition: var(--transition-standard);
+        }
+
+        .back-arrow:hover span {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        /* Header */
+        .header {
+            text-align: center;
+            margin-bottom: var(--space-xxl);
+            position: relative;
+        }
+
+        .header::after {
+            content: "";
+            position: absolute;
+            bottom: -1.5rem;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 1px;
+            background: var(--accent-color);
         }
 
         h1 {
-            font-family: 'Cormorant Garamond', serif;
-            font-size: 3rem;
-            font-weight: 300;
-            color: var(--accent-color);
-            margin: 2rem 0;
-            text-align: center;
-            letter-spacing: 2px;
+            font-family: var(--font-heading);
+            font-size: 3.2rem;
+            font-weight: 400;
+            color: var(--text-primary);
+            margin: 0;
+            letter-spacing: 1px;
+            position: relative;
+            display: inline-block;
         }
 
+        h1::before {
+            content: "";
+            position: absolute;
+            width: 40px;
+            height: 2px;
+            background: var(--accent-color);
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        h1 span {
+            color: var(--accent-color);
+            font-style: italic;
+        }
+
+        .subtitle {
+            font-family: var(--font-body);
+            font-size: 1rem;
+            color: var(--text-secondary);
+            font-weight: 300;
+            margin-top: 1rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        /* Current Folder Display */
         #current-folder {
             text-align: center;
             color: var(--text-secondary);
-            margin-bottom: 2rem;
-            font-size: 0.9rem;
+            margin-bottom: 2.5rem;
+            font-size: 0.95rem;
             letter-spacing: 1px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        #current-folder i {
+            color: var(--accent-color);
+            font-size: 0.9rem;
+        }
+
+        #folder-name {
+            color: var(--accent-color);
+            font-weight: 500;
+            position: relative;
+        }
+
+        #folder-name::after {
+            content: "";
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 100%;
+            height: 1px;
+            background: var(--accent-color);
+            transform: scaleX(0);
+            transform-origin: right;
+            transition: transform 0.3s ease;
+        }
+
+        #current-folder:hover #folder-name::after {
+            transform: scaleX(1);
+            transform-origin: left;
+        }
+
+        /* Input Group */
+        .input-group {
+            position: relative;
+            margin: 2rem 0;
         }
 
         #folder-input {
-            width: 90%;
+            width: 100%;
             max-width: 400px;
-            padding: 1rem;
-            margin: 1rem auto;
+            padding: 1.2rem 1.5rem;
+            margin: 0 auto;
             display: block;
-            background: transparent;
+            background: var(--tertiary-bg);
             border: 1px solid var(--border-color);
             color: var(--text-primary);
-            font-family: 'Inter', sans-serif;
-            font-size: 0.9rem;
-            border-radius: 4px;
-            transition: border-color 0.3s ease;
+            font-family: var(--font-body);
+            font-size: 0.95rem;
+            border-radius: var(--radius-md);
+            transition: var(--transition-standard);
+            box-shadow: var(--shadow-sm);
         }
 
         #folder-input:focus {
             outline: none;
             border-color: var(--accent-color);
+            box-shadow: 0 0 0 3px var(--accent-muted);
+        }
+
+        .input-label {
+            position: absolute;
+            top: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--secondary-bg);
+            padding: 0 10px;
+            font-size: 0.8rem;
+            color: var(--accent-color);
+            letter-spacing: 1px;
+        }
+
+        /* Textarea Container */
+        .textarea-container {
+            position: relative;
+            margin: 2.5rem 0;
         }
 
         textarea {
-            width: 90%;
+            width: 100%;
             height: 400px;
-            padding: 1rem;
-            background: var(--secondary-bg);
+            padding: 1.5rem;
+            background: var(--tertiary-bg);
             border: 1px solid var(--border-color);
             color: var(--text-primary);
-            font-family: 'Inter', sans-serif;
-            font-size: 1rem;
+            font-family: var(--font-quote);
+            font-size: 1.1rem;
             line-height: 1.8;
-            border-radius: 8px;
+            border-radius: var(--radius-lg);
             resize: vertical;
-            margin: 1rem 0;
-            transition: border-color 0.3s ease;
+            transition: var(--transition-standard);
+            box-shadow: var(--shadow-md);
         }
 
         textarea:focus {
             outline: none;
             border-color: var(--accent-color);
+            box-shadow: 0 0 0 3px var(--accent-muted);
         }
 
+        .textarea-container::before,
+        .textarea-container::after {
+            font-family: var(--font-heading);
+            font-size: 5rem;
+            color: var(--accent-color);
+            position: absolute;
+            opacity: 0.15;
+            z-index: var(--z-base);
+            transition: var(--transition-standard);
+            pointer-events: none;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+            line-height: 1;
+        }
+
+        .textarea-container::before {
+            content: "\201C"; /* Opening quote */
+            top: -30px;
+            left: 15px;
+            transform: rotate(-5deg);
+        }
+
+        .textarea-container::after {
+            content: "\201D"; /* Closing quote */
+            bottom: -50px;
+            right: 15px;
+            transform: rotate(5deg);
+        }
+
+        .textarea-container:hover::before {
+            opacity: 0.25;
+            transform: rotate(-8deg) translateY(-5px);
+        }
+
+        .textarea-container:hover::after {
+            opacity: 0.25;
+            transform: rotate(8deg) translateY(5px);
+        }
+
+        /* Word Counter */
+        .word-counter {
+            position: absolute;
+            bottom: 1rem;
+            right: 1.5rem;
+            font-size: 0.8rem;
+            color: var(--text-tertiary);
+            background: var(--tertiary-bg);
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            opacity: 0.8;
+            transition: var(--transition-standard);
+            z-index: var(--z-above);
+        }
+
+        .word-counter:hover {
+            opacity: 1;
+            background: var(--accent-muted);
+            color: var(--accent-color);
+        }
+
+        /* Autosave Indicator */
+        .autosave-indicator {
+            position: absolute;
+            bottom: 1rem;
+            left: 1.5rem;
+            font-size: 0.8rem;
+            color: var(--text-tertiary);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            opacity: 0;
+            transition: var(--transition-standard);
+            z-index: var(--z-above);
+            background: var(--tertiary-bg);
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+        }
+
+        .autosave-indicator.active {
+            opacity: 0.9;
+        }
+
+        .autosave-indicator .dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--success-color);
+            animation: pulse 1.5s infinite;
+        }
+
+        /* Quote */
+        .quote {
+            font-family: var(--font-quote);
+            font-style: italic;
+            color: var(--text-secondary);
+            text-align: center;
+            margin: 2rem 0;
+            padding: 1.5rem;
+            position: relative;
+            background: var(--tertiary-bg);
+            border-radius: var(--radius-md);
+            box-shadow: var(--shadow-sm);
+            border-left: 3px solid var(--accent-color);
+        }
+
+        .quote::before, .quote::after {
+            content: "";
+            position: absolute;
+            width: 30px;
+            height: 1px;
+            background: var(--border-color);
+        }
+
+        .quote::before {
+            top: 0.5rem;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .quote::after {
+            bottom: 0.5rem;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .quote-author {
+            display: block;
+            margin-top: 0.8rem;
+            font-family: var(--font-body);
+            font-style: normal;
+            font-size: 0.8rem;
+            color: var(--accent-color);
+            letter-spacing: 1px;
+        }
+
+        /* Button Group */
         .button-group {
             display: flex;
-            gap: 1rem;
+            gap: 1.5rem;
             justify-content: center;
-            margin-top: 2rem;
+            margin-top: 3rem;
         }
 
         button {
             background: transparent;
             border: 1px solid var(--accent-color);
             color: var(--accent-color);
-            padding: 0.8rem 2rem;
-            font-family: 'Inter', sans-serif;
+            padding: 0.9rem 2.2rem;
+            font-family: var(--font-body);
             font-size: 0.9rem;
+            font-weight: 500;
             cursor: pointer;
-            border-radius: 4px;
-            transition: all 0.3s ease;
-            letter-spacing: 1px;
+            border-radius: var(--radius-md);
+            transition: var(--transition-standard);
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            position: relative;
+            overflow: hidden;
+            z-index: var(--z-base);
+            box-shadow: var(--shadow-sm);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.8rem;
+        }
+
+        button::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 0;
+            height: 100%;
+            background: var(--accent-color);
+            transition: var(--transition-standard);
+            z-index: -1;
         }
 
         button:hover {
-            background: var(--accent-color);
             color: var(--primary-bg);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
         }
 
+        button:hover::before {
+            width: 100%;
+        }
+
+        button:active {
+            transform: translateY(1px);
+            box-shadow: var(--shadow-sm);
+        }
+
+        button i {
+            font-size: 1rem;
+            transition: var(--transition-standard);
+        }
+
+        button:hover i {
+            transform: translateX(3px);
+        }
+
+        /* Export/Import Container */
+        .export-import-container {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .export-import-btn {
+            background: transparent;
+            border: 1px solid var(--border-color);
+            color: var(--text-secondary);
+            padding: 0.5rem 1rem;
+            font-size: 0.8rem;
+            border-radius: var(--radius-sm);
+            cursor: pointer;
+            transition: var(--transition-standard);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .export-import-btn:hover {
+            border-color: var(--accent-color);
+            color: var(--accent-color);
+            background: var(--accent-muted);
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            margin-top: 3rem;
+            color: var(--text-tertiary);
+            font-size: 0.8rem;
+            letter-spacing: 1px;
+            padding-top: 1.5rem;
+            border-top: 1px solid var(--border-color);
+        }
+
+        /* Overlay */
+        #overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(6px);
+            z-index: var(--z-modal);
+            display: none;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        #overlay.active {
+            opacity: 1;
+        }
+
+        /* Modal */
         #folder-list-modal {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0.9);
             background: var(--secondary-bg);
             border: 1px solid var(--border-color);
-            border-radius: 8px;
-            padding: 2rem;
-            width: 73%;
-            max-width: 500px;
-            margin-bottom: 1rem; /* Abstand nach unten hinzugefügt */
+            border-radius: var(--radius-lg);
+            padding: 2.5rem;
+            width: 90%;
+            max-width: 550px;
+            z-index: calc(var(--z-modal) + 1);
+            display: none;
+            opacity: 0;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: var(--shadow-xl);
+            max-height: 80vh;
+            overflow-y: auto;
         }
 
+        #folder-list-modal.active {
+            opacity: 1;
+            transform: translate(-50%, -50%) scale(1);
+        }
+
+        #folder-list-modal::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: var(--gradient-accent);
+            border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+        }
 
         #close-modal {
+            position: absolute;
+            top: 1.5rem;
+            right: 1.5rem;
             color: var(--text-secondary);
-            font-size: 1.2rem;
-            margin-bottom: 1rem;
+            font-size: 1.5rem;
             cursor: pointer;
-            text-align: right;
+            transition: var(--transition-standard);
+            width: 30px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            background: transparent;
+            border: none;
+            padding: 0;
+        }
+
+        #close-modal:hover {
+            color: var(--text-primary);
+            background: var(--tertiary-bg);
+        }
+
+        .modal-header {
+            margin-bottom: 2rem;
+            text-align: center;
+            position: relative;
+        }
+
+        .modal-header h3 {
+            font-family: var(--font-heading);
+            font-size: 1.8rem;
+            font-weight: 400;
+            color: var(--text-primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .modal-header p {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+        }
+
+        .modal-header::after {
+            content: "";
+            position: absolute;
+            bottom: -1rem;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 40px;
+            height: 1px;
+            background: var(--accent-color);
+        }
+
+        /* Search Container */
+        .search-container {
+            position: relative;
+            margin-bottom: 1.5rem;
+        }
+
+        #search-input {
+            width: 100%;
+            padding: 0.8rem 1rem 0.8rem 2.5rem;
+            background: var(--tertiary-bg);
+            border: 1px solid var(--border-color);
+            color: var(--text-primary);
+            font-family: var(--font-body);
+            font-size: 0.9rem;
+            border-radius: var(--radius-md);
+            transition: var(--transition-standard);
+        }
+
+        #search-input:focus {
+            outline: none;
+            border-color: var(--accent-color);
+            box-shadow: 0 0 0 3px var(--accent-muted);
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 0.8rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-tertiary);
+            font-size: 0.9rem;
+        }
+
+        /* Folder List */
+        #folder-list {
+            list-style: none;
+            margin: 0;
+            padding: 0;
         }
 
         .folder-item {
-            background: var(--primary-bg);
+            background: var(--tertiary-bg);
             border: 1px solid var(--border-color);
-            padding: 1rem;
-            margin-bottom: 0.5rem;
-            border-radius: 4px;
-            transition: all 0.3s ease;
+            padding: 1.2rem 1.5rem;
+            margin-bottom: 0.8rem;
+            border-radius: var(--radius-md);
+            transition: var(--transition-standard);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            box-shadow: var(--shadow-sm);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .folder-item::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            background: var(--accent-color);
+            opacity: 0;
+            transition: var(--transition-standard);
         }
 
         .folder-item:hover {
             border-color: var(--accent-color);
+            transform: translateX(5px);
+        }
+
+        .folder-item:hover::before {
+            opacity: 1;
         }
 
         .folder-name {
             color: var(--text-primary);
-            font-size: 0.9rem;
+            font-size: 1rem;
             letter-spacing: 0.5px;
+            cursor: pointer;
+            transition: var(--transition-standard);
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            flex: 1;
         }
 
-        .trash-icon {
+        .folder-name i {
+            color: var(--accent-color);
+            font-size: 1.1rem;
             opacity: 0.7;
-            transition: opacity 0.3s ease;
-            filter: invert(1);
         }
 
-        .trash-icon:hover {
+        .folder-name:hover {
+            color: var(--accent-color);
+        }
+
+        .folder-actions {
+            display: flex;
+            gap: 0.8rem;
+        }
+
+        .folder-action {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: transparent;
+            border: 1px solid var(--border-color);
+            color: var(--text-secondary);
+            cursor: pointer;
+            transition: var(--transition-standard);
+            padding: 0;
+        }
+
+        .folder-action:hover {
+            background: var(--accent-muted);
+            color: var(--accent-color);
+            border-color: var(--accent-color);
+        }
+
+        .folder-action.delete:hover {
+            background: var(--error-light);
+            color: var(--error-color);
+            border-color: var(--error-color);
+        }
+
+        /* Empty State */
+        .empty-state {
+            text-align: center;
+            padding: 2rem;
+            color: var(--text-tertiary);
+        }
+
+        .empty-state i {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            opacity: 0.5;
+        }
+
+        .empty-state p {
+            font-size: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        /* Toast */
+        .toast {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            background: var(--tertiary-bg);
+            color: var(--text-primary);
+            padding: 1rem 1.5rem;
+            border-radius: var(--radius-md);
+            box-shadow: var(--shadow-lg);
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            z-index: var(--z-toast);
+            transform: translateY(100px);
+            opacity: 0;
+            transition: all 0.3s ease;
+            max-width: 350px;
+        }
+
+        .toast.success {
+            border-left: 4px solid var(--success-color);
+        }
+
+        .toast.error {
+            border-left: 4px solid var(--error-color);
+        }
+
+        .toast.warning {
+            border-left: 4px solid var(--warning-color);
+        }
+
+        .toast.info {
+            border-left: 4px solid var(--info-color);
+        }
+
+        .toast.show {
+            transform: translateY(0);
             opacity: 1;
         }
 
-        #overlay {
-            background: rgba(0, 0, 0, 0.8);
-            backdrop-filter: blur(4px);
+        .toast i {
+            font-size: 1.2rem;
         }
 
+        .toast.success i {
+            color: var(--success-color);
+        }
+
+        .toast.error i {
+            color: var(--error-color);
+        }
+
+        .toast.warning i {
+            color: var(--warning-color);
+        }
+
+        .toast.info i {
+            color: var(--info-color);
+        }
+
+        .toast-content {
+            flex: 1;
+        }
+
+        .toast-title {
+            font-weight: 500;
+            margin-bottom: 0.2rem;
+        }
+
+        .toast-message {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+        }
+
+        .toast-close {
+            color: var(--text-tertiary);
+            cursor: pointer;
+            transition: var(--transition-standard);
+        }
+
+        .toast-close:hover {
+            color: var(--text-primary);
+        }
+
+        /* Theme Switcher */
+        .theme-switch {
+            position: fixed;
+            top: 2rem;
+            right: 2rem;
+            z-index: var(--z-above);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: var(--tertiary-bg);
+            border: 1px solid var(--border-color);
+            color: var(--accent-color);
+            cursor: pointer;
+            transition: var(--transition-standard);
+            box-shadow: var(--shadow-md);
+        }
+
+        .theme-switch:hover {
+            transform: translateY(-2px) rotate(10deg);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .theme-switch i {
+            font-size: 1.2rem;
+            transition: var(--transition-standard);
+        }
+
+        /* Keyboard Shortcuts Modal */
+        #shortcuts-modal {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0.9);
+            background: var(--secondary-bg);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-lg);
+            padding: 2.5rem;
+            width: 90%;
+            max-width: 550px;
+            z-index: calc(var(--z-modal) + 1);
+            display: none;
+            opacity: 0;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: var(--shadow-xl);
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+
+        #shortcuts-modal.active {
+            opacity: 1;
+            transform: translate(-50%, -50%) scale(1);
+        }
+
+        .shortcut-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .shortcut-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.8rem;
+            background: var(--tertiary-bg);
+            border-radius: var(--radius-sm);
+        }
+
+        .shortcut-keys {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .key {
+            background: var(--accent-muted);
+            color: var(--accent-color);
+            padding: 0.2rem 0.5rem;
+            border-radius: var(--radius-sm);
+            font-size: 0.8rem;
+            font-weight: 500;
+            min-width: 24px;
+            text-align: center;
+        }
+
+        /* Tags System */
+        .tags-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin: 1rem 0;
+        }
+
+        .tag {
+            background: var(--accent-muted);
+            color: var(--accent-color);
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: var(--transition-standard);
+        }
+
+        .tag:hover {
+            background: var(--accent-color);
+            color: var(--primary-bg);
+        }
+
+        .tag i {
+            font-size: 0.7rem;
+            cursor: pointer;
+        }
+
+        .add-tag {
+            background: var(--tertiary-bg);
+            color: var(--text-secondary);
+            border: 1px dashed var(--border-color);
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            cursor: pointer;
+            transition: var(--transition-standard);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .add-tag:hover {
+            border-color: var(--accent-color);
+            color: var(--accent-color);
+        }
+
+        /* Statistics Panel */
+        .stats-panel {
+            background: var(--tertiary-bg);
+            border-radius: var(--radius-md);
+            padding: 1.5rem;
+            margin: 2rem 0;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-value {
+            font-size: 2rem;
+            font-weight: 600;
+            color: var(--accent-color);
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* Light Theme */
+        body.light-theme {
+            --primary-bg: #f5f5f5;
+            --secondary-bg: #ffffff;
+            --tertiary-bg: #f0f0f0;
+            --text-primary: #333333;
+            --text-secondary: #666666;
+            --text-tertiary: #999999;
+            --border-color: rgba(192, 160, 128, 0.3);
+            --shadow-color: rgba(0, 0, 0, 0.1);
+        }
+
+        body.light-theme .textarea-container::before,
+        body.light-theme .textarea-container::after {
+            text-shadow: 0 2px 10px rgba(192, 160, 128, 0.1);
+        }
+
+        /* Responsive Styles */
         @media (max-width: 768px) {
-            h1 {
-                font-size: 2rem;
+            .container {
+                padding: 1.5rem;
+                margin: 1rem auto;
+                width: 95%;
             }
 
-            .container {
-                padding: 1rem;
+            h1 {
+                font-size: 2.2rem;
+            }
+
+            .subtitle {
+                font-size: 0.9rem;
             }
 
             .button-group {
@@ -204,44 +1179,579 @@
             button {
                 width: 100%;
             }
+
+            #folder-list-modal, #shortcuts-modal {
+                width: 95%;
+                padding: 1.5rem;
+            }
+
+            .back-arrow {
+                top: 1rem;
+                left: 1rem;
+            }
+
+            .theme-switch {
+                top: 1rem;
+                right: 1rem;
+            }
+
+            .toast {
+                left: 1rem;
+                right: 1rem;
+                bottom: 1rem;
+                max-width: none;
+            }
+
+            .export-import-container {
+                flex-direction: column;
+            }
+
+            .shortcut-list {
+                grid-template-columns: 1fr;
+            }
+
+            .stats-panel {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        /* Animation Classes */
+        .animate-pulse {
+            animation: pulse 2s infinite;
+        }
+
+        .animate-fade-in-up {
+            animation: fadeInUp 0.5s ease-out forwards;
+        }
+
+        .animate-float {
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .animate-rotate {
+            animation: rotate 2s linear infinite;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--tertiary-bg);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--border-color);
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--accent-color);
+        }
+
+        /* Print Styles */
+        @media print {
+            body {
+                background: white;
+                color: black;
+            }
+            
+            .container {
+                box-shadow: none;
+                margin: 0;
+                padding: 1cm;
+                max-width: 100%;
+            }
+            
+            .button-group, .theme-switch, .back-arrow, .toast, .export-import-container, .stats-panel {
+                display: none !important;
+            }
+            
+            textarea {
+                border: none;
+                height: auto;
+                min-height: 20cm;
+            }
+
+            .quote {
+                border: 1px solid #eee;
+                background: #f9f9f9;
+            }
+        }
+
+        /* Loading Indicator */
+        .loading-indicator {
+            display: inline-block;
+            position: relative;
+            width: 20px;
+            height: 20px;
+        }
+
+        .loading-indicator:after {
+            content: " ";
+            display: block;
+            width: 16px;
+            height: 16px;
+            margin: 2px;
+            border-radius: 50%;
+            border: 2px solid var(--accent-color);
+            border-color: var(--accent-color) transparent var(--accent-color) transparent;
+            animation: rotate 1.2s linear infinite;
+        }
+
+        /* Ink Splatter Effect */
+        .ink-splatter {
+            position: absolute;
+            width: 150px;
+            height: 150px;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200'%3E%3Cpath fill='%23c0a080' fill-opacity='0.1' d='M41.3,-48.3C53.4,-35.9,63.2,-22.6,67.1,-7.2C71,8.2,69,25.7,59.5,37.6C50,49.5,33,55.8,15.8,60.9C-1.4,66,-18.8,69.9,-33.6,64.5C-48.4,59.1,-60.5,44.4,-67.2,27.3C-73.9,10.2,-75.1,-9.3,-68.1,-25.2C-61.1,-41.1,-45.9,-53.3,-30.5,-64.2C-15.1,-75.1,0.5,-84.7,13.8,-79.9C27.1,-75.1,29.2,-60.8,41.3,-48.3Z' transform='translate(100 100)'/%3E%3C/svg%3E");
+            background-size: contain;
+            background-repeat: no-repeat;
+            opacity: 0.1;
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        .ink-splatter.top-left {
+            top: -50px;
+            left: -50px;
+            transform: rotate(45deg);
+        }
+
+        .ink-splatter.bottom-right {
+            bottom: -50px;
+            right: -50px;
+            transform: rotate(225deg);
+        }
+
+        /* Philosophical Insights Feature */
+        .insights-button {
+            position: absolute;
+            bottom: 1rem;
+            right: 1rem;
+            background: var(--tertiary-bg);
+            border: 1px solid var(--border-color);
+            color: var(--text-secondary);
+            padding: 0.5rem 1rem;
+            border-radius: var(--radius-md);
+            font-size: 0.8rem;
+            cursor: pointer;
+            transition: var(--transition-standard);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            z-index: var(--z-above);
+        }
+
+        .insights-button:hover {
+            color: var(--accent-color);
+            border-color: var(--accent-color);
+            background: var(--accent-muted);
+        }
+
+        #insights-modal {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0.9);
+            background: var(--secondary-bg);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-lg);
+            padding: 2.5rem;
+            width: 90%;
+            max-width: 600px;
+            z-index: calc(var(--z-modal) + 1);
+            display: none;
+            opacity: 0;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: var(--shadow-xl);
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+
+        #insights-modal.active {
+            opacity: 1;
+            transform: translate(-50%, -50%) scale(1);
+        }
+
+        .insight-card {
+            background: var(--tertiary-bg);
+            border-radius: var(--radius-md);
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            border-left: 3px solid var(--accent-color);
+        }
+
+        .insight-title {
+            font-family: var(--font-heading);
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+            color: var(--accent-color);
+        }
+
+        .insight-content {
+            font-family: var(--font-quote);
+            font-size: 1rem;
+            color: var(--text-secondary);
+            font-style: italic;
         }
     </style>
 </head>
 <body>
+    <a href="#" class="back-arrow" onclick="showProfile()">
+        <i class="fas fa-arrow-left"></i>
+        <span>Return to Profile</span>
+    </a>
+
+    <div class="theme-switch" onclick="toggleTheme()" title="Toggle Theme (Ctrl+D)">
+        <i class="fas fa-moon"></i>
+    </div>
+
     <div class="container">
-        <a class="back-arrow" href="index.html" onclick="showProfile();">←</a>
+        <div class="ink-splatter top-left"></div>
+        <div class="ink-splatter bottom-right"></div>
+        
+        <div class="header">
+            <h1>Stoic <span>Reflections</span></h1>
+            <div class="subtitle">Cultivate wisdom through daily contemplation</div>
+        </div>
 
-        <h1>Daily Reflections</h1>
-        <div id="current-folder">Journal Entry: <strong id="folder-name"></strong></div>
-        <input type="text" id="folder-input" placeholder="Name your reflection..." value="">
+        <div id="current-folder">
+            <i class="fas fa-book-open"></i>
+            Journal Entry: <strong id="folder-name"></strong>
+        </div>
 
-        <textarea id="text-input" placeholder="Begin your philosophical journey here...&#10;&#10;'The happiness of your life depends upon the quality of your thoughts.' - Marcus Aurelius"></textarea>
+        <div class="input-group">
+            <div class="input-label">Entry Title</div>
+            <input type="text" id="folder-input" placeholder="Name your reflection..." value="">
+        </div>
+
+        <div class="tags-container">
+            <div class="add-tag" onclick="addTag()">
+                <i class="fas fa-plus"></i>
+                <span>Add Tag</span>
+            </div>
+        </div>
+
+        <div class="textarea-container">
+            <textarea id="text-input" placeholder="Begin your philosophical journey here...&#10;&#10;'The happiness of your life depends upon the quality of your thoughts.' - Marcus Aurelius"></textarea>
+            <div class="word-counter" title="Word Count">0 words</div>
+            <div class="autosave-indicator">
+                <div class="dot"></div>
+                <span>Autosaving...</span>
+            </div>
+        </div>
+
+        <div class="stats-panel">
+            <div class="stat-item">
+                <div class="stat-value" id="total-entries">0</div>
+                <div class="stat-label">Entries</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-value" id="total-words">0</div>
+                <div class="stat-label">Words</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-value" id="last-entry">-</div>
+                <div class="stat-label">Last Entry</div>
+            </div>
+        </div>
+
+        <div class="quote">
+            "The impediment to action advances action. What stands in the way becomes the way."
+            <span class="quote-author">— Marcus Aurelius</span>
+        </div>
 
         <div class="button-group">
-            <button onclick="saveText()">Preserve Thoughts</button>
-            <button onclick="openFolderOverview()">View Journal</button>
+            <button onclick="saveText()" id="save-button" title="Save (Ctrl+S)">
+                <i class="fas fa-feather"></i>
+                Preserve Thoughts
+            </button>
+            <button onclick="openFolderOverview()" id="view-button" title="View Journal (Ctrl+O)">
+                <i class="fas fa-book"></i>
+                View Journal
+            </button>
+        </div>
+
+        <div class="export-import-container">
+            <button class="export-import-btn" onclick="exportJournal()" title="Export Journal (Ctrl+E)">
+                <i class="fas fa-file-export"></i>
+                Export Journal
+            </button>
+            <button class="export-import-btn" onclick="importJournal()" title="Import Journal">
+                <i class="fas fa-file-import"></i>
+                Import Journal
+            </button>
+            <button class="export-import-btn" onclick="printEntry()" title="Print Entry (Ctrl+P)">
+                <i class="fas fa-print"></i>
+                Print Entry
+            </button>
+            <button class="export-import-btn" onclick="showShortcuts()" title="Keyboard Shortcuts">
+                <i class="fas fa-keyboard"></i>
+                Shortcuts
+            </button>
+            <button class="export-import-btn" onclick="showInsights()" title="Philosophical Insights">
+                <i class="fas fa-lightbulb"></i>
+                Insights
+            </button>
+        </div>
+
+        <div class="footer">
+            Reflect · Remember · Grow
+            <div style="margin-top: 0.5rem; font-size: 0.7rem;">
+                <a href="#" onclick="showShortcuts()" style="color: var(--text-tertiary); text-decoration: none;">Keyboard Shortcuts</a> · 
+                <a href="#" onclick="clearAllData()" style="color: var(--text-tertiary); text-decoration: none;">Reset Data</a> · 
+                <span id="version">v1.1.0</span>
+            </div>
         </div>
     </div>
 
+    <!-- Modals -->
     <div id="overlay"></div>
+    
+    <!-- Folder List Modal -->
     <div id="folder-list-modal">
-        <div id="close-modal" onclick="closeModal()">×</div>
-        <h3>Journal Entries</h3>
+        <div id="close-modal" onclick="closeModal()"><i class="fas fa-times"></i></div>
+        
+        <div class="modal-header">
+            <h3>Journal Entries</h3>
+            <p>Your collection of philosophical reflections</p>
+        </div>
+        
+        <div class="search-container">
+            <i class="fas fa-search search-icon"></i>
+            <input type="text" id="search-input" placeholder="Search entries..." onkeyup="searchEntries()">
+        </div>
+        
         <ul id="folder-list"></ul>
     </div>
 
+    <!-- Keyboard Shortcuts Modal -->
+    <div id="shortcuts-modal">
+        <div id="close-shortcuts" onclick="closeShortcutsModal()" style="position: absolute; top: 1.5rem; right: 1.5rem; color: var(--text-secondary); font-size: 1.5rem; cursor: pointer;"><i class="fas fa-times"></i></div>
+        
+        <div class="modal-header">
+            <h3>Keyboard Shortcuts</h3>
+            <p>Enhance your productivity with these shortcuts</p>
+        </div>
+        
+        <div class="shortcut-list">
+            <div class="shortcut-item">
+                <span>Save Entry</span>
+                <div class="shortcut-keys">
+                    <span class="key">Ctrl</span>
+                    <span class="key">S</span>
+                </div>
+            </div>
+            <div class="shortcut-item">
+                <span>View Journal</span>
+                <div class="shortcut-keys">
+                    <span class="key">Ctrl</span>
+                    <span class="key">O</span>
+                </div>
+            </div>
+            <div class="shortcut-item">
+                <span>New Entry</span>
+                <div class="shortcut-keys">
+                    <span class="key">Ctrl</span>
+                    <span class="key">N</span>
+                </div>
+            </div>
+            <div class="shortcut-item">
+                <span>Export Journal</span>
+                <div class="shortcut-keys">
+                    <span class="key">Ctrl</span>
+                    <span class="key">E</span>
+                </div>
+            </div>
+            <div class="shortcut-item">
+                <span>Print Entry</span>
+                <div class="shortcut-keys">
+                    <span class="key">Ctrl</span>
+                    <span class="key">P</span>
+                </div>
+            </div>
+            <div class="shortcut-item">
+                <span>Toggle Theme</span>
+                <div class="shortcut-keys">
+                    <span class="key">Ctrl</span>
+                    <span class="key">D</span>
+                </div>
+            </div>
+            <div class="shortcut-item">
+                <span>Close Modal</span>
+                <div class="shortcut-keys">
+                    <span class="key">Esc</span>
+                </div>
+            </div>
+            <div class="shortcut-item">
+                <span>Show Shortcuts</span>
+                <div class="shortcut-keys">
+                    <span class="key">?</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Philosophical Insights Modal -->
+    <div id="insights-modal">
+        <div id="close-insights" onclick="closeInsightsModal()" style="position: absolute; top: 1.5rem; right: 1.5rem; color: var(--text-secondary); font-size: 1.5rem; cursor: pointer;"><i class="fas fa-times"></i></div>
+        
+        <div class="modal-header">
+            <h3>Philosophical Insights</h3>
+            <p>Wisdom from Stoic philosophers to inspire your reflections</p>
+        </div>
+        
+        <div id="insights-container">
+            <!-- Insights will be dynamically inserted here -->
+        </div>
+    </div>
+
+    <!-- Toast Notification -->
+    <div class="toast" id="toast">
+        <i class="fas fa-check-circle"></i>
+        <div class="toast-content">
+            <div class="toast-title">Success</div>
+            <div class="toast-message">Your thoughts have been preserved.</div>
+        </div>
+        <div class="toast-close" onclick="hideToast()"><i class="fas fa-times"></i></div>
+    </div>
+
+    <!-- Hidden File Input for Import -->
+    <input type="file" id="import-file" accept=".json" style="display: none;" onchange="handleImportFile(this)">
+
     <script>
-        // Keep the original JavaScript, just update the folder name
+        // Global variables
         let currentFolder = getTodayFolderName();
         let textData = {};
+        let autoSaveTimer;
+        let lastSavedContent = "";
+        let isDarkTheme = true;
+        let currentTags = [];
+        const APP_VERSION = "1.1.0";
+        
+        // Stoic quotes collection
+        const quotes = [
+            { text: "The happiness of your life depends upon the quality of your thoughts.", author: "Marcus Aurelius" },
+            { text: "You have power over your mind - not outside events. Realize this, and you will find strength.", author: "Marcus Aurelius" },
+            { text: "The best revenge is to be unlike him who performed the injury.", author: "Marcus Aurelius" },
+            { text: "It is not death that a man should fear, but he should fear never beginning to live.", author: "Marcus Aurelius" },
+            { text: "If it is not right, do not do it, if it is not true, do not say it.", author: "Marcus Aurelius" },
+            { text: "The soul becomes dyed with the color of its thoughts.", author: "Marcus Aurelius" },
+            { text: "Waste no more time arguing about what a good man should be. Be one.", author: "Marcus Aurelius" },
+            { text: "When you arise in the morning, think of what a precious privilege it is to be alive - to breathe, to think, to enjoy, to love.", author: "Marcus Aurelius" },
+            { text: "The obstacle is the way.", author: "Marcus Aurelius" },
+            { text: "We suffer more often in imagination than in reality.", author: "Seneca" },
+            { text: "Luck is what happens when preparation meets opportunity.", author: "Seneca" },
+            { text: "He who fears death will never do anything worthy of a man who is alive.", author: "Seneca" },
+            { text: "Difficulties strengthen the mind, as labor does the body.", author: "Seneca" },
+            { text: "It is not that we have a short time to live, but that we waste a lot of it.", author: "Seneca" },
+            { text: "Man is affected not by events but by the view he takes of them.", author: "Epictetus" },
+            { text: "First say to yourself what you would be; and then do what you have to do.", author: "Epictetus" },
+            { text: "It's not what happens to you, but how you react to it that matters.", author: "Epictetus" },
+            { text: "If you want to improve, be content to be thought foolish and stupid.", author: "Epictetus" },
+            { text: "Only the educated are free.", author: "Epictetus" },
+            { text: "Make the best use of what is in your power, and take the rest as it happens.", author: "Epictetus" }
+        ];
 
-        function showProfile() {
-            console.log('Profile view');
-        }
+        // Common tags for stoic reflections
+        const suggestedTags = [
+            "virtue", "wisdom", "courage", "justice", "temperance", 
+            "gratitude", "resilience", "discipline", "mindfulness", 
+            "acceptance", "nature", "mortality", "tranquility", 
+            "reflection", "progress", "adversity", "perspective"
+        ];
+
+        // Philosophical insights
+        const philosophicalInsights = [
+            {
+                title: "On Virtue",
+                content: "Virtue is not just a theoretical concept but a practical way of living. It involves developing excellence of character through wisdom, courage, justice, and temperance."
+            },
+            {
+                title: "On Control",
+                content: "Focus on what you can control—your judgments, desires, and aversions—and accept what you cannot control with equanimity."
+            },
+            {
+                title: "On Adversity",
+                content: "Obstacles are opportunities for growth. The impediment to action advances action; what stands in the way becomes the way."
+            },
+            {
+                title: "On Impermanence",
+                content: "All things are temporary. By accepting the transient nature of life, we free ourselves from unnecessary attachments and fears."
+            },
+            {
+                title: "On Mindfulness",
+                content: "Be present in each moment. Anxiety comes from dwelling on the past or worrying about the future rather than focusing on the now."
+            },
+            {
+                title: "On Simplicity",
+                content: "True wealth lies not in possessions but in having few wants. Simplify your desires to find contentment."
+            },
+            {
+                title: "On Perspective",
+                content: "It is not events themselves that disturb us, but our judgments about them. Change your perspective to change your experience."
+            }
+        ];
 
         // Initialize
-        updateFolderNameDisplay();
-        loadTextForCurrentFolder();
+        document.addEventListener('DOMContentLoaded', function() {
+            // Set version
+            document.getElementById('version').textContent = `v${APP_VERSION}`;
+            
+            // Check for saved theme preference
+            const savedTheme = localStorage.getItem('stoicTheme');
+            if (savedTheme === 'light') {
+                toggleTheme();
+            }
+            
+            updateFolderNameDisplay();
+            loadTextForCurrentFolder();
+            displayRandomQuote();
+            updateWordCount();
+            updateStatistics();
+            
+            // Add event listeners
+            document.getElementById('folder-input').addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    saveText();
+                }
+            });
+            
+            document.getElementById('text-input').addEventListener('keydown', function(e) {
+                if (e.ctrlKey && e.key === 's') {
+                    e.preventDefault();
+                    saveText();
+                }
+            });
+            
+            document.getElementById('text-input').addEventListener('input', function() {
+                updateWordCount();
+                startAutoSave();
+            });
+            
+            // Animate elements
+            animateElements();
+            
+            // Set up keyboard shortcuts
+            setupKeyboardShortcuts();
+        });
+
+        function animateElements() {
+            const elements = document.querySelectorAll('.container > *');
+            elements.forEach((el, index) => {
+                setTimeout(() => {
+                    el.classList.add('animate-fade-in-up');
+                }, 100 * index);
+            });
+        }
+
+        function displayRandomQuote() {
+            const quoteElement = document.querySelector('.quote');
+            const randomQuote = quotes[Math.floor(Math.random() * quotes.length)];
+            quoteElement.innerHTML = `"${randomQuote.text}"<span class="quote-author">— ${randomQuote.author}</span>`;
+        }
 
         function updateFolderNameDisplay() {
             const folderInput = document.getElementById('folder-input');
@@ -251,26 +1761,60 @@
 
         function saveText() {
             const folderName = document.getElementById('folder-input').value.trim();
-            if (!folderName) return;
+            if (!folderName) {
+                showToast('error', 'Entry Title Required', 'Please provide a title for your reflection.');
+                return;
+            }
 
             currentFolder = folderName;
             const text = document.getElementById('text-input').value.trim();
-            if (!text) return;
+            if (!text) {
+                showToast('error', 'Empty Reflection', 'Please write something before saving.');
+                return;
+            }
 
-            const entries = JSON.parse(localStorage.getItem(currentFolder)) || [];
-            const timestamp = new Date().toLocaleTimeString();
-            entries.push(`[${timestamp}] ${text}`);
-            localStorage.setItem(currentFolder, JSON.stringify(entries));
+            // Save with timestamp and metadata
+            const now = new Date();
+            const timestamp = now.toLocaleTimeString();const dateStamp = now.toLocaleDateString();
+            
+            // Create entry object with metadata
+            const entryData = {
+                content: text,
+                timestamp: timestamp,
+                dateCreated: dateStamp,
+                lastModified: dateStamp,
+                wordCount: countWords(text),
+                tags: currentTags
+            };
+            
+            // Save to localStorage
+            localStorage.setItem(currentFolder, JSON.stringify(entryData));
             textData[currentFolder] = text;
+            lastSavedContent = text;
 
-            document.getElementById('text-input').value = '';
-            updateFolderNameDisplay();
+            // Add animation to save button
+            const saveButton = document.getElementById('save-button');
+            saveButton.innerHTML = '<i class="fas fa-check"></i> Preserved';
+            saveButton.style.borderColor = 'var(--success-color)';
+            saveButton.style.color = 'var(--success-color)';
+            
+            setTimeout(() => {
+                saveButton.innerHTML = '<i class="fas fa-feather"></i> Preserve Thoughts';
+                saveButton.style.borderColor = '';
+                saveButton.style.color = '';
+            }, 2000);
 
+            // Update folder list
             const folderList = JSON.parse(localStorage.getItem('folderList')) || [];
             if (!folderList.includes(currentFolder)) {
                 folderList.push(currentFolder);
                 localStorage.setItem('folderList', JSON.stringify(folderList));
             }
+            
+            // Update statistics
+            updateStatistics();
+
+            showToast('success', 'Reflection Saved', 'Your thoughts have been preserved successfully.');
         }
 
         function openFolderOverview() {
@@ -279,15 +1823,70 @@
             folderListElement.innerHTML = '';
 
             if (folderList.length === 0) {
-                folderListElement.innerHTML = '<li class="folder-item">No entries yet.</li>';
+                folderListElement.innerHTML = `
+                    <div class="empty-state">
+                        <i class="fas fa-book"></i>
+                        <p>Your journal is empty. Start by creating your first reflection.</p>
+                        <button onclick="closeModal()" class="animate-pulse">
+                            <i class="fas fa-pen"></i>
+                            Begin Writing
+                        </button>
+                    </div>
+                `;
             } else {
+                // Sort entries by most recent first
+                folderList.sort((a, b) => {
+                    const entryA = JSON.parse(localStorage.getItem(a)) || {};
+                    const entryB = JSON.parse(localStorage.getItem(b)) || {};
+                    
+                    // If entries have lastModified dates, use those for sorting
+                    if (entryA.lastModified && entryB.lastModified) {
+                        return new Date(entryB.lastModified) - new Date(entryA.lastModified);
+                    }
+                    return 0;
+                });
+                
                 folderList.forEach((folder) => {
+                    const entryData = JSON.parse(localStorage.getItem(folder)) || {};
+                    const dateInfo = entryData.lastModified || '';
+                    const wordCount = entryData.wordCount || 0;
+                    const tags = entryData.tags || [];
+                    
                     const li = document.createElement('li');
                     li.className = 'folder-item';
+                    li.dataset.title = folder.toLowerCase(); // For search functionality
+                    li.dataset.tags = tags.join(' ').toLowerCase(); // For tag filtering
 
-                    const folderName = document.createElement('span');
+                    const folderName = document.createElement('div');
                     folderName.className = 'folder-name';
-                    folderName.textContent = folder;
+                    
+                    // Create HTML for folder item with tags
+                    let tagsHtml = '';
+                    if (tags.length > 0) {
+                        tagsHtml = `
+                            <div style="display: flex; flex-wrap: wrap; gap: 0.3rem; margin-top: 0.3rem;">
+                                ${tags.map(tag => `
+                                    <span style="background: var(--accent-muted); color: var(--accent-color); 
+                                    padding: 0.1rem 0.4rem; border-radius: 10px; font-size: 0.7rem;">
+                                        ${tag}
+                                    </span>
+                                `).join('')}
+                            </div>
+                        `;
+                    }
+                    
+                    folderName.innerHTML = `
+                        <i class="fas fa-scroll"></i>
+                        <div style="flex: 1;">
+                            <div>${folder}</div>
+                            <small style="color: var(--text-tertiary); font-size: 0.8rem;">
+                                ${dateInfo ? `Last modified: ${dateInfo}` : ''}
+                                ${wordCount ? ` · ${wordCount} words` : ''}
+                            </small>
+                            ${tagsHtml}
+                        </div>
+                    `;
+                    
                     folderName.onclick = () => {
                         currentFolder = folder;
                         updateFolderNameDisplay();
@@ -295,29 +1894,65 @@
                         closeModal();
                     };
 
-                    const trashIcon = document.createElement('div');
-                    trashIcon.className = 'trash-icon';
-                    trashIcon.onclick = (e) => {
+                    const actions = document.createElement('div');
+                    actions.className = 'folder-actions';
+
+                    // Export single entry button
+                    const exportBtn = document.createElement('button');
+                    exportBtn.className = 'folder-action';
+                    exportBtn.innerHTML = '<i class="fas fa-file-export"></i>';
+                    exportBtn.title = "Export Entry";
+                    exportBtn.onclick = (e) => {
                         e.stopPropagation();
-                        deleteFolder(folder);
+                        exportSingleEntry(folder);
                     };
 
+                    // Delete button
+                    const deleteBtn = document.createElement('button');
+                    deleteBtn.className = 'folder-action delete';
+                    deleteBtn.innerHTML = '<i class="fas fa-trash-alt"></i>';
+                    deleteBtn.title = "Delete Entry";
+                    deleteBtn.onclick = (e) => {
+                        e.stopPropagation();
+                        confirmDelete(folder);
+                    };
+
+                    actions.appendChild(exportBtn);
+                    actions.appendChild(deleteBtn);
                     li.appendChild(folderName);
-                    li.appendChild(trashIcon);
+                    li.appendChild(actions);
                     folderListElement.appendChild(li);
                 });
             }
 
+            // Clear search input
+            document.getElementById('search-input').value = '';
+
+            // Show modal with animation
             document.getElementById('overlay').style.display = 'block';
             document.getElementById('folder-list-modal').style.display = 'block';
+            
+            setTimeout(() => {
+                document.getElementById('overlay').classList.add('active');
+                document.getElementById('folder-list-modal').classList.add('active');
+            }, 10);
+        }
+
+        function confirmDelete(folder) {
+            if (confirm(`Are you sure you want to delete "${folder}"? This action cannot be undone.`)) {
+                deleteFolder(folder);
+            }
         }
 
         function loadTextForCurrentFolder() {
-            const entries = JSON.parse(localStorage.getItem(currentFolder)) || [];
-            const contentDisplay = entries.map(entry => {
-                return entry.replace(/\[\d{2}:\d{2}:\d{2}\]/, '').trim();
-            }).join('\n');
-            document.getElementById('text-input').value = contentDisplay;
+            const entryData = JSON.parse(localStorage.getItem(currentFolder)) || {};
+            const content = entryData.content || '';
+            currentTags = entryData.tags || [];
+            
+            document.getElementById('text-input').value = content;
+            lastSavedContent = content;
+            updateWordCount();
+            renderTags();
         }
 
         function deleteFolder(folder) {
@@ -325,18 +1960,534 @@
             const folderList = JSON.parse(localStorage.getItem('folderList')) || [];
             const updatedFolderList = folderList.filter((f) => f !== folder);
             localStorage.setItem('folderList', JSON.stringify(updatedFolderList));
+            
+            // Update statistics after deletion
+            updateStatistics();
+            
+            showToast('success', 'Entry Deleted', `"${folder}" has been removed from your journal.`);
             openFolderOverview();
         }
 
         function closeModal() {
-            document.getElementById('overlay').style.display = 'none';
-            document.getElementById('folder-list-modal').style.display = 'none';
+            document.getElementById('overlay').classList.remove('active');
+            document.getElementById('folder-list-modal').classList.remove('active');
+            document.getElementById('shortcuts-modal').classList.remove('active');
+            document.getElementById('insights-modal').classList.remove('active');
+            
+            setTimeout(() => {
+                document.getElementById('overlay').style.display = 'none';
+                document.getElementById('folder-list-modal').style.display = 'none';
+                document.getElementById('shortcuts-modal').style.display = 'none';
+                document.getElementById('insights-modal').style.display = 'none';
+            }, 300);
         }
 
         function getTodayFolderName() {
             const today = new Date();
-            return today.toISOString().split('T')[0];
+            const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+            return today.toLocaleDateString('en-US', options);
         }
+
+        function showToast(type, title, message) {
+            const toast = document.getElementById('toast');
+            const toastTitle = document.querySelector('.toast-title');
+            const toastMessage = document.querySelector('.toast-message');
+            const toastIcon = toast.querySelector('i:first-child');
+            
+            toast.className = 'toast ' + type;
+            toastTitle.textContent = title;
+            toastMessage.textContent = message;
+            
+            if (type === 'success') {
+                toastIcon.className = 'fas fa-check-circle';
+            } else if (type === 'error') {
+                toastIcon.className = 'fas fa-exclamation-circle';
+            } else if (type === 'warning') {
+                toastIcon.className = 'fas fa-exclamation-triangle';
+            } else if (type === 'info') {
+                toastIcon.className = 'fas fa-info-circle';
+            }
+            
+            toast.classList.add('show');
+            
+            // Auto-hide toast after delay
+            setTimeout(() => {
+                hideToast();
+            }, 4000);
+        }
+
+        function hideToast() {
+            const toast = document.getElementById('toast');
+            toast.classList.remove('show');
+        }
+
+        function countWords(text) {
+            return text.trim().split(/\s+/).filter(word => word.length > 0).length;
+        }
+
+        function updateWordCount() {
+            const text = document.getElementById('text-input').value;
+            const wordCount = countWords(text);
+            document.querySelector('.word-counter').textContent = `${wordCount} word${wordCount !== 1 ? 's' : ''}`;
+        }
+
+        function startAutoSave() {
+            // Show autosave indicator
+            document.querySelector('.autosave-indicator').classList.add('active');
+            
+            // Clear previous timer
+            clearTimeout(autoSaveTimer);
+            
+            // Set new timer
+            autoSaveTimer = setTimeout(() => {
+                const currentText = document.getElementById('text-input').value;
+                
+                // Only save if content has changed
+                if (currentText !== lastSavedContent) {
+                    const folderName = document.getElementById('folder-input').value.trim();
+                    if (folderName) {
+                        // Get existing data or create new object
+                        const existingData = JSON.parse(localStorage.getItem(folderName)) || {};
+                        
+                        // Update content and metadata
+                        existingData.content = currentText;
+                        existingData.lastModified = new Date().toLocaleDateString();
+                        existingData.wordCount = countWords(currentText);
+                        existingData.tags = currentTags;
+                        
+                        // Save back to localStorage
+                        localStorage.setItem(folderName, JSON.stringify(existingData));
+                        lastSavedContent = currentText;
+                        
+                        // Update folder list if needed
+                        const folderList = JSON.parse(localStorage.getItem('folderList')) || [];
+                        if (!folderList.includes(folderName)) {
+                            folderList.push(folderName);
+                            localStorage.setItem('folderList', JSON.stringify(folderList));
+                        }
+                        
+                        // Update statistics
+                        updateStatistics();
+                    }
+                }
+                
+                // Hide autosave indicator
+                document.querySelector('.autosave-indicator').classList.remove('active');
+            }, 2000);
+        }
+
+        function toggleTheme() {
+            const body = document.body;
+            const themeIcon = document.querySelector('.theme-switch i');
+            
+            if (isDarkTheme) {
+                body.classList.add('light-theme');
+                themeIcon.className = 'fas fa-sun';
+                localStorage.setItem('stoicTheme', 'light');
+            } else {
+                body.classList.remove('light-theme');
+                themeIcon.className = 'fas fa-moon';
+                localStorage.setItem('stoicTheme', 'dark');
+            }
+            
+            isDarkTheme = !isDarkTheme;
+        }
+
+        function searchEntries() {
+            const searchTerm = document.getElementById('search-input').value.toLowerCase();
+            const folderItems = document.querySelectorAll('.folder-item');
+            
+            folderItems.forEach(item => {
+                const title = item.dataset.title;
+                const tags = item.dataset.tags || '';
+                
+                // Search in both title and tags
+                if (title.includes(searchTerm) || tags.includes(searchTerm)) {
+                    item.style.display = 'flex';
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+        }
+
+        function exportJournal() {
+            const folderList = JSON.parse(localStorage.getItem('folderList')) || [];
+            
+            if (folderList.length === 0) {
+                showToast('error', 'Nothing to Export', 'Your journal is empty. Create some entries first.');
+                return;
+            }
+            
+            // Show loading indicator
+            const exportBtn = document.querySelector('.export-import-btn');
+            const originalBtnContent = exportBtn.innerHTML;
+            exportBtn.innerHTML = '<div class="loading-indicator"></div> Exporting...';
+            exportBtn.disabled = true;
+            
+            setTimeout(() => {
+                const exportData = {
+                    version: APP_VERSION,
+                    exportDate: new Date().toISOString(),
+                    entries: {}
+                };
+                
+                folderList.forEach(folder => {
+                    exportData.entries[folder] = JSON.parse(localStorage.getItem(folder));
+                });
+                
+                const dataStr = JSON.stringify(exportData, null, 2);
+                const dataUri = 'data:application/json;charset=utf-8,'+ encodeURIComponent(dataStr);
+                
+                const exportFileDefaultName = 'stoic-reflections-journal-' + new Date().toISOString().slice(0, 10) + '.json';
+                
+                const linkElement = document.createElement('a');
+                linkElement.setAttribute('href', dataUri);
+                linkElement.setAttribute('download', exportFileDefaultName);
+                linkElement.click();
+                
+                // Restore button
+                exportBtn.innerHTML = originalBtnContent;
+                exportBtn.disabled = false;
+                
+                showToast('success', 'Journal Exported', 'Your journal has been exported successfully.');
+            }, 500);
+        }
+
+        function exportSingleEntry(folder) {
+            const entryData = JSON.parse(localStorage.getItem(folder));
+            
+            if (!entryData) {
+                showToast('error', 'Export Failed', 'Could not find the entry data.');
+                return;
+            }
+            
+            const exportData = {
+                version: APP_VERSION,
+                exportDate: new Date().toISOString(),
+                entries: {}
+            };
+            
+            exportData.entries[folder] = entryData;
+            
+            const dataStr = JSON.stringify(exportData, null, 2);
+            const dataUri = 'data:application/json;charset=utf-8,'+ encodeURIComponent(dataStr);
+            
+            const safeFileName = folder.replace(/[^a-z0-9]/gi, '_').toLowerCase();
+            const exportFileDefaultName = `stoic-reflection-${safeFileName}-${new Date().toISOString().slice(0, 10)}.json`;
+            
+            const linkElement = document.createElement('a');
+            linkElement.setAttribute('href', dataUri);
+            linkElement.setAttribute('download', exportFileDefaultName);
+            linkElement.click();
+            
+            showToast('success', 'Entry Exported', `"${folder}" has been exported successfully.`);
+        }
+
+        function importJournal() {
+            document.getElementById('import-file').click();
+        }
+
+        function handleImportFile(input) {
+            const file = input.files[0];
+            if (!file) return;
+            
+            // Show loading toast
+            showToast('info', 'Importing Journal', 'Please wait while we process your file...');
+            
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                try {
+                    const importData = JSON.parse(e.target.result);
+                    
+                    // Validate import data
+                    if (!importData.entries) {
+                        throw new Error('Invalid journal format');
+                    }
+                    
+                    // Get current folder list
+                    const currentFolderList = JSON.parse(localStorage.getItem('folderList')) || [];
+                    let importedCount = 0;
+                    
+                    // Import entries
+                    Object.keys(importData.entries).forEach(folder => {
+                        localStorage.setItem(folder, JSON.stringify(importData.entries[folder]));
+                        
+                        if (!currentFolderList.includes(folder)) {
+                            currentFolderList.push(folder);
+                        }
+                        
+                        importedCount++;
+                    });
+                    
+                    // Update folder list
+                    localStorage.setItem('folderList', JSON.stringify(currentFolderList));
+                    
+                    // Update statistics
+                    updateStatistics();
+                    
+                    showToast('success', 'Journal Imported', `Successfully imported ${importedCount} entries.`);
+                    
+                    // Reload current folder if it was updated
+                    if (importData.entries[currentFolder]) {
+                        loadTextForCurrentFolder();
+                    }
+                    
+                } catch (error) {
+                    console.error('Import error:', error);
+                    showToast('error', 'Import Failed', 'Could not import journal. Invalid format.');
+                }
+                
+                // Reset file input
+                input.value = '';
+            };
+            
+            reader.readAsText(file);
+        }
+
+        function printEntry() {
+            window.print();
+        }
+
+        function setupKeyboardShortcuts() {
+            document.addEventListener('keydown', function(e) {
+                // Escape key to close modal
+                if (e.key === 'Escape') {
+                    closeModal();
+                }
+                
+                // Ctrl+E to export
+                if (e.ctrlKey && e.key === 'e') {
+                    e.preventDefault();
+                    exportJournal();
+                }
+                
+                // Ctrl+P to print
+                if (e.ctrlKey && e.key === 'p') {
+                    e.preventDefault();
+                    printEntry();
+                }
+                
+                // Ctrl+O to open folder list
+                if (e.ctrlKey && e.key === 'o') {
+                    e.preventDefault();
+                    openFolderOverview();
+                }
+                
+                // Ctrl+N for new entry
+                if (e.ctrlKey && e.key === 'n') {
+                    e.preventDefault();
+                    document.getElementById('folder-input').value = getTodayFolderName() + ' - ' + new Date().toLocaleTimeString();
+                    document.getElementById('text-input').value = '';
+                    currentTags = [];
+                    renderTags();
+                    document.getElementById('text-input').focus();
+                }
+                
+                // Ctrl+D to toggle dark/light mode
+                if (e.ctrlKey && e.key === 'd') {
+                    e.preventDefault();
+                    toggleTheme();
+                }
+                
+                // ? to show keyboard shortcuts
+                if (e.key === '?') {
+                    e.preventDefault();
+                    showShortcuts();
+                }
+            });
+        }
+
+        function showProfile() {
+            window.location.href = 'index.html';
+        }
+
+
+        function showShortcuts() {
+            document.getElementById('overlay').style.display = 'block';
+            document.getElementById('shortcuts-modal').style.display = 'block';
+            
+            setTimeout(() => {
+                document.getElementById('overlay').classList.add('active');
+                document.getElementById('shortcuts-modal').classList.add('active');
+            }, 10);
+        }
+
+        function closeShortcutsModal() {
+            document.getElementById('overlay').classList.remove('active');
+            document.getElementById('shortcuts-modal').classList.remove('active');
+            
+            setTimeout(() => {
+                document.getElementById('overlay').style.display = 'none';
+                document.getElementById('shortcuts-modal').style.display = 'none';
+            }, 300);
+        }
+
+        function showInsights() {
+            // Populate insights
+            const insightsContainer = document.getElementById('insights-container');
+            insightsContainer.innerHTML = '';
+            
+            // Shuffle insights for variety
+            const shuffledInsights = [...philosophicalInsights].sort(() => 0.5 - Math.random());
+            
+            // Display 5 random insights
+            shuffledInsights.slice(0, 5).forEach(insight => {
+                const insightCard = document.createElement('div');
+                insightCard.className = 'insight-card';
+                insightCard.innerHTML = `
+                    <div class="insight-title">${insight.title}</div>
+                    <div class="insight-content">${insight.content}</div>
+                `;
+                insightsContainer.appendChild(insightCard);
+            });
+            
+            // Show modal
+            document.getElementById('overlay').style.display = 'block';
+            document.getElementById('insights-modal').style.display = 'block';
+            
+            setTimeout(() => {
+                document.getElementById('overlay').classList.add('active');
+                document.getElementById('insights-modal').classList.add('active');
+            }, 10);
+        }
+
+        function closeInsightsModal() {
+            document.getElementById('overlay').classList.remove('active');
+            document.getElementById('insights-modal').classList.remove('active');
+            
+            setTimeout(() => {
+                document.getElementById('overlay').style.display = 'none';
+                document.getElementById('insights-modal').style.display = 'none';
+            }, 300);
+        }
+
+        function updateStatistics() {
+            const folderList = JSON.parse(localStorage.getItem('folderList')) || [];
+            let totalWords = 0;
+            let lastEntryDate = '-';
+            
+            // Calculate total words and find last entry date
+            if (folderList.length > 0) {
+                folderList.forEach(folder => {
+                    const entryData = JSON.parse(localStorage.getItem(folder)) || {};
+                    totalWords += entryData.wordCount || 0;
+                    
+                    if (entryData.lastModified) {
+                        const entryDate = new Date(entryData.lastModified);
+                        const currentLastDate = lastEntryDate === '-' ? new Date(0) : new Date(lastEntryDate);
+                        
+                        if (entryDate > currentLastDate) {
+                            lastEntryDate = entryData.lastModified;
+                        }
+                    }
+                });
+            }
+            
+            // Update DOM
+            document.getElementById('total-entries').textContent = folderList.length;
+            document.getElementById('total-words').textContent = totalWords;
+            document.getElementById('last-entry').textContent = lastEntryDate === '-' ? '-' : formatDate(lastEntryDate);
+        }
+
+        function formatDate(dateString) {
+            const date = new Date(dateString);
+            const now = new Date();
+            const yesterday = new Date(now);
+            yesterday.setDate(yesterday.getDate() - 1);
+            
+            if (isSameDay(date, now)) {
+                return 'Today';
+            } else if (isSameDay(date, yesterday)) {
+                return 'Yesterday';
+            } else {
+                return dateString;
+            }
+        }
+
+        function isSameDay(date1, date2) {
+            return date1.getDate() === date2.getDate() &&
+                   date1.getMonth() === date2.getMonth() &&
+                   date1.getFullYear() === date2.getFullYear();
+        }
+
+        function addTag() {
+            // Get suggested tag or prompt for custom tag
+            const suggestedTag = suggestedTags[Math.floor(Math.random() * suggestedTags.length)];
+            const tagName = prompt("Enter a tag for this entry:", suggestedTag);
+            
+            if (tagName && tagName.trim()) {
+                const normalizedTag = tagName.trim().toLowerCase();
+                
+                // Check if tag already exists
+                if (!currentTags.includes(normalizedTag)) {
+                    currentTags.push(normalizedTag);
+                    renderTags();
+                    startAutoSave(); // Trigger autosave to save the tags
+                }
+            }
+        }
+
+        function removeTag(tagIndex) {
+            currentTags.splice(tagIndex, 1);
+            renderTags();
+            startAutoSave(); // Trigger autosave to save the updated tags
+        }
+
+        function renderTags() {
+            const tagsContainer = document.querySelector('.tags-container');
+            
+            // Clear existing tags except the "Add Tag" button
+            const addTagButton = document.querySelector('.add-tag');
+            tagsContainer.innerHTML = '';
+            tagsContainer.appendChild(addTagButton);
+            
+            // Add each tag
+            currentTags.forEach((tag, index) => {
+                const tagElement = document.createElement('div');
+                tagElement.className = 'tag';
+                tagElement.innerHTML = `
+                    ${tag}
+                    <i class="fas fa-times" onclick="removeTag(${index})"></i>
+                `;
+                tagsContainer.insertBefore(tagElement, addTagButton);
+            });
+        }
+
+        function clearAllData() {
+            if (confirm("WARNING: This will permanently delete all your journal entries and reset the application. This action cannot be undone. Are you sure you want to proceed?")) {
+                if (confirm("FINAL WARNING: All your data will be lost. Are you absolutely sure?")) {
+                    // Export data first as a backup
+                    exportJournal();
+                    
+                    // Clear all journal data
+                    const folderList = JSON.parse(localStorage.getItem('folderList')) || [];
+                    folderList.forEach(folder => {
+                        localStorage.removeItem(folder);
+                    });
+                    
+                    // Clear other data
+                    localStorage.removeItem('folderList');
+                    
+                    // Reset current state
+                    currentFolder = getTodayFolderName();
+                    textData = {};
+                    currentTags = [];
+                    
+                    // Update UI
+                    updateFolderNameDisplay();
+                    document.getElementById('text-input').value = '';
+                    renderTags();
+                    updateStatistics();
+                    
+                    showToast('info', 'Data Reset', 'All journal data has been cleared. Starting fresh.');
+                }
+            }
+        }
+
+        // Close modal when clicking on overlay
+        document.getElementById('overlay').addEventListener('click', function() {
+            closeModal();
+        });
     </script>
 </body>
 </html>
