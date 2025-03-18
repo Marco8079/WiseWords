@@ -1,603 +1,2458 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Streak Rewards Shop</title>
+    <title>Streak Rewards Shop | Premium Collection</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&family=Playfair+Display:wght@700;800&display=swap" rel="stylesheet">
     <style>
-        
+        :root {
+            /* Core Colors */
+            --primary-hue: 220;
+            --primary-saturation: 70%;
+            --primary: hsl(var(--primary-hue), var(--primary-saturation), 50%);
+            --primary-light: hsl(var(--primary-hue), var(--primary-saturation), 65%);
+            --primary-dark: hsl(var(--primary-hue), var(--primary-saturation), 40%);
+            --primary-foreground: hsl(var(--primary-hue), 10%, 98%);
+            
+            /* Accent Colors */
+            --accent-hue: 35;
+            --accent: hsl(var(--accent-hue), 90%, 55%);
+            --accent-light: hsl(var(--accent-hue), 90%, 65%);
+            --accent-dark: hsl(var(--accent-hue), 90%, 45%);
+            --accent-foreground: hsl(var(--accent-hue), 10%, 98%);
+            
+            /* UI Colors */
+            --background: hsl(210, 20%, 98%);
+            --foreground: hsl(220, 20%, 20%);
+            --card: hsl(0, 0%, 100%);
+            --card-foreground: hsl(220, 20%, 20%);
+            --muted: hsl(210, 20%, 94%);
+            --muted-foreground: hsl(220, 10%, 45%);
+            --border: hsl(220, 15%, 90%);
+            --input: hsl(220, 15%, 90%);
+            
+            /* Status Colors */
+            --success: hsl(160, 80%, 40%);
+            --success-foreground: hsl(160, 10%, 98%);
+            --warning: hsl(40, 90%, 50%);
+            --warning-foreground: hsl(40, 10%, 20%);
+            --destructive: hsl(0, 90%, 60%);
+            --destructive-foreground: hsl(0, 10%, 98%);
+            
+            /* Special Effects */
+            --flame-color: var(--accent);
+            --flame-glow: hsla(var(--accent-hue), 90%, 55%, 0.4);
+            --card-shadow: 
+                0 10px 15px -3px rgba(0, 0, 0, 0.05), 
+                0 4px 6px -2px rgba(0, 0, 0, 0.025),
+                0 0 0 1px rgba(0, 0, 0, 0.025);
+            --card-hover-shadow: 
+                0 20px 25px -5px rgba(0, 0, 0, 0.1), 
+                0 10px 10px -5px rgba(0, 0, 0, 0.04),
+                0 0 0 1px rgba(0, 0, 0, 0.05);
+            --glass-background: hsla(210, 20%, 98%, 0.8);
+            --glass-border: hsla(210, 20%, 90%, 0.3);
+            --glass-highlight: hsla(210, 20%, 100%, 0.5);
+            --glass-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+            
+            /* Typography */
+            --font-sans: 'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+            --font-serif: 'Playfair Display', Georgia, Cambria, "Times New Roman", Times, serif;
+            --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+            
+            /* Dimensions */
+            --header-height: 4.5rem;
+            --radius-sm: 0.25rem;
+            --radius-md: 0.5rem;
+            --radius-lg: 0.75rem;
+            --radius-xl: 1rem;
+            --radius-full: 9999px;
+        }
+
+        .dark {
+            /* Core Colors */
+            --primary-hue: 220;
+            --primary-saturation: 70%;
+            --primary: hsl(var(--primary-hue), var(--primary-saturation), 60%);
+            --primary-light: hsl(var(--primary-hue), var(--primary-saturation), 70%);
+            --primary-dark: hsl(var(--primary-hue), var(--primary-saturation), 50%);
+            --primary-foreground: hsl(var(--primary-hue), 10%, 10%);
+            
+            /* Accent Colors */
+            --accent-hue: 35;
+            --accent: hsl(var(--accent-hue), 90%, 60%);
+            --accent-light: hsl(var(--accent-hue), 90%, 70%);
+            --accent-dark: hsl(var(--accent-hue), 90%, 50%);
+            --accent-foreground: hsl(var(--accent-hue), 10%, 10%);
+            
+            /* UI Colors */
+            --background: hsl(220, 20%, 10%);
+            --foreground: hsl(210, 20%, 98%);
+            --card: hsl(220, 20%, 15%);
+            --card-foreground: hsl(210, 20%, 98%);
+            --muted: hsl(220, 15%, 20%);
+            --muted-foreground: hsl(210, 10%, 70%);
+            --border: hsl(220, 15%, 20%);
+            --input: hsl(220, 15%, 20%);
+            
+            /* Status Colors */
+            --success: hsl(160, 80%, 40%);
+            --success-foreground: hsl(160, 10%, 10%);
+            --warning: hsl(40, 90%, 50%);
+            --warning-foreground: hsl(40, 10%, 10%);
+            --destructive: hsl(0, 90%, 60%);
+            --destructive-foreground: hsl(0, 10%, 10%);
+            
+            /* Special Effects */
+            --flame-glow: hsla(var(--accent-hue), 90%, 60%, 0.5);
+            --card-shadow: 
+                0 10px 15px -3px rgba(0, 0, 0, 0.2), 
+                0 4px 6px -2px rgba(0, 0, 0, 0.1),
+                0 0 0 1px rgba(255, 255, 255, 0.05);
+            --card-hover-shadow: 
+                0 20px 25px -5px rgba(0, 0, 0, 0.3), 
+                0 10px 10px -5px rgba(0, 0, 0, 0.2),
+                0 0 0 1px rgba(255, 255, 255, 0.1);
+            --glass-background: hsla(220, 20%, 15%, 0.8);
+            --glass-border: hsla(220, 20%, 30%, 0.3);
+            --glass-highlight: hsla(220, 20%, 40%, 0.1);
+            --glass-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Base Styles */
         * {
             box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            font-family: var(--font-sans);
+            background-color: var(--background);
+            color: var(--foreground);
+            transition: background-color 0.5s ease, color 0.5s ease;
+            scroll-behavior: smooth;
         }
 
         body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f9;
             margin: 0;
             padding: 0;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
             min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow-x: hidden;
+            line-height: 1.6;
         }
 
+        /* Typography */
+        h1, h2, h3, h4, h5, h6 {
+            font-family: var(--font-serif);
+            font-weight: 700;
+            line-height: 1.2;
+        }
+
+        /* Scrollbar */
+        ::-webkit-scrollbar {
+            width: 10px;
+            height: 10px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--muted);
+            border-radius: var(--radius-full);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--primary);
+            border-radius: var(--radius-full);
+            transition: background 0.3s ease;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--primary-dark);
+        }
+
+        /* Glass Morphism */
+        .glass {
+            background: var(--glass-background);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid var(--glass-border);
+            box-shadow: var(--glass-shadow);
+        }
+
+        .glass-highlight {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: var(--glass-highlight);
+        }
+
+        /* Header Styles */
         header {
-            background-color: #2c3e50;
-            color: white;
-            padding: 20px 0;
-            width: 100%;
-            text-align: center;
+            position: sticky;
+            top: 0;
+            z-index: 50;
+            transition: all 0.3s ease;
+            height: var(--header-height);
         }
 
-        .container {
-            width: 90%;
-            max-width: 1200px;
-            margin: 20px auto 0;
-            text-align: center;
+        header.scrolled {
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
         }
 
-        h1.shop-title {
-            font-size: 2.5rem;
-            margin: 0 0 10px;
-        }
-
-        .streak-display {
-            font-size: 1.2rem;
-            margin-top: 5px;
-        }
-
-        .flame-icon {
-            color: orange;
-            font-size: 1.5rem;
-            vertical-align: middle;
-        }
-
-        main {
-            width: 100%;
+        .header-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+            height: 100%;
             display: flex;
-            flex-direction: column;
+            justify-content: space-between;
             align-items: center;
-            margin-top: 20px;
         }
 
-        .rewards-section {
+        .header-left {
             display: flex;
-            flex-wrap: wrap;
-            gap: 20px;
+            align-items: center;
+            gap: 1.5rem;
+        }
+
+        .back-button {
+            display: flex;
+            align-items: center;
             justify-content: center;
-            align-items: flex-start;
-            margin-top: 20px;
-        }
-
-        .reward-card {
-            background-color: white;
-            border-radius: 10px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            align-items: center;
-            text-align: center;
-            padding: 20px;
-            width: 300px;
-            height: 500px; /* Größere Höhe, damit alle Inhalte gut passen */
-            max-height: 500px; /* Maximale Höhe auf 500px gesetzt */
-            box-sizing: border-box;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between; /* Gleichmäßige Verteilung der Inhalte */
-            align-items: center;
+            width: 40px;
+            height: 40px;
+            border-radius: var(--radius-full);
+            border: none;
+            background-color: var(--muted);
+            color: var(--muted-foreground);
+            cursor: pointer;
+            transition: all 0.3s ease;
             position: relative;
             overflow: hidden;
         }
 
-
-
-        .reward-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+        .back-button::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle, rgba(255,255,255,0.7) 0%, rgba(255,255,255,0) 70%);
+            transform: scale(0) translate(-50%, -50%);
+            transform-origin: top left;
+            opacity: 0;
+            transition: transform 0.5s, opacity 0.5s;
         }
 
-        .reward-title {
-            font-size: 1.5rem;
-            font-weight: bold;
-            margin-bottom: 15px;
+        .back-button:hover {
+            background-color: var(--primary);
+            color: var(--primary-foreground);
+            transform: translateX(-2px);
+        }
+
+        .back-button:hover::after {
+            transform: scale(2.5) translate(-50%, -50%);
+            opacity: 0.3;
+        }
+
+        .shop-title-container {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .shop-title {
+            font-size: 1.75rem;
+            font-weight: 800;
+            margin: 0;
+            line-height: 1.1;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-fill-color: transparent;
+        }
+
+        .shop-subtitle {
+            font-size: 0.875rem;
+            color: var(--muted-foreground);
+            margin-top: 0.25rem;
+        }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        /* Streak Counter */
+        .streak-counter {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.5rem 1rem;
+            background-color: var(--muted);
+            border-radius: var(--radius-lg);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .streak-counter::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(255,255,255,0.1), rgba(255,255,255,0));
+            pointer-events: none;
+        }
+
+        .flame-container {
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+        }
+
+        .flame-icon {
+            color: var(--flame-color);
+            font-size: 2rem;
+            z-index: 1;
+            filter: drop-shadow(0 0 5px var(--flame-glow));
+            animation: flicker 4s infinite alternate;
+            transform-origin: center bottom;
+        }
+
+        @keyframes flicker {
+            0%, 100% { opacity: 1; transform: scale(1) rotate(0deg); }
+            25% { opacity: 0.97; transform: scale(0.98) rotate(-1deg); }
+            50% { opacity: 0.99; transform: scale(1.02) rotate(1deg); }
+            75% { opacity: 0.98; transform: scale(0.99) rotate(0.5deg); }
+        }
+
+        .flame-glow {
+            position: absolute;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: radial-gradient(circle, var(--flame-glow) 0%, rgba(255, 165, 0, 0) 70%);
+            filter: blur(8px);
+            opacity: 0.6;
+            animation: pulse 3s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 0.6; }
+            50% { transform: scale(1.5); opacity: 0.3; }
+        }
+
+        .streak-info {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .streak-count {
+            display: flex;
+            align-items: baseline;
+            gap: 0.25rem;
+        }
+
+        .streak-value {
+            font-size: 1.75rem;
+            font-weight: 700;
+            line-height: 1;
+            position: relative;
+            display: inline-block;
+        }
+
+        .streak-value::after {
+            content: attr(data-value);
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-fill-color: transparent;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+
+        .streak-counter:hover .streak-value::after {
+            opacity: 1;
+        }
+
+        .streak-label {
+            font-size: 0.875rem;
+            color: var(--muted-foreground);
+            font-weight: 500;
+        }
+
+        .streak-subtitle {
+            font-size: 0.75rem;
+            color: var(--muted-foreground);
+        }
+
+        /* Theme Toggle */
+        .theme-toggle {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 44px;
+            height: 44px;
+            border-radius: var(--radius-full);
+            border: none;
+            background-color: var(--muted);
+            color: var(--muted-foreground);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .theme-toggle::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle, rgba(255,255,255,0.7) 0%, rgba(255,255,255,0) 70%);
+            transform: scale(0) translate(-50%, -50%);
+            transform-origin: top left;
+            opacity: 0;
+            transition: transform 0.5s, opacity 0.5s;
+        }
+
+        .theme-toggle:hover {
+            background-color: var(--primary);
+            color: var(--primary-foreground);
+            transform: rotate(15deg);
+        }
+
+        .theme-toggle:hover::after {
+            transform: scale(2.5) translate(-50%, -50%);
+            opacity: 0.3;
+        }
+
+        .theme-toggle svg {
+            width: 22px;
+            height: 22px;
+            transition: transform 0.5s ease, opacity 0.5s ease;
+        }
+
+        /* Main Content */
+        main {
+            flex: 1;
+            padding: 2rem 1.5rem;
+            max-width: 1400px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        .page-title {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            text-align: center;
+            position: relative;
+            display: inline-block;
+        }
+
+        .page-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 3px;
+            background: linear-gradient(to right, var(--primary), var(--accent));
+            border-radius: var(--radius-full);
+        }
+
+        .page-description {
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto 3rem;
+            color: var(--muted-foreground);
+            font-size: 1.1rem;
+        }
+
+        /* Filter Controls */
+        .filter-controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .filter-group {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .filter-label {
+            font-size: 0.875rem;
+            font-weight: 500;
+            color: var(--muted-foreground);
+        }
+
+        .filter-button {
+            padding: 0.5rem 1rem;
+            border-radius: var(--radius-md);
+            border: 1px solid var(--border);
+            background-color: var(--background);
+            color: var(--foreground);
+            font-size: 0.875rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .filter-button:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+        }
+
+        .filter-button.active {
+            background-color: var(--primary);
+            color: var(--primary-foreground);
+            border-color: var(--primary);
+        }
+
+        .search-container {
+            position: relative;
+            width: 300px;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 0.75rem 1rem 0.75rem 2.5rem;
+            border-radius: var(--radius-md);
+            border: 1px solid var(--border);
+            background-color: var(--background);
+            color: var(--foreground);
+            font-size: 0.875rem;
+            transition: all 0.3s ease;
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 2px var(--primary-light);
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 0.75rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--muted-foreground);
+            pointer-events: none;
+        }
+
+        /* Rewards Grid */
+        .rewards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 1.5rem;
+        }
+
+        /* Reward Card */
+        .reward-card {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            border-radius: var(--radius-lg);
+            border: 1px solid var(--border);
+            background-color: var(--card);
+            overflow: hidden;
+            transition: all 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+            box-shadow: var(--card-shadow);
+            transform: translateY(0) scale(1);
+            transform-origin: center;
+        }
+
+        .reward-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: var(--card-hover-shadow);
+            z-index: 1;
+        }
+
+        .reward-card.locked {
+            opacity: 0.8;
+        }
+
+        .reward-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(to right, var(--primary), var(--accent));
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.5s ease;
+        }
+
+        .reward-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .reward-image-container {
+            position: relative;
+            height: 200px;
+            overflow: hidden;
         }
 
         .reward-image {
-            width: 150px;
-            height: 150px;
-            position: absolute;
-            top: 110px;
-            left: 50%;
-            border-radius: 10px;
-            border: 2px solid #2c3e50;
-            margin-bottom: 15px;
+            width: 100%;
+            height: 100%;
             object-fit: cover;
-            transform: translateX(-50%); /* Exakte Zentrierung */
+            transition: transform 0.7s ease;
         }
 
-        .reward-description {
-            flex-grow: 1; /* Flexibel, damit die Beschreibung genug Platz bekommt */
-            margin-bottom: 15px;
-            margin-top: 180px; /* Platz schaffen, damit die Beschreibung unter dem Bild beginnt */
+        .reward-card:hover .reward-image {
+            transform: scale(1.1);
         }
 
-        .reward-details ul {
-            list-style: none;
-            padding: 0;
-            margin: 0 0 15px;
+        .reward-image-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 50%;
+            background: linear-gradient(to top, var(--card), transparent);
         }
 
-        .reward-details li {
-            font-size: 0.9rem;
-            color: #333;
-            margin: 5px 0;
+        .reward-lock-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background-color: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(4px);
+            -webkit-backdrop-filter: blur(4px);
+            z-index: 10;
+            transition: all 0.3s ease;
         }
 
-        .reward-button {
-            background-color: #34495e;
+        .reward-card:hover .reward-lock-overlay {
+            background-color: rgba(0, 0, 0, 0.6);
+        }
+
+        .reward-lock-icon {
+            font-size: 2rem;
+            margin-bottom: 0.75rem;
             color: white;
-            padding: 10px 20px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 1rem;
-            transition: background-color 0.3s ease, transform 0.3s ease;
+            filter: drop-shadow(0 0 5px rgba(0, 0, 0, 0.5));
+            transition: transform 0.3s ease;
         }
 
-        .reward-button:hover {
-            background-color: #2c3e50;
+        .reward-card:hover .reward-lock-icon {
+            transform: scale(1.1);
+        }
+
+        .reward-lock-text {
+            font-size: 1rem;
+            font-weight: 600;
+            color: white;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+            background: linear-gradient(135deg, var(--primary-light), var(--accent-light));
+            padding: 0.5rem 1rem;
+            border-radius: var(--radius-full);
+            transform: translateY(0);
+            transition: transform 0.3s ease;
+        }
+
+        .reward-card:hover .reward-lock-text {
+            transform: translateY(5px);
+        }
+
+        .reward-badge {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            padding: 0.35rem 0.75rem;
+            border-radius: var(--radius-full);
+            font-size: 0.75rem;
+            font-weight: 600;
+            z-index: 20;
+            display: flex;
+            align-items: center;
+            gap: 0.35rem;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .reward-badge.unlocked {
+            background: linear-gradient(135deg, var(--success), hsl(140, 80%, 40%));
+            color: white;
+        }
+
+        .reward-badge.locked {
+            background: linear-gradient(135deg, var(--muted), hsl(220, 15%, 40%));
+            color: white;
+        }
+
+        .reward-card:hover .reward-badge {
             transform: scale(1.05);
         }
 
-        .reward-button:disabled {
-            background-color: #95a5a6;
-            cursor: not-allowed;
+        .reward-content {
+            padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            flex: 1;
+            position: relative;
+            z-index: 1;
         }
 
-        footer {
-            background-color: #2c3e50;
-            color: white;
-            text-align: center;
-            padding: 15px;
+        .reward-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: 0.75rem;
+            line-height: 1.3;
+            transition: color 0.3s ease;
+        }
+
+        .reward-card:hover .reward-title {
+            color: var(--primary);
+        }
+
+        .reward-description {
+            font-size: 0.95rem;
+            color: var(--muted-foreground);
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+            flex-grow: 1;
+        }
+
+        .reward-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .reward-tag {
+            display: flex;
+            align-items: center;
+            gap: 0.35rem;
+            padding: 0.35rem 0.75rem;
+            border-radius: var(--radius-full);
+            background-color: var(--muted);
+            color: var(--muted-foreground);
+            font-size: 0.8rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .reward-card:hover .reward-tag {
+            background-color: var(--primary-light);
+            color: var(--primary-foreground);
+        }
+
+        .reward-button {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
             width: 100%;
-            margin-top: 20px;
+            padding: 0.85rem;
+            border-radius: var(--radius-md);
+            border: none;
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+            font-size: 0.95rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
         }
 
-        .back-arrow {
-            position: fixed; /* Bleibt an der gleichen Position beim Scrollen */
-            top: 20px; /* Abstand von oben */
-            left: 20px; /* Abstand von links */
-            font-size: 24px; /* Größe des Pfeils */
-            color: #8B4513; /* Bräunliche Farbe */
-            text-decoration: none; /* Kein Unterstrich */
-            transition: transform 0.2s; /* Animation beim Hover */
-            z-index: 1001;
+        .reward-button::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.7s ease;
         }
 
-        .back-arrow:hover {
-            transform: scale(1.2); /* Leichte Vergrößerung beim Hover */
+        .reward-button:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+            background: linear-gradient(135deg, var(--primary-dark), var(--primary));
         }
 
+        .reward-button:hover::after {
+            left: 100%;
+        }
 
+        .reward-button:disabled {
+            background: linear-gradient(135deg, var(--muted), var(--muted-foreground));
+            color: rgba(255, 255, 255, 0.7);
+            cursor: not-allowed;
+            box-shadow: none;
+        }
+
+        .reward-button-icon {
+            font-size: 1.1rem;
+            transition: transform 0.3s ease;
+        }
+
+        .reward-button:hover:not(:disabled) .reward-button-icon {
+            transform: translateY(-2px);
+        }
+
+        /* Progress Bar */
+        .progress-container {
+            margin: 3rem auto;
+            max-width: 800px;
+            padding: 2rem;
+            background-color: var(--card);
+            border-radius: var(--radius-lg);
+            box-shadow: var(--card-shadow);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .progress-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(to right, var(--primary), var(--accent));
+        }
+
+        .progress-title {
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+
+        .progress-bar-container {
+            position: relative;
+            height: 10px;
+            background-color: var(--muted);
+            border-radius: var(--radius-full);
+            overflow: hidden;
+            margin-bottom: 1.5rem;
+        }
+
+        .progress-bar {
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 100%;
+            background: linear-gradient(to right, var(--primary), var(--accent));
+            border-radius: var(--radius-full);
+            transition: width 1s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        .progress-milestones {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 1rem;
+        }
+
+        .milestone {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+        }
+
+        .milestone-dot {
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background-color: var(--muted);
+            margin-bottom: 0.5rem;
+            transition: all 0.3s ease;
+            border: 2px solid var(--background);
+        }
+
+        .milestone.active .milestone-dot {
+            background-color: var(--primary);
+            transform: scale(1.2);
+            box-shadow: 0 0 0 3px var(--primary-light);
+        }
+
+        .milestone.completed .milestone-dot {
+            background-color: var(--success);
+        }
+
+        .milestone-label {
+            font-size: 0.75rem;
+            font-weight: 500;
+            color: var(--muted-foreground);
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .milestone.active .milestone-label {
+            color: var(--primary);
+            font-weight: 600;
+        }
+
+        .milestone.completed .milestone-label {
+            color: var(--success);
+        }
+
+        .progress-info {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 2rem;
+        }
+
+        .progress-stat {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+
+        .progress-stat-value {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 0.25rem;
+            color: var(--primary);
+        }
+
+        .progress-stat-label {
+            font-size: 0.875rem;
+            color: var(--muted-foreground);
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--muted);
+            color: var(--muted-foreground);
+            padding: 3rem 1.5rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .footer-wave {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 50px;
+            background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 120' preserveAspectRatio='none'%3E%3Cpath d='M0,0V46.29c47.79,22.2,103.59,32.17,158,28,70.36-5.37,136.33-33.31,206.8-37.5C438.64,32.43,512.34,53.67,583,72.05c69.27,18,138.3,24.88,209.4,13.08,36.15-6,69.85-17.84,104.45-29.34C989.49,25,1113-14.29,1200,52.47V0Z' opacity='.25' fill='%23ffffff'/%3E%3Cpath d='M0,0V15.81C13,36.92,27.64,56.86,47.69,72.05,99.41,111.27,165,111,224.58,91.58c31.15-10.15,60.09-26.07,89.67-39.8,40.92-19,84.73-46,130.83-49.67,36.26-2.85,70.9,9.42,98.6,31.56,31.77,25.39,62.32,62,103.63,73,40.44,10.79,81.35-6.69,119.13-24.28s75.16-39,116.92-43.05c59.73-5.85,113.28,22.88,168.9,38.84,30.2,8.66,59,6.17,87.09-7.5,22.43-10.89,48-26.93,60.65-49.24V0Z' opacity='.5' fill='%23ffffff'/%3E%3Cpath d='M0,0V5.63C149.93,59,314.09,71.32,475.83,42.57c43-7.64,84.23-20.12,127.61-26.46,59-8.63,112.48,12.24,165.56,35.4C827.93,77.22,886,95.24,951.2,90c86.53-7,172.46-45.71,248.8-84.81V0Z' fill='%23ffffff'/%3E%3C/svg%3E");
+            background-size: cover;
+            transform: rotate(180deg);
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .footer-section {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .footer-logo {
+            font-family: var(--font-serif);
+            font-size: 1.75rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-fill-color: transparent;
+        }
+
+        .footer-description {
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+        }
+
+        .footer-heading {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 1.25rem;
+            position: relative;
+            display: inline-block;
+        }
+
+        .footer-heading::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 40px;
+            height: 2px;
+            background: linear-gradient(to right, var(--primary), var(--accent));
+            border-radius: var(--radius-full);
+        }
+
+        .footer-links {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+
+        .footer-link {
+            color: var(--muted-foreground);
+            text-decoration: none;
+            transition: color 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .footer-link:hover {
+            color: var(--primary);
+        }
+
+        .footer-social {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .social-icon {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            border-radius: var(--radius-full);
+            background-color: var(--background);
+            color: var(--foreground);
+            transition: all 0.3s ease;
+        }
+
+        .social-icon:hover {
+            background-color: var(--primary);
+            color: var(--primary-foreground);
+            transform: translateY(-3px);
+        }
+
+        .footer-bottom {
+            margin-top: 3rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid var(--border);
+            text-align: center;
+            font-size: 0.875rem;
+            color: var(--muted-foreground);
+        }
+
+        .footer-heart {
+            color: var(--destructive);
+            display: inline-block;
+            animation: heartbeat 1.5s infinite;
+        }
+
+        @keyframes heartbeat {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+        }
+
+        /* Toast Notification */
+        .toast-container {
+            position: fixed;
+            bottom: 1.5rem;
+            right: 1.5rem;
+            z-index: 100;
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+            max-width: 400px;
+            width: 100%;
+        }
+
+        .toast {
+            padding: 1.25rem;
+            border-radius: var(--radius-lg);
+            background-color: var(--card);
+            color: var(--card-foreground);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            transform: translateX(120%);
+            opacity: 0;
+            transition: all 0.5s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+            border-left: 4px solid;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .toast::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(255,255,255,0.1), rgba(255,255,255,0));
+            pointer-events: none;
+        }
+
+        .toast.success {
+            border-left-color: var(--success);
+        }
+
+        .toast.error {
+            border-left-color: var(--destructive);
+        }
+
+        .toast.warning {
+            border-left-color: var(--warning);
+        }
+
+        .toast.show {
+            transform: translateX(0);
+            opacity: 1;
+        }
+
+        .toast-icon {
+            font-size: 1.5rem;
+            flex-shrink: 0;
+            width: 24px;
+            height: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .toast.success .toast-icon {
+            color: var(--success);
+        }
+
+        .toast.error .toast-icon {
+            color: var(--destructive);
+        }
+
+        .toast.warning .toast-icon {
+            color: var(--warning);
+        }
+
+        .toast-content {
+            flex: 1;
+        }
+
+        .toast-title {
+            font-weight: 600;
+            margin-bottom: 0.35rem;
+            font-size: 1rem;
+        }
+
+        .toast-message {
+            font-size: 0.875rem;
+            color: var(--muted-foreground);
+            line-height: 1.5;
+        }
+
+        .toast-progress {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            height: 3px;
+            background: linear-gradient(to right, var(--primary), var(--accent));
+            animation: toast-progress 5s linear forwards;
+        }
+
+        @keyframes toast-progress {
+            from { width: 100%; }
+            to { width: 0%; }
+        }
+
+        .toast-close {
+            background: none;
+            border: none;
+            color: var(--muted-foreground);
+            cursor: pointer;
+            font-size: 1.25rem;
+            line-height: 1;
+            padding: 0;
+            transition: color 0.3s ease;
+        }
+
+        .toast-close:hover {
+            color: var(--foreground);
+        }
+
+        /* Loading Animation */
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .loading-icon {
+            animation: spin 1s linear infinite;
+        }
+
+        /* Confetti Animation */
+        .confetti-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1000;
+        }
+
+        .confetti {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background-color: var(--primary);
+            opacity: 0;
+        }
+
+        /* Modal */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
+            z-index: 100;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .modal-overlay.show {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .modal {
+            background-color: var(--card);
+            border-radius: var(--radius-lg);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
+            width: 90%;
+            max-width: 500px;
+            max-height: 90vh;
+            overflow-y: auto;
+            transform: scale(0.9);
+            opacity: 0;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .modal-overlay.show .modal {
+            transform: scale(1);
+            opacity: 1;
+        }
+
+        .modal-header {
+            padding: 1.5rem;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .modal-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+        }
+
+        .modal-close {
+            background: none;
+            border: none;
+            color: var(--muted-foreground);
+            cursor: pointer;
+            font-size: 1.5rem;
+            line-height: 1;
+            padding: 0;
+            transition: color 0.3s ease;
+        }
+
+        .modal-close:hover {
+            color: var(--foreground);
+        }
+
+        .modal-body {
+            padding: 1.5rem;
+        }
+
+        .modal-footer {
+            padding: 1.5rem;
+            border-top: 1px solid var(--border);
+            display: flex;
+            justify-content: flex-end;
+            gap: 1rem;
+        }
+
+        /* Responsive Adjustments */
+        @media (max-width: 1024px) {
+            .rewards-grid {
+                grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header-container {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 1rem;
+                padding: 1rem 1.5rem;
+                height: auto;
+            }
+
+            .header-right {
+                width: 100%;
+                justify-content: space-between;
+            }
+
+            .shop-title {
+                font-size: 1.5rem;
+            }
+
+            .filter-controls {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .search-container {
+                width: 100%;
+            }
+
+            .rewards-grid {
+                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+                gap: 1.5rem;
+            }
+
+            .progress-container {
+                padding: 1.5rem;
+            }
+
+            .progress-milestones {
+                display: none;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .rewards-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .reward-image-container {
+                height: 180px;
+            }
+
+            .progress-info {
+                flex-wrap: wrap;
+                gap: 1.5rem;
+            }
+
+            .progress-stat {
+                width: 50%;
+            }
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideUp {
+            from { transform: translateY(30px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        @keyframes slideInRight {
+            from { transform: translateX(50px); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+
+        @keyframes scaleIn {
+            from { transform: scale(0.8); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+
+        .animate-fade-in {
+            animation: fadeIn 0.5s ease forwards;
+        }
+
+        .animate-slide-up {
+            animation: slideUp 0.5s ease forwards;
+        }
+
+        .animate-slide-in-right {
+            animation: slideInRight 0.5s ease forwards;
+        }
+
+        .animate-scale-in {
+            animation: scaleIn 0.5s ease forwards;
+        }
+
+        /* Staggered animations */
+        .stagger-animation > * {
+            opacity: 0;
+        }
+
+        .stagger-animation > *:nth-child(1) { animation: slideUp 0.5s ease forwards 0.1s; }
+        .stagger-animation > *:nth-child(2) { animation: slideUp 0.5s ease forwards 0.2s; }
+        .stagger-animation > *:nth-child(3) { animation: slideUp 0.5s ease forwards 0.3s; }
+        .stagger-animation > *:nth-child(4) { animation: slideUp 0.5s ease forwards 0.4s; }
+        .stagger-animation > *:nth-child(5) { animation: slideUp 0.5s ease forwards 0.5s; }
+        .stagger-animation > *:nth-child(6) { animation: slideUp 0.5s ease forwards 0.6s; }
+        .stagger-animation > *:nth-child(7) { animation: slideUp 0.5s ease forwards 0.7s; }
+        .stagger-animation > *:nth-child(8) { animation: slideUp 0.5s ease forwards 0.8s; }
+        .stagger-animation > *:nth-child(9) { animation: slideUp 0.5s ease forwards 0.9s; }
+        .stagger-animation > *:nth-child(10) { animation: slideUp 0.5s ease forwards 1s; }
+
+        /* Utility Classes */
+        .visually-hidden {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+            border-width: 0;
+        }
     </style>
 </head>
 <body>
-    <!-- Header -->
-    <header>
-        <div class="container">
-            <!-- Header -->
-            <header class="shop-header">
-                <a href="index.html" class="back-arrow" title="Go back to the main page">&#8592;</a>
-                <h1 class="shop-title">Streak Rewards Shop</h1>
-            </header>
-    
-            <!-- Streak-Anzeige -->
-            <section class="streak-container">
-                <p id="streak-display" class="streak-display">
-                    <span class="flame-icon">&#x1F525;</span> <span id="streak-value">0</span> Days
-                </p>
-            </section>
+    <!-- Confetti Container -->
+    <div class="confetti-container" id="confetti-container"></div>
+
+    <!-- Toast Container -->
+    <div class="toast-container" id="toast-container"></div>
+
+    <!-- Modal -->
+    <div class="modal-overlay" id="reward-modal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3 class="modal-title" id="modal-title">Reward Details</h3>
+                <button class="modal-close" id="modal-close" aria-label="Close modal">&times;</button>
+            </div>
+            <div class="modal-body" id="modal-body">
+                <!-- Modal content will be dynamically inserted here -->
+            </div>
+            <div class="modal-footer">
+                <button class="filter-button" id="modal-cancel">Cancel</button>
+                <button class="reward-button" id="modal-download">Download Reward</button>
+            </div>
         </div>
-    
-        <script src="streak-rewards.js"></script>
-        
+    </div>
+
+    <!-- Header -->
+    <header id="header" class="glass">
+        <div class="glass-highlight"></div>
+        <div class="header-container">
+            <div class="header-left">
+                <button class="back-button" id="back-button" aria-label="Go back">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="m15 18-6-6 6-6"/>
+                    </svg>
+                </button>
+                <div class="shop-title-container">
+                    <h1 class="shop-title">Streak Rewards Shop</h1>
+                    <p class="shop-subtitle">Unlock exclusive rewards by maintaining your daily streak</p>
+                </div>
+            </div>
+            <div class="header-right">
+                <div class="streak-counter">
+                    <div class="flame-container">
+                        <div class="flame-glow"></div>
+                        <div class="flame-icon">🔥</div>
+                    </div>
+                    <div class="streak-info">
+                        <div class="streak-count">
+                            <span class="streak-value" id="streak-value" data-value="0">0</span>
+                            <span class="streak-label" id="streak-label">Days</span>
+                        </div>
+                        <span class="streak-subtitle">Current Streak</span>
+                    </div>
+                </div>
+                <button class="theme-toggle" id="theme-toggle" aria-label="Toggle theme">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="sun-icon">
+                        <circle cx="12" cy="12" r="4"/>
+                        <path d="M12 2v2"/>
+                        <path d="M12 20v2"/>
+                        <path d="m4.93 4.93 1.41 1.41"/>
+                        <path d="m17.66 17.66 1.41 1.41"/>
+                        <path d="M2 12h2"/>
+                        <path d="M20 12h2"/>
+                        <path d="m6.34 17.66-1.41 1.41"/>
+                        <path d="m19.07 4.93-1.41 1.41"/>
+                    </svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="moon-icon" style="display: none;">
+                        <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/>
+                    </svg>
+                </button>
+            </div>
+        </div>
     </header>
 
     <!-- Main Content -->
-    <!-- Main Content -->
-    <!-- Main Content -->
     <main>
-        <section class="rewards-section">
-            <!-- Reward Card 1 -->
-            <div class="reward-card">
-                <h3 class="reward-title">Motivating Background Image</h3>
-                <img src="x_1.jpg" alt="Exclusive Ebook" class="reward-image">
-                <p class="reward-description">Unlock an exclusive background image to keep you motivated and focused on your goals.</p>
-                <div class="reward-details">
-                    <ul>
-                        <li><strong>Unlock after:</strong> 2 Days Streak</li>
-                        <li><strong>Size:</strong> 32KB</li>
-                        <li><strong>Format:</strong> PNG</li>
-                    </ul>
-                </div>
-                <button class="reward-button" data-required-streak="2" data-download-url="2-day reward.png" onclick="redeemReward(2)">Download Now</button>
+        <div class="animate-fade-in">
+            <h2 class="page-title">Exclusive Rewards Collection</h2>
+            <p class="page-description">Discover a curated collection of premium resources designed to enhance your personal growth journey. Each reward is unlocked as you maintain your daily streak.</p>
+        </div>
 
-
+        <!-- Progress Tracker -->
+        <div class="progress-container animate-slide-up">
+            <h3 class="progress-title">Your Streak Journey</h3>
+            <div class="progress-bar-container">
+                <div class="progress-bar" id="progress-bar" style="width: 0%;"></div>
             </div>
-
-            <!-- Reward Card 2 -->
-            <div class="reward-card">
-                <h3 class="reward-title">Useful Daily Focus Planner</h3>
-                <img src="x_2.jpg" alt="Study Guide" class="reward-image">
-                <p class="reward-description">A simple focus planner for the day that deepens your focus for greater achievement.</p>
-                <div class="reward-details">
-                    <ul>
-                        <li><strong>Unlock after:</strong> 7 Days Streak</li>
-                        <li><strong>Size:</strong> 127KB</li>
-                        <li><strong>Format:</strong> PDF</li>
-                    </ul>
-                </div>
-                <button class="reward-button" data-required-streak="7" data-download-url="7-day reward.pdf" onclick="redeemReward(7)">Download Now</button>
+            <div class="progress-milestones" id="progress-milestones">
+                <!-- Milestone markers will be dynamically generated here -->
             </div>
-
-            <!-- Reward Card 3 -->
-            <div class="reward-card">
-                <h3 class="reward-title">Guided Stoic Meditation</h3>
-                <img src="x_3.jpg" alt="Cheatsheet" class="reward-image">
-                <p class="reward-description">A Marcus Aurelius-inspired meditation for inner peace, gratitude, and clarity.</p>
-                <div class="reward-details">
-                    <ul>
-                        <li><strong>Unlock after:</strong> 14 Days Streak</li>
-                        <li><strong>Size:</strong> 8 Min</li>
-                        <li><strong>Format:</strong> MP3</li>
-                    </ul>
+            <div class="progress-info">
+                <div class="progress-stat">
+                    <span class="progress-stat-value" id="current-streak">0</span>
+                    <span class="progress-stat-label">Current Streak</span>
                 </div>
-                <button class="reward-button" data-required-streak="14" data-download-url="14-day reward.mp3" onclick="redeemReward(14)">Download Now</button>
-            </div>
-
-            <!-- Reward Card 4 -->
-            <div class="reward-card">
-                <h3 class="reward-title">Brief Summary Of Epictetus' Philosophy</h3>
-                <img src="x_4.jpg" alt="Reflection Journal" class="reward-image">
-                <p class="reward-description">A practical guide to applying Epictetus' Stoic principles for daily peace.</p>
-                <div class="reward-details">
-                    <ul>
-                        <li><strong>Unlock after:</strong> 21 Days Streak</li>
-                        <li><strong>Size:</strong> 84KB</li>
-                        <li><strong>Format:</strong> PDF</li>
-                    </ul>
+                <div class="progress-stat">
+                    <span class="progress-stat-value" id="unlocked-rewards">0</span>
+                    <span class="progress-stat-label">Rewards Unlocked</span>
                 </div>
-                <button class="reward-button" data-required-streak="21" data-download-url="21-day reward.pdf" onclick="redeemReward(21)">Download Now</button>
-            </div>
-
-            <!-- Reward Card 5 -->
-            <div class="reward-card">
-                <h3 class="reward-title">Comprehensive Creativity Guide</h3>
-                <img src="x_5.jpg" alt="Daily Planner" class="reward-image">
-                <p class="reward-description">A Comprehensive Guide to Stimulating Innovation and Problem-Solving.</p>
-                <div class="reward-details">
-                    <ul>
-                        <li><strong>Unlock after:</strong> 30 Days Streak</li>
-                        <li><strong>Size:</strong> 344KB</li>
-                        <li><strong>Format:</strong> PDF</li>
-                    </ul>
+                <div class="progress-stat">
+                    <span class="progress-stat-value" id="next-reward">2</span>
+                    <span class="progress-stat-label">Days Until Next Reward</span>
                 </div>
-                <button class="reward-button" data-required-streak="30" data-download-url="30-day reward.pdf" onclick="redeemReward(30)">Download Now</button>
-            </div>
-
-            <!-- Reward Card 6 -->
-            <div class="reward-card">
-                <h3 class="reward-title">Empowering Background Image</h3>
-                <img src="x_6.jpg" alt="Quote Compilation" class="reward-image">
-                <p class="reward-description">Unlock an exclusive background image to keep you motivated and focused on your goals.</p>
-                <div class="reward-details">
-                    <ul>
-                        <li><strong>Unlock after:</strong> 45 Days Streak</li>
-                        <li><strong>Size:</strong> 1MB</li>
-                        <li><strong>Format:</strong> PNG</li>
-                    </ul>
+                <div class="progress-stat">
+                    <span class="progress-stat-value" id="total-rewards">20</span>
+                    <span class="progress-stat-label">Total Rewards</span>
                 </div>
-                <button class="reward-button" data-required-streak="45" data-download-url="45-day reward.png" onclick="redeemReward(45)">Download Now</button>
             </div>
+        </div>
 
-            <!-- Reward Card 7 -->
-            <div class="reward-card">
-                <h3 class="reward-title">Daily Reflection Journal</h3>
-                <img src="x_7.jpg" alt="Advanced Workbook" class="reward-image">
-                <p class="reward-description">A simple journal that helps you document your progress and celebrate your successes.</p>
-                <div class="reward-details">
-                    <ul>
-                        <li><strong>Unlock after:</strong> 60 Days Streak</li>
-                        <li><strong>Size:</strong> 40KB</li>
-                        <li><strong>Format:</strong> PDF</li>
-                    </ul>
-                </div>
-                <button class="reward-button" data-required-streak="60" data-download-url="60-day reward.pdf" onclick="redeemReward(60)">Download Now</button>
+        <!-- Filter Controls -->
+        <div class="filter-controls animate-slide-in-right">
+            <div class="filter-group">
+                <span class="filter-label">Filter:</span>
+                <button class="filter-button active" data-filter="all">All Rewards</button>
+                <button class="filter-button" data-filter="unlocked">Unlocked</button>
+                <button class="filter-button" data-filter="locked">Locked</button>
             </div>
-
-            <!-- Reward Card 8 -->
-            <div class="reward-card">
-                <h3 class="reward-title">Minimalist's Productivity Guide</h3>
-                <img src="x_8.jpg" alt="Meditation Guide" class="reward-image">
-                <p class="reward-description">A simple but extremely effective system for increasing productivity, inspired by Zen practices.</p>
-                <div class="reward-details">
-                    <ul>
-                        <li><strong>Unlock after:</strong> 75 Days Streak</li>
-                        <li><strong>Size:</strong> 62KB</li>
-                        <li><strong>Format:</strong> PDF</li>
-                    </ul>
-                </div>
-                <button class="reward-button" data-required-streak="75" data-download-url="75-day reward.pdf" onclick="redeemReward(75)">Download Now</button>
+            <div class="search-container">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="search-icon">
+                    <circle cx="11" cy="11" r="8"/>
+                    <path d="m21 21-4.3-4.3"/>
+                </svg>
+                <input type="text" class="search-input" id="search-input" placeholder="Search rewards...">
             </div>
+        </div>
 
-            <!-- Reward Card 9 -->
-            <div class="reward-card">
-                <h3 class="reward-title">How to Overcome Self-Doubt</h3>
-                <img src="x_9.jpg" alt="Daily Practices" class="reward-image">
-                <p class="reward-description">A dialogue between Shakespeare and Aurelius about dealing with self-doubt.</p>
-                <div class="reward-details">
-                    <ul>
-                        <li><strong>Unlock after:</strong> 100 Days Streak</li>
-                        <li><strong>Size:</strong> 5MB</li>
-                        <li><strong>Format:</strong> MP3</li>
-                    </ul>
-                </div>
-                <button class="reward-button" data-required-streak="100" data-download-url="100-day reward.mp3" onclick="redeemReward(100)">Download Now</button>
-            </div>
-
-            <!-- Reward Card 10 -->
-            <div class="reward-card">
-                <h3 class="reward-title">Practical Guide to Aristotle's Ethics</h3>
-                <img src="x_10.jpg" alt="Habits Tracker" class="reward-image">
-                <p class="reward-description">A brief guide to applying Aristotle's ethical principles in daily life with clear implementation steps.</p>
-                <div class="reward-details">
-                    <ul>
-                        <li><strong>Unlock after:</strong> 130 Days Streak</li>
-                        <li><strong>Size:</strong> 83KB</li>
-                        <li><strong>Format:</strong> PDF</li>
-                    </ul>
-                </div>
-                <button class="reward-button" data-required-streak="130" data-download-url="130-day reward.pdf" onclick="redeemReward(130)">Download Now</button>
-            </div>
-
-            <!-- Reward Card 11 -->
-            <div class="reward-card">
-                <h3 class="reward-title">Nietzsches' Philosophy Explained</h3>
-                <img src="x_11.jpg" alt="Life Strategy" class="reward-image">
-                <p class="reward-description">The Three Metamorphoses of the Spirit: A Guide to Nietzsche’s Philosophy & Practical Application.</p>
-                <div class="reward-details">
-                    <ul>
-                        <li><strong>Unlock after:</strong> 170 Days Streak</li>
-                        <li><strong>Size:</strong> 79KB</li>
-                        <li><strong>Format:</strong> PDF</li>
-                    </ul>
-                </div>
-                <button class="reward-button" data-required-streak="170" data-download-url="170-day reward.pdf" onclick="redeemReward(170)">Download Now</button>
-            </div>
-
-            <!-- Reward Card 12 -->
-            <div class="reward-card">
-                <h3 class="reward-title">A Guide to Platos' Logic</h3>
-                <img src="x_12.jpg" alt="Emotional Mastery" class="reward-image">
-                <p class="reward-description">A Guide with xercises for applying Platos logic to everyday decision making and problem solving.</p>
-                <div class="reward-details">
-                    <ul>
-                        <li><strong>Unlock after:</strong> 200 Days Streak</li>
-                        <li><strong>Size:</strong> 81KB</li>
-                        <li><strong>Format:</strong> PDF</li>
-                    </ul>
-                </div>
-                <button class="reward-button" data-required-streak="200" data-download-url="200-day reward.pdf" onclick="redeemReward(200)">Download Now</button>
-            </div>
-
-            <!-- Reward Card 13 -->
-            <div class="reward-card">
-                <h3 class="reward-title">Übermensch Guide And Workbook</h3>
-                <img src="x_13.jpg" alt="Reflection Worksheet" class="reward-image">
-                <p class="reward-description">Becoming the Übermensch: A Practical Guide and Workbook</p>
-                <div class="reward-details">
-                    <ul>
-                        <li><strong>Unlock after:</strong> 235 Days Streak</li>
-                        <li><strong>Size:</strong> 82KB</li>
-                        <li><strong>Format:</strong> PDF</li>
-                    </ul>
-                </div>
-                <button class="reward-button" data-required-streak="235" data-download-url="235-day reward.pdf" onclick="redeemReward(235)">Download Now</button>
-            </div>
-
-            <!-- Reward Card 14 -->
-            <div class="reward-card">
-                <h3 class="reward-title">A Conversation Between Great Minds</h3>
-                <img src="x_14.jpg" alt="Conflict Resolution" class="reward-image">
-                <p class="reward-description">Discussion on the Meaning of Life: Plato, Aurelius and Shakespeare.</p>
-                <div class="reward-details">
-                    <ul>
-                        <li><strong>Unlock after:</strong> 275 Days Streak</li>
-                        <li><strong>Size:</strong> 8 Min</li>
-                        <li><strong>Format:</strong> MP3</li>
-                    </ul>
-                </div>
-                <button class="reward-button" data-required-streak="275" data-download-url="275-day reward.mp3" onclick="redeemReward(275)">Download Now</button>
-            </div>
-
-            <!-- Reward Card 15 -->
-            <div class="reward-card">
-                <h3 class="reward-title">A Guide to Purposeful Exploration</h3>
-                <img src="x_15.jpg" alt="Focus Guide" class="reward-image">
-                <p class="reward-description">The Importance of Traveling: Lessons from Captain Cook and Marco Polo.</p>
-                <div class="reward-details">
-                    <ul>
-                        <li><strong>Unlock after:</strong> 320 Days Streak</li>
-                        <li><strong>Size:</strong> 240KB</li>
-                        <li><strong>Format:</strong> PDF</li>
-                    </ul>
-                </div>
-                <button class="reward-button" data-required-streak="320" data-download-url="320-day reward.pdf" onclick="redeemReward(320)">Download Now</button>
-            </div>
-
-            <!-- Reward Card 16 -->
-            <div class="reward-card">
-                <h3 class="reward-title">How and When to Take Risks</h3>
-                <img src="x_16.jpg" alt="Strength Guide" class="reward-image">
-                <p class="reward-description">A Practical Guide to Mastering Calculated Risk in Your Life and Career - inspired by Julius Cäsar.</p>
-                <div class="reward-details">
-                    <ul>
-                        <li><strong>Unlock after:</strong> 365 Days Streak</li>
-                        <li><strong>Size:</strong> 347KB</li>
-                        <li><strong>Format:</strong> PDF</li>
-                    </ul>
-                </div>
-                <button class="reward-button" data-required-streak="365" data-download-url="365-day reward.pdf" onclick="redeemReward(365)">Download Now</button>
-            </div>
-
-            <!-- Reward Card 17 -->
-            <div class="reward-card">
-                <h3 class="reward-title">5-Year Planning Tool Inspired by Leonidas</h3>
-                <img src="x_17.jpg" alt="Emotional Ebook" class="reward-image">
-                <p class="reward-description">An interactive e-book with specific questions to help you develop your 5-year plan.</p>
-                <div class="reward-details">
-                    <ul>
-                        <li><strong>Unlock after:</strong> 410 Days Streak</li>
-                        <li><strong>Size:</strong> 265KB</li>
-                        <li><strong>Format:</strong> PDF</li>
-                    </ul>
-                </div>
-                <button class="reward-button" data-required-streak="410" data-download-url="410-day reward.pdf" onclick="redeemReward(410)">Download Now</button>
-            </div>
-
-            <!-- Reward Card 18 -->
-            <div class="reward-card">
-                <h3 class="reward-title">A High Value Motivational Poster</h3>
-                <img src="x_18.jpg" alt="Performance Ebook" class="reward-image">
-                <p class="reward-description">Motivational poster with a powerful design that visually reinforces determination and progress.</p>
-                <div class="reward-details">
-                    <ul>
-                        <li><strong>Unlock after:</strong> 480 Days Streak</li>
-                        <li><strong>Size:</strong> 1,5MB</li>
-                        <li><strong>Format:</strong> PNG</li>
-                    </ul>
-                </div>
-                <button class="reward-button" data-required-streak="480" data-download-url="480-day reward.png" onclick="redeemReward(480)">Download Now</button>
-            </div>
-
-            <!-- Reward Card 19 -->
-            <div class="reward-card">
-                <h3 class="reward-title">A Guide to Dark Psychology</h3>
-                <img src="x_19.jpg" alt="Discipline Ebook" class="reward-image">
-                <p class="reward-description">An ebook that teaches you how to recognise and protect yourself from dark psychological manipulation.</p>
-                <div class="reward-details">
-                    <ul>
-                        <li><strong>Unlock after:</strong> 530 Days Streak</li>
-                        <li><strong>Size:</strong> 183KB</li>
-                        <li><strong>Format:</strong> PDF</li>
-                    </ul>
-                </div>
-                <button class="reward-button" data-required-streak="530" data-download-url="530-day reward.pdf" onclick="redeemReward(530)">Download Now</button>
-            </div>
-
-            <!-- Reward Card 20 -->
-            <div class="reward-card">
-                <h3 class="reward-title">The Art of Warfare and Strategic Thinking</h3>
-                <img src="x_20.jpg" alt="Focus Ebook" class="reward-image">
-                <p class="reward-description">Unlock techniques to enhance your focus and concentration, making you more productive every day.</p>
-                <div class="reward-details">
-                    <ul>
-                        <li><strong>Unlock after:</strong> 600 Days Streak</li>
-                        <li><strong>Size:</strong> 157KB</li>
-                        <li><strong>Format:</strong> PDF</li>
-                    </ul>
-                </div>
-                <button class="reward-button" data-required-streak="600" data-download-url="600-day reward.pdf" onclick="redeemReward(600)">Download Now</button>
-            </div>
-
-        </section>
+        <!-- Rewards Grid -->
+        <div class="rewards-grid stagger-animation" id="rewards-grid">
+            <!-- Reward cards will be dynamically generated here -->
+        </div>
     </main>
-
-
 
     <!-- Footer -->
     <footer>
-        <div class="container">
+        <div class="footer-wave"></div>
+        <div class="footer-content">
+            <div class="footer-section">
+                <div class="footer-logo">WiseWords</div>
+                <p class="footer-description">Empowering your personal growth journey through daily consistency and valuable resources.</p>
+            </div>
+            
+            
+            
+        </div>
+        <div class="footer-bottom">
             <p>&copy; 2025 WiseWords | All Rights Reserved</p>
+            <p>Made with <span class="footer-heart">❤</span> for your personal growth</p>
         </div>
     </footer>
 
     <script>
-        // Schlüssel für den Streak im localStorage
-        const streakKey = 'stoicStreak'; // Der gleiche Schlüssel, den du auf der Startseite verwendest.
-    
-        // Funktion: Synchronisiere den Streak auf der Rewards-Seite
-        function syncStreakDisplay() {
-            // Abrufen des aktuellen Streak-Werts aus localStorage
-            const streak = parseInt(localStorage.getItem(streakKey)) || 0;
-    
-            // Element für die Streak-Anzeige finden
-            const streakDisplay = document.getElementById('streak-value');
-    
-            // Streak-Wert in der Anzeige aktualisieren
-            if (streakDisplay) {
-                streakDisplay.textContent = streak;
+        // Rewards Data
+        const rewards = [
+            {
+                id: 1,
+                title: "Motivating Background Image",
+                description: "Unlock an exclusive background image to keep you motivated and focused on your goals.",
+                image: "x_1.jpg",
+                requiredStreak: 2,
+                fileSize: "32KB",
+                fileFormat: "PNG",
+                downloadUrl: "2-day reward.png",
+                category: "Visuals"
+            },
+            {
+                id: 2,
+                title: "Useful Daily Focus Planner",
+                description: "A simple focus planner for the day that deepens your focus for greater achievement.",
+                image: "x_2.jpg",
+                requiredStreak: 7,
+                fileSize: "127KB",
+                fileFormat: "PDF",
+                downloadUrl: "7-day reward.pdf",
+                category: "Productivity"
+            },
+            {
+                id: 3,
+                title: "Guided Stoic Meditation",
+                description: "A Marcus Aurelius-inspired meditation for inner peace, gratitude, and clarity.",
+                image: "x_3.jpg",
+                requiredStreak: 14,
+                fileSize: "8 Min",
+                fileFormat: "MP3",
+                downloadUrl: "14-day reward.mp3",
+                category: "Mindfulness"
+            },
+            {
+                id: 4,
+                title: "Brief Summary Of Epictetus' Philosophy",
+                description: "A practical guide to applying Epictetus' Stoic principles for daily peace.",
+                image: "x_4.jpg",
+                requiredStreak: 21,
+                fileSize: "84KB",
+                fileFormat: "PDF",
+                downloadUrl: "21-day reward.pdf",
+                category: "Philosophy"
+            },
+            {
+                id: 5,
+                title: "Comprehensive Creativity Guide",
+                description: "A Comprehensive Guide to Stimulating Innovation and Problem-Solving.",
+                image: "x_5.jpg",
+                requiredStreak: 30,
+                fileSize: "344KB",
+                fileFormat: "PDF",
+                downloadUrl: "30-day reward.pdf",
+                category: "Creativity"
+            },
+            {
+                id: 6,
+                title: "Empowering Background Image",
+                description: "Unlock an exclusive background image to keep you motivated and focused on your goals.",
+                image: "x_6.jpg",
+                requiredStreak: 45,
+                fileSize: "1MB",
+                fileFormat: "PNG",
+                downloadUrl: "45-day reward.png",
+                category: "Visuals"
+            },
+            {
+                id: 7,
+                title: "Daily Reflection Journal",
+                description: "A simple journal that helps you document your progress and celebrate your successes.",
+                image: "x_7.jpg",
+                requiredStreak: 60,
+                fileSize: "40KB",
+                fileFormat: "PDF",
+                downloadUrl: "60-day reward.pdf",
+                category: "Productivity"
+            },
+            {
+                id: 8,
+                title: "Minimalist's Productivity Guide",
+                description: "A simple but extremely effective system for increasing productivity, inspired by Zen practices.",
+                image: "x_8.jpg",
+                requiredStreak: 75,
+                fileSize: "62KB",
+                fileFormat: "PDF",
+                downloadUrl: "75-day reward.pdf",
+                category: "Productivity"
+            },
+            {
+                id: 9,
+                title: "How to Overcome Self-Doubt",
+                description: "A dialogue between Shakespeare and Aurelius about dealing with self-doubt.",
+                image: "x_9.jpg",
+                requiredStreak: 100,
+                fileSize: "5MB",
+                fileFormat: "MP3",
+                downloadUrl: "100-day reward.mp3",
+                category: "Mindfulness"
+            },
+            {
+                id: 10,
+                title: "Practical Guide to Aristotle's Ethics",
+                description: "A brief guide to applying Aristotle's ethical principles in daily life with clear implementation steps.",
+                image: "x_10.jpg",
+                requiredStreak: 130,
+                fileSize: "83KB",
+                fileFormat: "PDF",
+                downloadUrl: "130-day reward.pdf",
+                category: "Philosophy"
+            },
+            {
+                id: 11,
+                title: "Nietzsches' Philosophy Explained",
+                description: "The Three Metamorphoses of the Spirit: A Guide to Nietzsche's Philosophy & Practical Application.",
+                image: "x_11.jpg",
+                requiredStreak: 170,
+                fileSize: "79KB",
+                fileFormat: "PDF",
+                downloadUrl: "170-day reward.pdf",
+                category: "Philosophy"
+            },
+            {
+                id: 12,
+                title: "A Guide to Platos' Logic",
+                description: "A Guide with exercises for applying Platos logic to everyday decision making and problem solving.",
+                image: "x_12.jpg",
+                requiredStreak: 200,
+                fileSize: "81KB",
+                fileFormat: "PDF",
+                downloadUrl: "200-day reward.pdf",
+                category: "Philosophy"
+            },
+            {
+                id: 13,
+                title: "Übermensch Guide And Workbook",
+                description: "Becoming the Übermensch: A Practical Guide and Workbook",
+                image: "x_13.jpg",
+                requiredStreak: 235,
+                fileSize: "82KB",
+                fileFormat: "PDF",
+                downloadUrl: "235-day reward.pdf",
+                category: "Philosophy"
+            },
+            {
+                id: 14,
+                title: "A Conversation Between Great Minds",
+                description: "Discussion on the Meaning of Life: Plato, Aurelius and Shakespeare.",
+                image: "x_14.jpg",
+                requiredStreak: 275,
+                fileSize: "8 Min",
+                fileFormat: "MP3",
+                downloadUrl: "275-day reward.mp3",
+                category: "Philosophy"
+            },
+            {
+                id: 15,
+                title: "A Guide to Purposeful Exploration",
+                description: "The Importance of Traveling: Lessons from Captain Cook and Marco Polo.",
+                image: "x_15.jpg",
+                requiredStreak: 320,
+                fileSize: "240KB",
+                fileFormat: "PDF",
+                downloadUrl: "320-day reward.pdf",
+                category: "Lifestyle"
+            },
+            {
+                id: 16,
+                title: "How and When to Take Risks",
+                description: "A Practical Guide to Mastering Calculated Risk in Your Life and Career - inspired by Julius Cäsar.",
+                image: "x_16.jpg",
+                requiredStreak: 365,
+                fileSize: "347KB",
+                fileFormat: "PDF",
+                downloadUrl: "365-day reward.pdf",
+                category: "Lifestyle"
+            },
+            {
+                id: 17,
+                title: "5-Year Planning Tool Inspired by Leonidas",
+                description: "An interactive e-book with specific questions to help you develop your 5-year plan.",
+                image: "x_17.jpg",
+                requiredStreak: 410,
+                fileSize: "265KB",
+                fileFormat: "PDF",
+                downloadUrl: "410-day reward.pdf",
+                category: "Productivity"
+            },
+            {
+                id: 18,
+                title: "A High Value Motivational Poster",
+                description: "Motivational poster with a powerful design that visually reinforces determination and progress.",
+                image: "x_18.jpg",
+                requiredStreak: 480,
+                fileSize: "1.5MB",
+                fileFormat: "PNG",
+                downloadUrl: "480-day reward.png",
+                category: "Visuals"
+            },
+            {
+                id: 19,
+                title: "A Guide to Dark Psychology",
+                description: "An ebook that teaches you how to recognise and protect yourself from dark psychological manipulation.",
+                image: "x_19.jpg",
+                requiredStreak: 530,
+                fileSize: "183KB",
+                fileFormat: "PDF",
+                downloadUrl: "530-day reward.pdf",
+                category: "Psychology"
+            },
+            {
+                id: 20,
+                title: "The Art of Warfare and Strategic Thinking",
+                description: "Unlock techniques to enhance your focus and concentration, making you more productive every day.",
+                image: "x_20.jpg",
+                requiredStreak: 600,
+                fileSize: "157KB",
+                fileFormat: "PDF",
+                downloadUrl: "600-day reward.pdf",
+                category: "Strategy"
             }
-    
-            // Belohnungen aktivieren/deaktivieren je nach Streak
-            const rewardButtons = document.querySelectorAll('.reward-button');
-            rewardButtons.forEach(button => {
-                const requiredStreak = parseInt(button.getAttribute('data-required-streak'));
-                if (streak >= requiredStreak) {
-                    button.disabled = false; // Aktivieren des Buttons, wenn der Streak ausreicht
-                    button.classList.remove('disabled');
-                } else {
-                    button.disabled = true; // Deaktivieren des Buttons, wenn der Streak nicht ausreicht
-                    button.classList.add('disabled');
+        ];
+
+        // Milestone data for progress bar
+        const milestones = [
+            { streak: 2, label: "First Reward" },
+            { streak: 30, label: "1 Month" },
+            { streak: 100, label: "100 Days" },
+            { streak: 365, label: "1 Year" },
+            { streak: 600, label: "Master Level" }
+        ];
+
+        // DOM Elements
+        const rewardsGrid = document.getElementById('rewards-grid');
+        const streakValue = document.getElementById('streak-value');
+        const streakLabel = document.getElementById('streak-label');
+        const currentStreakEl = document.getElementById('current-streak');
+        const unlockedRewardsEl = document.getElementById('unlocked-rewards');
+        const nextRewardEl = document.getElementById('next-reward');
+        const totalRewardsEl = document.getElementById('total-rewards');
+        const progressBar = document.getElementById('progress-bar');
+        const progressMilestones = document.getElementById('progress-milestones');
+        const backButton = document.getElementById('back-button');
+        const themeToggle = document.getElementById('theme-toggle');
+        const header = document.getElementById('header');
+        const toastContainer = document.getElementById('toast-container');
+        const sunIcon = document.querySelector('.sun-icon');
+        const moonIcon = document.querySelector('.moon-icon');
+        const searchInput = document.getElementById('search-input');
+        const filterButtons = document.querySelectorAll('.filter-button[data-filter]');
+        const rewardModal = document.getElementById('reward-modal');
+        const modalClose = document.getElementById('modal-close');
+        const modalCancel = document.getElementById('modal-cancel');
+        const modalDownload = document.getElementById('modal-download');
+        const modalTitle = document.getElementById('modal-title');
+        const modalBody = document.getElementById('modal-body');
+        const confettiContainer = document.getElementById('confetti-container');
+
+        // Constants
+        const STREAK_KEY = 'stoicStreak';
+        const THEME_KEY = 'stoicTheme';
+        const UNLOCKED_REWARDS_KEY = 'unlockedRewards';
+        const TOAST_DURATION = 5000;
+        const MAX_STREAK = 600; // Maximum streak value for progress bar
+
+        // State
+        let currentStreak = parseInt(localStorage.getItem(STREAK_KEY)) || 0;
+        let currentTheme = localStorage.getItem(THEME_KEY) || 'light';
+        let unlockedRewards = JSON.parse(localStorage.getItem(UNLOCKED_REWARDS_KEY)) || [];
+        let currentFilter = 'all';
+        let searchQuery = '';
+        let selectedReward = null;
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            initTheme();
+            updateStreakDisplay();
+            renderRewardCards();
+            setupProgressBar();
+            updateProgressStats();
+            setupEventListeners();
+            checkScrollPosition();
+            
+            // Simulate loading animation
+            setTimeout(() => {
+                document.querySelectorAll('.stagger-animation > *').forEach(el => {
+                    el.style.opacity = '1';
+                });
+            }, 100);
+        });
+
+        // Functions
+        function initTheme() {
+            if (currentTheme === 'dark') {
+                document.documentElement.classList.add('dark');
+                sunIcon.style.display = 'none';
+                moonIcon.style.display = 'block';
+            } else {
+                document.documentElement.classList.remove('dark');
+                sunIcon.style.display = 'block';
+                moonIcon.style.display = 'none';
+            }
+        }
+
+        function updateStreakDisplay() {
+            streakValue.textContent = currentStreak;
+            streakValue.setAttribute('data-value', currentStreak);
+            streakLabel.textContent = currentStreak === 1 ? 'Day' : 'Days';
+            
+            // Update flame animation based on streak
+            const flameIcon = document.querySelector('.flame-icon');
+            const flameGlow = document.querySelector('.flame-glow');
+            
+            if (currentStreak >= 365) {
+                flameIcon.style.filter = 'drop-shadow(0 0 8px var(--flame-glow))';
+                flameGlow.style.opacity = '1';
+                flameGlow.style.width = '50px';
+                flameGlow.style.height = '50px';
+            } else if (currentStreak >= 100) {
+                flameIcon.style.filter = 'drop-shadow(0 0 6px var(--flame-glow))';
+                flameGlow.style.opacity = '0.8';
+                flameGlow.style.width = '45px';
+                flameGlow.style.height = '45px';
+            } else if (currentStreak >= 30) {
+                flameIcon.style.filter = 'drop-shadow(0 0 5px var(--flame-glow))';
+                flameGlow.style.opacity = '0.7';
+                flameGlow.style.width = '42px';
+                flameGlow.style.height = '42px';
+            }
+        }
+
+        function setupProgressBar() {
+            // Set progress bar width based on current streak
+            const progress = Math.min((currentStreak / MAX_STREAK) * 100, 100);
+            progressBar.style.width = `${progress}%`;
+            
+            // Generate milestone markers
+            progressMilestones.innerHTML = '';
+            
+            milestones.forEach((milestone, index) => {
+                const position = (milestone.streak / MAX_STREAK) * 100;
+                const isActive = currentStreak >= milestone.streak;
+                const isCompleted = currentStreak > milestone.streak;
+                
+                const milestoneEl = document.createElement('div');
+                milestoneEl.className = `milestone ${isActive ? 'active' : ''} ${isCompleted ? 'completed' : ''}`;
+                milestoneEl.style.left = `${position}%`;
+                
+                milestoneEl.innerHTML = `
+                    <div class="milestone-dot"></div>
+                    <div class="milestone-label">${milestone.label}</div>
+                `;
+                
+                progressMilestones.appendChild(milestoneEl);
+            });
+        }
+
+        function updateProgressStats() {
+            currentStreakEl.textContent = currentStreak;
+            
+            // Count unlocked rewards
+            const unlockedCount = rewards.filter(reward => currentStreak >= reward.requiredStreak).length;
+            unlockedRewardsEl.textContent = unlockedCount;
+            
+            // Find next reward
+            const nextReward = rewards.find(reward => reward.requiredStreak > currentStreak);
+            nextRewardEl.textContent = nextReward ? nextReward.requiredStreak - currentStreak : 0;
+            
+            totalRewardsEl.textContent = rewards.length;
+        }
+
+        function renderRewardCards() {
+            rewardsGrid.innerHTML = '';
+            
+            // Filter rewards based on current filter and search query
+            const filteredRewards = rewards.filter(reward => {
+                const matchesFilter = 
+                    currentFilter === 'all' || 
+                    (currentFilter === 'unlocked' && currentStreak >= reward.requiredStreak) ||
+                    (currentFilter === 'locked' && currentStreak < reward.requiredStreak);
+                
+                const matchesSearch = 
+                    searchQuery === '' || 
+                    reward.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+                    reward.description.toLowerCase().includes(searchQuery.toLowerCase()) ||
+                    reward.category.toLowerCase().includes(searchQuery.toLowerCase());
+                
+                return matchesFilter && matchesSearch;
+            });
+            
+            if (filteredRewards.length === 0) {
+                rewardsGrid.innerHTML = `
+                    <div class="animate-fade-in" style="grid-column: 1 / -1; text-align: center; padding: 3rem 0;">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin: 0 auto 1rem;">
+                            <circle cx="11" cy="11" r="8"/>
+                            <path d="m21 21-4.3-4.3"/>
+                        </svg>
+                        <h3 style="font-size: 1.5rem; margin-bottom: 0.5rem;">No rewards found</h3>
+                        <p style="color: var(--muted-foreground);">Try adjusting your search or filter criteria</p>
+                    </div>
+                `;
+                return;
+            }
+            
+            filteredRewards.forEach((reward, index) => {
+                const isUnlocked = currentStreak >= reward.requiredStreak;
+                const delay = index * 0.05; // Staggered animation
+                
+                const cardElement = document.createElement('div');
+                cardElement.className = `reward-card ${isUnlocked ? '' : 'locked'}`;
+                cardElement.style.animationDelay = `${delay}s`;
+                cardElement.setAttribute('data-reward-id', reward.id);
+                
+                // Get file format icon
+                let formatIcon = '';
+                switch(reward.fileFormat.toLowerCase()) {
+                    case 'pdf':
+                        formatIcon = '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/></svg>';
+                        break;
+                    case 'png':
+                        formatIcon = '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="3" rx="2" ry="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"/></svg>';
+                        break;
+                    case 'mp3':
+                        formatIcon = '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>';
+                        break;
+                    default:
+                        formatIcon = '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/></svg>';
+                }
+                
+                cardElement.innerHTML = `
+                    <div class="reward-image-container">
+                        <img src="${reward.image}" alt="${reward.title}" class="reward-image">
+                        <div class="reward-image-overlay"></div>
+                        ${!isUnlocked ? `
+                            <div class="reward-lock-overlay">
+                                <div class="reward-lock-icon">🔒</div>
+                                <div class="reward-lock-text">Unlock at ${reward.requiredStreak} days</div>
+                            </div>
+                        ` : ''}
+                        <div class="reward-badge ${isUnlocked ? 'unlocked' : 'locked'}">
+                            ${isUnlocked ? `
+                                <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                                    <polyline points="22 4 12 14.01 9 11.01"/>
+                                </svg>
+                                Unlocked
+                            ` : `
+                                <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <rect width="18" height="11" x="3" y="11" rx="2" ry="2"/>
+                                    <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+                                </svg>
+                                Day ${reward.requiredStreak}
+                            `}
+                        </div>
+                    </div>
+                    <div class="reward-content">
+                        <h3 class="reward-title">${reward.title}</h3>
+                        <p class="reward-description">${reward.description}</p>
+                        <div class="reward-meta">
+                            <div class="reward-tag">
+                                ${formatIcon}
+                                ${reward.fileFormat}
+                            </div>
+                            <div class="reward-tag">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                                    <polyline points="7 10 12 15 17 10"/>
+                                    <line x1="12" x2="12" y1="15" y2="3"/>
+                                </svg>
+                                ${reward.fileSize}
+                            </div>
+                            <div class="reward-tag">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20"/>
+                                </svg>
+                                ${reward.category}
+                            </div>
+                        </div>
+                        <button class="reward-button" data-reward-id="${reward.id}" ${!isUnlocked ? 'disabled' : ''}>
+                            ${isUnlocked ? `
+                                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="reward-button-icon">
+                                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                                    <polyline points="7 10 12 15 17 10"/>
+                                    <line x1="12" x2="12" y1="15" y2="3"/>
+                                </svg>
+                                Download Now
+                            ` : `
+                                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="reward-button-icon">
+                                    <rect width="18" height="11" x="3" y="11" rx="2" ry="2"/>
+                                    <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+                                </svg>
+                                Unlock at Day ${reward.requiredStreak}
+                            `}
+                        </button>
+                    </div>
+                `;
+                
+                rewardsGrid.appendChild(cardElement);
+            });
+        }
+
+        function setupEventListeners() {
+            // Back button
+            backButton.addEventListener('click', () => {
+                window.location.href = 'index.html';
+            });
+            
+            // Theme toggle
+            themeToggle.addEventListener('click', toggleTheme);
+            
+            // Scroll event for header
+            window.addEventListener('scroll', checkScrollPosition);
+            
+            // Search input
+            searchInput.addEventListener('input', (e) => {
+                searchQuery = e.target.value;
+                renderRewardCards();
+            });
+            
+            // Filter buttons
+            filterButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    filterButtons.forEach(btn => btn.classList.remove('active'));
+                    button.classList.add('active');
+                    currentFilter = button.getAttribute('data-filter');
+                    renderRewardCards();
+                });
+            });
+            
+            // Reward cards click
+            rewardsGrid.addEventListener('click', (e) => {
+                const card = e.target.closest('.reward-card');
+                if (!card) return;
+                
+                const rewardId = parseInt(card.getAttribute('data-reward-id'));
+                const reward = rewards.find(r => r.id === rewardId);
+                
+                if (reward) {
+                    if (currentStreak >= reward.requiredStreak) {
+                        showRewardModal(reward);
+                    } else {
+                        showToast(`You need ${reward.requiredStreak - currentStreak} more days to unlock this reward.`, 'error');
+                    }
+                }
+            });
+            
+            // Download buttons
+            rewardsGrid.addEventListener('click', (e) => {
+                if (e.target.closest('.reward-button:not(:disabled)')) {
+                    const button = e.target.closest('.reward-button');
+                    const rewardId = parseInt(button.getAttribute('data-reward-id'));
+                    handleDownload(rewardId);
+                    e.stopPropagation(); // Prevent card click
+                }
+            });
+            
+            // Modal close
+            modalClose.addEventListener('click', closeModal);
+            modalCancel.addEventListener('click', closeModal);
+            
+            // Modal download
+            modalDownload.addEventListener('click', () => {
+                if (selectedReward) {
+                    handleDownload(selectedReward.id);
+                    closeModal();
+                }
+            });
+            
+            // Close modal when clicking outside
+            rewardModal.addEventListener('click', (e) => {
+                if (e.target === rewardModal) {
+                    closeModal();
+                }
+            });
+            
+            // Escape key to close modal
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape' && rewardModal.classList.contains('show'))
+                    closeModal();
+            });
+            
+            // Debug buttons for testing (hidden in production)
+            document.addEventListener('keydown', (e) => {
+                // Press Shift+S to set streak value (for testing)
+                if (e.shiftKey && e.key === 'S') {
+                    const newStreak = prompt('Enter streak value for testing:', currentStreak);
+                    if (newStreak !== null && !isNaN(newStreak)) {
+                        setStreak(parseInt(newStreak));
+                    }
                 }
             });
         }
-    
-        // Führe die Synchronisation beim Laden der Seite durch
-        document.addEventListener('DOMContentLoaded', syncStreakDisplay);
-    
-        // Funktion, um eine Belohnung herunterzuladen
-        function redeemReward(requiredStreak) {
-            const streak = parseInt(localStorage.getItem(streakKey)) || 0;
-            
-            if (streak >= requiredStreak) {
-                // Hier kannst du den Download der Belohnung initiieren (z.B. ein neues Fenster öffnen)
-                alert(`Belohnung für ${requiredStreak} Tage Streak freigeschaltet!`);
-                // Beispiel: openDownloadLink();
+
+        function checkScrollPosition() {
+            if (window.scrollY > 10) {
+                header.classList.add('scrolled');
             } else {
-                alert(`Du brauchst mindestens ${requiredStreak} Tage Streak, um diese Belohnung freizuschalten.`);
+                header.classList.remove('scrolled');
             }
         }
 
-        // Funktion, um eine Belohnung herunterzuladen
-        function redeemReward(requiredStreak) {
-            const streak = parseInt(localStorage.getItem('stoicStreak')) || 0;
+        function toggleTheme() {
+            currentTheme = currentTheme === 'light' ? 'dark' : 'light';
+            localStorage.setItem(THEME_KEY, currentTheme);
             
-            if (streak >= requiredStreak) {
-                // Holen der URL aus dem Button
-                const button = event.target;
-                const downloadUrl = button.getAttribute('data-download-url');
+            if (currentTheme === 'dark') {
+                document.documentElement.classList.add('dark');
+                sunIcon.style.display = 'none';
+                moonIcon.style.display = 'block';
+            } else {
+                document.documentElement.classList.remove('dark');
+                sunIcon.style.display = 'block';
+                moonIcon.style.display = 'none';
+            }
+        }
+
+        function handleDownload(rewardId) {
+            const reward = rewards.find(r => r.id === rewardId);
+            if (!reward) return;
+            
+            if (currentStreak < reward.requiredStreak) {
+                showToast(`You need ${reward.requiredStreak - currentStreak} more days to unlock this reward.`, 'error');
+                return;
+            }
+            
+            // Add to unlocked rewards if not already there
+            if (!unlockedRewards.includes(rewardId)) {
+                unlockedRewards.push(rewardId);
+                localStorage.setItem(UNLOCKED_REWARDS_KEY, JSON.stringify(unlockedRewards));
                 
-                if (downloadUrl) {
-                    const link = document.createElement('a');
-                    link.href = downloadUrl;
-                    link.download = downloadUrl.split('/').pop(); // Der Dateiname wird automatisch vom URL extrahiert
-                    link.click(); // Simuliere einen Klick, um den Download zu starten
-                } else {
-                    alert("No rewards available for this Streak.");
+                // Show confetti for first-time unlocks
+                createConfetti();
+            }
+            
+            // Show downloading toast
+            showToast(`Downloading ${reward.title}...`, 'success');
+            
+            // Create download link
+            const link = document.createElement('a');
+            link.href = reward.downloadUrl;
+            link.download = reward.downloadUrl;
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }
+
+        function showRewardModal(reward) {
+            selectedReward = reward;
+            
+            modalTitle.textContent = reward.title;
+            
+            // Get file format icon
+            let formatIcon = '';
+            switch(reward.fileFormat.toLowerCase()) {
+                case 'pdf':
+                    formatIcon = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/></svg>';
+                    break;
+                case 'png':
+                    formatIcon = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="3" rx="2" ry="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"/></svg>';
+                    break;
+                case 'mp3':
+                    formatIcon = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>';
+                    break;
+                default:
+                    formatIcon = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/></svg>';
+            }
+            
+            modalBody.innerHTML = `
+                <div style="display: flex; flex-direction: column; gap: 1.5rem;">
+                    <div style="position: relative; height: 200px; border-radius: var(--radius-md); overflow: hidden;">
+                        <img src="${reward.image}" alt="${reward.title}" style="width: 100%; height: 100%; object-fit: cover;">
+                    </div>
+                    
+                    <div>
+                        <p style="margin-bottom: 1rem; line-height: 1.6;">${reward.description}</p>
+                        
+                        <div style="display: flex; flex-wrap: wrap; gap: 1rem; margin-top: 1.5rem;">
+                            <div style="display: flex; align-items: center; gap: 0.5rem;">
+                                ${formatIcon}
+                                <div>
+                                    <div style="font-weight: 600; font-size: 0.875rem;">File Format</div>
+                                    <div style="color: var(--muted-foreground); font-size: 0.875rem;">${reward.fileFormat}</div>
+                                </div>
+                            </div>
+                            
+                            <div style="display: flex; align-items: center; gap: 0.5rem;">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                                    <polyline points="7 10 12 15 17 10"/>
+                                    <line x1="12" x2="12" y1="15" y2="3"/>
+                                </svg>
+                                <div>
+                                    <div style="font-weight: 600; font-size: 0.875rem;">File Size</div>
+                                    <div style="color: var(--muted-foreground); font-size: 0.875rem;">${reward.fileSize}</div>
+                                </div>
+                            </div>
+                            
+                            <div style="display: flex; align-items: center; gap: 0.5rem;">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20"/>
+                                </svg>
+                                <div>
+                                    <div style="font-weight: 600; font-size: 0.875rem;">Category</div>
+                                    <div style="color: var(--muted-foreground); font-size: 0.875rem;">${reward.category}</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+            
+            rewardModal.classList.add('show');
+            modalDownload.textContent = `Download ${reward.fileFormat}`;
+        }
+
+        function closeModal() {
+            rewardModal.classList.remove('show');
+            selectedReward = null;
+        }
+
+        function showToast(message, type = 'success') {
+            const toast = document.createElement('div');
+            toast.className = `toast ${type}`;
+            
+            let icon = '';
+            if (type === 'success') {
+                icon = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="toast-icon"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>';
+            } else if (type === 'error') {
+                icon = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="toast-icon"><circle cx="12" cy="12" r="10"/><line x1="12" x2="12" y1="8" y2="12"/><line x1="12" x2="12.01" y1="16" y2="16"/></svg>';
+            } else if (type === 'warning') {
+                icon = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="toast-icon"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/><line x1="12" x2="12" y1="9" y2="13"/><line x1="12" x2="12.01" y1="17" y2="17"/></svg>';
+            }
+            
+            toast.innerHTML = `
+                ${icon}
+                <div class="toast-content">
+                    <div class="toast-title">${type === 'success' ? 'Success' : type === 'error' ? 'Error' : 'Warning'}</div>
+                    <div class="toast-message">${message}</div>
+                </div>
+                <button class="toast-close" aria-label="Close toast">&times;</button>
+                <div class="toast-progress"></div>
+            `;
+            
+            toastContainer.appendChild(toast);
+            
+            // Trigger animation
+            setTimeout(() => {
+                toast.classList.add('show');
+            }, 10);
+            
+            // Auto remove after duration
+            const timeout = setTimeout(() => {
+                removeToast(toast);
+            }, TOAST_DURATION);
+            
+            // Close button
+            const closeButton = toast.querySelector('.toast-close');
+            closeButton.addEventListener('click', () => {
+                clearTimeout(timeout);
+                removeToast(toast);
+            });
+        }
+
+        function removeToast(toast) {
+            toast.classList.remove('show');
+            setTimeout(() => {
+                toast.remove();
+            }, 300);
+        }
+
+        function createConfetti() {
+            const colors = ['#FFC700', '#FF0055', '#2196F3', '#4CAF50', '#9C27B0'];
+            const confettiCount = 200;
+            
+            confettiContainer.innerHTML = '';
+            
+            for (let i = 0; i < confettiCount; i++) {
+                const confetti = document.createElement('div');
+                confetti.className = 'confetti';
+                confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                confetti.style.left = Math.random() * 100 + 'vw';
+                confetti.style.top = -10 + 'px';
+                confetti.style.width = Math.random() * 10 + 5 + 'px';
+                confetti.style.height = Math.random() * 10 + 5 + 'px';
+                confetti.style.opacity = Math.random() + 0.5;
+                confetti.style.transform = `rotate(${Math.random() * 360}deg)`;
+                
+                // Random shape
+                if (Math.random() > 0.6) {
+                    confetti.style.borderRadius = '50%';
+                } else if (Math.random() > 0.5) {
+                    confetti.style.borderRadius = '5px';
                 }
-            } else {
-                alert(`You need at least ${requiredStreak} days of streak to unlock this reward.`);
+                
+                confettiContainer.appendChild(confetti);
+                
+                // Animate confetti
+                const animation = confetti.animate(
+                    [
+                        { 
+                            transform: `translate(0, 0) rotate(0deg)`, 
+                            opacity: 1 
+                        },
+                        { 
+                            transform: `translate(${Math.random() * 100 - 50}px, ${window.innerHeight + 100}px) rotate(${Math.random() * 1000}deg)`, 
+                            opacity: 0 
+                        }
+                    ], 
+                    {
+                        duration: Math.random() * 3000 + 2000,
+                        easing: 'cubic-bezier(0.25, 1, 0.5, 1)',
+                        fill: 'forwards'
+                    }
+                );
+                
+                animation.onfinish = () => confetti.remove();
             }
         }
-        const downloadUrl = event.target.getAttribute('data-download-url');
-        const link = document.createElement('a');
-        link.href = downloadUrl;
-        link.download = downloadUrl.split('/').pop(); // Extrahiert den Dateinamen
-        link.click(); // Führt den Download aus
 
+        // Set streak value (for testing)
+        function setStreak(value) {
+            currentStreak = value;
+            localStorage.setItem(STREAK_KEY, value);
+            updateStreakDisplay();
+            setupProgressBar();
+            updateProgressStats();
+            renderRewardCards();
+        }
 
+        // Debug functions - uncomment to enable in console
+        window.debugFunctions = {
+            setStreak,
+            createConfetti,
+            showToast: (message, type) => showToast(message, type)
+        };
     </script>
-    
 </body>
 </html>
