@@ -1,0 +1,2203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>MindMap Master</title>
+    <style>
+        :root {
+            --primary-color: #4a6fa5;
+            --secondary-color: #6b8cae;
+            --accent-color: #9e4784;
+            --text-color: #f0f0f0;
+            --background-color: #0a0e17;
+            --node-bg-default: rgba(74, 111, 165, 0.8);
+            --node-bg-selected: rgba(158, 71, 132, 0.9);
+            --connection-color: rgba(240, 240, 240, 0.6);
+            --menu-bg: rgba(10, 14, 23, 0.95);
+            --menu-hover: rgba(74, 111, 165, 0.3);
+            --danger-color: #e74c3c;
+            --success-color: #2ecc71;
+            --warning-color: #f39c12;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            overflow: hidden;
+            touch-action: none;
+            position: relative;
+            width: 100vw;
+            height: 100vh;
+            background-color: var(--background-color);
+            color: var(--text-color);
+        }
+
+        #space-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: radial-gradient(ellipse at center, #0b0d17 0%, #090c14 100%);
+            overflow: hidden;
+        }
+
+        .star {
+            position: absolute;
+            background-color: #ffffff;
+            border-radius: 50%;
+            opacity: 0;
+            animation: twinkle 5s infinite;
+        }
+
+        .nebula {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(30px);
+            opacity: 0.15;
+        }
+
+        @keyframes twinkle {
+            0% { opacity: 0.1; }
+            50% { opacity: 0.8; }
+            100% { opacity: 0.1; }
+        }
+
+        #canvas-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            touch-action: none;
+        }
+
+        #canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            touch-action: none;
+        }
+
+        .node {
+            position: absolute;
+            min-width: 120px;
+            max-width: 200px;
+            padding: 10px;
+            border-radius: 10px;
+            background: var(--node-bg-default);
+            color: var(--text-color);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            cursor: move;
+            user-select: none;
+            z-index: 10;
+            backdrop-filter: blur(5px);
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            transition: transform 0.2s, box-shadow 0.2s;
+            transform-origin: center;
+            text-align: center;
+            word-wrap: break-word;
+        }
+
+        .node.selected {
+            background: var(--node-bg-selected);
+            box-shadow: 0 0 0 2px var(--accent-color), 0 6px 12px rgba(0, 0, 0, 0.4);
+            z-index: 20;
+        }
+
+        .node.jupiter-theme {
+            border-radius: 50%;
+            background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB2ZXJzaW9uPSIxLjEiIHdpZHRoPSI1MTIiIGhlaWdodD0iNTEyIiB2aWV3Qm94PSIwIDAgNTEyIDUxMiI+PGRlZnM+PHJhZGlhbEdyYWRpZW50IGlkPSJqdXBpdGVyR3JhZGllbnQiIGN4PSI1MCUiIGN5PSI1MCUiIHI9IjUwJSI+PHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iI2ZmZTBiMiIgLz48c3RvcCBvZmZzZXQ9IjIwJSIgc3RvcC1jb2xvcj0iI2U4YzM4ZCIgLz48c3RvcCBvZmZzZXQ9IjQwJSIgc3RvcC1jb2xvcj0iI2QzYTg3MCIgLz48c3RvcCBvZmZzZXQ9IjYwJSIgc3RvcC1jb2xvcj0iI2JiOGI1NyIgLz48c3RvcCBvZmZzZXQ9IjgwJSIgc3RvcC1jb2xvcj0iI2E0NzA0MCIgLz48c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiM4ZDU1MjkiIC8+PC9yYWRpYWxHcmFkaWVudD48L2RlZnM+PGNpcmNsZSBjeD0iMjU2IiBjeT0iMjU2IiByPSIyNTYiIGZpbGw9InVybCgjanVwaXRlckdyYWRpZW50KSIgLz48ZWxsaXBzZSBjeD0iMjU2IiBjeT0iMjU2IiByeD0iMjU2IiByeT0iMjAiIGZpbGw9IiNlOGMzOGQiIHRyYW5zZm9ybT0icm90YXRlKDEwKSIgb3BhY2l0eT0iMC43IiAvPjxlbGxpcHNlIGN4PSIyNTYiIGN5PSIyNTYiIHJ4PSIyNTYiIHJ5PSIxNSIgZmlsbD0iI2QzYTg3MCIgdHJhbnNmb3JtPSJyb3RhdGUoMzApIiBvcGFjaXR5PSIwLjciIC8+PGVsbGlwc2UgY3g9IjI1NiIgY3k9IjI1NiIgcng9IjI1NiIgcnk9IjI1IiBmaWxsPSIjYmI4YjU3IiB0cmFuc2Zvcm09InJvdGF0ZSg1MCkiIG9wYWNpdHk9IjAuNyIgLz48ZWxsaXBzZSBjeD0iMjU2IiBjeT0iMjU2IiByeD0iMjU2IiByeT0iMTgiIGZpbGw9IiNhNDcwNDAiIHRyYW5zZm9ybT0icm90YXRlKDcwKSIgb3BhY2l0eT0iMC43IiAvPjxjaXJjbGUgY3g9IjE1MCIgY3k9IjE4MCIgcj0iNDAiIGZpbGw9IiNlODc4NTAiIG9wYWNpdHk9IjAuOCIgLz48L3N2Zz4=');
+            background-size: cover;
+            background-position: center;
+            min-width: 140px;
+            min-height: 140px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            box-shadow: 0 0 20px rgba(232, 120, 80, 0.4);
+        }
+
+        .node.jupiter-theme.selected {
+            box-shadow: 0 0 0 3px var(--accent-color), 0 0 30px rgba(232, 120, 80, 0.6);
+        }
+
+        .node-text {
+            width: 100%;
+            outline: none;
+            background: transparent;
+            border: none;
+            color: inherit;
+            text-align: center;
+            font-size: 14px;
+            resize: none;
+            overflow: hidden;
+        }
+
+        .node-controls {
+            position: absolute;
+            top: -30px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 5px;
+            opacity: 0;
+            transition: opacity 0.2s;
+            background: var(--menu-bg);
+            border-radius: 5px;
+            padding: 3px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+        }
+
+        .node:hover .node-controls,
+        .node.selected .node-controls {
+            opacity: 1;
+        }
+
+        .node-control-btn {
+            width: 24px;
+            height: 24px;
+            border-radius: 4px;
+            border: none;
+            background: rgba(255, 255, 255, 0.1);
+            color: var(--text-color);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+        }
+
+        .node-control-btn:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .connection {
+            position: absolute;
+            height: 2px;
+            background-color: var(--connection-color);
+            transform-origin: left center;
+            pointer-events: none;
+            z-index: 5;
+        }
+
+        .connection::after {
+            content: '';
+            position: absolute;
+            right: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 0;
+            height: 0;
+            border-top: 5px solid transparent;
+            border-bottom: 5px solid transparent;
+            border-left: 8px solid var(--connection-color);
+        }
+
+        #toolbar {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 10px;
+            background: var(--menu-bg);
+            padding: 10px 15px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+            z-index: 100;
+            backdrop-filter: blur(10px);
+            transition: transform 0.3s ease;
+        }
+
+        .toolbar-btn {
+            background: rgba(255, 255, 255, 0.1);
+            border: none;
+            color: var(--text-color);
+            width: 40px;
+            height: 40px;
+            border-radius: 8px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            transition: background 0.2s;
+        }
+
+        .toolbar-btn:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .toolbar-btn.active {
+            background: var(--primary-color);
+        }
+
+        #side-menu {
+            position: fixed;
+            top: 0;
+            right: -300px;
+            width: 300px;
+            height: 100%;
+            background: var(--menu-bg);
+            z-index: 200;
+            box-shadow: -5px 0 15px rgba(0, 0, 0, 0.3);
+            transition: right 0.3s ease;
+            backdrop-filter: blur(10px);
+            display: flex;
+            flex-direction: column;
+            overflow-y: auto;
+        }
+
+        #side-menu.open {
+            right: 0;
+        }
+
+        .menu-header {
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .menu-title {
+            font-size: 18px;
+            font-weight: 600;
+        }
+
+        .close-menu {
+            background: transparent;
+            border: none;
+            color: var(--text-color);
+            font-size: 24px;
+            cursor: pointer;
+        }
+
+        .menu-section {
+            padding: 15px 20px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .section-title {
+            font-size: 16px;
+            margin-bottom: 10px;
+            color: var(--secondary-color);
+        }
+
+        .mindmap-list {
+            list-style: none;
+            margin-top: 10px;
+        }
+
+        .mindmap-item {
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 5px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .mindmap-item:hover {
+            background: var(--menu-hover);
+        }
+
+        .mindmap-item.active {
+            background: var(--primary-color);
+        }
+
+        .mindmap-actions {
+            display: flex;
+            gap: 5px;
+        }
+
+        .mindmap-action-btn {
+            background: transparent;
+            border: none;
+            color: var(--text-color);
+            cursor: pointer;
+            width: 24px;
+            height: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 4px;
+        }
+
+        .mindmap-action-btn:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .input-group {
+            margin-bottom: 15px;
+        }
+
+        .input-label {
+            display: block;
+            margin-bottom: 5px;
+            font-size: 14px;
+        }
+
+        .text-input {
+            width: 100%;
+            padding: 8px 10px;
+            border-radius: 5px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            background: rgba(255, 255, 255, 0.1);
+            color: var(--text-color);
+            font-size: 14px;
+        }
+
+        .text-input:focus {
+            outline: none;
+            border-color: var(--primary-color);
+        }
+
+        .btn {
+            padding: 8px 15px;
+            border-radius: 5px;
+            border: none;
+            background: var(--primary-color);
+            color: var(--text-color);
+            cursor: pointer;
+            font-size: 14px;
+            transition: background 0.2s;
+        }
+
+        .btn:hover {
+            background: var(--secondary-color);
+        }
+
+        .btn-danger {
+            background: var(--danger-color);
+        }
+
+        .btn-danger:hover {
+            background: #c0392b;
+        }
+
+        .btn-success {
+            background: var(--success-color);
+        }
+
+        .btn-success:hover {
+            background: #27ae60;
+        }
+
+        .btn-block {
+            display: block;
+            width: 100%;
+        }
+
+        .color-options {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 10px;
+        }
+
+        .color-option {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            cursor: pointer;
+            border: 2px solid transparent;
+        }
+
+        .color-option.active {
+            border-color: white;
+            box-shadow: 0 0 0 2px var(--primary-color);
+        }
+
+        .style-options {
+            display: flex;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .style-option {
+            width: 60px;
+            height: 60px;
+            border-radius: 5px;
+            cursor: pointer;
+            border: 2px solid transparent;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .style-option.active {
+            border-color: white;
+            box-shadow: 0 0 0 2px var(--primary-color);
+        }
+
+        .style-preview {
+            width: 40px;
+            height: 40px;
+        }
+
+        .style-preview.default {
+            background: var(--node-bg-default);
+            border-radius: 5px;
+        }
+
+        .style-preview.jupiter {
+            background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB2ZXJzaW9uPSIxLjEiIHdpZHRoPSI1MTIiIGhlaWdodD0iNTEyIiB2aWV3Qm94PSIwIDAgNTEyIDUxMiI+PGRlZnM+PHJhZGlhbEdyYWRpZW50IGlkPSJqdXBpdGVyR3JhZGllbnQiIGN4PSI1MCUiIGN5PSI1MCUiIHI9IjUwJSI+PHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iI2ZmZTBiMiIgLz48c3RvcCBvZmZzZXQ9IjIwJSIgc3RvcC1jb2xvcj0iI2U4YzM4ZCIgLz48c3RvcCBvZmZzZXQ9IjQwJSIgc3RvcC1jb2xvcj0iI2QzYTg3MCIgLz48c3RvcCBvZmZzZXQ9IjYwJSIgc3RvcC1jb2xvcj0iI2JiOGI1NyIgLz48c3RvcCBvZmZzZXQ9IjgwJSIgc3RvcC1jb2xvcj0iI2E0NzA0MCIgLz48c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiM4ZDU1MjkiIC8+PC9yYWRpYWxHcmFkaWVudD48L2RlZnM+PGNpcmNsZSBjeD0iMjU2IiBjeT0iMjU2IiByPSIyNTYiIGZpbGw9InVybCgjanVwaXRlckdyYWRpZW50KSIgLz48ZWxsaXBzZSBjeD0iMjU2IiBjeT0iMjU2IiByeD0iMjU2IiByeT0iMjAiIGZpbGw9IiNlOGMzOGQiIHRyYW5zZm9ybT0icm90YXRlKDEwKSIgb3BhY2l0eT0iMC43IiAvPjxlbGxpcHNlIGN4PSIyNTYiIGN5PSIyNTYiIHJ4PSIyNTYiIHJ5PSIxNSIgZmlsbD0iI2QzYTg3MCIgdHJhbnNmb3JtPSJyb3RhdGUoMzApIiBvcGFjaXR5PSIwLjciIC8+PGVsbGlwc2UgY3g9IjI1NiIgY3k9IjI1NiIgcng9IjI1NiIgcnk9IjI1IiBmaWxsPSIjYmI4YjU3IiB0cmFuc2Zvcm09InJvdGF0ZSg1MCkiIG9wYWNpdHk9IjAuNyIgLz48ZWxsaXBzZSBjeD0iMjU2IiBjeT0iMjU2IiByeD0iMjU2IiByeT0iMTgiIGZpbGw9IiNhNDcwNDAiIHRyYW5zZm9ybT0icm90YXRlKDcwKSIgb3BhY2l0eT0iMC43IiAvPjxjaXJjbGUgY3g9IjE1MCIgY3k9IjE4MCIgcj0iNDAiIGZpbGw9IiNlODc4NTAiIG9wYWNpdHk9IjAuOCIgLz48L3N2Zz4=');
+            background-size: cover;
+            border-radius: 50%;
+        }
+
+        #menu-toggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: var(--menu-bg);
+            color: var(--text-color);
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            z-index: 100;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        #context-menu {
+            position: absolute;
+            background: var(--menu-bg);
+            border-radius: 5px;
+            padding: 5px 0;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+            z-index: 150;
+            backdrop-filter: blur(10px);
+            display: none;
+        }
+
+        .context-menu-item {
+            padding: 8px 15px;
+            cursor: pointer;
+            white-space: nowrap;
+            font-size: 14px;
+        }
+
+        .context-menu-item:hover {
+            background: var(--menu-hover);
+        }
+
+        .context-menu-separator {
+            height: 1px;
+            background: rgba(255, 255, 255, 0.1);
+            margin: 5px 0;
+        }
+
+        #toast {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--menu-bg);
+            color: var(--text-color);
+            padding: 10px 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+            z-index: 300;
+            opacity: 0;
+            transition: opacity 0.3s;
+            pointer-events: none;
+        }
+
+        #toast.show {
+            opacity: 1;
+        }
+
+        #toast.success {
+            border-left: 4px solid var(--success-color);
+        }
+
+        #toast.error {
+            border-left: 4px solid var(--danger-color);
+        }
+
+        #toast.warning {
+            border-left: 4px solid var(--warning-color);
+        }
+
+        #export-modal, #import-modal, #help-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 250;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s;
+        }
+
+        #export-modal.open, #import-modal.open, #help-modal.open {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .modal-content {
+            background: var(--menu-bg);
+            border-radius: 10px;
+            width: 90%;
+            max-width: 500px;
+            max-height: 90vh;
+            overflow-y: auto;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(10px);
+        }
+
+        .modal-header {
+            padding: 15px 20px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .modal-title {
+            font-size: 18px;
+            font-weight: 600;
+        }
+
+        .modal-close {
+            background: transparent;
+            border: none;
+            color: var(--text-color);
+            font-size: 24px;
+            cursor: pointer;
+        }
+
+        .modal-body {
+            padding: 20px;
+        }
+
+        .modal-footer {
+            padding: 15px 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+        }
+
+        #export-data {
+            width: 100%;
+            height: 150px;
+            background: rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 5px;
+            color: var(--text-color);
+            padding: 10px;
+            resize: none;
+            font-family: monospace;
+            font-size: 12px;
+        }
+
+        #import-data {
+            width: 100%;
+            height: 150px;
+            background: rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 5px;
+            color: var(--text-color);
+            padding: 10px;
+            resize: none;
+            font-family: monospace;
+            font-size: 12px;
+        }
+
+        .help-section {
+            margin-bottom: 20px;
+        }
+
+        .help-title {
+            font-size: 16px;
+            margin-bottom: 10px;
+            color: var(--secondary-color);
+        }
+
+        .help-content {
+            font-size: 14px;
+            line-height: 1.5;
+        }
+
+        .keyboard-shortcut {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 5px;
+        }
+
+        .shortcut-key {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: monospace;
+        }
+
+        @media (max-width: 768px) {
+            #toolbar {
+                bottom: 10px;
+                padding: 8px 10px;
+            }
+            
+            .toolbar-btn {
+                width: 36px;
+                height: 36px;
+                font-size: 16px;
+            }
+            
+            #side-menu {
+                width: 280px;
+            }
+            
+            .node {
+                min-width: 100px;
+                max-width: 180px;
+            }
+            
+            .node.jupiter-theme {
+                min-width: 120px;
+                min-height: 120px;
+            }
+            
+            .modal-content {
+                width: 95%;
+            }
+        }
+
+        @media (max-width: 480px) {
+            #toolbar {
+                padding: 5px 8px;
+            }
+            
+            .toolbar-btn {
+                width: 32px;
+                height: 32px;
+                font-size: 14px;
+            }
+            
+            #side-menu {
+                width: 260px;
+            }
+        }
+
+        /* Zoom controls */
+        #zoom-controls {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+            z-index: 100;
+        }
+
+        .zoom-btn {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: var(--menu-bg);
+            color: var(--text-color);
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+        }
+
+        .zoom-level {
+            text-align: center;
+            font-size: 12px;
+            color: var(--text-color);
+            background: var(--menu-bg);
+            padding: 3px 6px;
+            border-radius: 4px;
+            margin: 5px 0;
+        }
+
+        /* Jupiter animation */
+        @keyframes jupiterRotate {
+            0% { background-position: 0% 50%; }
+            100% { background-position: 100% 50%; }
+        }
+
+        .node.jupiter-theme {
+            animation: jupiterRotate 60s linear infinite;
+            background-size: 200% 100%;
+        }
+
+        /* Loading spinner */
+        .spinner {
+            width: 40px;
+            height: 40px;
+            border: 4px solid rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            border-top-color: var(--primary-color);
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Undo/Redo history indicator */
+        #history-indicator {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            background: var(--menu-bg);
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-size: 12px;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        #history-indicator.show {
+            opacity: 1;
+        }
+
+        .mindmap-btn {
+            background-color: #2c2c2c; /* Dunkles Grau */
+            color: #f0f0f0; /* Helles Grau für besseren Kontrast */
+            font-size: 16px;
+            font-weight: bold;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            display: block;
+            width: 100%;
+            max-width: 300px;
+            margin: 10px auto;
+            text-align: center;
+        }
+
+        .mindmap-btn:hover {
+            background-color: #1f1f1f; /* Noch dunkleres Grau */
+            transform: scale(1.03);
+        }
+
+        .mindmap-btn:active {
+            background-color: #191919;
+            transform: scale(0.98);
+        }
+
+
+    </style>
+</head>
+<body>
+    <div id="space-background"></div>
+    <div id="canvas-container">
+        <div id="canvas"></div>
+    </div>
+
+    <button id="menu-toggle">☰</button>
+
+    <div id="toolbar">
+        <button class="toolbar-btn" id="add-node-btn" title="Add Node">+</button>
+        <button class="toolbar-btn" id="connect-btn" title="Connect Nodes">↔</button>
+        <button class="toolbar-btn" id="delete-btn" title="Delete">🗑</button>
+        <button class="toolbar-btn" id="center-btn" title="Center View">⌖</button>
+        <button class="toolbar-btn" id="export-btn" title="Export">⤴</button>
+        <button class="toolbar-btn" id="import-btn" title="Import">⤵</button>
+        <button class="toolbar-btn" id="help-btn" title="Help">?</button>
+    </div>
+
+    <div id="side-menu">
+        <div class="menu-header">
+            <div class="menu-title">MindMap Master</div>
+            <button class="close-menu">&times;</button>
+        </div>
+
+        <div class="menu-section">
+            <div class="section-title">Your Mind Maps</div>
+            <div class="input-group">
+                <input type="text" id="new-map-name" class="text-input" placeholder="New mind map name">
+            </div>
+            <button id="create-map-btn" class="btn btn-success btn-block">Create New Mind Map</button>
+            <ul id="mindmap-list" class="mindmap-list">
+                <!-- Mind maps will be listed here -->
+            </ul>
+        </div>
+
+        <div class="menu-section">
+            <div class="section-title">Node Appearance</div>
+            <div class="input-group">
+                <div class="input-label">Node Style</div>
+                <div class="style-options">
+                    <div class="style-option active" data-style="default">
+                        <div class="style-preview default"></div>
+                    </div>
+                    <div class="style-option" data-style="jupiter">
+                        <div class="style-preview jupiter"></div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="input-group">
+                <div class="input-label">Node Color</div>
+                <div class="color-options">
+                    <div class="color-option active" style="background-color: #4a6fa5;" data-color="#4a6fa5"></div>
+                    <div class="color-option" style="background-color: #9e4784;" data-color="#9e4784"></div>
+                    <div class="color-option" style="background-color: #e74c3c;" data-color="#e74c3c"></div>
+                    <div class="color-option" style="background-color: #2ecc71;" data-color="#2ecc71"></div>
+                    <div class="color-option" style="background-color: #f39c12;" data-color="#f39c12"></div>
+                    <div class="color-option" style="background-color: #3498db;" data-color="#3498db"></div>
+                    <div class="color-option" style="background-color: #9b59b6;" data-color="#9b59b6"></div>
+                    <div class="color-option" style="background-color: #1abc9c;" data-color="#1abc9c"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="menu-section">
+            <div class="section-title">Settings</div>
+            <div class="input-group">
+                <div class="input-label">Auto-Save</div>
+                <label class="toggle">
+                    <input type="checkbox" id="auto-save" checked>
+                    <span>Enable auto-save (every 30 seconds)</span>
+                </label>
+            </div>
+            <button id="clear-all-btn" class="btn btn-danger btn-block">Clear All Data</button>
+            <button id="create-map-btn" class="mindmap-btn" onclick="window.location.href='index.html';">
+                Back to Home
+            </button>
+        </div>
+    </div>
+
+    <div id="zoom-controls">
+        <button class="zoom-btn" id="zoom-in">+</button>
+        <div class="zoom-level">100%</div>
+        <button class="zoom-btn" id="zoom-out">-</button>
+    </div>
+
+    <div id="context-menu">
+        <div class="context-menu-item" id="ctx-add-child">Add Child Node</div>
+        <div class="context-menu-item" id="ctx-edit">Edit Node</div>
+        <div class="context-menu-item" id="ctx-change-style">Change Style</div>
+        <div class="context-menu-separator"></div>
+        <div class="context-menu-item" id="ctx-delete">Delete Node</div>
+    </div>
+
+    <div id="toast"></div>
+
+    <div id="export-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="modal-title">Export Mind Map</div>
+                <button class="modal-close">&times;</button>
+            </div>
+            <div class="modal-body">
+                <p>Copy the data below to save your mind map:</p>
+                <textarea id="export-data" readonly></textarea>
+            </div>
+            <div class="modal-footer">
+                <button id="copy-export-btn" class="btn">Copy to Clipboard</button>
+                <button id="download-json-btn" class="btn">Download as JSON</button>
+                <button class="btn modal-close-btn">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="import-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="modal-title">Import Mind Map</div>
+                <button class="modal-close">&times;</button>
+            </div>
+            <div class="modal-body">
+                <p>Paste your mind map data below:</p>
+                <textarea id="import-data"></textarea>
+            </div>
+            <div class="modal-footer">
+                <button id="import-btn-confirm" class="btn btn-success">Import</button>
+                <button class="btn modal-close-btn">Cancel</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="help-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="modal-title">Help & Keyboard Shortcuts</div>
+                <button class="modal-close">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="help-section">
+                    <div class="help-title">Basic Controls</div>
+                    <div class="help-content">
+                        <p>• Click and drag on empty space to pan the canvas</p>
+                        <p>• Double-click on empty space to create a new node</p>
+                        <p>• Click on a node to select it</p>
+                        <p>• Drag a node to move it</p>
+                        <p>• Double-click on a node to edit its text</p>
+                    </div>
+                </div>
+                
+                <div class="help-section">
+                    <div class="help-title">Keyboard Shortcuts</div>
+                    <div class="help-content">
+                        <div class="keyboard-shortcut">
+                            <span>Add new node</span>
+                            <span class="shortcut-key">N</span>
+                        </div>
+                        <div class="keyboard-shortcut">
+                            <span>Delete selected node</span>
+                            <span class="shortcut-key">Delete / Backspace</span>
+                        </div>
+                        <div class="keyboard-shortcut">
+                            <span>Connect nodes (select first, then second)</span>
+                            <span class="shortcut-key">C</span>
+                        </div>
+                        <div class="keyboard-shortcut">
+                            <span>Center view</span>
+                            <span class="shortcut-key">Space</span>
+                        </div>
+                        <div class="keyboard-shortcut">
+                            <span>Undo</span>
+                            <span class="shortcut-key">Ctrl+Z</span>
+                        </div>
+                        <div class="keyboard-shortcut">
+                            <span>Redo</span>
+                            <span class="shortcut-key">Ctrl+Y / Ctrl+Shift+Z</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="help-section">
+                    <div class="help-title">Mind Maps</div>
+                    <div class="help-content">
+                        <p>• Create multiple mind maps and switch between them</p>
+                        <p>• All mind maps are automatically saved to your browser's local storage</p>
+                        <p>• Export your mind maps to share or backup</p>
+                        <p>• Import mind maps from exported data</p>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn modal-close-btn">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="history-indicator"></div>
+
+    <script>
+        // Main application
+        class MindMapApp {
+            constructor() {
+                this.canvas = document.getElementById('canvas');
+                this.canvasContainer = document.getElementById('canvas-container');
+                this.mindMaps = [];
+                this.currentMindMapId = null;
+                this.selectedNodeId = null;
+                this.connectMode = false;
+                this.connectSourceId = null;
+                this.isDragging = false;
+                this.draggedNodeId = null;
+                this.dragOffset = { x: 0, y: 0 };
+                this.canvasDrag = { active: false, startX: 0, startY: 0 };
+                this.canvasOffset = { x: 0, y: 0 };
+                this.scale = 1;
+                this.defaultNodeStyle = 'default';
+                this.defaultNodeColor = '#4a6fa5';
+                this.history = [];
+                this.historyIndex = -1;
+                this.autoSaveInterval = null;
+                
+                // Initialize the app
+                this.init();
+            }
+            
+            init() {
+                this.loadMindMaps();
+                this.setupEventListeners();
+                this.createStarryBackground();
+                this.setupAutoSave();
+                
+                // Create a default mind map if none exists
+                if (this.mindMaps.length === 0) {
+                    this.createNewMindMap('My First Mind Map');
+                } else {
+                    this.switchToMindMap(this.mindMaps[0].id);
+                }
+                
+                // Center the view
+                this.centerView();
+                
+                // Update the UI
+                this.updateMindMapList();
+            }
+            
+            createStarryBackground() {
+                const background = document.getElementById('space-background');
+                
+                // Create stars
+                for (let i = 0; i < 200; i++) {
+                    const star = document.createElement('div');
+                    star.className = 'star';
+                    star.style.width = `${Math.random() * 2 + 1}px`;
+                    star.style.height = star.style.width;
+                    star.style.left = `${Math.random() * 100}%`;
+                    star.style.top = `${Math.random() * 100}%`;
+                    star.style.animationDelay = `${Math.random() * 5}s`;
+                    background.appendChild(star);
+                }
+                
+                // Create nebulae
+                const colors = ['#4a6fa5', '#9e4784', '#e74c3c', '#2ecc71', '#f39c12'];
+                for (let i = 0; i < 5; i++) {
+                    const nebula = document.createElement('div');
+                    nebula.className = 'nebula';
+                    nebula.style.width = `${Math.random() * 300 + 200}px`;
+                    nebula.style.height = nebula.style.width;
+                    nebula.style.left = `${Math.random() * 100}%`;
+                    nebula.style.top = `${Math.random() * 100}%`;
+                    nebula.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                    background.appendChild(nebula);
+                }
+            }
+            
+            setupEventListeners() {
+                // Canvas events
+                this.canvas.addEventListener('mousedown', this.handleCanvasMouseDown.bind(this));
+                this.canvas.addEventListener('mousemove', this.handleCanvasMouseMove.bind(this));
+                this.canvas.addEventListener('mouseup', this.handleCanvasMouseUp.bind(this));
+                this.canvas.addEventListener('dblclick', this.handleCanvasDblClick.bind(this));
+                this.canvas.addEventListener('contextmenu', this.handleContextMenu.bind(this));
+                
+                // Touch events for mobile
+                this.canvas.addEventListener('touchstart', this.handleCanvasTouchStart.bind(this), { passive: false });
+                this.canvas.addEventListener('touchmove', this.handleCanvasTouchMove.bind(this), { passive: false });
+                this.canvas.addEventListener('touchend', this.handleCanvasTouchEnd.bind(this));
+                
+                // Toolbar buttons
+                document.getElementById('add-node-btn').addEventListener('click', () => this.addNode());
+                document.getElementById('connect-btn').addEventListener('click', () => this.toggleConnectMode());
+                document.getElementById('delete-btn').addEventListener('click', () => this.deleteSelectedNode());
+                document.getElementById('center-btn').addEventListener('click', () => this.centerView());
+                document.getElementById('export-btn').addEventListener('click', () => this.openExportModal());
+                document.getElementById('import-btn').addEventListener('click', () => this.openImportModal());
+                document.getElementById('help-btn').addEventListener('click', () => this.openHelpModal());
+                
+                // Side menu
+                document.getElementById('menu-toggle').addEventListener('click', () => this.toggleSideMenu());
+                document.querySelector('.close-menu').addEventListener('click', () => this.toggleSideMenu(false));
+                document.getElementById('create-map-btn').addEventListener('click', () => this.createNewMindMapFromInput());
+                document.getElementById('clear-all-btn').addEventListener('click', () => this.clearAllData());
+                
+                // Node style options
+                document.querySelectorAll('.style-option').forEach(option => {
+                    option.addEventListener('click', (e) => {
+                        document.querySelectorAll('.style-option').forEach(o => o.classList.remove('active'));
+                        e.currentTarget.classList.add('active');
+                        this.defaultNodeStyle = e.currentTarget.dataset.style;
+                        
+                        if (this.selectedNodeId) {
+                            const node = this.getNodeById(this.selectedNodeId);
+                            if (node) {
+                                node.style = this.defaultNodeStyle;
+                                this.saveHistoryState();
+                                this.renderMindMap();
+                            }
+                        }
+                    });
+                });
+                
+                // Node color options
+                document.querySelectorAll('.color-option').forEach(option => {
+                    option.addEventListener('click', (e) => {
+                        document.querySelectorAll('.color-option').forEach(o => o.classList.remove('active'));
+                        e.currentTarget.classList.add('active');
+                        this.defaultNodeColor = e.currentTarget.dataset.color;
+                        
+                        if (this.selectedNodeId) {
+                            const node = this.getNodeById(this.selectedNodeId);
+                            if (node) {
+                                node.color = this.defaultNodeColor;
+                                this.saveHistoryState();
+                                this.renderMindMap();
+                            }
+                        }
+                    });
+                });
+                
+                // Context menu items
+                document.getElementById('ctx-add-child').addEventListener('click', () => this.addChildNode());
+                document.getElementById('ctx-edit').addEventListener('click', () => this.editSelectedNode());
+                document.getElementById('ctx-change-style').addEventListener('click', () => this.toggleSideMenu(true));
+                document.getElementById('ctx-delete').addEventListener('click', () => this.deleteSelectedNode());
+                
+                // Modal close buttons
+                document.querySelectorAll('.modal-close, .modal-close-btn').forEach(btn => {
+                    btn.addEventListener('click', (e) => {
+                        const modal = e.target.closest('.modal-content').parentElement;
+                        modal.classList.remove('open');
+                    });
+                });
+                
+                // Export/Import buttons
+                document.getElementById('copy-export-btn').addEventListener('click', () => this.copyExportData());
+                document.getElementById('download-json-btn').addEventListener('click', () => this.downloadMindMapJson());
+                document.getElementById('import-btn-confirm').addEventListener('click', () => this.importMindMap());
+                
+                // Zoom controls
+                document.getElementById('zoom-in').addEventListener('click', () => this.zoom(0.1));
+                document.getElementById('zoom-out').addEventListener('click', () => this.zoom(-0.1));
+                
+                // Mouse wheel for zooming
+                this.canvasContainer.addEventListener('wheel', (e) => {
+                    e.preventDefault();
+                    const delta = e.deltaY > 0 ? -0.05 : 0.05;
+                    this.zoom(delta);
+                });
+                
+                // Keyboard shortcuts
+                document.addEventListener('keydown', this.handleKeyDown.bind(this));
+                
+                // Auto-save toggle
+                document.getElementById('auto-save').addEventListener('change', (e) => {
+                    if (e.target.checked) {
+                        this.setupAutoSave();
+                    } else {
+                        clearInterval(this.autoSaveInterval);
+                    }
+                });
+                
+                // Window resize
+                window.addEventListener('resize', () => this.renderMindMap());
+            }
+            
+            handleCanvasMouseDown(e) {
+                if (e.button === 0) { // Left click
+                    const rect = this.canvas.getBoundingClientRect();
+                    const x = (e.clientX - rect.left) / this.scale - this.canvasOffset.x;
+                    const y = (e.clientY - rect.top) / this.scale - this.canvasOffset.y;
+                    
+                    // Check if clicked on a node
+                    const node = this.findNodeAt(x, y);
+                    
+                    if (node) {
+                        if (this.connectMode && this.connectSourceId) {
+                            // Connect nodes
+                            if (this.connectSourceId !== node.id) {
+                                this.connectNodes(this.connectSourceId, node.id);
+                                this.connectMode = false;
+                                this.connectSourceId = null;
+                                document.getElementById('connect-btn').classList.remove('active');
+                            }
+                        } else {
+                            // Select and prepare for dragging
+                            this.selectNode(node.id);
+                            this.isDragging = true;
+                            this.draggedNodeId = node.id;
+                            this.dragOffset.x = x - node.x;
+                            this.dragOffset.y = y - node.y;
+                        }
+                    } else {
+                        // Start canvas dragging
+                        this.canvasDrag.active = true;
+                        this.canvasDrag.startX = e.clientX;
+                        this.canvasDrag.startY = e.clientY;
+                        this.canvas.style.cursor = 'grabbing';
+                        
+                        // Deselect current node
+                        this.selectNode(null);
+                    }
+                }
+            }
+            
+            handleCanvasMouseMove(e) {
+                const rect = this.canvas.getBoundingClientRect();
+                const x = (e.clientX - rect.left) / this.scale - this.canvasOffset.x;
+                const y = (e.clientY - rect.top) / this.scale - this.canvasOffset.y;
+                
+                if (this.isDragging && this.draggedNodeId) {
+                    // Drag node
+                    const node = this.getNodeById(this.draggedNodeId);
+                    if (node) {
+                        node.x = x - this.dragOffset.x;
+                        node.y = y - this.dragOffset.y;
+                        this.renderMindMap();
+                    }
+                } else if (this.canvasDrag.active) {
+                    // Drag canvas
+                    const dx = e.clientX - this.canvasDrag.startX;
+                    const dy = e.clientY - this.canvasDrag.startY;
+                    
+                    this.canvasOffset.x += dx / this.scale;
+                    this.canvasOffset.y += dy / this.scale;
+                    
+                    this.canvasDrag.startX = e.clientX;
+                    this.canvasDrag.startY = e.clientY;
+                    
+                    this.renderMindMap();
+                }
+            }
+            
+            handleCanvasMouseUp(e) {
+                if (this.isDragging && this.draggedNodeId) {
+                    this.isDragging = false;
+                    this.saveHistoryState();
+                }
+                
+                if (this.canvasDrag.active) {
+                    this.canvasDrag.active = false;
+                    this.canvas.style.cursor = 'default';
+                }
+            }
+            
+            handleCanvasDblClick(e) {
+                const rect = this.canvas.getBoundingClientRect();
+                const x = (e.clientX - rect.left) / this.scale - this.canvasOffset.x;
+                const y = (e.clientY - rect.top) / this.scale - this.canvasOffset.y;
+                
+                const node = this.findNodeAt(x, y);
+                
+                if (node) {
+                    // Edit existing node
+                    this.editNode(node.id);
+                } else {
+                    // Create new node at click position
+                    this.addNode(x, y);
+                }
+            }
+            
+            handleContextMenu(e) {
+                e.preventDefault();
+                
+                const rect = this.canvas.getBoundingClientRect();
+                const x = (e.clientX - rect.left) / this.scale - this.canvasOffset.x;
+                const y = (e.clientY - rect.top) / this.scale - this.canvasOffset.y;
+                
+                const node = this.findNodeAt(x, y);
+                
+                if (node) {
+                    this.selectNode(node.id);
+                    
+                    const contextMenu = document.getElementById('context-menu');
+                    contextMenu.style.display = 'block';
+                    contextMenu.style.left = `${e.clientX}px`;
+                    contextMenu.style.top = `${e.clientY}px`;
+                    
+                    // Close context menu when clicking elsewhere
+                    const closeContextMenu = () => {
+                        contextMenu.style.display = 'none';
+                        document.removeEventListener('click', closeContextMenu);
+                    };
+                    
+                    setTimeout(() => {
+                        document.addEventListener('click', closeContextMenu);
+                    }, 0);
+                }
+            }
+            
+            handleCanvasTouchStart(e) {
+                if (e.touches.length === 1) {
+                    e.preventDefault();
+                    const touch = e.touches[0];
+                    const rect = this.canvas.getBoundingClientRect();
+                    const x = (touch.clientX - rect.left) / this.scale - this.canvasOffset.x;
+                    const y = (touch.clientY - rect.top) / this.scale - this.canvasOffset.y;
+                    
+                    // Check if touched a node
+                    const node = this.findNodeAt(x, y);
+                    
+                    if (node) {
+                        if (this.connectMode && this.connectSourceId) {
+                            // Connect nodes
+                            if (this.connectSourceId !== node.id) {
+                                this.connectNodes(this.connectSourceId, node.id);
+                                this.connectMode = false;
+                                this.connectSourceId = null;
+                                document.getElementById('connect-btn').classList.remove('active');
+                            }
+                        } else {
+                            // Select and prepare for dragging
+                            this.selectNode(node.id);
+                            this.isDragging = true;
+                            this.draggedNodeId = node.id;
+                            this.dragOffset.x = x - node.x;
+                            this.dragOffset.y = y - node.y;
+                        }
+                    } else {
+                        // Start canvas dragging
+                        this.canvasDrag.active = true;
+                        this.canvasDrag.startX = touch.clientX;
+                        this.canvasDrag.startY = touch.clientY;
+                        
+                        // Deselect current node
+                        this.selectNode(null);
+                    }
+                    
+                    // Handle long press for context menu
+                    this.longPressTimer = setTimeout(() => {
+                        if (node) {
+                            const contextMenu = document.getElementById('context-menu');
+                            contextMenu.style.display = 'block';
+                            contextMenu.style.left = `${touch.clientX}px`;
+                            contextMenu.style.top = `${touch.clientY}px`;
+                            
+                            // Close context menu when touching elsewhere
+                            const closeContextMenu = () => {
+                                contextMenu.style.display = 'none';
+                                document.removeEventListener('touchstart', closeContextMenu);
+                            };
+                            
+                            setTimeout(() => {
+                                document.addEventListener('touchstart', closeContextMenu);
+                            }, 0);
+                        }
+                    }, 800);
+                }
+            }
+            
+            handleCanvasTouchMove(e) {
+                if (e.touches.length === 1) {
+                    e.preventDefault();
+                    clearTimeout(this.longPressTimer);
+                    
+                    const touch = e.touches[0];
+                    const rect = this.canvas.getBoundingClientRect();
+                    const x = (touch.clientX - rect.left) / this.scale - this.canvasOffset.x;
+                    const y = (touch.clientY - rect.top) / this.scale - this.canvasOffset.y;
+                    
+                    if (this.isDragging && this.draggedNodeId) {
+                        // Drag node
+                        const node = this.getNodeById(this.draggedNodeId);
+                        if (node) {
+                            node.x = x - this.dragOffset.x;
+                            node.y = y - this.dragOffset.y;
+                            this.renderMindMap();
+                        }
+                    } else if (this.canvasDrag.active) {
+                        // Drag canvas
+                        const dx = touch.clientX - this.canvasDrag.startX;
+                        const dy = touch.clientY - this.canvasDrag.startY;
+                        
+                        this.canvasOffset.x += dx / this.scale;
+                        this.canvasOffset.y += dy / this.scale;
+                        
+                        this.canvasDrag.startX = touch.clientX;
+                        this.canvasDrag.startY = touch.clientY;
+                        
+                        this.renderMindMap();
+                    }
+                }
+            }
+            
+            handleCanvasTouchEnd(e) {
+                clearTimeout(this.longPressTimer);
+                
+                if (this.isDragging && this.draggedNodeId) {
+                    this.isDragging = false;
+                    this.saveHistoryState();
+                }
+                
+                if (this.canvasDrag.active) {
+                    this.canvasDrag.active = false;
+                }
+                
+                // Handle tap as click
+                if (!this.isDragging && !this.canvasDrag.active) {
+                    const lastTouch = e.changedTouches[0];
+                    const rect = this.canvas.getBoundingClientRect();
+                    const x = (lastTouch.clientX - rect.left) / this.scale - this.canvasOffset.x;
+                    const y = (lastTouch.clientY - rect.top) / this.scale - this.canvasOffset.y;
+                    
+                    const node = this.findNodeAt(x, y);
+                    if (node) {
+                        this.selectNode(node.id);
+                    }
+                }
+            }
+            
+            handleKeyDown(e) {
+                // Keyboard shortcuts
+                if (e.key === 'n') {
+                    this.addNode();
+                } else if (e.key === 'Delete' || e.key === 'Backspace') {
+                    if (this.selectedNodeId && !this.isEditingText()) {
+                        this.deleteSelectedNode();
+                    }
+                } else if (e.key === 'c') {
+                    if (this.selectedNodeId) {
+                        this.toggleConnectMode();
+                    }
+                } else if (e.key === ' ') {
+                    e.preventDefault();
+                    this.centerView();
+                } else if (e.key === 'z' && (e.ctrlKey || e.metaKey)) {
+                    e.preventDefault();
+                    if (e.shiftKey) {
+                        this.redo();
+                    } else {
+                        this.undo();
+                    }
+                } else if ((e.key === 'y' && (e.ctrlKey || e.metaKey)) || 
+                          (e.key === 'Z' && (e.ctrlKey || e.metaKey) && e.shiftKey)) {
+                    e.preventDefault();
+                    this.redo();
+                }
+            }
+            
+            isEditingText() {
+                const activeElement = document.activeElement;
+                return activeElement && (activeElement.tagName === 'INPUT' || activeElement.tagName === 'TEXTAREA');
+            }
+            
+            findNodeAt(x, y) {
+                if (!this.currentMindMap) return null;
+                
+                // Search in reverse to find nodes that are rendered on top first
+                for (let i = this.currentMindMap.nodes.length - 1; i >= 0; i--) {
+                    const node = this.currentMindMap.nodes[i];
+                    const nodeElement = document.getElementById(`node-${node.id}`);
+                    if (nodeElement) {
+                        const rect = nodeElement.getBoundingClientRect();
+                        const nodeWidth = rect.width / this.scale;
+                        const nodeHeight = rect.height / this.scale;
+                        
+                        if (x >= node.x && x <= node.x + nodeWidth &&
+                            y >= node.y && y <= node.y + nodeHeight) {
+                            return node;
+                        }
+                    }
+                }
+                
+                return null;
+            }
+            
+            selectNode(nodeId) {
+                // Deselect previous node
+                if (this.selectedNodeId) {
+                    const prevNode = document.getElementById(`node-${this.selectedNodeId}`);
+                    if (prevNode) {
+                        prevNode.classList.remove('selected');
+                    }
+                }
+                
+                this.selectedNodeId = nodeId;
+                
+                // Select new node
+                if (nodeId) {
+                    const node = document.getElementById(`node-${nodeId}`);
+                    if (node) {
+                        node.classList.add('selected');
+                    }
+                    
+                    // If in connect mode, set as source
+                    if (this.connectMode && !this.connectSourceId) {
+                        this.connectSourceId = nodeId;
+                    }
+                }
+            }
+            
+            addNode(x, y) {
+                if (!this.currentMindMap) return;
+                
+                // Default position in center if not specified
+                if (x === undefined || y === undefined) {
+                    const rect = this.canvas.getBoundingClientRect();
+                    x = rect.width / 2 / this.scale - this.canvasOffset.x;
+                    y = rect.height / 2 / this.scale - this.canvasOffset.y;
+                }
+                
+                const newNode = {
+                    id: this.generateId(),
+                    text: 'New Node',
+                    x: x,
+                    y: y,
+                    connections: [],
+                    style: this.defaultNodeStyle,
+                    color: this.defaultNodeColor
+                };
+                
+                this.currentMindMap.nodes.push(newNode);
+                this.saveHistoryState();
+                this.renderMindMap();
+                this.selectNode(newNode.id);
+                this.editNode(newNode.id);
+                
+                return newNode;
+            }
+            
+            addChildNode() {
+                if (!this.selectedNodeId || !this.currentMindMap) return;
+                
+                const parentNode = this.getNodeById(this.selectedNodeId);
+                if (!parentNode) return;
+                
+                // Position the child node to the right of the parent
+                const childX = parentNode.x + 180;
+                const childY = parentNode.y;
+                
+                const childNode = this.addNode(childX, childY);
+                if (childNode) {
+                    this.connectNodes(parentNode.id, childNode.id);
+                }
+            }
+            
+            editNode(nodeId) {
+                const node = this.getNodeById(nodeId);
+                if (!node) return;
+                
+                const nodeElement = document.getElementById(`node-${nodeId}`);
+                if (!nodeElement) return;
+                
+                const textArea = nodeElement.querySelector('.node-text');
+                if (textArea) {
+                    textArea.focus();
+                    textArea.select();
+                }
+            }
+            
+            editSelectedNode() {
+                if (this.selectedNodeId) {
+                    this.editNode(this.selectedNodeId);
+                }
+            }
+            
+            deleteSelectedNode() {
+                if (!this.selectedNodeId || !this.currentMindMap) return;
+                
+                const nodeIndex = this.currentMindMap.nodes.findIndex(n => n.id === this.selectedNodeId);
+                if (nodeIndex === -1) return;
+                
+                // Remove connections to this node
+                this.currentMindMap.nodes.forEach(node => {
+                    node.connections = node.connections.filter(conn => conn !== this.selectedNodeId);
+                });
+                
+                // Remove the node
+                this.currentMindMap.nodes.splice(nodeIndex, 1);
+                this.selectedNodeId = null;
+                
+                this.saveHistoryState();
+                this.renderMindMap();
+                this.showToast('Node deleted', 'success');
+            }
+            
+            connectNodes(sourceId, targetId) {
+                if (!this.currentMindMap) return;
+                
+                const sourceNode = this.getNodeById(sourceId);
+                if (!sourceNode) return;
+                
+                // Check if connection already exists
+                if (!sourceNode.connections.includes(targetId)) {
+                    sourceNode.connections.push(targetId);
+                    this.saveHistoryState();
+                    this.renderMindMap();
+                    this.showToast('Nodes connected', 'success');
+                }
+            }
+            
+            toggleConnectMode() {
+                this.connectMode = !this.connectMode;
+                const connectBtn = document.getElementById('connect-btn');
+                
+                if (this.connectMode) {
+                    connectBtn.classList.add('active');
+                    this.connectSourceId = this.selectedNodeId;
+                    this.showToast('Select another node to connect', 'info');
+                } else {
+                    connectBtn.classList.remove('active');
+                    this.connectSourceId = null;
+                }
+            }
+            
+            centerView() {
+                if (!this.currentMindMap || this.currentMindMap.nodes.length === 0) {
+                    this.canvasOffset.x = 0;
+                    this.canvasOffset.y = 0;
+                    this.renderMindMap();
+                    return;
+                }
+                
+                // Calculate bounding box of all nodes
+                let minX = Infinity, minY = Infinity, maxX = -Infinity, maxY = -Infinity;
+                
+                this.currentMindMap.nodes.forEach(node => {
+                    const nodeElement = document.getElementById(`node-${node.id}`);
+                    if (nodeElement) {
+                        const rect = nodeElement.getBoundingClientRect();
+                        const nodeWidth = rect.width / this.scale;
+                        const nodeHeight = rect.height / this.scale;
+                        
+                        minX = Math.min(minX, node.x);
+                        minY = Math.min(minY, node.y);
+                        maxX = Math.max(maxX, node.x + nodeWidth);
+                        maxY = Math.max(maxY, node.y + nodeHeight);
+                    } else {
+                        minX = Math.min(minX, node.x);
+                        minY = Math.min(minY, node.y);
+                        maxX = Math.max(maxX, node.x + 150); // Estimate width
+                        maxY = Math.max(maxY, node.y + 50);  // Estimate height
+                    }
+                });
+                
+                // Center the bounding box
+                const canvasRect = this.canvas.getBoundingClientRect();
+                const centerX = (minX + maxX) / 2;
+                const centerY = (minY + maxY) / 2;
+                
+                this.canvasOffset.x = canvasRect.width / 2 / this.scale - centerX;
+                this.canvasOffset.y = canvasRect.height / 2 / this.scale - centerY;
+                
+                this.renderMindMap();
+            }
+            
+            zoom(delta) {
+                const prevScale = this.scale;
+                this.scale = Math.max(0.2, Math.min(3, this.scale + delta));
+                
+                // Update zoom level display
+                document.querySelector('.zoom-level').textContent = `${Math.round(this.scale * 100)}%`;
+                
+                // Adjust offset to zoom toward center
+                const canvasRect = this.canvas.getBoundingClientRect();
+                const centerX = canvasRect.width / 2;
+                const centerY = canvasRect.height / 2;
+                
+                const worldCenterX = centerX / prevScale - this.canvasOffset.x;
+                const worldCenterY = centerY / prevScale - this.canvasOffset.y;
+                
+                const newWorldCenterX = centerX / this.scale - this.canvasOffset.x;
+                const newWorldCenterY = centerY / this.scale - this.canvasOffset.y;
+                
+                this.canvasOffset.x += (newWorldCenterX - worldCenterX);
+                this.canvasOffset.y += (newWorldCenterY - worldCenterY);
+                
+                this.renderMindMap();
+            }
+            
+            renderMindMap() {
+                if (!this.currentMindMap) return;
+                
+                // Clear canvas
+                this.canvas.innerHTML = '';
+                
+                // Apply transform for pan and zoom
+                this.canvas.style.transform = `scale(${this.scale})`;
+                
+                // Render connections first (so they appear behind nodes)
+                this.currentMindMap.nodes.forEach(node => {
+                    node.connections.forEach(targetId => {
+                        this.renderConnection(node.id, targetId);
+                    });
+                });
+                
+                // Render nodes
+                this.currentMindMap.nodes.forEach(node => {
+                    this.renderNode(node);
+                });
+            }
+            
+            renderNode(node) {
+                const nodeElement = document.createElement('div');
+                nodeElement.id = `node-${node.id}`;
+                nodeElement.className = `node ${node.style || 'default'}`;
+                nodeElement.style.left = `${node.x + this.canvasOffset.x}px`;
+                nodeElement.style.top = `${node.y + this.canvasOffset.y}px`;
+                
+                if (node.color) {
+                    if (node.style === 'jupiter-theme') {
+                        nodeElement.style.boxShadow = `0 0 20px ${node.color}80`;
+                    } else {
+                        nodeElement.style.backgroundColor = `${node.color}cc`;
+                    }
+                }
+                
+                if (this.selectedNodeId === node.id) {
+                    nodeElement.classList.add('selected');
+                }
+                
+                // Node controls
+                const controls = document.createElement('div');
+                controls.className = 'node-controls';
+                
+                const addBtn = document.createElement('button');
+                addBtn.className = 'node-control-btn';
+                addBtn.innerHTML = '+';
+                addBtn.title = 'Add Child Node';
+                addBtn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    this.selectNode(node.id);
+                    this.addChildNode();
+                });
+                
+                const connectBtn = document.createElement('button');
+                connectBtn.className = 'node-control-btn';
+                connectBtn.innerHTML = '↔';
+                connectBtn.title = 'Connect Nodes';
+                connectBtn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    this.selectNode(node.id);
+                    this.toggleConnectMode();
+                });
+                
+                const deleteBtn = document.createElement('button');
+                deleteBtn.className = 'node-control-btn';
+                deleteBtn.innerHTML = '×';
+                deleteBtn.title = 'Delete Node';
+                deleteBtn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    this.selectNode(node.id);
+                    this.deleteSelectedNode();
+                });
+                
+                controls.appendChild(addBtn);
+                controls.appendChild(connectBtn);
+                controls.appendChild(deleteBtn);
+                nodeElement.appendChild(controls);
+                
+                // Node text
+                const textArea = document.createElement('textarea');
+                textArea.className = 'node-text';
+                textArea.value = node.text || '';
+                textArea.rows = 1;
+                
+                // Auto-resize textarea
+                const resizeTextarea = () => {
+                    textArea.style.height = 'auto';
+                    textArea.style.height = `${textArea.scrollHeight}px`;
+                };
+                
+                textArea.addEventListener('input', () => {
+                    node.text = textArea.value;
+                    resizeTextarea();
+                });
+                
+                textArea.addEventListener('focus', (e) => {
+                    e.stopPropagation();
+                    this.selectNode(node.id);
+                });
+                
+                textArea.addEventListener('blur', () => {
+                    this.saveHistoryState();
+                });
+                
+                textArea.addEventListener('keydown', (e) => {
+                    if (e.key === 'Enter' && !e.shiftKey) {
+                        e.preventDefault();
+                        textArea.blur();
+                    }
+                });
+                
+                nodeElement.appendChild(textArea);
+                this.canvas.appendChild(nodeElement);
+                
+                // Resize textarea initially
+                setTimeout(resizeTextarea, 0);
+            }
+            
+            renderConnection(sourceId, targetId) {
+                const sourceNode = this.getNodeById(sourceId);
+                const targetNode = this.getNodeById(targetId);
+                
+                if (!sourceNode || !targetNode) return;
+                
+                // Wait for nodes to be rendered
+                setTimeout(() => {
+                    const sourceElement = document.getElementById(`node-${sourceId}`);
+                    const targetElement = document.getElementById(`node-${targetId}`);
+                    
+                    if (!sourceElement || !targetElement) return;
+                    
+                    const sourceRect = sourceElement.getBoundingClientRect();
+                    const targetRect = targetElement.getBoundingClientRect();
+                    
+                    // Calculate center points
+                    const sourceX = sourceNode.x + sourceRect.width / (2 * this.scale) + this.canvasOffset.x;
+                    const sourceY = sourceNode.y + sourceRect.height / (2 * this.scale) + this.canvasOffset.y;
+                    const targetX = targetNode.x + targetRect.width / (2 * this.scale) + this.canvasOffset.x;
+                    const targetY = targetNode.y + targetRect.height / (2 * this.scale) + this.canvasOffset.y;
+                    
+                    // Calculate distance and angle
+                    const dx = targetX - sourceX;
+                    const dy = targetY - sourceY;
+                    const distance = Math.sqrt(dx * dx + dy * dy);
+                    const angle = Math.atan2(dy, dx) * 180 / Math.PI;
+                    
+                    // Create connection element
+                    const connection = document.createElement('div');
+                    connection.className = 'connection';
+                    connection.style.width = `${distance}px`;
+                    connection.style.left = `${sourceX}px`;
+                    connection.style.top = `${sourceY}px`;
+                    connection.style.transform = `rotate(${angle}deg)`;
+                    
+                    this.canvas.appendChild(connection);
+                }, 0);
+            }
+            
+            getNodeById(id) {
+                if (!this.currentMindMap) return null;
+                return this.currentMindMap.nodes.find(node => node.id === id);
+            }
+            
+            generateId() {
+                return Date.now().toString(36) + Math.random().toString(36).substr(2, 5);
+            }
+            
+            createNewMindMap(name) {
+                const newMindMap = {
+                    id: this.generateId(),
+                    name: name || 'Untitled Mind Map',
+                    createdAt: new Date().toISOString(),
+                    nodes: []
+                };
+                
+                this.mindMaps.push(newMindMap);
+                this.saveMindMaps();
+                this.switchToMindMap(newMindMap.id);
+                this.updateMindMapList();
+                
+                return newMindMap;
+            }
+            
+            createNewMindMapFromInput() {
+                const input = document.getElementById('new-map-name');
+                const name = input.value.trim() || 'Untitled Mind Map';
+                
+                this.createNewMindMap(name);
+                input.value = '';
+                this.showToast(`Created "${name}"`, 'success');
+            }
+            
+            switchToMindMap(id) {
+                const mindMap = this.mindMaps.find(map => map.id === id);
+                if (!mindMap) return;
+                
+                this.currentMindMapId = id;
+                this.currentMindMap = mindMap;
+                this.selectedNodeId = null;
+                this.history = [];
+                this.historyIndex = -1;
+                this.saveHistoryState();
+                
+                this.updateMindMapList();
+                this.renderMindMap();
+                this.centerView();
+            }
+            
+            deleteMindMap(id) {
+                const index = this.mindMaps.findIndex(map => map.id === id);
+                if (index === -1) return;
+                
+                const name = this.mindMaps[index].name;
+                this.mindMaps.splice(index, 1);
+                this.saveMindMaps();
+                
+                // If we deleted the current mind map, switch to another one
+                if (this.currentMindMapId === id) {
+                    if (this.mindMaps.length > 0) {
+                        this.switchToMindMap(this.mindMaps[0].id);
+                    } else {
+                        this.createNewMindMap('My Mind Map');
+                    }
+                }
+                
+                this.updateMindMapList();
+                this.showToast(`Deleted "${name}"`, 'success');
+            }
+            
+            renameMindMap(id, newName) {
+                const mindMap = this.mindMaps.find(map => map.id === id);
+                if (!mindMap) return;
+                
+                const oldName = mindMap.name;
+                mindMap.name = newName || 'Untitled Mind Map';
+                this.saveMindMaps();
+                this.updateMindMapList();
+                this.showToast(`Renamed "${oldName}" to "${mindMap.name}"`, 'success');
+            }
+            
+            updateMindMapList() {
+                const list = document.getElementById('mindmap-list');
+                list.innerHTML = '';
+                
+                this.mindMaps.forEach(mindMap => {
+                    const item = document.createElement('li');
+                    item.className = 'mindmap-item';
+                    if (mindMap.id === this.currentMindMapId) {
+                        item.classList.add('active');
+                    }
+                    
+                    const nameSpan = document.createElement('span');
+                    nameSpan.textContent = mindMap.name;
+                    nameSpan.style.flex = '1';
+                    nameSpan.style.overflow = 'hidden';
+                    nameSpan.style.textOverflow = 'ellipsis';
+                    nameSpan.style.whiteSpace = 'nowrap';
+                    
+                    const actions = document.createElement('div');
+                    actions.className = 'mindmap-actions';
+                    
+                    const renameBtn = document.createElement('button');
+                    renameBtn.className = 'mindmap-action-btn';
+                    renameBtn.innerHTML = '✎';
+                    renameBtn.title = 'Rename';
+                    renameBtn.addEventListener('click', (e) => {
+                        e.stopPropagation();
+                        const newName = prompt('Enter new name:', mindMap.name);
+                        if (newName !== null) {
+                            this.renameMindMap(mindMap.id, newName);
+                        }
+                    });
+                    
+                    const deleteBtn = document.createElement('button');
+                    deleteBtn.className = 'mindmap-action-btn';
+                    deleteBtn.innerHTML = '🗑';
+                    deleteBtn.title = 'Delete';
+                    deleteBtn.addEventListener('click', (e) => {
+                        e.stopPropagation();
+                        if (confirm(`Are you sure you want to delete "${mindMap.name}"?`)) {
+                            this.deleteMindMap(mindMap.id);
+                        }
+                    });
+                    
+                    actions.appendChild(renameBtn);
+                    actions.appendChild(deleteBtn);
+                    
+                    item.appendChild(nameSpan);
+                    item.appendChild(actions);
+                    
+                    item.addEventListener('click', () => {
+                        this.switchToMindMap(mindMap.id);
+                        this.toggleSideMenu(false);
+                    });
+                    
+                    list.appendChild(item);
+                });
+            }
+            
+            toggleSideMenu(open) {
+                const menu = document.getElementById('side-menu');
+                if (open === undefined) {
+                    menu.classList.toggle('open');
+                } else if (open) {
+                    menu.classList.add('open');
+                } else {
+                    menu.classList.remove('open');
+                }
+            }
+            
+            openExportModal() {
+                if (!this.currentMindMap) return;
+                
+                const modal = document.getElementById('export-modal');
+                const textarea = document.getElementById('export-data');
+                
+                textarea.value = JSON.stringify(this.currentMindMap, null, 2);
+                modal.classList.add('open');
+            }
+            
+            openImportModal() {
+                const modal = document.getElementById('import-modal');
+                const textarea = document.getElementById('import-data');
+                
+                textarea.value = '';
+                modal.classList.add('open');
+            }
+            
+            openHelpModal() {
+                const modal = document.getElementById('help-modal');
+                modal.classList.add('open');
+            }
+            
+            copyExportData() {
+                const textarea = document.getElementById('export-data');
+                textarea.select();
+                document.execCommand('copy');
+                this.showToast('Copied to clipboard', 'success');
+            }
+            
+            downloadMindMapJson() {
+                if (!this.currentMindMap) return;
+                
+                const dataStr = JSON.stringify(this.currentMindMap, null, 2);
+                const dataUri = 'data:application/json;charset=utf-8,' + encodeURIComponent(dataStr);
+                
+                const exportName = `${this.currentMindMap.name.replace(/\s+/g, '_')}_${new Date().toISOString().split('T')[0]}.json`;
+                
+                const linkElement = document.createElement('a');
+                linkElement.setAttribute('href', dataUri);
+                linkElement.setAttribute('download', exportName);
+                linkElement.click();
+            }
+            
+            importMindMap() {
+                const textarea = document.getElementById('import-data');
+                const data = textarea.value.trim();
+                
+                if (!data) {
+                    this.showToast('No data to import', 'error');
+                    return;
+                }
+                
+                try {
+                    const mindMap = JSON.parse(data);
+                    
+                    if (!mindMap.name || !Array.isArray(mindMap.nodes)) {
+                        throw new Error('Invalid mind map format');
+                    }
+                    
+                    // Generate a new ID for the imported mind map
+                    mindMap.id = this.generateId();
+                    mindMap.createdAt = new Date().toISOString();
+                    
+                    this.mindMaps.push(mindMap);
+                    this.saveMindMaps();
+                    this.switchToMindMap(mindMap.id);
+                    
+                    document.getElementById('import-modal').classList.remove('open');
+                    this.showToast(`Imported "${mindMap.name}"`, 'success');
+                } catch (error) {
+                    this.showToast('Invalid JSON data', 'error');
+                }
+            }
+            
+            clearAllData() {
+                if (confirm('Are you sure you want to delete ALL mind maps? This cannot be undone!')) {
+                    localStorage.removeItem('mindMaps');
+                    this.mindMaps = [];
+                    this.createNewMindMap('My Mind Map');
+                    this.showToast('All data cleared', 'success');
+                }
+            }
+            
+            showToast(message, type = 'info') {
+                const toast = document.getElementById('toast');
+                toast.textContent = message;
+                toast.className = `${type}`;
+                
+                // Show the toast
+                setTimeout(() => {
+                    toast.classList.add('show');
+                    
+                    // Hide after 3 seconds
+                    setTimeout(() => {
+                        toast.classList.remove('show');
+                    }, 3000);
+                }, 10);
+            }
+            
+            saveHistoryState() {
+                if (!this.currentMindMap) return;
+                
+                // If we're not at the end of the history, remove future states
+                if (this.historyIndex < this.history.length - 1) {
+                    this.history = this.history.slice(0, this.historyIndex + 1);
+                }
+                
+                // Add current state to history
+                this.history.push(JSON.stringify(this.currentMindMap));
+                this.historyIndex = this.history.length - 1;
+                
+                // Limit history size
+                if (this.history.length > 50) {
+                    this.history.shift();
+                    this.historyIndex--;
+                }
+                
+                // Save to localStorage
+                this.saveMindMaps();
+            }
+            
+            undo() {
+                if (this.historyIndex <= 0) return;
+                
+                this.historyIndex--;
+                this.currentMindMap = JSON.parse(this.history[this.historyIndex]);
+                this.renderMindMap();
+                this.showHistoryIndicator('Undo');
+            }
+            
+            redo() {
+                if (this.historyIndex >= this.history.length - 1) return;
+                
+                this.historyIndex++;
+                this.currentMindMap = JSON.parse(this.history[this.historyIndex]);
+                this.renderMindMap();
+                this.showHistoryIndicator('Redo');
+            }
+            
+            showHistoryIndicator(action) {
+                const indicator = document.getElementById('history-indicator');
+                indicator.textContent = `${action}: ${this.historyIndex + 1}/${this.history.length}`;
+                indicator.classList.add('show');
+                
+                setTimeout(() => {
+                    indicator.classList.remove('show');
+                }, 1500);
+            }
+            
+            loadMindMaps() {
+                const data = localStorage.getItem('mindMaps');
+                if (data) {
+                    try {
+                        this.mindMaps = JSON.parse(data);
+                    } catch (e) {
+                        this.mindMaps = [];
+                    }
+                } else {
+                    this.mindMaps = [];
+                }
+            }
+            
+            saveMindMaps() {
+                localStorage.setItem('mindMaps', JSON.stringify(this.mindMaps));
+            }
+            
+            setupAutoSave() {
+                if (this.autoSaveInterval) {
+                    clearInterval(this.autoSaveInterval);
+                }
+                
+                this.autoSaveInterval = setInterval(() => {
+                    if (this.currentMindMap) {
+                        this.saveMindMaps();
+                    }
+                }, 30000); // Auto-save every 30 seconds
+            }
+        }
+
+        // Initialize the app when the DOM is loaded
+        document.addEventListener('DOMContentLoaded', () => {
+            const app = new MindMapApp();
+        });
+    </script>
+</body>
+</html>
