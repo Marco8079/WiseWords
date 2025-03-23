@@ -59,6 +59,7 @@
             left: 0;
             z-index: 3;
             cursor: grab;
+            touch-action: none; /* Prevent default touch actions */
         }
 
         #mindmap-canvas:active {
@@ -82,13 +83,14 @@
             transform: translateX(-50%);
             display: flex;
             gap: 10px;
-            background: rgba(20, 20, 40, 0.7);
+            background: rgba(20, 20, 40, 0.8);
             backdrop-filter: blur(10px);
             padding: 10px 20px;
             border-radius: 50px;
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
             pointer-events: auto;
             transition: all 0.3s ease;
+            border: 1px solid rgba(100, 100, 255, 0.2);
         }
 
         .toolbar button {
@@ -110,6 +112,7 @@
         .toolbar button:hover {
             background: rgba(80, 80, 150, 0.5);
             transform: translateY(-2px);
+            box-shadow: 0 3px 8px rgba(0, 0, 0, 0.3);
         }
 
         .toolbar button.active {
@@ -131,12 +134,13 @@
             display: flex;
             flex-direction: column;
             gap: 10px;
-            background: rgba(20, 20, 40, 0.7);
+            background: rgba(20, 20, 40, 0.8);
             backdrop-filter: blur(10px);
             padding: 10px;
             border-radius: 20px;
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
             pointer-events: auto;
+            border: 1px solid rgba(100, 100, 255, 0.2);
         }
 
         .zoom-controls button {
@@ -157,12 +161,15 @@
 
         .zoom-controls button:hover {
             background: rgba(80, 80, 150, 0.5);
+            transform: translateY(-2px);
+            box-shadow: 0 3px 8px rgba(0, 0, 0, 0.3);
         }
 
         .zoom-level {
             text-align: center;
             font-size: 12px;
             color: rgba(255, 255, 255, 0.7);
+            font-weight: bold;
         }
 
         /* Menu */
@@ -170,7 +177,7 @@
             position: absolute;
             top: 20px;
             left: 20px;
-            background: rgba(20, 20, 40, 0.7);
+            background: rgba(20, 20, 40, 0.8);
             backdrop-filter: blur(10px);
             padding: 10px;
             border-radius: 20px;
@@ -179,6 +186,7 @@
             display: flex;
             flex-direction: column;
             gap: 10px;
+            border: 1px solid rgba(100, 100, 255, 0.2);
         }
 
         .menu button {
@@ -198,6 +206,8 @@
 
         .menu button:hover {
             background: rgba(80, 80, 150, 0.5);
+            transform: translateX(3px);
+            box-shadow: 0 3px 8px rgba(0, 0, 0, 0.3);
         }
 
         .menu button svg {
@@ -211,54 +221,76 @@
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            background: rgba(30, 30, 60, 0.9);
+            background: rgba(30, 30, 60, 0.95);
             backdrop-filter: blur(10px);
-            padding: 20px;
+            padding: 25px;
             border-radius: 15px;
             box-shadow: 0 5px 25px rgba(0, 0, 0, 0.7);
-            width: 300px;
+            width: 320px;
             max-width: 90%;
             pointer-events: auto;
             display: none;
             z-index: 100;
+            border: 1px solid rgba(100, 100, 255, 0.3);
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translate(-50%, -55%); }
+            to { opacity: 1; transform: translate(-50%, -50%); }
         }
 
         .node-editor h3 {
-            margin-bottom: 15px;
-            font-size: 18px;
+            margin-bottom: 20px;
+            font-size: 20px;
             color: #fff;
+            text-align: center;
+            text-shadow: 0 0 10px rgba(100, 100, 255, 0.5);
         }
 
         .node-editor input, .node-editor textarea {
             width: 100%;
-            padding: 10px;
+            padding: 12px;
             margin-bottom: 15px;
             background: rgba(40, 40, 80, 0.5);
             border: 1px solid rgba(100, 100, 200, 0.3);
             border-radius: 8px;
             color: #fff;
             font-size: 14px;
+            transition: all 0.2s ease;
+        }
+
+        .node-editor input:focus, .node-editor textarea:focus {
+            border-color: rgba(100, 100, 255, 0.6);
+            box-shadow: 0 0 10px rgba(100, 100, 255, 0.3);
+            outline: none;
         }
 
         .node-editor textarea {
-            min-height: 100px;
+            min-height: 120px;
             resize: vertical;
         }
 
         .color-options {
             display: flex;
-            gap: 10px;
-            margin-bottom: 15px;
+            gap: 12px;
+            margin-bottom: 20px;
             flex-wrap: wrap;
+            justify-content: center;
         }
 
         .color-option {
-            width: 30px;
-            height: 30px;
+            width: 36px;
+            height: 36px;
             border-radius: 50%;
             cursor: pointer;
             transition: all 0.2s ease;
             border: 2px solid transparent;
+            box-shadow: 0 3px 6px rgba(0, 0, 0, 0.3);
+        }
+
+        .color-option:hover {
+            transform: scale(1.1);
         }
 
         .color-option.selected {
@@ -270,15 +302,17 @@
         .node-editor-buttons {
             display: flex;
             justify-content: space-between;
+            margin-top: 10px;
         }
 
         .node-editor button {
-            padding: 8px 15px;
+            padding: 10px 18px;
             border: none;
             border-radius: 8px;
             cursor: pointer;
             transition: all 0.2s ease;
             font-weight: bold;
+            font-size: 14px;
         }
 
         .node-editor .save-btn {
@@ -288,6 +322,8 @@
 
         .node-editor .save-btn:hover {
             background: #3a5cef;
+            transform: translateY(-2px);
+            box-shadow: 0 3px 8px rgba(0, 0, 0, 0.3);
         }
 
         .node-editor .cancel-btn {
@@ -297,6 +333,7 @@
 
         .node-editor .cancel-btn:hover {
             background: rgba(100, 100, 150, 0.4);
+            transform: translateY(-2px);
         }
 
         .node-editor .delete-btn {
@@ -306,6 +343,8 @@
 
         .node-editor .delete-btn:hover {
             background: #ef3a5c;
+            transform: translateY(-2px);
+            box-shadow: 0 3px 8px rgba(0, 0, 0, 0.3);
         }
 
         /* File Menu */
@@ -313,33 +352,49 @@
             position: absolute;
             top: 80px;
             left: 20px;
-            background: rgba(30, 30, 60, 0.9);
+            background: rgba(30, 30, 60, 0.95);
             backdrop-filter: blur(10px);
-            padding: 15px;
+            padding: 20px;
             border-radius: 15px;
             box-shadow: 0 5px 25px rgba(0, 0, 0, 0.7);
-            width: 250px;
+            width: 280px;
             max-width: 90%;
             pointer-events: auto;
             display: none;
             z-index: 100;
+            border: 1px solid rgba(100, 100, 255, 0.3);
+            animation: slideIn 0.3s ease;
+        }
+
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateX(-20px); }
+            to { opacity: 1; transform: translateX(0); }
         }
 
         .file-menu h3 {
             margin-bottom: 15px;
             font-size: 18px;
             color: #fff;
+            text-align: center;
+            text-shadow: 0 0 10px rgba(100, 100, 255, 0.5);
         }
 
         .file-menu input {
             width: 100%;
-            padding: 10px;
+            padding: 12px;
             margin-bottom: 15px;
             background: rgba(40, 40, 80, 0.5);
             border: 1px solid rgba(100, 100, 200, 0.3);
             border-radius: 8px;
             color: #fff;
             font-size: 14px;
+            transition: all 0.2s ease;
+        }
+
+        .file-menu input:focus {
+            border-color: rgba(100, 100, 255, 0.6);
+            box-shadow: 0 0 10px rgba(100, 100, 255, 0.3);
+            outline: none;
         }
 
         .file-menu-buttons {
@@ -348,12 +403,13 @@
         }
 
         .file-menu button {
-            padding: 8px 15px;
+            padding: 10px 18px;
             border: none;
             border-radius: 8px;
             cursor: pointer;
             transition: all 0.2s ease;
             font-weight: bold;
+            font-size: 14px;
         }
 
         .file-menu .save-btn {
@@ -363,6 +419,8 @@
 
         .file-menu .save-btn:hover {
             background: #3a5cef;
+            transform: translateY(-2px);
+            box-shadow: 0 3px 8px rgba(0, 0, 0, 0.3);
         }
 
         .file-menu .cancel-btn {
@@ -372,31 +430,49 @@
 
         .file-menu .cancel-btn:hover {
             background: rgba(100, 100, 150, 0.4);
+            transform: translateY(-2px);
         }
 
         .saved-maps {
-            margin-top: 15px;
-            max-height: 200px;
+            margin-top: 20px;
+            max-height: 250px;
             overflow-y: auto;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: 15px;
+        }
+
+        .saved-maps::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .saved-maps::-webkit-scrollbar-track {
+            background: rgba(30, 30, 60, 0.5);
+            border-radius: 3px;
+        }
+
+        .saved-maps::-webkit-scrollbar-thumb {
+            background: rgba(100, 100, 255, 0.5);
+            border-radius: 3px;
         }
 
         .saved-map-item {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 8px;
+            padding: 10px;
             border-radius: 8px;
-            margin-bottom: 5px;
+            margin-bottom: 8px;
             background: rgba(60, 60, 100, 0.3);
             transition: all 0.2s ease;
         }
 
         .saved-map-item:hover {
             background: rgba(80, 80, 150, 0.5);
+            transform: translateX(3px);
         }
 
         .saved-map-item button {
-            padding: 4px 8px;
+            padding: 5px 10px;
             font-size: 12px;
             margin: 0 2px;
         }
@@ -409,51 +485,79 @@
             transform: translate(-50%, -50%);
             background: rgba(30, 30, 60, 0.95);
             backdrop-filter: blur(10px);
-            padding: 25px;
+            padding: 30px;
             border-radius: 15px;
             box-shadow: 0 5px 25px rgba(0, 0, 0, 0.7);
-            width: 500px;
+            width: 550px;
             max-width: 90%;
             max-height: 80vh;
             overflow-y: auto;
             pointer-events: auto;
             display: none;
             z-index: 100;
+            border: 1px solid rgba(100, 100, 255, 0.3);
+            animation: scaleIn 0.3s ease;
+        }
+
+        @keyframes scaleIn {
+            from { opacity: 0; transform: translate(-50%, -50%) scale(0.9); }
+            to { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+        }
+
+        .help-modal::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .help-modal::-webkit-scrollbar-track {
+            background: rgba(30, 30, 60, 0.5);
+            border-radius: 3px;
+        }
+
+        .help-modal::-webkit-scrollbar-thumb {
+            background: rgba(100, 100, 255, 0.5);
+            border-radius: 3px;
         }
 
         .help-modal h2 {
-            margin-bottom: 20px;
+            margin-bottom: 25px;
             color: #fff;
             text-align: center;
+            font-size: 24px;
+            text-shadow: 0 0 10px rgba(100, 100, 255, 0.5);
         }
 
         .help-section {
-            margin-bottom: 20px;
+            margin-bottom: 25px;
+            background: rgba(40, 40, 80, 0.3);
+            padding: 15px;
+            border-radius: 10px;
         }
 
         .help-section h3 {
-            margin-bottom: 10px;
+            margin-bottom: 12px;
             color: #4a6cff;
+            font-size: 18px;
         }
 
         .help-section p {
-            margin-bottom: 10px;
+            margin-bottom: 12px;
             line-height: 1.6;
             color: #ddd;
         }
 
         .help-section ul {
             margin-left: 20px;
-            margin-bottom: 10px;
+            margin-bottom: 12px;
         }
 
         .help-section li {
-            margin-bottom: 5px;
+            margin-bottom: 8px;
             color: #ddd;
+            line-height: 1.4;
         }
 
         .help-modal button {
-            padding: 8px 15px;
+            padding: 10px 20px;
             background: #4a6cff;
             color: white;
             border: none;
@@ -461,28 +565,34 @@
             cursor: pointer;
             transition: all 0.2s ease;
             display: block;
-            margin: 0 auto;
+            margin: 10px auto 0;
+            font-weight: bold;
+            font-size: 14px;
         }
 
         .help-modal button:hover {
             background: #3a5cef;
+            transform: translateY(-2px);
+            box-shadow: 0 3px 8px rgba(0, 0, 0, 0.3);
         }
 
         /* Context Menu */
         .context-menu {
             position: absolute;
-            background: rgba(30, 30, 60, 0.9);
+            background: rgba(30, 30, 60, 0.95);
             backdrop-filter: blur(10px);
-            padding: 10px 0;
+            padding: 8px 0;
             border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.7);
             z-index: 100;
             display: none;
-            min-width: 150px;
+            min-width: 180px;
+            border: 1px solid rgba(100, 100, 255, 0.3);
+            animation: fadeIn 0.2s ease;
         }
 
         .context-menu-item {
-            padding: 8px 15px;
+            padding: 10px 15px;
             cursor: pointer;
             transition: all 0.2s ease;
             color: #fff;
@@ -506,16 +616,18 @@
             position: fixed;
             top: 20px;
             right: 20px;
-            background: rgba(30, 30, 60, 0.9);
+            background: rgba(30, 30, 60, 0.95);
             backdrop-filter: blur(10px);
             padding: 12px 20px;
             border-radius: 8px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.7);
             color: white;
             z-index: 1000;
             transform: translateY(-100px);
             opacity: 0;
             transition: all 0.3s ease;
+            border: 1px solid rgba(100, 100, 255, 0.3);
+            font-weight: 500;
         }
 
         .toast.show {
@@ -549,11 +661,13 @@
             z-index: 3;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
             transition: all 0.2s ease;
+            border: 1px solid rgba(255, 255, 255, 0.3);
         }
 
         .add-child-button:hover {
             transform: scale(1.2);
             background: rgba(100, 100, 255, 0.9);
+            box-shadow: 0 0 15px rgba(100, 100, 255, 0.7);
         }
 
         .add-child-button svg {
@@ -592,19 +706,72 @@
             position: absolute;
             bottom: 20px;
             right: 80px;
-            background: rgba(20, 20, 40, 0.7);
+            background: rgba(20, 20, 40, 0.8);
             backdrop-filter: blur(10px);
-            padding: 5px 10px;
+            padding: 6px 12px;
             border-radius: 20px;
             font-size: 12px;
-            color: rgba(255, 255, 255, 0.7);
+            color: rgba(255, 255, 255, 0.8);
             pointer-events: none;
             opacity: 0;
             transition: opacity 0.3s ease;
+            border: 1px solid rgba(100, 100, 255, 0.2);
+            font-weight: 500;
         }
 
         .autosave-indicator.show {
             opacity: 1;
+        }
+
+        /* Loading Indicator */
+        .loading-indicator {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 40px;
+            height: 40px;
+            border: 3px solid rgba(100, 100, 255, 0.3);
+            border-radius: 50%;
+            border-top-color: #4a6cff;
+            animation: spin 1s linear infinite;
+            display: none;
+            z-index: 1000;
+        }
+
+        @keyframes spin {
+            to { transform: translate(-50%, -50%) rotate(360deg); }
+        }
+
+        /* Keyboard Shortcuts Display */
+        .keyboard-shortcuts {
+            position: absolute;
+            bottom: 20px;
+            left: 20px;
+            background: rgba(20, 20, 40, 0.8);
+            backdrop-filter: blur(10px);
+            padding: 8px 12px;
+            border-radius: 8px;
+            font-size: 12px;
+            color: rgba(255, 255, 255, 0.7);
+            pointer-events: none;
+            border: 1px solid rgba(100, 100, 255, 0.2);
+            display: flex;
+            gap: 10px;
+        }
+
+        .keyboard-shortcut {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .key {
+            background: rgba(60, 60, 100, 0.5);
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: bold;
+            border: 1px solid rgba(100, 100, 255, 0.3);
         }
 
         /* Responsive Adjustments */
@@ -631,7 +798,12 @@
             }
 
             .node-editor {
-                width: 280px;
+                width: 300px;
+                padding: 20px;
+            }
+            
+            .keyboard-shortcuts {
+                display: none; /* Hide on mobile */
             }
         }
     </style>
@@ -684,7 +856,7 @@
                 Help
             </button>
             <button id="go-to-index-btn">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"stroke-linecap="round" stroke-linejoin="round">
                     <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
                     <polyline points="9 22 9 12 15 12 15 22"></polyline>
                 </svg>
@@ -738,6 +910,22 @@
             </button>
         </div>
 
+        <!-- Keyboard Shortcuts -->
+        <div class="keyboard-shortcuts">
+            <div class="keyboard-shortcut">
+                <span class="key">Space</span>
+                <span>Center</span>
+            </div>
+            <div class="keyboard-shortcut">
+                <span class="key">Del</span>
+                <span>Delete</span>
+            </div>
+            <div class="keyboard-shortcut">
+                <span class="key">Dbl Click</span>
+                <span>Edit</span>
+            </div>
+        </div>
+
         <!-- Autosave Indicator -->
         <div class="autosave-indicator" id="autosave-indicator">Autosaving...</div>
     </div>
@@ -754,6 +942,8 @@
             <div class="color-option" style="background-color: #ff9f4a;" data-color="#ff9f4a"></div>
             <div class="color-option" style="background-color: #cb4aff;" data-color="#cb4aff"></div>
             <div class="color-option" style="background-color: #4aecff;" data-color="#4aecff"></div>
+            <div class="color-option" style="background-color: #ffec4a;" data-color="#ffec4a"></div>
+            <div class="color-option" style="background-color: #ff4aec;" data-color="#ff4aec"></div>
         </div>
         <div class="node-editor-buttons">
             <button class="cancel-btn" id="node-cancel-btn">Cancel</button>
@@ -797,7 +987,9 @@
                 <li><strong>Add Root Node:</strong> Select the Add Node tool and click on the canvas</li>
                 <li><strong>Edit Node:</strong> Double-click on a node to edit its content and color</li>
                 <li><strong>Delete Node:</strong> Select a node and press Delete key, or edit the node and click Delete</li>
-            </ul>   
+            </ul>
+        </div>
+        
         <div class="help-section">
             <h3>Managing Mindmaps</h3>
             <ul>
@@ -870,10 +1062,13 @@
     <!-- Toast Notification -->
     <div class="toast" id="toast"></div>
 
+    <!-- Loading Indicator -->
+    <div class="loading-indicator" id="loading-indicator"></div>
+
     <script>
         // Constants
         const NODE_RADIUS = 60;
-        const NODE_FONT = '14px Arial';
+        const NODE_FONT = 'bold 14px Arial';
         const CONNECTION_WIDTH = 3;
         const MIN_ZOOM = 0.2;
         const MAX_ZOOM = 3;
@@ -883,6 +1078,10 @@
         const AUTOSAVE_DELAY = 2000; // ms
         const LOCAL_STORAGE_KEY = 'cosmicMindmap_autosave';
         const ANIMATION_FRAME_RATE = 60; // fps
+        const NODE_COLORS = [
+            '#4a6cff', '#ff4a6c', '#4aff8c', '#ff9f4a', 
+            '#cb4aff', '#4aecff', '#ffec4a', '#ff4aec'
+        ];
         
         // Main application class
         class CosmicMindmap {
@@ -912,6 +1111,10 @@
                 this.autosaveIndicator = document.getElementById('autosave-indicator');
                 this.animationFrameId = null;
                 this.isAnimating = false;
+                this.loadingIndicator = document.getElementById('loading-indicator');
+                this.lastFrameTime = 0;
+                this.fps = 60;
+                this.frameInterval = 1000 / this.fps;
                 
                 // UI elements
                 this.nodeEditor = document.getElementById('node-editor');
@@ -939,10 +1142,19 @@
             
             // Resize canvas to fill window
             resizeCanvas() {
-                this.canvas.width = window.innerWidth;
-                this.canvas.height = window.innerHeight;
-                this.starsCanvas.width = window.innerWidth;
-                this.starsCanvas.height = window.innerHeight;
+                const dpr = window.devicePixelRatio || 1;
+                this.canvas.width = window.innerWidth * dpr;
+                this.canvas.height = window.innerHeight * dpr;
+                this.canvas.style.width = `${window.innerWidth}px`;
+                this.canvas.style.height = `${window.innerHeight}px`;
+                this.ctx.scale(dpr, dpr);
+                
+                this.starsCanvas.width = window.innerWidth * dpr;
+                this.starsCanvas.height = window.innerHeight * dpr;
+                this.starsCanvas.style.width = `${window.innerWidth}px`;
+                this.starsCanvas.style.height = `${window.innerHeight}px`;
+                this.starsCtx.scale(dpr, dpr);
+                
                 this.render();
                 this.renderStars();
             }
@@ -963,7 +1175,7 @@
             
             // Create starfield background
             initStars() {
-                const numStars = Math.floor((window.innerWidth * window.innerHeight) / 1000);
+                const numStars = Math.floor((window.innerWidth * window.innerHeight) / 800);
                 this.stars = [];
                 
                 for (let i = 0; i < numStars; i++) {
@@ -972,7 +1184,8 @@
                         y: Math.random() * this.starsCanvas.height,
                         radius: Math.random() * 1.5,
                         alpha: Math.random(),
-                        cycle: Math.random() * 100
+                        cycle: Math.random() * 100,
+                        twinkleSpeed: Math.random() * 0.02 + 0.01
                     });
                 }
                 
@@ -995,7 +1208,7 @@
             // Animate stars twinkling
             animateStars() {
                 for (const star of this.stars) {
-                    star.cycle += 0.01;
+                    star.cycle += star.twinkleSpeed;
                     star.alpha = 0.5 + 0.5 * Math.sin(star.cycle);
                 }
                 
@@ -1005,14 +1218,20 @@
             
             // Start animation loop for smooth rendering
             startAnimationLoop() {
-                const loop = () => {
-                    if (this.isAnimating) {
+                const loop = (timestamp) => {
+                    // Calculate delta time for consistent animations
+                    const deltaTime = timestamp - this.lastFrameTime;
+                    
+                    // Only render if we're animating or enough time has passed
+                    if (this.isAnimating || deltaTime >= this.frameInterval) {
                         this.render();
+                        this.lastFrameTime = timestamp;
                     }
+                    
                     this.animationFrameId = requestAnimationFrame(loop);
                 };
                 
-                loop();
+                this.animationFrameId = requestAnimationFrame(loop);
             }
             
             // Set up all event listeners
@@ -1020,7 +1239,8 @@
                 // Mouse events on canvas
                 this.canvas.addEventListener('mousedown', (e) => this.handleMouseDown(e));
                 this.canvas.addEventListener('mousemove', (e) => this.handleMouseMove(e));
-                this.canvas.addEventListener('mouseup', (e) => this.handleMouseUp(e));
+                this.canvas.addEventListener('mouseup', () => this.handleMouseUp());
+                this.canvas.addEventListener('mouseleave', () => this.handleMouseUp());
                 this.canvas.addEventListener('wheel', (e) => this.handleWheel(e));
                 this.canvas.addEventListener('contextmenu', (e) => {
                     e.preventDefault();
@@ -1028,9 +1248,9 @@
                 });
                 
                 // Touch events for mobile
-                this.canvas.addEventListener('touchstart', (e) => this.handleTouchStart(e));
-                this.canvas.addEventListener('touchmove', (e) => this.handleTouchMove(e));
-                this.canvas.addEventListener('touchend', (e) => this.handleTouchEnd(e));
+                this.canvas.addEventListener('touchstart', (e) => this.handleTouchStart(e), { passive: false });
+                this.canvas.addEventListener('touchmove', (e) => this.handleTouchMove(e), { passive: false });
+                this.canvas.addEventListener('touchend', () => this.handleTouchEnd());
                 
                 // Keyboard events
                 document.addEventListener('keydown', (e) => this.handleKeyDown(e));
@@ -1086,14 +1306,13 @@
                     }
                 });
                 
-                // Handle window blur
+                // Handle window blur/focus
                 window.addEventListener('blur', () => {
                     this.isPanning = false;
                     this.draggedNode = null;
                     this.isAnimating = false;
                 });
                 
-                // Handle window focus
                 window.addEventListener('focus', () => {
                     this.render();
                 });
@@ -1104,36 +1323,52 @@
                 });
             }
             
+            // Show loading indicator
+            showLoading() {
+                this.loadingIndicator.style.display = 'block';
+            }
+            
+            // Hide loading indicator
+            hideLoading() {
+                this.loadingIndicator.style.display = 'none';
+            }
+            
             // Load autosaved map or create default
             loadAutosavedMap() {
-                const savedData = localStorage.getItem(LOCAL_STORAGE_KEY);
+                this.showLoading();
                 
-                if (savedData) {
-                    try {
-                        const parsedData = JSON.parse(savedData);
-                        this.nodes = parsedData.nodes || [];
-                        this.currentMapName = parsedData.name || 'Autosaved Map';
-                        this.offset = parsedData.offset || { x: 0, y: 0 };
-                        this.zoom = parsedData.zoom || 1;
-                        
-                        // Update zoom display
-                        document.getElementById('zoom-level').textContent = `${Math.round(this.zoom * 100)}%`;
-                        
-                        this.render();
-                        this.showToast('Autosaved map loaded', 'info');
-                    } catch (e) {
-                        console.error('Error loading autosaved map:', e);
+                setTimeout(() => {
+                    const savedData = localStorage.getItem(LOCAL_STORAGE_KEY);
+                    
+                    if (savedData) {
+                        try {
+                            const parsedData = JSON.parse(savedData);
+                            this.nodes = parsedData.nodes || [];
+                            this.currentMapName = parsedData.name || 'Autosaved Map';
+                            this.offset = parsedData.offset || { x: 0, y: 0 };
+                            this.zoom = parsedData.zoom || 1;
+                            
+                            // Update zoom display
+                            document.getElementById('zoom-level').textContent = `${Math.round(this.zoom * 100)}%`;
+                            
+                            this.render();
+                            this.showToast('Autosaved map loaded', 'info');
+                        } catch (e) {
+                            console.error('Error loading autosaved map:', e);
+                            this.createDefaultNode();
+                        }
+                    } else {
                         this.createDefaultNode();
                     }
-                } else {
-                    this.createDefaultNode();
-                }
+                    
+                    this.hideLoading();
+                }, 500); // Short delay for better UX
             }
             
             // Create a default central node
             createDefaultNode() {
-                const centerX = this.canvas.width / 2;
-                const centerY = this.canvas.height / 2;
+                const centerX = window.innerWidth / 2;
+                const centerY = window.innerHeight / 2;
                 
                 this.nodes.push({
                     id: this.generateId(),
@@ -1323,32 +1558,36 @@
             
             // Handle touch start event
             handleTouchStart(e) {
+                e.preventDefault(); // Prevent default touch actions
+                
                 if (e.touches.length === 1) {
                     // Convert touch to mouse event
                     const touch = e.touches[0];
                     const mouseEvent = {
                         clientX: touch.clientX,
                         clientY: touch.clientY,
-                        preventDefault: () => e.preventDefault()
+                        preventDefault: () => {}
                     };
                     this.handleMouseDown(mouseEvent);
                 } else if (e.touches.length === 2) {
                     // Start pinch zoom
                     this.pinchStart = this.getPinchDistance(e);
                     this.pinchZoom = this.zoom;
-                    e.preventDefault();
+                    this.pinchCenter = this.getPinchCenter(e);
                 }
             }
             
             // Handle touch move event
             handleTouchMove(e) {
+                e.preventDefault(); // Prevent default touch actions
+                
                 if (e.touches.length === 1) {
                     // Convert touch to mouse event
                     const touch = e.touches[0];
                     const mouseEvent = {
                         clientX: touch.clientX,
                         clientY: touch.clientY,
-                        preventDefault: () => e.preventDefault()
+                        preventDefault: () => {}
                     };
                     this.handleMouseMove(mouseEvent);
                 } else if (e.touches.length === 2) {
@@ -1357,37 +1596,31 @@
                     const scale = currentDistance / this.pinchStart;
                     
                     // Calculate center of pinch
-                    const touch1 = e.touches[0];
-                    const touch2 = e.touches[1];
-                    const centerX = (touch1.clientX + touch2.clientX) / 2;
-                    const centerY = (touch1.clientY + touch2.clientY) / 2;
+                    const center = this.getPinchCenter(e);
                     
                     // Calculate world position before zoom
-                    const worldX = (centerX - this.offset.x) / this.zoom;
-                    const worldY = (centerY - this.offset.y) / this.zoom;
+                    const worldX = (center.x - this.offset.x) / this.zoom;
+                    const worldY = (center.y - this.offset.y) / this.zoom;
                     
                     // Apply zoom
                     const newZoom = Math.max(MIN_ZOOM, Math.min(MAX_ZOOM, this.pinchZoom * scale));
                     this.zoom = newZoom;
                     
                     // Adjust offset to zoom toward pinch center
-                    this.offset.x = centerX - worldX * this.zoom;
-                    this.offset.y = centerY - worldY * this.zoom;
+                    this.offset.x = center.x - worldX * this.zoom;
+                    this.offset.y = center.y - worldY * this.zoom;
                     
                     // Update zoom display
                     document.getElementById('zoom-level').textContent = `${Math.round(this.zoom * 100)}%`;
                     
                     this.render();
                     this.autosave();
-                    e.preventDefault();
                 }
             }
             
             // Handle touch end event
-            handleTouchEnd(e) {
-                if (e.touches.length === 0) {
-                    this.handleMouseUp();
-                }
+            handleTouchEnd() {
+                this.handleMouseUp();
             }
             
             // Calculate distance between two touch points
@@ -1399,10 +1632,21 @@
                 return Math.sqrt(dx * dx + dy * dy);
             }
             
+            // Calculate center point between two touches
+            getPinchCenter(e) {
+                const touch1 = e.touches[0];
+                const touch2 = e.touches[1];
+                return {
+                    x: (touch1.clientX + touch2.clientX) / 2,
+                    y: (touch1.clientY + touch2.clientY) / 2
+                };
+            }
+            
             // Handle keyboard events
             handleKeyDown(e) {
                 // Delete key to remove selected node
-                if (e.key === 'Delete' && this.selectedNode) {
+                if ((e.key === 'Delete' || e.key === 'Backspace') && this.selectedNode) {
+                    e.preventDefault();
                     this.deleteSelectedNode();
                 }
                 
@@ -1411,12 +1655,44 @@
                     this.closeNodeEditor();
                     this.closeFileMenu();
                     this.hideContextMenu();
+                    this.closeHelpModal();
                 }
                 
                 // Space to center view
                 if (e.key === ' ' && !e.target.matches('input, textarea')) {
                     e.preventDefault();
                     this.centerView();
+                }
+                
+                // Ctrl+S to save
+                if (e.key === 's' && (e.ctrlKey || e.metaKey)) {
+                    e.preventDefault();
+                    this.autosave(true);
+                    this.showToast('Map saved', 'success');
+                }
+                
+                // Arrow keys to move selected node
+                if (this.selectedNode && ['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight'].includes(e.key)) {
+                    e.preventDefault();
+                    const moveStep = 10;
+                    
+                    switch (e.key) {
+                        case 'ArrowUp':
+                            this.selectedNode.y -= moveStep;
+                            break;
+                        case 'ArrowDown':
+                            this.selectedNode.y += moveStep;
+                            break;
+                        case 'ArrowLeft':
+                            this.selectedNode.x -= moveStep;
+                            break;
+                        case 'ArrowRight':
+                            this.selectedNode.x += moveStep;
+                            break;
+                    }
+                    
+                    this.render();
+                    this.autosave();
                 }
             }
             
@@ -1501,8 +1777,8 @@
                 const newZoom = Math.min(MAX_ZOOM, this.zoom + ZOOM_STEP);
                 if (newZoom !== this.zoom) {
                     // Calculate center of screen
-                    const centerX = this.canvas.width / 2;
-                    const centerY = this.canvas.height / 2;
+                    const centerX = window.innerWidth / 2;
+                    const centerY = window.innerHeight / 2;
                     
                     // Calculate world position before zoom
                     const worldX = (centerX - this.offset.x) / this.zoom;
@@ -1528,8 +1804,8 @@
                 const newZoom = Math.max(MIN_ZOOM, this.zoom - ZOOM_STEP);
                 if (newZoom !== this.zoom) {
                     // Calculate center of screen
-                    const centerX = this.canvas.width / 2;
-                    const centerY = this.canvas.height / 2;
+                    const centerX = window.innerWidth / 2;
+                    const centerY = window.innerHeight / 2;
                     
                     // Calculate world position before zoom
                     const worldX = (centerX - this.offset.x) / this.zoom;
@@ -1555,26 +1831,26 @@
                 if (this.nodes.length === 0) return;
                 
                 // Find bounding box of all nodes
-                let minX = Infinity, minY = Infinity, maxX = -Infinity, maxY = -Infinity;
+                let bounds = { minX: Infinity, minY: Infinity, maxX: -Infinity, maxY: -Infinity };
                 
                 for (const node of this.nodes) {
-                    this.calculateNodeBounds(node, minX, minY, maxX, maxY);
+                    this.calculateNodeBounds(node, bounds);
                 }
                 
                 // Calculate center and dimensions
-                const centerX = (minX + maxX) / 2;
-                const centerY = (minY + maxY) / 2;
-                const width = maxX - minX;
-                const height = maxY - minY;
+                const centerX = (bounds.minX + bounds.maxX) / 2;
+                const centerY = (bounds.minY + bounds.maxY) / 2;
+                const width = bounds.maxX - bounds.minX;
+                const height = bounds.maxY - bounds.minY;
                 
                 // Calculate zoom to fit
-                const zoomX = this.canvas.width / (width * 1.5);
-                const zoomY = this.canvas.height / (height * 1.5);
+                const zoomX = window.innerWidth / (width * 1.5);
+                const zoomY = window.innerHeight / (height * 1.5);
                 this.zoom = Math.min(Math.min(zoomX, zoomY), MAX_ZOOM);
                 
                 // Center view
-                this.offset.x = this.canvas.width / 2 - centerX * this.zoom;
-                this.offset.y = this.canvas.height / 2 - centerY * this.zoom;
+                this.offset.x = window.innerWidth / 2 - centerX * this.zoom;
+                this.offset.y = window.innerHeight / 2 - centerY * this.zoom;
                 
                 // Update zoom display
                 document.getElementById('zoom-level').textContent = `${Math.round(this.zoom * 100)}%`;
@@ -1585,25 +1861,23 @@
             }
             
             // Calculate node bounds recursively
-            calculateNodeBounds(node, minX, minY, maxX, maxY) {
-                minX = Math.min(minX, node.x - NODE_RADIUS);
-                minY = Math.min(minY, node.y - NODE_RADIUS);
-                maxX = Math.max(maxX, node.x + NODE_RADIUS);
-                maxY = Math.max(maxY, node.y + NODE_RADIUS);
+            calculateNodeBounds(node, bounds) {
+                bounds.minX = Math.min(bounds.minX, node.x - NODE_RADIUS);
+                bounds.minY = Math.min(bounds.minY, node.y - NODE_RADIUS);
+                bounds.maxX = Math.max(bounds.maxX, node.x + NODE_RADIUS);
+                bounds.maxY = Math.max(bounds.maxY, node.y + NODE_RADIUS);
                 
                 if (node.children) {
                     for (const child of node.children) {
-                        this.calculateNodeBounds(child, minX, minY, maxX, maxY);
+                        this.calculateNodeBounds(child, bounds);
                     }
                 }
-                
-                return { minX, minY, maxX, maxY };
             }
             
             // Center view on specific node
             centerViewOnNode(node) {
-                this.offset.x = this.canvas.width / 2 - node.x * this.zoom;
-                this.offset.y = this.canvas.height / 2 - node.y * this.zoom;
+                this.offset.x = window.innerWidth / 2 - node.x * this.zoom;
+                this.offset.y = window.innerHeight / 2 - node.y * this.zoom;
                 this.render();
                 this.autosave();
             }
@@ -1616,7 +1890,7 @@
                     content: '',
                     x: x,
                     y: y,
-                    color: '#4a6cff',
+                    color: this.getRandomColor(),
                     isRoot: true,
                     children: []
                 };
@@ -1630,6 +1904,11 @@
                 this.editNode(node);
                 
                 return node;
+            }
+            
+            // Get a random color from the predefined colors
+            getRandomColor() {
+                return NODE_COLORS[Math.floor(Math.random() * NODE_COLORS.length)];
             }
             
             // Add a child node to a parent node
@@ -1677,8 +1956,8 @@
                 
                 // Distribute children evenly in a circle
                 const childCount = parentNode.children.length;
-                const angleStep = (Math.PI * 2) / (childCount + 1);
-                return angleStep * (childCount);
+                const angleStep = (Math.PI * 2) / Math.max(6, childCount + 1);
+                return angleStep * childCount;
             }
             
             // Select a node
@@ -1706,6 +1985,7 @@
                 
                 // Show editor
                 this.nodeEditor.style.display = 'block';
+                document.getElementById('node-title').focus();
             }
             
             // Save node edit
@@ -1850,7 +2130,10 @@
                         const loadBtn = document.createElement('button');
                         loadBtn.textContent = 'Load';
                         loadBtn.className = 'save-btn';
-                        loadBtn.addEventListener('click', () => this.loadAutosavedMap());
+                        loadBtn.addEventListener('click', () => {
+                            this.closeFileMenu();
+                            this.loadAutosavedMap();
+                        });
                         
                         mapItem.appendChild(mapName);
                         mapItem.appendChild(loadBtn);
@@ -1924,79 +2207,84 @@
             
             // Export mindmap as image
             exportAsImage() {
-                // Create a temporary canvas for export
-                const exportCanvas = document.createElement('canvas');
-                const ctx = exportCanvas.getContext('2d');
+                this.showLoading();
                 
-                // Find bounding box of all nodes
-                let bounds = { minX: Infinity, minY: Infinity, maxX: -Infinity, maxY: -Infinity };
-                
-                for (const node of this.nodes) {
-                    this.calculateNodeBoundsForExport(node, bounds);
-                }
-                
-                // Add padding
-                const padding = NODE_RADIUS * 2;
-                bounds.minX -= padding;
-                bounds.minY -= padding;
-                bounds.maxX += padding;
-                bounds.maxY += padding;
-                
-                // Set canvas size
-                const width = bounds.maxX - bounds.minX;
-                const height = bounds.maxY - bounds.minY;
-                exportCanvas.width = width;
-                exportCanvas.height = height;
-                
-                // Fill background
-                ctx.fillStyle = '#050520';
-                ctx.fillRect(0, 0, width, height);
-                
-                // Draw Mars background
-                const marsImg = new Image();
-                marsImg.onload = () => {
-                    // Draw Mars with opacity
-                    ctx.globalAlpha = 0.3;
-                    ctx.drawImage(marsImg, 0, 0, width, height);
-                    ctx.globalAlpha = 1;
+                setTimeout(() => {
+                    // Create a temporary canvas for export
+                    const exportCanvas = document.createElement('canvas');
+                    const ctx = exportCanvas.getContext('2d');
                     
-                    // Draw stars
-                    ctx.fillStyle = 'rgba(255, 255, 255, 0.5)';
-                    for (let i = 0; i < width * height / 1000; i++) {
-                        const x = Math.random() * width;
-                        const y = Math.random() * height;
-                        const radius = Math.random() * 1.5;
-                        ctx.beginPath();
-                        ctx.arc(x, y, radius, 0, Math.PI * 2);
-                        ctx.fill();
-                    }
+                    // Find bounding box of all nodes
+                    let bounds = { minX: Infinity, minY: Infinity, maxX: -Infinity, maxY: -Infinity };
                     
-                    // Draw nodes and connections
                     for (const node of this.nodes) {
-                        this.drawNodeForExport(ctx, node, bounds);
+                        this.calculateNodeBoundsForExport(node, bounds);
                     }
                     
-                    // Add title
-                    ctx.font = 'bold 20px Arial';
-                    ctx.fillStyle = '#ffffff';
-                    ctx.textAlign = 'center';
-                    ctx.fillText(this.currentMapName, width / 2, 30);
+                    // Add padding
+                    const padding = NODE_RADIUS * 2;
+                    bounds.minX -= padding;
+                    bounds.minY -= padding;
+                    bounds.maxX += padding;
+                    bounds.maxY += padding;
                     
-                    // Create download link
-                    const link = document.createElement('a');
-                    link.download = `${this.currentMapName.replace(/\s+/g, '-')}.png`;
-                    link.href = exportCanvas.toDataURL('image/png');
-                    link.click();
+                    // Set canvas size
+                    const width = bounds.maxX - bounds.minX;
+                    const height = bounds.maxY - bounds.minY;
+                    exportCanvas.width = width;
+                    exportCanvas.height = height;
                     
-                    this.showToast('Mindmap exported as image', 'success');
-                };
-                
-                // Try to load Mars image
-                marsImg.onerror = () => {
-                    // Fallback to generated Mars
-                    marsImg.src = 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI1MDAiIGhlaWdodD0iNTAwIiB2aWV3Qm94PSIwIDAgNTAwIDUwMCI+CiAgPGNpcmNsZSBjeD0iMjUwIiBjeT0iMjUwIiByPSIyMDAiIGZpbGw9IiNlMjcyM2IiLz4KICA8Y2lyY2xlIGN4PSIxNzAiIGN5PSIxODAiIHI9IjQwIiBmaWxsPSIjYzQ1MDIzIi8+CiAgPGNpcmNsZSBjeD0iMzMwIiBjeT0iMjgwIiByPSI2MCIgZmlsbD0iI2M0NTAyMyIvPgogIDxjaXJjbGUgY3g9IjI0MCIgY3k9IjM0MCIgcj0iMzAiIGZpbGw9IiNjNDUwMjMiLz4KICA8Y2lyY2xlIGN4PSIyODAiIGN5PSIxNTAiIHI9IjUwIiBmaWxsPSIjYzQ1MDIzIi8+Cjwvc3ZnPg==';
-                };
-                marsImg.src = 'mars.png';
+                    // Fill background
+                    ctx.fillStyle = '#050520';
+                    ctx.fillRect(0, 0, width, height);
+                    
+                    // Draw Mars background
+                    const marsImg = new Image();
+                    marsImg.onload = () => {
+                        // Draw Mars with opacity
+                        ctx.globalAlpha = 0.3;
+                        ctx.drawImage(marsImg, 0, 0, width, height);
+                        ctx.globalAlpha = 1;
+                        
+                        // Draw stars
+                        ctx.fillStyle = 'rgba(255, 255, 255, 0.5)';
+                        for (let i = 0; i < width * height / 800; i++) {
+                            const x = Math.random() * width;
+                            const y = Math.random() * height;
+                            const radius = Math.random() * 1.5;
+                            ctx.beginPath();
+                            ctx.arc(x, y, radius, 0, Math.PI * 2);
+                            ctx.fill();
+                        }
+                        
+                        // Draw nodes and connections
+                        for (const node of this.nodes) {
+                            this.drawNodeForExport(ctx, node, bounds);
+                        }
+                        
+                        // Add title
+                        ctx.font = 'bold 24px Arial';
+                        ctx.fillStyle = '#ffffff';
+                        ctx.textAlign = 'center';
+                        ctx.fillText(this.currentMapName, width / 2, 40);
+                        
+                        // Create download link
+                        const link = document.createElement('a');
+                        link.download = `${this.currentMapName.replace(/\s+/g, '-')}.png`;
+                        link.href = exportCanvas.toDataURL('image/png');
+                        link.click();
+                        
+                        this.hideLoading();
+                        this.showToast('Mindmap exported as image', 'success');
+                    };
+                    
+                    // Try to load Mars image
+                    marsImg.onerror = () => {
+                        // Fallback to generated Mars
+                        marsImg.src = 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI1MDAiIGhlaWdodD0iNTAwIiB2aWV3Qm94PSIwIDAgNTAwIDUwMCI+CiAgPGNpcmNsZSBjeD0iMjUwIiBjeT0iMjUwIiByPSIyMDAiIGZpbGw9IiNlMjcyM2IiLz4KICA8Y2lyY2xlIGN4PSIxNzAiIGN5PSIxODAiIHI9IjQwIiBmaWxsPSIjYzQ1MDIzIi8+CiAgPGNpcmNsZSBjeD0iMzMwIiBjeT0iMjgwIiByPSI2MCIgZmlsbD0iI2M0NTAyMyIvPgogIDxjaXJjbGUgY3g9IjI0MCIgY3k9IjM0MCIgcj0iMzAiIGZpbGw9IiNjNDUwMjMiLzIiLz4KICA8Y2lyY2xlIGN4PSIyODAiIGN5PSIxNTAiIHI9IjUwIiBmaWxsPSIjYzQ1MDIzIi8+Cjwvc3ZnPg==';
+                    };
+                    marsImg.src = 'mars.png';
+                }, 100);
             }
             
             // Calculate node bounds for export
@@ -2135,7 +2423,12 @@
                 toast.className = `toast ${type}`;
                 toast.classList.add('show');
                 
-                setTimeout(() => {
+                // Clear any existing timeout
+                if (this.toastTimeout) {
+                    clearTimeout(this.toastTimeout);
+                }
+                
+                this.toastTimeout = setTimeout(() => {
                     toast.classList.remove('show');
                 }, 3000);
             }
@@ -2311,7 +2604,7 @@
                 }
                 
                 // Draw node title with better text rendering
-                this.ctx.font = `bold ${16 * this.zoom}px Arial`;
+                this.ctx.font = `${NODE_FONT} ${14 * this.zoom}px Arial`;
                 this.ctx.fillStyle = '#ffffff';
                 this.ctx.textAlign = 'center';
                 this.ctx.textBaseline = 'middle';
