@@ -2,25 +2,9 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>MindMap Master</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cosmic Mindmap</title>
     <style>
-        :root {
-            --primary-color: #4a6fa5;
-            --secondary-color: #6b8cae;
-            --accent-color: #9e4784;
-            --text-color: #f0f0f0;
-            --background-color: #0a0e17;
-            --node-bg-default: rgba(74, 111, 165, 0.8);
-            --node-bg-selected: rgba(158, 71, 132, 0.9);
-            --connection-color: rgba(240, 240, 240, 0.6);
-            --menu-bg: rgba(10, 14, 23, 0.95);
-            --menu-hover: rgba(74, 111, 165, 0.3);
-            --danger-color: #e74c3c;
-            --success-color: #2ecc71;
-            --warning-color: #f39c12;
-        }
-
         * {
             margin: 0;
             padding: 0;
@@ -30,46 +14,13 @@
 
         body {
             overflow: hidden;
-            touch-action: none;
-            position: relative;
-            width: 100vw;
+            background-color: #050520;
+            color: #fff;
             height: 100vh;
-            background-color: var(--background-color);
-            color: var(--text-color);
+            width: 100vw;
         }
 
-        #space-background {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -1;
-            background: radial-gradient(ellipse at center, #0b0d17 0%, #090c14 100%);
-            overflow: hidden;
-        }
-
-        .star {
-            position: absolute;
-            background-color: #ffffff;
-            border-radius: 50%;
-            opacity: 0;
-            animation: twinkle 5s infinite;
-        }
-
-        .nebula {
-            position: absolute;
-            border-radius: 50%;
-            filter: blur(30px);
-            opacity: 0.15;
-        }
-
-        @keyframes twinkle {
-            0% { opacity: 0.1; }
-            50% { opacity: 0.8; }
-            100% { opacity: 0.1; }
-        }
-
+        /* Canvas Container */
         #canvas-container {
             position: absolute;
             top: 0;
@@ -77,336 +28,228 @@
             width: 100%;
             height: 100%;
             overflow: hidden;
-            touch-action: none;
+            background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiPgogIDxkZWZzPgogICAgPHJhZGlhbEdyYWRpZW50IGlkPSJzcGFjZSIgY3g9IjUwJSIgY3k9IjUwJSIgcj0iNTAlIiBmeD0iNTAlIiBmeT0iNTAlIj4KICAgICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3R5bGU9InN0b3AtY29sb3I6IzEwMTAzMDsiIC8+CiAgICAgIDxzdG9wIG9mZnNldD0iMTAwJSIgc3R5bGU9InN0b3AtY29sb3I6IzA1MDUyMDsiIC8+CiAgICA8L3JhZGlhbEdyYWRpZW50PgogIDwvZGVmcz4KICA8cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSJ1cmwoI3NwYWNlKSIgLz4KPC9zdmc+');
         }
 
-        #canvas {
+        /* Stars Background */
+        #stars {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+        }
+
+        /* Mars Background */
+        #mars-background {
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            touch-action: none;
-        }
-
-        .node {
-            position: absolute;
-            min-width: 120px;
-            max-width: 200px;
-            padding: 10px;
-            border-radius: 10px;
-            background: var(--node-bg-default);
-            color: var(--text-color);
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-            cursor: move;
-            user-select: none;
-            z-index: 10;
-            backdrop-filter: blur(5px);
-            border: 2px solid rgba(255, 255, 255, 0.1);
-            transition: transform 0.2s, box-shadow 0.2s;
-            transform-origin: center;
-            text-align: center;
-            word-wrap: break-word;
-        }
-
-        .node.selected {
-            background: var(--node-bg-selected);
-            box-shadow: 0 0 0 2px var(--accent-color), 0 6px 12px rgba(0, 0, 0, 0.4);
-            z-index: 20;
-        }
-
-        .node.jupiter-theme {
-            border-radius: 50%;
-            background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB2ZXJzaW9uPSIxLjEiIHdpZHRoPSI1MTIiIGhlaWdodD0iNTEyIiB2aWV3Qm94PSIwIDAgNTEyIDUxMiI+PGRlZnM+PHJhZGlhbEdyYWRpZW50IGlkPSJqdXBpdGVyR3JhZGllbnQiIGN4PSI1MCUiIGN5PSI1MCUiIHI9IjUwJSI+PHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iI2ZmZTBiMiIgLz48c3RvcCBvZmZzZXQ9IjIwJSIgc3RvcC1jb2xvcj0iI2U4YzM4ZCIgLz48c3RvcCBvZmZzZXQ9IjQwJSIgc3RvcC1jb2xvcj0iI2QzYTg3MCIgLz48c3RvcCBvZmZzZXQ9IjYwJSIgc3RvcC1jb2xvcj0iI2JiOGI1NyIgLz48c3RvcCBvZmZzZXQ9IjgwJSIgc3RvcC1jb2xvcj0iI2E0NzA0MCIgLz48c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiM4ZDU1MjkiIC8+PC9yYWRpYWxHcmFkaWVudD48L2RlZnM+PGNpcmNsZSBjeD0iMjU2IiBjeT0iMjU2IiByPSIyNTYiIGZpbGw9InVybCgjanVwaXRlckdyYWRpZW50KSIgLz48ZWxsaXBzZSBjeD0iMjU2IiBjeT0iMjU2IiByeD0iMjU2IiByeT0iMjAiIGZpbGw9IiNlOGMzOGQiIHRyYW5zZm9ybT0icm90YXRlKDEwKSIgb3BhY2l0eT0iMC43IiAvPjxlbGxpcHNlIGN4PSIyNTYiIGN5PSIyNTYiIHJ4PSIyNTYiIHJ5PSIxNSIgZmlsbD0iI2QzYTg3MCIgdHJhbnNmb3JtPSJyb3RhdGUoMzApIiBvcGFjaXR5PSIwLjciIC8+PGVsbGlwc2UgY3g9IjI1NiIgY3k9IjI1NiIgcng9IjI1NiIgcnk9IjI1IiBmaWxsPSIjYmI4YjU3IiB0cmFuc2Zvcm09InJvdGF0ZSg1MCkiIG9wYWNpdHk9IjAuNyIgLz48ZWxsaXBzZSBjeD0iMjU2IiBjeT0iMjU2IiByeD0iMjU2IiByeT0iMTgiIGZpbGw9IiNhNDcwNDAiIHRyYW5zZm9ybT0icm90YXRlKDcwKSIgb3BhY2l0eT0iMC43IiAvPjxjaXJjbGUgY3g9IjE1MCIgY3k9IjE4MCIgcj0iNDAiIGZpbGw9IiNlODc4NTAiIG9wYWNpdHk9IjAuOCIgLz48L3N2Zz4=');
             background-size: cover;
             background-position: center;
-            min-width: 140px;
-            min-height: 140px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 20px;
-            box-shadow: 0 0 20px rgba(232, 120, 80, 0.4);
+            opacity: 0.3;
+            z-index: 2;
         }
 
-        .node.jupiter-theme.selected {
-            box-shadow: 0 0 0 3px var(--accent-color), 0 0 30px rgba(232, 120, 80, 0.6);
-        }
-
-        .node-text {
-            width: 100%;
-            outline: none;
-            background: transparent;
-            border: none;
-            color: inherit;
-            text-align: center;
-            font-size: 14px;
-            resize: none;
-            overflow: hidden;
-        }
-
-        .node-controls {
+        /* Canvas */
+        #mindmap-canvas {
             position: absolute;
-            top: -30px;
-            left: 50%;
-            transform: translateX(-50%);
-            display: flex;
-            gap: 5px;
-            opacity: 0;
-            transition: opacity 0.2s;
-            background: var(--menu-bg);
-            border-radius: 5px;
-            padding: 3px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+            top: 0;
+            left: 0;
+            z-index: 3;
+            cursor: grab;
         }
 
-        .node:hover .node-controls,
-        .node.selected .node-controls {
-            opacity: 1;
+        #mindmap-canvas:active {
+            cursor: grabbing;
         }
 
-        .node-control-btn {
-            width: 24px;
-            height: 24px;
-            border-radius: 4px;
-            border: none;
-            background: rgba(255, 255, 255, 0.1);
-            color: var(--text-color);
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 12px;
-        }
-
-        .node-control-btn:hover {
-            background: rgba(255, 255, 255, 0.2);
-        }
-
-        .connection {
+        /* UI Elements */
+        .ui-container {
             position: absolute;
-            height: 2px;
-            background-color: var(--connection-color);
-            transform-origin: left center;
+            z-index: 10;
             pointer-events: none;
-            z-index: 5;
+            width: 100%;
+            height: 100%;
         }
 
-        .connection::after {
-            content: '';
+        /* Toolbar */
+        .toolbar {
             position: absolute;
-            right: 0;
-            top: 50%;
-            transform: translateY(-50%);
-            width: 0;
-            height: 0;
-            border-top: 5px solid transparent;
-            border-bottom: 5px solid transparent;
-            border-left: 8px solid var(--connection-color);
-        }
-
-        #toolbar {
-            position: fixed;
             bottom: 20px;
             left: 50%;
             transform: translateX(-50%);
             display: flex;
             gap: 10px;
-            background: var(--menu-bg);
-            padding: 10px 15px;
-            border-radius: 10px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-            z-index: 100;
+            background: rgba(20, 20, 40, 0.7);
             backdrop-filter: blur(10px);
-            transition: transform 0.3s ease;
+            padding: 10px 20px;
+            border-radius: 50px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+            pointer-events: auto;
+            transition: all 0.3s ease;
         }
 
-        .toolbar-btn {
-            background: rgba(255, 255, 255, 0.1);
+        .toolbar button {
+            background: none;
             border: none;
-            color: var(--text-color);
+            color: #fff;
+            font-size: 18px;
             width: 40px;
             height: 40px;
-            border-radius: 8px;
-            cursor: pointer;
+            border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 18px;
-            transition: background 0.2s;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            background: rgba(60, 60, 100, 0.3);
         }
 
-        .toolbar-btn:hover {
+        .toolbar button:hover {
+            background: rgba(80, 80, 150, 0.5);
+            transform: translateY(-2px);
+        }
+
+        .toolbar button.active {
+            background: rgba(100, 100, 200, 0.7);
+            box-shadow: 0 0 10px rgba(100, 100, 255, 0.7);
+        }
+
+        .toolbar .separator {
+            width: 1px;
             background: rgba(255, 255, 255, 0.2);
+            margin: 0 5px;
         }
 
-        .toolbar-btn.active {
-            background: var(--primary-color);
-        }
-
-        #side-menu {
-            position: fixed;
-            top: 0;
-            right: -300px;
-            width: 300px;
-            height: 100%;
-            background: var(--menu-bg);
-            z-index: 200;
-            box-shadow: -5px 0 15px rgba(0, 0, 0, 0.3);
-            transition: right 0.3s ease;
-            backdrop-filter: blur(10px);
+        /* Zoom Controls */
+        .zoom-controls {
+            position: absolute;
+            right: 20px;
+            bottom: 20px;
             display: flex;
             flex-direction: column;
-            overflow-y: auto;
-        }
-
-        #side-menu.open {
-            right: 0;
-        }
-
-        .menu-header {
-            padding: 20px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        .menu-title {
-            font-size: 18px;
-            font-weight: 600;
-        }
-
-        .close-menu {
-            background: transparent;
-            border: none;
-            color: var(--text-color);
-            font-size: 24px;
-            cursor: pointer;
-        }
-
-        .menu-section {
-            padding: 15px 20px;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        .section-title {
-            font-size: 16px;
-            margin-bottom: 10px;
-            color: var(--secondary-color);
-        }
-
-        .mindmap-list {
-            list-style: none;
-            margin-top: 10px;
-        }
-
-        .mindmap-item {
+            gap: 10px;
+            background: rgba(20, 20, 40, 0.7);
+            backdrop-filter: blur(10px);
             padding: 10px;
-            border-radius: 5px;
-            margin-bottom: 5px;
-            cursor: pointer;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
+            border-radius: 20px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+            pointer-events: auto;
         }
 
-        .mindmap-item:hover {
-            background: var(--menu-hover);
-        }
-
-        .mindmap-item.active {
-            background: var(--primary-color);
-        }
-
-        .mindmap-actions {
-            display: flex;
-            gap: 5px;
-        }
-
-        .mindmap-action-btn {
-            background: transparent;
+        .zoom-controls button {
+            background: none;
             border: none;
-            color: var(--text-color);
-            cursor: pointer;
-            width: 24px;
-            height: 24px;
+            color: #fff;
+            font-size: 18px;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            border-radius: 4px;
-        }
-
-        .mindmap-action-btn:hover {
-            background: rgba(255, 255, 255, 0.1);
-        }
-
-        .input-group {
-            margin-bottom: 15px;
-        }
-
-        .input-label {
-            display: block;
-            margin-bottom: 5px;
-            font-size: 14px;
-        }
-
-        .text-input {
-            width: 100%;
-            padding: 8px 10px;
-            border-radius: 5px;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            background: rgba(255, 255, 255, 0.1);
-            color: var(--text-color);
-            font-size: 14px;
-        }
-
-        .text-input:focus {
-            outline: none;
-            border-color: var(--primary-color);
-        }
-
-        .btn {
-            padding: 8px 15px;
-            border-radius: 5px;
-            border: none;
-            background: var(--primary-color);
-            color: var(--text-color);
             cursor: pointer;
-            font-size: 14px;
-            transition: background 0.2s;
+            transition: all 0.2s ease;
+            background: rgba(60, 60, 100, 0.3);
         }
 
-        .btn:hover {
-            background: var(--secondary-color);
+        .zoom-controls button:hover {
+            background: rgba(80, 80, 150, 0.5);
         }
 
-        .btn-danger {
-            background: var(--danger-color);
+        .zoom-level {
+            text-align: center;
+            font-size: 12px;
+            color: rgba(255, 255, 255, 0.7);
         }
 
-        .btn-danger:hover {
-            background: #c0392b;
+        /* Menu */
+        .menu {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background: rgba(20, 20, 40, 0.7);
+            backdrop-filter: blur(10px);
+            padding: 10px;
+            border-radius: 20px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+            pointer-events: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
         }
 
-        .btn-success {
-            background: var(--success-color);
+        .menu button {
+            background: none;
+            border: none;
+            color: #fff;
+            padding: 8px 15px;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            background: rgba(60, 60, 100, 0.3);
+            text-align: left;
+            display: flex;
+            align-items: center;
+            gap: 10px;
         }
 
-        .btn-success:hover {
-            background: #27ae60;
+        .menu button:hover {
+            background: rgba(80, 80, 150, 0.5);
         }
 
-        .btn-block {
-            display: block;
+        .menu button svg {
+            width: 18px;
+            height: 18px;
+        }
+
+        /* Node Editor */
+        .node-editor {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(30, 30, 60, 0.9);
+            backdrop-filter: blur(10px);
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 5px 25px rgba(0, 0, 0, 0.7);
+            width: 300px;
+            max-width: 90%;
+            pointer-events: auto;
+            display: none;
+            z-index: 100;
+        }
+
+        .node-editor h3 {
+            margin-bottom: 15px;
+            font-size: 18px;
+            color: #fff;
+        }
+
+        .node-editor input, .node-editor textarea {
             width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            background: rgba(40, 40, 80, 0.5);
+            border: 1px solid rgba(100, 100, 200, 0.3);
+            border-radius: 8px;
+            color: #fff;
+            font-size: 14px;
+        }
+
+        .node-editor textarea {
+            min-height: 100px;
+            resize: vertical;
         }
 
         .color-options {
             display: flex;
+            gap: 10px;
+            margin-bottom: 15px;
             flex-wrap: wrap;
-            gap: 8px;
-            margin-top: 10px;
         }
 
         .color-option {
@@ -414,92 +257,242 @@
             height: 30px;
             border-radius: 50%;
             cursor: pointer;
+            transition: all 0.2s ease;
             border: 2px solid transparent;
         }
 
-        .color-option.active {
-            border-color: white;
-            box-shadow: 0 0 0 2px var(--primary-color);
+        .color-option.selected {
+            transform: scale(1.2);
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+            border: 2px solid white;
         }
 
-        .style-options {
+        .node-editor-buttons {
             display: flex;
-            gap: 10px;
-            margin-top: 10px;
+            justify-content: space-between;
         }
 
-        .style-option {
-            width: 60px;
-            height: 60px;
-            border-radius: 5px;
-            cursor: pointer;
-            border: 2px solid transparent;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: rgba(255, 255, 255, 0.1);
-        }
-
-        .style-option.active {
-            border-color: white;
-            box-shadow: 0 0 0 2px var(--primary-color);
-        }
-
-        .style-preview {
-            width: 40px;
-            height: 40px;
-        }
-
-        .style-preview.default {
-            background: var(--node-bg-default);
-            border-radius: 5px;
-        }
-
-        .style-preview.jupiter {
-            background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB2ZXJzaW9uPSIxLjEiIHdpZHRoPSI1MTIiIGhlaWdodD0iNTEyIiB2aWV3Qm94PSIwIDAgNTEyIDUxMiI+PGRlZnM+PHJhZGlhbEdyYWRpZW50IGlkPSJqdXBpdGVyR3JhZGllbnQiIGN4PSI1MCUiIGN5PSI1MCUiIHI9IjUwJSI+PHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iI2ZmZTBiMiIgLz48c3RvcCBvZmZzZXQ9IjIwJSIgc3RvcC1jb2xvcj0iI2U4YzM4ZCIgLz48c3RvcCBvZmZzZXQ9IjQwJSIgc3RvcC1jb2xvcj0iI2QzYTg3MCIgLz48c3RvcCBvZmZzZXQ9IjYwJSIgc3RvcC1jb2xvcj0iI2JiOGI1NyIgLz48c3RvcCBvZmZzZXQ9IjgwJSIgc3RvcC1jb2xvcj0iI2E0NzA0MCIgLz48c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiM4ZDU1MjkiIC8+PC9yYWRpYWxHcmFkaWVudD48L2RlZnM+PGNpcmNsZSBjeD0iMjU2IiBjeT0iMjU2IiByPSIyNTYiIGZpbGw9InVybCgjanVwaXRlckdyYWRpZW50KSIgLz48ZWxsaXBzZSBjeD0iMjU2IiBjeT0iMjU2IiByeD0iMjU2IiByeT0iMjAiIGZpbGw9IiNlOGMzOGQiIHRyYW5zZm9ybT0icm90YXRlKDEwKSIgb3BhY2l0eT0iMC43IiAvPjxlbGxpcHNlIGN4PSIyNTYiIGN5PSIyNTYiIHJ4PSIyNTYiIHJ5PSIxNSIgZmlsbD0iI2QzYTg3MCIgdHJhbnNmb3JtPSJyb3RhdGUoMzApIiBvcGFjaXR5PSIwLjciIC8+PGVsbGlwc2UgY3g9IjI1NiIgY3k9IjI1NiIgcng9IjI1NiIgcnk9IjI1IiBmaWxsPSIjYmI4YjU3IiB0cmFuc2Zvcm09InJvdGF0ZSg1MCkiIG9wYWNpdHk9IjAuNyIgLz48ZWxsaXBzZSBjeD0iMjU2IiBjeT0iMjU2IiByeD0iMjU2IiByeT0iMTgiIGZpbGw9IiNhNDcwNDAiIHRyYW5zZm9ybT0icm90YXRlKDcwKSIgb3BhY2l0eT0iMC43IiAvPjxjaXJjbGUgY3g9IjE1MCIgY3k9IjE4MCIgcj0iNDAiIGZpbGw9IiNlODc4NTAiIG9wYWNpdHk9IjAuOCIgLz48L3N2Zz4=');
-            background-size: cover;
-            border-radius: 50%;
-        }
-
-        #menu-toggle {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            background: var(--menu-bg);
-            color: var(--text-color);
+        .node-editor button {
+            padding: 8px 15px;
             border: none;
+            border-radius: 8px;
             cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 24px;
-            z-index: 100;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+            transition: all 0.2s ease;
+            font-weight: bold;
         }
 
-        #context-menu {
+        .node-editor .save-btn {
+            background: #4a6cff;
+            color: white;
+        }
+
+        .node-editor .save-btn:hover {
+            background: #3a5cef;
+        }
+
+        .node-editor .cancel-btn {
+            background: rgba(80, 80, 120, 0.3);
+            color: #ddd;
+        }
+
+        .node-editor .cancel-btn:hover {
+            background: rgba(100, 100, 150, 0.4);
+        }
+
+        .node-editor .delete-btn {
+            background: #ff4a6c;
+            color: white;
+        }
+
+        .node-editor .delete-btn:hover {
+            background: #ef3a5c;
+        }
+
+        /* File Menu */
+        .file-menu {
             position: absolute;
-            background: var(--menu-bg);
-            border-radius: 5px;
-            padding: 5px 0;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
-            z-index: 150;
+            top: 80px;
+            left: 20px;
+            background: rgba(30, 30, 60, 0.9);
             backdrop-filter: blur(10px);
+            padding: 15px;
+            border-radius: 15px;
+            box-shadow: 0 5px 25px rgba(0, 0, 0, 0.7);
+            width: 250px;
+            max-width: 90%;
+            pointer-events: auto;
             display: none;
+            z-index: 100;
+        }
+
+        .file-menu h3 {
+            margin-bottom: 15px;
+            font-size: 18px;
+            color: #fff;
+        }
+
+        .file-menu input {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            background: rgba(40, 40, 80, 0.5);
+            border: 1px solid rgba(100, 100, 200, 0.3);
+            border-radius: 8px;
+            color: #fff;
+            font-size: 14px;
+        }
+
+        .file-menu-buttons {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .file-menu button {
+            padding: 8px 15px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-weight: bold;
+        }
+
+        .file-menu .save-btn {
+            background: #4a6cff;
+            color: white;
+        }
+
+        .file-menu .save-btn:hover {
+            background: #3a5cef;
+        }
+
+        .file-menu .cancel-btn {
+            background: rgba(80, 80, 120, 0.3);
+            color: #ddd;
+        }
+
+        .file-menu .cancel-btn:hover {
+            background: rgba(100, 100, 150, 0.4);
+        }
+
+        .saved-maps {
+            margin-top: 15px;
+            max-height: 200px;
+            overflow-y: auto;
+        }
+
+        .saved-map-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 8px;
+            border-radius: 8px;
+            margin-bottom: 5px;
+            background: rgba(60, 60, 100, 0.3);
+            transition: all 0.2s ease;
+        }
+
+        .saved-map-item:hover {
+            background: rgba(80, 80, 150, 0.5);
+        }
+
+        .saved-map-item button {
+            padding: 4px 8px;
+            font-size: 12px;
+            margin: 0 2px;
+        }
+
+        /* Help Modal */
+        .help-modal {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(30, 30, 60, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 5px 25px rgba(0, 0, 0, 0.7);
+            width: 500px;
+            max-width: 90%;
+            max-height: 80vh;
+            overflow-y: auto;
+            pointer-events: auto;
+            display: none;
+            z-index: 100;
+        }
+
+        .help-modal h2 {
+            margin-bottom: 20px;
+            color: #fff;
+            text-align: center;
+        }
+
+        .help-section {
+            margin-bottom: 20px;
+        }
+
+        .help-section h3 {
+            margin-bottom: 10px;
+            color: #4a6cff;
+        }
+
+        .help-section p {
+            margin-bottom: 10px;
+            line-height: 1.6;
+            color: #ddd;
+        }
+
+        .help-section ul {
+            margin-left: 20px;
+            margin-bottom: 10px;
+        }
+
+        .help-section li {
+            margin-bottom: 5px;
+            color: #ddd;
+        }
+
+        .help-modal button {
+            padding: 8px 15px;
+            background: #4a6cff;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: block;
+            margin: 0 auto;
+        }
+
+        .help-modal button:hover {
+            background: #3a5cef;
+        }
+
+        /* Context Menu */
+        .context-menu {
+            position: absolute;
+            background: rgba(30, 30, 60, 0.9);
+            backdrop-filter: blur(10px);
+            padding: 10px 0;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+            z-index: 100;
+            display: none;
+            min-width: 150px;
         }
 
         .context-menu-item {
             padding: 8px 15px;
             cursor: pointer;
-            white-space: nowrap;
-            font-size: 14px;
+            transition: all 0.2s ease;
+            color: #fff;
+            display: flex;
+            align-items: center;
+            gap: 10px;
         }
 
         .context-menu-item:hover {
-            background: var(--menu-hover);
+            background: rgba(80, 80, 150, 0.5);
         }
 
         .context-menu-separator {
@@ -508,1695 +501,1908 @@
             margin: 5px 0;
         }
 
-        #toast {
+        /* Toast Notification */
+        .toast {
             position: fixed;
             top: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: var(--menu-bg);
-            color: var(--text-color);
-            padding: 10px 20px;
-            border-radius: 5px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
-            z-index: 300;
+            right: 20px;
+            background: rgba(30, 30, 60, 0.9);
+            backdrop-filter: blur(10px);
+            padding: 12px 20px;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+            color: white;
+            z-index: 1000;
+            transform: translateY(-100px);
             opacity: 0;
-            transition: opacity 0.3s;
-            pointer-events: none;
+            transition: all 0.3s ease;
         }
 
-        #toast.show {
+        .toast.show {
+            transform: translateY(0);
             opacity: 1;
         }
 
-        #toast.success {
-            border-left: 4px solid var(--success-color);
+        .toast.success {
+            border-left: 4px solid #4CAF50;
         }
 
-        #toast.error {
-            border-left: 4px solid var(--danger-color);
+        .toast.error {
+            border-left: 4px solid #F44336;
         }
 
-        #toast.warning {
-            border-left: 4px solid var(--warning-color);
+        .toast.info {
+            border-left: 4px solid #2196F3;
         }
 
-        #export-modal, #import-modal, #help-modal {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.7);
-            z-index: 250;
+        /* Add Child Button */
+        .add-child-button {
+            position: absolute;
+            width: 24px;
+            height: 24px;
+            background: rgba(100, 100, 200, 0.7);
+            border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            opacity: 0;
-            pointer-events: none;
-            transition: opacity 0.3s;
-        }
-
-        #export-modal.open, #import-modal.open, #help-modal.open {
-            opacity: 1;
-            pointer-events: auto;
-        }
-
-        .modal-content {
-            background: var(--menu-bg);
-            border-radius: 10px;
-            width: 90%;
-            max-width: 500px;
-            max-height: 90vh;
-            overflow-y: auto;
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.5);
-            backdrop-filter: blur(10px);
-        }
-
-        .modal-header {
-            padding: 15px 20px;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .modal-title {
-            font-size: 18px;
-            font-weight: 600;
-        }
-
-        .modal-close {
-            background: transparent;
-            border: none;
-            color: var(--text-color);
-            font-size: 24px;
             cursor: pointer;
+            z-index: 3;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+            transition: all 0.2s ease;
         }
 
-        .modal-body {
-            padding: 20px;
+        .add-child-button:hover {
+            transform: scale(1.2);
+            background: rgba(100, 100, 255, 0.9);
         }
 
-        .modal-footer {
-            padding: 15px 20px;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-            display: flex;
-            justify-content: flex-end;
-            gap: 10px;
+        .add-child-button svg {
+            width: 16px;
+            height: 16px;
+            color: white;
         }
 
-        #export-data {
+        /* Improved Node Design */
+        .node {
+            position: absolute;
+            border-radius: 50%;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+            transition: transform 0.2s ease;
+            cursor: pointer;
+            overflow: hidden;
+        }
+
+        .node:hover {
+            transform: scale(1.05);
+        }
+
+        .node-content {
             width: 100%;
-            height: 150px;
-            background: rgba(0, 0, 0, 0.2);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 5px;
-            color: var(--text-color);
-            padding: 10px;
-            resize: none;
-            font-family: monospace;
-            font-size: 12px;
-        }
-
-        #import-data {
-            width: 100%;
-            height: 150px;
-            background: rgba(0, 0, 0, 0.2);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 5px;
-            color: var(--text-color);
-            padding: 10px;
-            resize: none;
-            font-family: monospace;
-            font-size: 12px;
-        }
-
-        .help-section {
-            margin-bottom: 20px;
-        }
-
-        .help-title {
-            font-size: 16px;
-            margin-bottom: 10px;
-            color: var(--secondary-color);
-        }
-
-        .help-content {
-            font-size: 14px;
-            line-height: 1.5;
-        }
-
-        .keyboard-shortcut {
+            height: 100%;
             display: flex;
-            justify-content: space-between;
-            margin-bottom: 5px;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 10px;
+            text-align: center;
         }
 
-        .shortcut-key {
-            background: rgba(255, 255, 255, 0.1);
-            padding: 2px 6px;
-            border-radius: 3px;
-            font-family: monospace;
+        /* Autosave Indicator */
+        .autosave-indicator {
+            position: absolute;
+            bottom: 20px;
+            right: 80px;
+            background: rgba(20, 20, 40, 0.7);
+            backdrop-filter: blur(10px);
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 12px;
+            color: rgba(255, 255, 255, 0.7);
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.3s ease;
         }
 
+        .autosave-indicator.show {
+            opacity: 1;
+        }
+
+        /* Responsive Adjustments */
         @media (max-width: 768px) {
-            #toolbar {
+            .toolbar {
                 bottom: 10px;
-                padding: 8px 10px;
+                padding: 8px 15px;
             }
-            
-            .toolbar-btn {
+
+            .toolbar button {
                 width: 36px;
                 height: 36px;
                 font-size: 16px;
             }
-            
-            #side-menu {
+
+            .zoom-controls {
+                right: 10px;
+                bottom: 10px;
+            }
+
+            .menu {
+                top: 10px;
+                left: 10px;
+            }
+
+            .node-editor {
                 width: 280px;
             }
-            
-            .node {
-                min-width: 100px;
-                max-width: 180px;
-            }
-            
-            .node.jupiter-theme {
-                min-width: 120px;
-                min-height: 120px;
-            }
-            
-            .modal-content {
-                width: 95%;
-            }
         }
-
-        @media (max-width: 480px) {
-            #toolbar {
-                padding: 5px 8px;
-            }
-            
-            .toolbar-btn {
-                width: 32px;
-                height: 32px;
-                font-size: 14px;
-            }
-            
-            #side-menu {
-                width: 260px;
-            }
-        }
-
-        /* Zoom controls */
-        #zoom-controls {
-            position: fixed;
-            bottom: 20px;
-            left: 20px;
-            display: flex;
-            flex-direction: column;
-            gap: 5px;
-            z-index: 100;
-        }
-
-        .zoom-btn {
-            width: 36px;
-            height: 36px;
-            border-radius: 50%;
-            background: var(--menu-bg);
-            color: var(--text-color);
-            border: none;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 18px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
-        }
-
-        .zoom-level {
-            text-align: center;
-            font-size: 12px;
-            color: var(--text-color);
-            background: var(--menu-bg);
-            padding: 3px 6px;
-            border-radius: 4px;
-            margin: 5px 0;
-        }
-
-        /* Jupiter animation */
-        @keyframes jupiterRotate {
-            0% { background-position: 0% 50%; }
-            100% { background-position: 100% 50%; }
-        }
-
-        .node.jupiter-theme {
-            animation: jupiterRotate 60s linear infinite;
-            background-size: 200% 100%;
-        }
-
-        /* Loading spinner */
-        .spinner {
-            width: 40px;
-            height: 40px;
-            border: 4px solid rgba(255, 255, 255, 0.1);
-            border-radius: 50%;
-            border-top-color: var(--primary-color);
-            animation: spin 1s linear infinite;
-        }
-
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-
-        /* Undo/Redo history indicator */
-        #history-indicator {
-            position: fixed;
-            top: 20px;
-            left: 20px;
-            background: var(--menu-bg);
-            padding: 5px 10px;
-            border-radius: 5px;
-            font-size: 12px;
-            opacity: 0;
-            transition: opacity 0.3s;
-        }
-
-        #history-indicator.show {
-            opacity: 1;
-        }
-
-        .mindmap-btn {
-            background-color: #2c2c2c; /* Dunkles Grau */
-            color: #f0f0f0; /* Helles Grau für besseren Kontrast */
-            font-size: 16px;
-            font-weight: bold;
-            padding: 12px 24px;
-            border: none;
-            border-radius: 6px;
-            cursor: pointer;
-            transition: background-color 0.3s ease, transform 0.2s ease;
-            display: block;
-            width: 100%;
-            max-width: 300px;
-            margin: 10px auto;
-            text-align: center;
-        }
-
-        .mindmap-btn:hover {
-            background-color: #1f1f1f; /* Noch dunkleres Grau */
-            transform: scale(1.03);
-        }
-
-        .mindmap-btn:active {
-            background-color: #191919;
-            transform: scale(0.98);
-        }
-
-
     </style>
 </head>
 <body>
-    <div id="space-background"></div>
+    <!-- Canvas Container -->
     <div id="canvas-container">
-        <div id="canvas"></div>
+        <!-- Stars Background -->
+        <canvas id="stars"></canvas>
+        
+        <!-- Mars Background -->
+        <div id="mars-background"></div>
+        
+        <!-- Mindmap Canvas -->
+        <canvas id="mindmap-canvas"></canvas>
     </div>
 
-    <button id="menu-toggle">☰</button>
-
-    <div id="toolbar">
-        <button class="toolbar-btn" id="add-node-btn" title="Add Node">+</button>
-        <button class="toolbar-btn" id="connect-btn" title="Connect Nodes">↔</button>
-        <button class="toolbar-btn" id="delete-btn" title="Delete">🗑</button>
-        <button class="toolbar-btn" id="center-btn" title="Center View">⌖</button>
-        <button class="toolbar-btn" id="export-btn" title="Export">⤴</button>
-        <button class="toolbar-btn" id="import-btn" title="Import">⤵</button>
-        <button class="toolbar-btn" id="help-btn" title="Help">?</button>
-    </div>
-
-    <div id="side-menu">
-        <div class="menu-header">
-            <div class="menu-title">MindMap Master</div>
-            <button class="close-menu">&times;</button>
-        </div>
-
-        <div class="menu-section">
-            <div class="section-title">Your Mind Maps</div>
-            <div class="input-group">
-                <input type="text" id="new-map-name" class="text-input" placeholder="New mind map name">
-            </div>
-            <button id="create-map-btn" class="btn btn-success btn-block">Create New Mind Map</button>
-            <ul id="mindmap-list" class="mindmap-list">
-                <!-- Mind maps will be listed here -->
-            </ul>
-        </div>
-
-        <div class="menu-section">
-            <div class="section-title">Node Appearance</div>
-            <div class="input-group">
-                <div class="input-label">Node Style</div>
-                <div class="style-options">
-                    <div class="style-option active" data-style="default">
-                        <div class="style-preview default"></div>
-                    </div>
-                    <div class="style-option" data-style="jupiter">
-                        <div class="style-preview jupiter"></div>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="input-group">
-                <div class="input-label">Node Color</div>
-                <div class="color-options">
-                    <div class="color-option active" style="background-color: #4a6fa5;" data-color="#4a6fa5"></div>
-                    <div class="color-option" style="background-color: #9e4784;" data-color="#9e4784"></div>
-                    <div class="color-option" style="background-color: #e74c3c;" data-color="#e74c3c"></div>
-                    <div class="color-option" style="background-color: #2ecc71;" data-color="#2ecc71"></div>
-                    <div class="color-option" style="background-color: #f39c12;" data-color="#f39c12"></div>
-                    <div class="color-option" style="background-color: #3498db;" data-color="#3498db"></div>
-                    <div class="color-option" style="background-color: #9b59b6;" data-color="#9b59b6"></div>
-                    <div class="color-option" style="background-color: #1abc9c;" data-color="#1abc9c"></div>
-                </div>
-            </div>
-        </div>
-
-        <div class="menu-section">
-            <div class="section-title">Settings</div>
-            <div class="input-group">
-                <div class="input-label">Auto-Save</div>
-                <label class="toggle">
-                    <input type="checkbox" id="auto-save" checked>
-                    <span>Enable auto-save (every 30 seconds)</span>
-                </label>
-            </div>
-            <button id="clear-all-btn" class="btn btn-danger btn-block">Clear All Data</button>
-            <button id="create-map-btn" class="mindmap-btn" onclick="window.location.href='index.html';">
-                Back to Home
+    <!-- UI Elements -->
+    <div class="ui-container">
+        <!-- Menu -->
+        <div class="menu">
+            <button id="new-map-btn">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M12 5v14M5 12h14"></path>
+                </svg>
+                New Map
+            </button>
+            <button id="open-map-btn">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M5 3h14a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2z"></path>
+                    <polyline points="9 10 12 7 15 10"></polyline>
+                    <line x1="12" y1="7" x2="12" y2="17"></line>
+                </svg>
+                Open Map
+            </button>
+            <button id="export-map-btn">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                    <polyline points="7 10 12 15 17 10"></polyline>
+                    <line x1="12" y1="15" x2="12" y2="3"></line>
+                </svg>
+                Export as Image
+            </button>
+            <button id="help-btn">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path>
+                    <line x1="12" y1="17" x2="12.01" y2="17"></line>
+                </svg>
+                Help
+            </button>
+            <button id="go-to-index-btn">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                    <polyline points="9 22 9 12 15 12 15 22"></polyline>
+                </svg>
+                Home
             </button>
         </div>
+
+        <!-- Toolbar -->
+        <div class="toolbar">
+            <button id="select-tool" class="active" title="Select Tool">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M3 3l7.07 16.97 2.51-7.39 7.39-2.51L3 3z"></path>
+                </svg>
+            </button>
+            <button id="add-node-tool" title="Add Node">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <line x1="12" y1="8" x2="12" y2="16"></line>
+                    <line x1="8" y1="12" x2="16" y2="12"></line>
+                </svg>
+            </button>
+            <div class="separator"></div>
+            <button id="center-view-btn" title="Center View">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <line x1="22" y1="12" x2="18" y2="12"></line>
+                    <line x1="6" y1="12" x2="2" y2="12"></line>
+                    <line x1="12" y1="6" x2="12" y2="2"></line>
+                    <line x1="12" y1="22" x2="12" y2="18"></line>
+                </svg>
+            </button>
+        </div>
+
+        <!-- Zoom Controls -->
+        <div class="zoom-controls">
+            <button id="zoom-in-btn" title="Zoom In">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="11" cy="11" r="8"></circle>
+                    <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                    <line x1="11" y1="8" x2="11" y2="14"></line>
+                    <line x1="8" y1="11" x2="14" y2="11"></line>
+                </svg>
+            </button>
+            <div class="zoom-level" id="zoom-level">100%</div>
+            <button id="zoom-out-btn" title="Zoom Out">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="11" cy="11" r="8"></circle>
+                    <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                    <line x1="8" y1="11" x2="14" y2="11"></line>
+                </svg>
+            </button>
+        </div>
+
+        <!-- Autosave Indicator -->
+        <div class="autosave-indicator" id="autosave-indicator">Autosaving...</div>
     </div>
 
-    <div id="zoom-controls">
-        <button class="zoom-btn" id="zoom-in">+</button>
-        <div class="zoom-level">100%</div>
-        <button class="zoom-btn" id="zoom-out">-</button>
+    <!-- Node Editor -->
+    <div class="node-editor" id="node-editor">
+        <h3>Edit Node</h3>
+        <input type="text" id="node-title" placeholder="Node Title">
+        <textarea id="node-content" placeholder="Node Content (optional)"></textarea>
+        <div class="color-options" id="color-options">
+            <div class="color-option selected" style="background-color: #4a6cff;" data-color="#4a6cff"></div>
+            <div class="color-option" style="background-color: #ff4a6c;" data-color="#ff4a6c"></div>
+            <div class="color-option" style="background-color: #4aff8c;" data-color="#4aff8c"></div>
+            <div class="color-option" style="background-color: #ff9f4a;" data-color="#ff9f4a"></div>
+            <div class="color-option" style="background-color: #cb4aff;" data-color="#cb4aff"></div>
+            <div class="color-option" style="background-color: #4aecff;" data-color="#4aecff"></div>
+        </div>
+        <div class="node-editor-buttons">
+            <button class="cancel-btn" id="node-cancel-btn">Cancel</button>
+            <button class="delete-btn" id="node-delete-btn">Delete</button>
+            <button class="save-btn" id="node-save-btn">Save</button>
+        </div>
     </div>
 
-    <div id="context-menu">
-        <div class="context-menu-item" id="ctx-add-child">Add Child Node</div>
-        <div class="context-menu-item" id="ctx-edit">Edit Node</div>
-        <div class="context-menu-item" id="ctx-change-style">Change Style</div>
+    <!-- File Menu -->
+    <div class="file-menu" id="file-menu">
+        <h3 id="file-menu-title">Open Mindmap</h3>
+        <input type="text" id="map-name" placeholder="Enter mindmap name">
+        <div class="file-menu-buttons">
+            <button class="cancel-btn" id="file-cancel-btn">Cancel</button>
+            <button class="save-btn" id="file-save-btn">Save</button>
+        </div>
+        <div class="saved-maps" id="saved-maps">
+            <!-- Saved maps will be populated here -->
+        </div>
+    </div>
+
+    <!-- Help Modal -->
+    <div class="help-modal" id="help-modal">
+        <h2>Cosmic Mindmap Help</h2>
+        
+        <div class="help-section">
+            <h3>Basic Controls</h3>
+            <ul>
+                <li><strong>Pan:</strong> Click and drag on empty space</li>
+                <li><strong>Zoom:</strong> Use mouse wheel or zoom buttons</li>
+                <li><strong>Select Node:</strong> Click on a node</li>
+                <li><strong>Move Node:</strong> Drag a selected node</li>
+                <li><strong>Edit Node:</strong> Double-click on a node</li>
+            </ul>
+        </div>
+        
+        <div class="help-section">
+            <h3>Creating Content</h3>
+            <ul>
+                <li><strong>Add Child Node:</strong> Click the "+" button that appears when hovering over a node</li>
+                <li><strong>Add Root Node:</strong> Select the Add Node tool and click on the canvas</li>
+                <li><strong>Edit Node:</strong> Double-click on a node to edit its content and color</li>
+                <li><strong>Delete Node:</strong> Select a node and press Delete key, or edit the node and click Delete</li>
+            </ul>   
+        <div class="help-section">
+            <h3>Managing Mindmaps</h3>
+            <ul>
+                <li><strong>Autosave:</strong> Your mindmap is automatically saved as you work</li>
+                <li><strong>Export as Image:</strong> Click "Export as Image" to download your mindmap as a PNG file</li>
+                <li><strong>Open Map:</strong> Load a previously saved mindmap</li>
+                <li><strong>New Map:</strong> Start a fresh mindmap (your current one is saved first)</li>
+            </ul>
+        </div>
+        
+        <div class="help-section">
+            <h3>Tips</h3>
+            <p>
+                Create a central idea first, then add child nodes by clicking the "+" button that appears when hovering over nodes.
+                Use different colors to categorize related concepts.
+                Double-click the background to quickly add a new root node at that location.
+            </p>
+        </div>
+        
+        <button id="close-help-btn">Close</button>
+    </div>
+
+    <!-- Context Menu -->
+    <div class="context-menu" id="context-menu">
+        <div class="context-menu-item" id="context-add-node">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="10"></circle>
+                <line x1="12" y1="8" x2="12" y2="16"></line>
+                <line x1="8" y1="12" x2="16" y2="12"></line>
+            </svg>
+            Add Node
+        </div>
+        <div class="context-menu-item" id="context-edit-node">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
+                <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
+            </svg>
+            Edit Node
+        </div>
+        <div class="context-menu-item" id="context-delete-node">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="3 6 5 6 21 6"></polyline>
+                <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+            </svg>
+            Delete Node
+        </div>
         <div class="context-menu-separator"></div>
-        <div class="context-menu-item" id="ctx-delete">Delete Node</div>
-    </div>
-
-    <div id="toast"></div>
-
-    <div id="export-modal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <div class="modal-title">Export Mind Map</div>
-                <button class="modal-close">&times;</button>
-            </div>
-            <div class="modal-body">
-                <p>Copy the data below to save your mind map:</p>
-                <textarea id="export-data" readonly></textarea>
-            </div>
-            <div class="modal-footer">
-                <button id="copy-export-btn" class="btn">Copy to Clipboard</button>
-                <button id="download-json-btn" class="btn">Download as JSON</button>
-                <button class="btn modal-close-btn">Close</button>
-            </div>
+        <div class="context-menu-item" id="context-add-child">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                <circle cx="8.5" cy="7" r="4"></circle>
+                <line x1="20" y1="8" x2="20" y2="14"></line>
+                <line x1="23" y1="11" x2="17" y2="11"></line>
+            </svg>
+            Add Child Node
+        </div>
+        <div class="context-menu-separator"></div>
+        <div class="context-menu-item" id="context-center-view">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="10"></circle>
+                <line x1="22" y1="12" x2="18" y2="12"></line>
+                <line x1="6" y1="12" x2="2" y2="12"></line>
+                <line x1="12" y1="6" x2="12" y2="2"></line>
+                <line x1="12" y1="22" x2="12" y2="18"></line>
+            </svg>
+            Center View
         </div>
     </div>
 
-    <div id="import-modal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <div class="modal-title">Import Mind Map</div>
-                <button class="modal-close">&times;</button>
-            </div>
-            <div class="modal-body">
-                <p>Paste your mind map data below:</p>
-                <textarea id="import-data"></textarea>
-            </div>
-            <div class="modal-footer">
-                <button id="import-btn-confirm" class="btn btn-success">Import</button>
-                <button class="btn modal-close-btn">Cancel</button>
-            </div>
-        </div>
-    </div>
-
-    <div id="help-modal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <div class="modal-title">Help & Keyboard Shortcuts</div>
-                <button class="modal-close">&times;</button>
-            </div>
-            <div class="modal-body">
-                <div class="help-section">
-                    <div class="help-title">Basic Controls</div>
-                    <div class="help-content">
-                        <p>• Click and drag on empty space to pan the canvas</p>
-                        <p>• Double-click on empty space to create a new node</p>
-                        <p>• Click on a node to select it</p>
-                        <p>• Drag a node to move it</p>
-                        <p>• Double-click on a node to edit its text</p>
-                    </div>
-                </div>
-                
-                <div class="help-section">
-                    <div class="help-title">Keyboard Shortcuts</div>
-                    <div class="help-content">
-                        <div class="keyboard-shortcut">
-                            <span>Add new node</span>
-                            <span class="shortcut-key">N</span>
-                        </div>
-                        <div class="keyboard-shortcut">
-                            <span>Delete selected node</span>
-                            <span class="shortcut-key">Delete / Backspace</span>
-                        </div>
-                        <div class="keyboard-shortcut">
-                            <span>Connect nodes (select first, then second)</span>
-                            <span class="shortcut-key">C</span>
-                        </div>
-                        <div class="keyboard-shortcut">
-                            <span>Center view</span>
-                            <span class="shortcut-key">Space</span>
-                        </div>
-                        <div class="keyboard-shortcut">
-                            <span>Undo</span>
-                            <span class="shortcut-key">Ctrl+Z</span>
-                        </div>
-                        <div class="keyboard-shortcut">
-                            <span>Redo</span>
-                            <span class="shortcut-key">Ctrl+Y / Ctrl+Shift+Z</span>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="help-section">
-                    <div class="help-title">Mind Maps</div>
-                    <div class="help-content">
-                        <p>• Create multiple mind maps and switch between them</p>
-                        <p>• All mind maps are automatically saved to your browser's local storage</p>
-                        <p>• Export your mind maps to share or backup</p>
-                        <p>• Import mind maps from exported data</p>
-                    </div>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button class="btn modal-close-btn">Close</button>
-            </div>
-        </div>
-    </div>
-
-    <div id="history-indicator"></div>
+    <!-- Toast Notification -->
+    <div class="toast" id="toast"></div>
 
     <script>
-        // Main application
-        class MindMapApp {
+        // Constants
+        const NODE_RADIUS = 60;
+        const NODE_FONT = '14px Arial';
+        const CONNECTION_WIDTH = 3;
+        const MIN_ZOOM = 0.2;
+        const MAX_ZOOM = 3;
+        const ZOOM_STEP = 0.1;
+        const DOUBLE_CLICK_TIME = 300; // ms
+        const CHILD_BUTTON_RADIUS = 12;
+        const AUTOSAVE_DELAY = 2000; // ms
+        const LOCAL_STORAGE_KEY = 'cosmicMindmap_autosave';
+        const ANIMATION_FRAME_RATE = 60; // fps
+        
+        // Main application class
+        class CosmicMindmap {
             constructor() {
-                this.canvas = document.getElementById('canvas');
-                this.canvasContainer = document.getElementById('canvas-container');
-                this.mindMaps = [];
-                this.currentMindMapId = null;
-                this.selectedNodeId = null;
-                this.connectMode = false;
-                this.connectSourceId = null;
-                this.isDragging = false;
-                this.draggedNodeId = null;
-                this.dragOffset = { x: 0, y: 0 };
-                this.canvasDrag = { active: false, startX: 0, startY: 0 };
-                this.canvasOffset = { x: 0, y: 0 };
-                this.scale = 1;
-                this.defaultNodeStyle = 'default';
-                this.defaultNodeColor = '#4a6fa5';
-                this.history = [];
-                this.historyIndex = -1;
-                this.autoSaveInterval = null;
+                // Canvas setup
+                this.canvas = document.getElementById('mindmap-canvas');
+                this.ctx = this.canvas.getContext('2d');
+                this.starsCanvas = document.getElementById('stars');
+                this.starsCtx = this.starsCanvas.getContext('2d');
+                this.marsBackground = document.getElementById('mars-background');
                 
-                // Initialize the app
-                this.init();
+                // State variables
+                this.nodes = [];
+                this.selectedNode = null;
+                this.hoveredNode = null;
+                this.draggedNode = null;
+                this.isPanning = false;
+                this.activeTool = 'select';
+                this.zoom = 1;
+                this.offset = { x: 0, y: 0 };
+                this.dragStart = { x: 0, y: 0 };
+                this.lastClick = 0;
+                this.currentMapName = 'Autosaved Map';
+                this.stars = [];
+                this.childButtons = [];
+                this.autosaveTimeout = null;
+                this.autosaveIndicator = document.getElementById('autosave-indicator');
+                this.animationFrameId = null;
+                this.isAnimating = false;
+                
+                // UI elements
+                this.nodeEditor = document.getElementById('node-editor');
+                this.fileMenu = document.getElementById('file-menu');
+                this.helpModal = document.getElementById('help-modal');
+                this.contextMenu = document.getElementById('context-menu');
+                this.toast = document.getElementById('toast');
+                
+                // Initialize
+                this.initCanvas();
+                this.initMarsBackground();
+                this.initStars();
+                this.initEventListeners();
+                this.loadAutosavedMap();
+                
+                // Start animation loop
+                this.startAnimationLoop();
             }
             
-            init() {
-                this.loadMindMaps();
-                this.setupEventListeners();
-                this.createStarryBackground();
-                this.setupAutoSave();
-                
-                // Create a default mind map if none exists
-                if (this.mindMaps.length === 0) {
-                    this.createNewMindMap('My First Mind Map');
-                } else {
-                    this.switchToMindMap(this.mindMaps[0].id);
-                }
-                
-                // Center the view
-                this.centerView();
-                
-                // Update the UI
-                this.updateMindMapList();
+            // Initialize canvas dimensions
+            initCanvas() {
+                this.resizeCanvas();
+                window.addEventListener('resize', () => this.resizeCanvas());
             }
             
-            createStarryBackground() {
-                const background = document.getElementById('space-background');
+            // Resize canvas to fill window
+            resizeCanvas() {
+                this.canvas.width = window.innerWidth;
+                this.canvas.height = window.innerHeight;
+                this.starsCanvas.width = window.innerWidth;
+                this.starsCanvas.height = window.innerHeight;
+                this.render();
+                this.renderStars();
+            }
+            
+            // Initialize Mars background
+            initMarsBackground() {
+                // Try to load Mars image
+                const marsImage = new Image();
+                marsImage.onload = () => {
+                    this.marsBackground.style.backgroundImage = `url('${marsImage.src}')`;
+                };
+                marsImage.onerror = () => {
+                    // Fallback to generated Mars
+                    this.marsBackground.style.backgroundImage = `url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI1MDAiIGhlaWdodD0iNTAwIiB2aWV3Qm94PSIwIDAgNTAwIDUwMCI+CiAgPGNpcmNsZSBjeD0iMjUwIiBjeT0iMjUwIiByPSIyMDAiIGZpbGw9IiNlMjcyM2IiLz4KICA8Y2lyY2xlIGN4PSIxNzAiIGN5PSIxODAiIHI9IjQwIiBmaWxsPSIjYzQ1MDIzIi8+CiAgPGNpcmNsZSBjeD0iMzMwIiBjeT0iMjgwIiByPSI2MCIgZmlsbD0iI2M0NTAyMyIvPgogIDxjaXJjbGUgY3g9IjI0MCIgY3k9IjM0MCIgcj0iMzAiIGZpbGw9IiNjNDUwMjMiLz4KICA8Y2lyY2xlIGN4PSIyODAiIGN5PSIxNTAiIHI9IjUwIiBmaWxsPSIjYzQ1MDIzIi8+Cjwvc3ZnPg==')`;
+                };
+                marsImage.src = 'mars.png';
+            }
+            
+            // Create starfield background
+            initStars() {
+                const numStars = Math.floor((window.innerWidth * window.innerHeight) / 1000);
+                this.stars = [];
                 
-                // Create stars
-                for (let i = 0; i < 200; i++) {
-                    const star = document.createElement('div');
-                    star.className = 'star';
-                    star.style.width = `${Math.random() * 2 + 1}px`;
-                    star.style.height = star.style.width;
-                    star.style.left = `${Math.random() * 100}%`;
-                    star.style.top = `${Math.random() * 100}%`;
-                    star.style.animationDelay = `${Math.random() * 5}s`;
-                    background.appendChild(star);
+                for (let i = 0; i < numStars; i++) {
+                    this.stars.push({
+                        x: Math.random() * this.starsCanvas.width,
+                        y: Math.random() * this.starsCanvas.height,
+                        radius: Math.random() * 1.5,
+                        alpha: Math.random(),
+                        cycle: Math.random() * 100
+                    });
                 }
                 
-                // Create nebulae
-                const colors = ['#4a6fa5', '#9e4784', '#e74c3c', '#2ecc71', '#f39c12'];
-                for (let i = 0; i < 5; i++) {
-                    const nebula = document.createElement('div');
-                    nebula.className = 'nebula';
-                    nebula.style.width = `${Math.random() * 300 + 200}px`;
-                    nebula.style.height = nebula.style.width;
-                    nebula.style.left = `${Math.random() * 100}%`;
-                    nebula.style.top = `${Math.random() * 100}%`;
-                    nebula.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
-                    background.appendChild(nebula);
+                this.renderStars();
+                this.animateStars();
+            }
+            
+            // Render stars on canvas
+            renderStars() {
+                this.starsCtx.clearRect(0, 0, this.starsCanvas.width, this.starsCanvas.height);
+                
+                for (const star of this.stars) {
+                    this.starsCtx.beginPath();
+                    this.starsCtx.arc(star.x, star.y, star.radius, 0, Math.PI * 2);
+                    this.starsCtx.fillStyle = `rgba(255, 255, 255, ${star.alpha})`;
+                    this.starsCtx.fill();
                 }
             }
             
-            setupEventListeners() {
-                // Canvas events
-                this.canvas.addEventListener('mousedown', this.handleCanvasMouseDown.bind(this));
-                this.canvas.addEventListener('mousemove', this.handleCanvasMouseMove.bind(this));
-                this.canvas.addEventListener('mouseup', this.handleCanvasMouseUp.bind(this));
-                this.canvas.addEventListener('dblclick', this.handleCanvasDblClick.bind(this));
-                this.canvas.addEventListener('contextmenu', this.handleContextMenu.bind(this));
+            // Animate stars twinkling
+            animateStars() {
+                for (const star of this.stars) {
+                    star.cycle += 0.01;
+                    star.alpha = 0.5 + 0.5 * Math.sin(star.cycle);
+                }
+                
+                this.renderStars();
+                requestAnimationFrame(() => this.animateStars());
+            }
+            
+            // Start animation loop for smooth rendering
+            startAnimationLoop() {
+                const loop = () => {
+                    if (this.isAnimating) {
+                        this.render();
+                    }
+                    this.animationFrameId = requestAnimationFrame(loop);
+                };
+                
+                loop();
+            }
+            
+            // Set up all event listeners
+            initEventListeners() {
+                // Mouse events on canvas
+                this.canvas.addEventListener('mousedown', (e) => this.handleMouseDown(e));
+                this.canvas.addEventListener('mousemove', (e) => this.handleMouseMove(e));
+                this.canvas.addEventListener('mouseup', (e) => this.handleMouseUp(e));
+                this.canvas.addEventListener('wheel', (e) => this.handleWheel(e));
+                this.canvas.addEventListener('contextmenu', (e) => {
+                    e.preventDefault();
+                    this.showContextMenu(e);
+                });
                 
                 // Touch events for mobile
-                this.canvas.addEventListener('touchstart', this.handleCanvasTouchStart.bind(this), { passive: false });
-                this.canvas.addEventListener('touchmove', this.handleCanvasTouchMove.bind(this), { passive: false });
-                this.canvas.addEventListener('touchend', this.handleCanvasTouchEnd.bind(this));
+                this.canvas.addEventListener('touchstart', (e) => this.handleTouchStart(e));
+                this.canvas.addEventListener('touchmove', (e) => this.handleTouchMove(e));
+                this.canvas.addEventListener('touchend', (e) => this.handleTouchEnd(e));
                 
-                // Toolbar buttons
-                document.getElementById('add-node-btn').addEventListener('click', () => this.addNode());
-                document.getElementById('connect-btn').addEventListener('click', () => this.toggleConnectMode());
-                document.getElementById('delete-btn').addEventListener('click', () => this.deleteSelectedNode());
-                document.getElementById('center-btn').addEventListener('click', () => this.centerView());
-                document.getElementById('export-btn').addEventListener('click', () => this.openExportModal());
-                document.getElementById('import-btn').addEventListener('click', () => this.openImportModal());
-                document.getElementById('help-btn').addEventListener('click', () => this.openHelpModal());
+                // Keyboard events
+                document.addEventListener('keydown', (e) => this.handleKeyDown(e));
                 
-                // Side menu
-                document.getElementById('menu-toggle').addEventListener('click', () => this.toggleSideMenu());
-                document.querySelector('.close-menu').addEventListener('click', () => this.toggleSideMenu(false));
-                document.getElementById('create-map-btn').addEventListener('click', () => this.createNewMindMapFromInput());
-                document.getElementById('clear-all-btn').addEventListener('click', () => this.clearAllData());
-                
-                // Node style options
-                document.querySelectorAll('.style-option').forEach(option => {
-                    option.addEventListener('click', (e) => {
-                        document.querySelectorAll('.style-option').forEach(o => o.classList.remove('active'));
-                        e.currentTarget.classList.add('active');
-                        this.defaultNodeStyle = e.currentTarget.dataset.style;
-                        
-                        if (this.selectedNodeId) {
-                            const node = this.getNodeById(this.selectedNodeId);
-                            if (node) {
-                                node.style = this.defaultNodeStyle;
-                                this.saveHistoryState();
-                                this.renderMindMap();
-                            }
-                        }
-                    });
-                });
-                
-                // Node color options
-                document.querySelectorAll('.color-option').forEach(option => {
-                    option.addEventListener('click', (e) => {
-                        document.querySelectorAll('.color-option').forEach(o => o.classList.remove('active'));
-                        e.currentTarget.classList.add('active');
-                        this.defaultNodeColor = e.currentTarget.dataset.color;
-                        
-                        if (this.selectedNodeId) {
-                            const node = this.getNodeById(this.selectedNodeId);
-                            if (node) {
-                                node.color = this.defaultNodeColor;
-                                this.saveHistoryState();
-                                this.renderMindMap();
-                            }
-                        }
-                    });
-                });
-                
-                // Context menu items
-                document.getElementById('ctx-add-child').addEventListener('click', () => this.addChildNode());
-                document.getElementById('ctx-edit').addEventListener('click', () => this.editSelectedNode());
-                document.getElementById('ctx-change-style').addEventListener('click', () => this.toggleSideMenu(true));
-                document.getElementById('ctx-delete').addEventListener('click', () => this.deleteSelectedNode());
-                
-                // Modal close buttons
-                document.querySelectorAll('.modal-close, .modal-close-btn').forEach(btn => {
-                    btn.addEventListener('click', (e) => {
-                        const modal = e.target.closest('.modal-content').parentElement;
-                        modal.classList.remove('open');
-                    });
-                });
-                
-                // Export/Import buttons
-                document.getElementById('copy-export-btn').addEventListener('click', () => this.copyExportData());
-                document.getElementById('download-json-btn').addEventListener('click', () => this.downloadMindMapJson());
-                document.getElementById('import-btn-confirm').addEventListener('click', () => this.importMindMap());
+                // Tool buttons
+                document.getElementById('select-tool').addEventListener('click', () => this.setTool('select'));
+                document.getElementById('add-node-tool').addEventListener('click', () => this.setTool('add-node'));
+                document.getElementById('center-view-btn').addEventListener('click', () => this.centerView());
                 
                 // Zoom controls
-                document.getElementById('zoom-in').addEventListener('click', () => this.zoom(0.1));
-                document.getElementById('zoom-out').addEventListener('click', () => this.zoom(-0.1));
+                document.getElementById('zoom-in-btn').addEventListener('click', () => this.zoomIn());
+                document.getElementById('zoom-out-btn').addEventListener('click', () => this.zoomOut());
                 
-                // Mouse wheel for zooming
-                this.canvasContainer.addEventListener('wheel', (e) => {
-                    e.preventDefault();
-                    const delta = e.deltaY > 0 ? -0.05 : 0.05;
-                    this.zoom(delta);
+                // Menu buttons
+                document.getElementById('new-map-btn').addEventListener('click', () => this.newMap());
+                document.getElementById('open-map-btn').addEventListener('click', () => this.openMapMenu());
+                document.getElementById('export-map-btn').addEventListener('click', () => this.exportAsImage());
+                document.getElementById('help-btn').addEventListener('click', () => this.showHelpModal());
+                document.getElementById('go-to-index-btn').addEventListener('click', () => window.location.href = 'index.html');
+                
+                // Node editor
+                document.getElementById('node-save-btn').addEventListener('click', () => this.saveNodeEdit());
+                document.getElementById('node-cancel-btn').addEventListener('click', () => this.closeNodeEditor());
+                document.getElementById('node-delete-btn').addEventListener('click', () => this.deleteSelectedNode());
+                
+                // Color options
+                const colorOptions = document.querySelectorAll('.color-option');
+                colorOptions.forEach(option => {
+                    option.addEventListener('click', () => {
+                        colorOptions.forEach(opt => opt.classList.remove('selected'));
+                        option.classList.add('selected');
+                    });
                 });
                 
-                // Keyboard shortcuts
-                document.addEventListener('keydown', this.handleKeyDown.bind(this));
+                // File menu
+                document.getElementById('file-save-btn').addEventListener('click', () => this.saveMap());
+                document.getElementById('file-cancel-btn').addEventListener('click', () => this.closeFileMenu());
                 
-                // Auto-save toggle
-                document.getElementById('auto-save').addEventListener('change', (e) => {
-                    if (e.target.checked) {
-                        this.setupAutoSave();
-                    } else {
-                        clearInterval(this.autoSaveInterval);
+                // Help modal
+                document.getElementById('close-help-btn').addEventListener('click', () => this.closeHelpModal());
+                
+                // Context menu
+                document.getElementById('context-add-node').addEventListener('click', () => this.contextAddNode());
+                document.getElementById('context-edit-node').addEventListener('click', () => this.contextEditNode());
+                document.getElementById('context-delete-node').addEventListener('click', () => this.contextDeleteNode());
+                document.getElementById('context-add-child').addEventListener('click', () => this.contextAddChildNode());
+                document.getElementById('context-center-view').addEventListener('click', () => this.contextCenterView());
+                
+                // Close context menu when clicking elsewhere
+                document.addEventListener('click', (e) => {
+                    if (!this.contextMenu.contains(e.target)) {
+                        this.hideContextMenu();
                     }
                 });
                 
-                // Window resize
-                window.addEventListener('resize', () => this.renderMindMap());
+                // Handle window blur
+                window.addEventListener('blur', () => {
+                    this.isPanning = false;
+                    this.draggedNode = null;
+                    this.isAnimating = false;
+                });
+                
+                // Handle window focus
+                window.addEventListener('focus', () => {
+                    this.render();
+                });
+                
+                // Handle beforeunload to ensure autosave
+                window.addEventListener('beforeunload', () => {
+                    this.autosave(true); // Force immediate save
+                });
             }
             
-            handleCanvasMouseDown(e) {
-                if (e.button === 0) { // Left click
-                    const rect = this.canvas.getBoundingClientRect();
-                    const x = (e.clientX - rect.left) / this.scale - this.canvasOffset.x;
-                    const y = (e.clientY - rect.top) / this.scale - this.canvasOffset.y;
-                    
-                    // Check if clicked on a node
-                    const node = this.findNodeAt(x, y);
-                    
-                    if (node) {
-                        if (this.connectMode && this.connectSourceId) {
-                            // Connect nodes
-                            if (this.connectSourceId !== node.id) {
-                                this.connectNodes(this.connectSourceId, node.id);
-                                this.connectMode = false;
-                                this.connectSourceId = null;
-                                document.getElementById('connect-btn').classList.remove('active');
-                            }
-                        } else {
-                            // Select and prepare for dragging
-                            this.selectNode(node.id);
-                            this.isDragging = true;
-                            this.draggedNodeId = node.id;
-                            this.dragOffset.x = x - node.x;
-                            this.dragOffset.y = y - node.y;
-                        }
-                    } else {
-                        // Start canvas dragging
-                        this.canvasDrag.active = true;
-                        this.canvasDrag.startX = e.clientX;
-                        this.canvasDrag.startY = e.clientY;
-                        this.canvas.style.cursor = 'grabbing';
+            // Load autosaved map or create default
+            loadAutosavedMap() {
+                const savedData = localStorage.getItem(LOCAL_STORAGE_KEY);
+                
+                if (savedData) {
+                    try {
+                        const parsedData = JSON.parse(savedData);
+                        this.nodes = parsedData.nodes || [];
+                        this.currentMapName = parsedData.name || 'Autosaved Map';
+                        this.offset = parsedData.offset || { x: 0, y: 0 };
+                        this.zoom = parsedData.zoom || 1;
                         
-                        // Deselect current node
-                        this.selectNode(null);
+                        // Update zoom display
+                        document.getElementById('zoom-level').textContent = `${Math.round(this.zoom * 100)}%`;
+                        
+                        this.render();
+                        this.showToast('Autosaved map loaded', 'info');
+                    } catch (e) {
+                        console.error('Error loading autosaved map:', e);
+                        this.createDefaultNode();
                     }
-                }
-            }
-            
-            handleCanvasMouseMove(e) {
-                const rect = this.canvas.getBoundingClientRect();
-                const x = (e.clientX - rect.left) / this.scale - this.canvasOffset.x;
-                const y = (e.clientY - rect.top) / this.scale - this.canvasOffset.y;
-                
-                if (this.isDragging && this.draggedNodeId) {
-                    // Drag node
-                    const node = this.getNodeById(this.draggedNodeId);
-                    if (node) {
-                        node.x = x - this.dragOffset.x;
-                        node.y = y - this.dragOffset.y;
-                        this.renderMindMap();
-                    }
-                } else if (this.canvasDrag.active) {
-                    // Drag canvas
-                    const dx = e.clientX - this.canvasDrag.startX;
-                    const dy = e.clientY - this.canvasDrag.startY;
-                    
-                    this.canvasOffset.x += dx / this.scale;
-                    this.canvasOffset.y += dy / this.scale;
-                    
-                    this.canvasDrag.startX = e.clientX;
-                    this.canvasDrag.startY = e.clientY;
-                    
-                    this.renderMindMap();
-                }
-            }
-            
-            handleCanvasMouseUp(e) {
-                if (this.isDragging && this.draggedNodeId) {
-                    this.isDragging = false;
-                    this.saveHistoryState();
-                }
-                
-                if (this.canvasDrag.active) {
-                    this.canvasDrag.active = false;
-                    this.canvas.style.cursor = 'default';
-                }
-            }
-            
-            handleCanvasDblClick(e) {
-                const rect = this.canvas.getBoundingClientRect();
-                const x = (e.clientX - rect.left) / this.scale - this.canvasOffset.x;
-                const y = (e.clientY - rect.top) / this.scale - this.canvasOffset.y;
-                
-                const node = this.findNodeAt(x, y);
-                
-                if (node) {
-                    // Edit existing node
-                    this.editNode(node.id);
                 } else {
-                    // Create new node at click position
-                    this.addNode(x, y);
+                    this.createDefaultNode();
                 }
             }
             
-            handleContextMenu(e) {
-                e.preventDefault();
+            // Create a default central node
+            createDefaultNode() {
+                const centerX = this.canvas.width / 2;
+                const centerY = this.canvas.height / 2;
                 
-                const rect = this.canvas.getBoundingClientRect();
-                const x = (e.clientX - rect.left) / this.scale - this.canvasOffset.x;
-                const y = (e.clientY - rect.top) / this.scale - this.canvasOffset.y;
+                this.nodes.push({
+                    id: this.generateId(),
+                    title: 'Main Idea',
+                    content: 'Double-click to edit',
+                    x: centerX,
+                    y: centerY,
+                    color: '#4a6cff',
+                    isRoot: true,
+                    children: []
+                });
                 
-                const node = this.findNodeAt(x, y);
+                this.render();
+                this.autosave();
+                this.showToast('Welcome to Cosmic Mindmap! Double-click on the node to edit.', 'info');
+            }
+            
+            // Autosave the current map
+            autosave(immediate = false) {
+                // Clear any existing timeout
+                if (this.autosaveTimeout) {
+                    clearTimeout(this.autosaveTimeout);
+                }
                 
-                if (node) {
-                    this.selectNode(node.id);
-                    
-                    const contextMenu = document.getElementById('context-menu');
-                    contextMenu.style.display = 'block';
-                    contextMenu.style.left = `${e.clientX}px`;
-                    contextMenu.style.top = `${e.clientY}px`;
-                    
-                    // Close context menu when clicking elsewhere
-                    const closeContextMenu = () => {
-                        contextMenu.style.display = 'none';
-                        document.removeEventListener('click', closeContextMenu);
+                const saveFunction = () => {
+                    const mapData = {
+                        name: this.currentMapName,
+                        nodes: this.nodes,
+                        offset: this.offset,
+                        zoom: this.zoom,
+                        date: new Date().toISOString()
                     };
                     
+                    localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(mapData));
+                    
+                    // Show and hide autosave indicator
+                    this.autosaveIndicator.classList.add('show');
                     setTimeout(() => {
-                        document.addEventListener('click', closeContextMenu);
-                    }, 0);
+                        this.autosaveIndicator.classList.remove('show');
+                    }, 1500);
+                };
+                
+                if (immediate) {
+                    saveFunction();
+                } else {
+                    // Set timeout for delayed save
+                    this.autosaveTimeout = setTimeout(saveFunction, AUTOSAVE_DELAY);
                 }
             }
             
-            handleCanvasTouchStart(e) {
-                if (e.touches.length === 1) {
-                    e.preventDefault();
-                    const touch = e.touches[0];
-                    const rect = this.canvas.getBoundingClientRect();
-                    const x = (touch.clientX - rect.left) / this.scale - this.canvasOffset.x;
-                    const y = (touch.clientY - rect.top) / this.scale - this.canvasOffset.y;
-                    
-                    // Check if touched a node
-                    const node = this.findNodeAt(x, y);
-                    
+            // Handle mouse down event
+            handleMouseDown(e) {
+                const pos = this.getCanvasPosition(e);
+                
+                // Check if clicked on a child button
+                const childButton = this.getChildButtonAtPosition(e.clientX, e.clientY);
+                if (childButton) {
+                    this.addChildNode(childButton.parentNode);
+                    return;
+                }
+                
+                const node = this.getNodeAtPosition(pos.x, pos.y);
+                
+                // Check for double click
+                const now = Date.now();
+                const isDoubleClick = now - this.lastClick < DOUBLE_CLICK_TIME;
+                this.lastClick = now;
+                
+                if (isDoubleClick) {
                     if (node) {
-                        if (this.connectMode && this.connectSourceId) {
-                            // Connect nodes
-                            if (this.connectSourceId !== node.id) {
-                                this.connectNodes(this.connectSourceId, node.id);
-                                this.connectMode = false;
-                                this.connectSourceId = null;
-                                document.getElementById('connect-btn').classList.remove('active');
-                            }
+                        this.editNode(node);
+                    } else if (this.activeTool === 'select') {
+                        // Double click on empty space creates a new root node
+                        this.createRootNodeAt(pos.x, pos.y);
+                    }
+                    return;
+                }
+                
+                // Handle based on active tool
+                switch (this.activeTool) {
+                    case 'select':
+                        if (node) {
+                            this.selectNode(node);
+                            this.draggedNode = node;
+                            this.dragStart = { x: pos.x - node.x, y: pos.y - node.y };
+                            // Start animation loop when dragging
+                            this.isAnimating = true;
                         } else {
-                            // Select and prepare for dragging
-                            this.selectNode(node.id);
-                            this.isDragging = true;
-                            this.draggedNodeId = node.id;
-                            this.dragOffset.x = x - node.x;
-                            this.dragOffset.y = y - node.y;
+                            this.selectedNode = null;
+                            this.isPanning = true;
+                            this.dragStart = { x: pos.x - this.offset.x, y: pos.y - this.offset.y };
+                            // Start animation loop when panning
+                            this.isAnimating = true;
                         }
-                    } else {
-                        // Start canvas dragging
-                        this.canvasDrag.active = true;
-                        this.canvasDrag.startX = touch.clientX;
-                        this.canvasDrag.startY = touch.clientY;
+                        break;
                         
-                        // Deselect current node
-                        this.selectNode(null);
-                    }
-                    
-                    // Handle long press for context menu
-                    this.longPressTimer = setTimeout(() => {
-                        if (node) {
-                            const contextMenu = document.getElementById('context-menu');
-                            contextMenu.style.display = 'block';
-                            contextMenu.style.left = `${touch.clientX}px`;
-                            contextMenu.style.top = `${touch.clientY}px`;
-                            
-                            // Close context menu when touching elsewhere
-                            const closeContextMenu = () => {
-                                contextMenu.style.display = 'none';
-                                document.removeEventListener('touchstart', closeContextMenu);
-                            };
-                            
-                            setTimeout(() => {
-                                document.addEventListener('touchstart', closeContextMenu);
-                            }, 0);
-                        }
-                    }, 800);
+                    case 'add-node':
+                        this.createRootNodeAt(pos.x, pos.y);
+                        break;
+                }
+                
+                this.render();
+            }
+            
+            // Handle mouse move event
+            handleMouseMove(e) {
+                const pos = this.getCanvasPosition(e);
+                
+                // Update cursor based on hovered node or child button
+                const hoveredNode = this.getNodeAtPosition(pos.x, pos.y);
+                const childButton = this.getChildButtonAtPosition(e.clientX, e.clientY);
+                
+                if (childButton) {
+                    this.canvas.style.cursor = 'pointer';
+                } else if (hoveredNode) {
+                    this.canvas.style.cursor = 'pointer';
+                } else {
+                    this.canvas.style.cursor = this.isPanning ? 'grabbing' : 'grab';
+                }
+                
+                // Update hovered node
+                if (this.hoveredNode !== hoveredNode) {
+                    this.hoveredNode = hoveredNode;
+                    this.render(); // Render when hover state changes
+                }
+                
+                // Handle dragging node
+                if (this.draggedNode) {
+                    this.draggedNode.x = pos.x - this.dragStart.x;
+                    this.draggedNode.y = pos.y - this.dragStart.y;
+                    // No need to call render here as it's handled by animation loop
+                }
+                
+                // Handle panning
+                if (this.isPanning) {
+                    this.offset.x = pos.x - this.dragStart.x;
+                    this.offset.y = pos.y - this.dragStart.y;
+                    // No need to call render here as it's handled by animation loop
                 }
             }
             
-            handleCanvasTouchMove(e) {
+            // Handle mouse up event
+            handleMouseUp() {
+                if (this.draggedNode || this.isPanning) {
+                    this.autosave();
+                    // Stop animation loop when done dragging/panning
+                    this.isAnimating = false;
+                }
+                this.draggedNode = null;
+                this.isPanning = false;
+                this.render(); // Final render to ensure everything is drawn correctly
+            }
+            
+            // Handle mouse wheel for zooming
+            handleWheel(e) {
+                e.preventDefault();
+                
+                const direction = e.deltaY > 0 ? -1 : 1;
+                const factor = direction * ZOOM_STEP;
+                
+                // Calculate zoom center (mouse position)
+                const rect = this.canvas.getBoundingClientRect();
+                const mouseX = e.clientX - rect.left;
+                const mouseY = e.clientY - rect.top;
+                
+                // Calculate world position before zoom
+                const worldX = (mouseX - this.offset.x) / this.zoom;
+                const worldY = (mouseY - this.offset.y) / this.zoom;
+                
+                // Apply zoom
+                const newZoom = Math.max(MIN_ZOOM, Math.min(MAX_ZOOM, this.zoom + factor));
+                
+                if (newZoom !== this.zoom) {
+                    this.zoom = newZoom;
+                    
+                    // Adjust offset to zoom toward mouse position
+                    this.offset.x = mouseX - worldX * this.zoom;
+                    this.offset.y = mouseY - worldY * this.zoom;
+                    
+                    // Update zoom display
+                    document.getElementById('zoom-level').textContent = `${Math.round(this.zoom * 100)}%`;
+                    
+                    this.render();
+                    this.autosave();
+                }
+            }
+            
+            // Handle touch start event
+            handleTouchStart(e) {
                 if (e.touches.length === 1) {
-                    e.preventDefault();
-                    clearTimeout(this.longPressTimer);
-                    
+                    // Convert touch to mouse event
                     const touch = e.touches[0];
-                    const rect = this.canvas.getBoundingClientRect();
-                    const x = (touch.clientX - rect.left) / this.scale - this.canvasOffset.x;
-                    const y = (touch.clientY - rect.top) / this.scale - this.canvasOffset.y;
-                    
-                    if (this.isDragging && this.draggedNodeId) {
-                        // Drag node
-                        const node = this.getNodeById(this.draggedNodeId);
-                        if (node) {
-                            node.x = x - this.dragOffset.x;
-                            node.y = y - this.dragOffset.y;
-                            this.renderMindMap();
-                        }
-                    } else if (this.canvasDrag.active) {
-                        // Drag canvas
-                        const dx = touch.clientX - this.canvasDrag.startX;
-                        const dy = touch.clientY - this.canvasDrag.startY;
-                        
-                        this.canvasOffset.x += dx / this.scale;
-                        this.canvasOffset.y += dy / this.scale;
-                        
-                        this.canvasDrag.startX = touch.clientX;
-                        this.canvasDrag.startY = touch.clientY;
-                        
-                        this.renderMindMap();
-                    }
+                    const mouseEvent = {
+                        clientX: touch.clientX,
+                        clientY: touch.clientY,
+                        preventDefault: () => e.preventDefault()
+                    };
+                    this.handleMouseDown(mouseEvent);
+                } else if (e.touches.length === 2) {
+                    // Start pinch zoom
+                    this.pinchStart = this.getPinchDistance(e);
+                    this.pinchZoom = this.zoom;
+                    e.preventDefault();
                 }
             }
             
-            handleCanvasTouchEnd(e) {
-                clearTimeout(this.longPressTimer);
-                
-                if (this.isDragging && this.draggedNodeId) {
-                    this.isDragging = false;
-                    this.saveHistoryState();
-                }
-                
-                if (this.canvasDrag.active) {
-                    this.canvasDrag.active = false;
-                }
-                
-                // Handle tap as click
-                if (!this.isDragging && !this.canvasDrag.active) {
-                    const lastTouch = e.changedTouches[0];
-                    const rect = this.canvas.getBoundingClientRect();
-                    const x = (lastTouch.clientX - rect.left) / this.scale - this.canvasOffset.x;
-                    const y = (lastTouch.clientY - rect.top) / this.scale - this.canvasOffset.y;
+            // Handle touch move event
+            handleTouchMove(e) {
+                if (e.touches.length === 1) {
+                    // Convert touch to mouse event
+                    const touch = e.touches[0];
+                    const mouseEvent = {
+                        clientX: touch.clientX,
+                        clientY: touch.clientY,
+                        preventDefault: () => e.preventDefault()
+                    };
+                    this.handleMouseMove(mouseEvent);
+                } else if (e.touches.length === 2) {
+                    // Handle pinch zoom
+                    const currentDistance = this.getPinchDistance(e);
+                    const scale = currentDistance / this.pinchStart;
                     
-                    const node = this.findNodeAt(x, y);
-                    if (node) {
-                        this.selectNode(node.id);
-                    }
+                    // Calculate center of pinch
+                    const touch1 = e.touches[0];
+                    const touch2 = e.touches[1];
+                    const centerX = (touch1.clientX + touch2.clientX) / 2;
+                    const centerY = (touch1.clientY + touch2.clientY) / 2;
+                    
+                    // Calculate world position before zoom
+                    const worldX = (centerX - this.offset.x) / this.zoom;
+                    const worldY = (centerY - this.offset.y) / this.zoom;
+                    
+                    // Apply zoom
+                    const newZoom = Math.max(MIN_ZOOM, Math.min(MAX_ZOOM, this.pinchZoom * scale));
+                    this.zoom = newZoom;
+                    
+                    // Adjust offset to zoom toward pinch center
+                    this.offset.x = centerX - worldX * this.zoom;
+                    this.offset.y = centerY - worldY * this.zoom;
+                    
+                    // Update zoom display
+                    document.getElementById('zoom-level').textContent = `${Math.round(this.zoom * 100)}%`;
+                    
+                    this.render();
+                    this.autosave();
+                    e.preventDefault();
                 }
             }
             
+            // Handle touch end event
+            handleTouchEnd(e) {
+                if (e.touches.length === 0) {
+                    this.handleMouseUp();
+                }
+            }
+            
+            // Calculate distance between two touch points
+            getPinchDistance(e) {
+                const touch1 = e.touches[0];
+                const touch2 = e.touches[1];
+                const dx = touch1.clientX - touch2.clientX;
+                const dy = touch1.clientY - touch2.clientY;
+                return Math.sqrt(dx * dx + dy * dy);
+            }
+            
+            // Handle keyboard events
             handleKeyDown(e) {
-                // Keyboard shortcuts
-                if (e.key === 'n') {
-                    this.addNode();
-                } else if (e.key === 'Delete' || e.key === 'Backspace') {
-                    if (this.selectedNodeId && !this.isEditingText()) {
-                        this.deleteSelectedNode();
-                    }
-                } else if (e.key === 'c') {
-                    if (this.selectedNodeId) {
-                        this.toggleConnectMode();
-                    }
-                } else if (e.key === ' ') {
+                // Delete key to remove selected node
+                if (e.key === 'Delete' && this.selectedNode) {
+                    this.deleteSelectedNode();
+                }
+                
+                // Escape key to cancel operations
+                if (e.key === 'Escape') {
+                    this.closeNodeEditor();
+                    this.closeFileMenu();
+                    this.hideContextMenu();
+                }
+                
+                // Space to center view
+                if (e.key === ' ' && !e.target.matches('input, textarea')) {
                     e.preventDefault();
                     this.centerView();
-                } else if (e.key === 'z' && (e.ctrlKey || e.metaKey)) {
-                    e.preventDefault();
-                    if (e.shiftKey) {
-                        this.redo();
-                    } else {
-                        this.undo();
-                    }
-                } else if ((e.key === 'y' && (e.ctrlKey || e.metaKey)) || 
-                          (e.key === 'Z' && (e.ctrlKey || e.metaKey) && e.shiftKey)) {
-                    e.preventDefault();
-                    this.redo();
                 }
             }
             
-            isEditingText() {
-                const activeElement = document.activeElement;
-                return activeElement && (activeElement.tagName === 'INPUT' || activeElement.tagName === 'TEXTAREA');
+            // Show context menu
+            showContextMenu(e) {
+                e.preventDefault();
+                
+                const pos = this.getCanvasPosition(e);
+                const node = this.getNodeAtPosition(pos.x, pos.y);
+                
+                // Store context position and node
+                this.contextPosition = { x: pos.x, y: pos.y };
+                this.contextNode = node;
+                
+                // Show/hide node-specific options
+                document.getElementById('context-edit-node').style.display = node ? 'flex' : 'none';
+                document.getElementById('context-delete-node').style.display = node ? 'flex' : 'none';
+                document.getElementById('context-add-child').style.display = node ? 'flex' : 'none';
+                
+                // Position and show menu
+                this.contextMenu.style.left = `${e.clientX}px`;
+                this.contextMenu.style.top = `${e.clientY}px`;
+                this.contextMenu.style.display = 'block';
             }
             
-            findNodeAt(x, y) {
-                if (!this.currentMindMap) return null;
+            // Hide context menu
+            hideContextMenu() {
+                this.contextMenu.style.display = 'none';
+            }
+            
+            // Context menu actions
+            contextAddNode() {
+                this.createRootNodeAt(this.contextPosition.x, this.contextPosition.y);
+                this.hideContextMenu();
+            }
+            
+            contextEditNode() {
+                if (this.contextNode) {
+                    this.editNode(this.contextNode);
+                }
+                this.hideContextMenu();
+            }
+            
+            contextDeleteNode() {
+                if (this.contextNode) {
+                    this.deleteNode(this.contextNode);
+                }
+                this.hideContextMenu();
+            }
+            
+            contextAddChildNode() {
+                if (this.contextNode) {
+                    this.addChildNode(this.contextNode);
+                }
+                this.hideContextMenu();
+            }
+            
+            contextCenterView() {
+                if (this.contextNode) {
+                    this.centerViewOnNode(this.contextNode);
+                } else {
+                    this.centerView();
+                }
+                this.hideContextMenu();
+            }
+            
+            // Set active tool
+            setTool(tool) {
+                this.activeTool = tool;
                 
-                // Search in reverse to find nodes that are rendered on top first
-                for (let i = this.currentMindMap.nodes.length - 1; i >= 0; i--) {
-                    const node = this.currentMindMap.nodes[i];
-                    const nodeElement = document.getElementById(`node-${node.id}`);
-                    if (nodeElement) {
-                        const rect = nodeElement.getBoundingClientRect();
-                        const nodeWidth = rect.width / this.scale;
-                        const nodeHeight = rect.height / this.scale;
+                // Update UI
+                document.querySelectorAll('.toolbar button').forEach(btn => {
+                    btn.classList.remove('active');
+                });
+                document.getElementById(`${tool}-tool`).classList.add('active');
+                
+                this.render();
+            }
+            
+            // Zoom in
+            zoomIn() {
+                const newZoom = Math.min(MAX_ZOOM, this.zoom + ZOOM_STEP);
+                if (newZoom !== this.zoom) {
+                    // Calculate center of screen
+                    const centerX = this.canvas.width / 2;
+                    const centerY = this.canvas.height / 2;
+                    
+                    // Calculate world position before zoom
+                    const worldX = (centerX - this.offset.x) / this.zoom;
+                    const worldY = (centerY - this.offset.y) / this.zoom;
+                    
+                    // Apply zoom
+                    this.zoom = newZoom;
+                    
+                    // Adjust offset to zoom toward center
+                    this.offset.x = centerX - worldX * this.zoom;
+                    this.offset.y = centerY - worldY * this.zoom;
+                    
+                    // Update zoom display
+                    document.getElementById('zoom-level').textContent = `${Math.round(this.zoom * 100)}%`;
+                    
+                    this.render();
+                    this.autosave();
+                }
+            }
+            
+            // Zoom out
+            zoomOut() {
+                const newZoom = Math.max(MIN_ZOOM, this.zoom - ZOOM_STEP);
+                if (newZoom !== this.zoom) {
+                    // Calculate center of screen
+                    const centerX = this.canvas.width / 2;
+                    const centerY = this.canvas.height / 2;
+                    
+                    // Calculate world position before zoom
+                    const worldX = (centerX - this.offset.x) / this.zoom;
+                    const worldY = (centerY - this.offset.y) / this.zoom;
+                    
+                    // Apply zoom
+                    this.zoom = newZoom;
+                    
+                    // Adjust offset to zoom toward center
+                    this.offset.x = centerX - worldX * this.zoom;
+                    this.offset.y = centerY - worldY * this.zoom;
+                    
+                    // Update zoom display
+                    document.getElementById('zoom-level').textContent = `${Math.round(this.zoom * 100)}%`;
+                    
+                    this.render();
+                    this.autosave();
+                }
+            }
+            
+            // Center view on canvas
+            centerView() {
+                if (this.nodes.length === 0) return;
+                
+                // Find bounding box of all nodes
+                let minX = Infinity, minY = Infinity, maxX = -Infinity, maxY = -Infinity;
+                
+                for (const node of this.nodes) {
+                    this.calculateNodeBounds(node, minX, minY, maxX, maxY);
+                }
+                
+                // Calculate center and dimensions
+                const centerX = (minX + maxX) / 2;
+                const centerY = (minY + maxY) / 2;
+                const width = maxX - minX;
+                const height = maxY - minY;
+                
+                // Calculate zoom to fit
+                const zoomX = this.canvas.width / (width * 1.5);
+                const zoomY = this.canvas.height / (height * 1.5);
+                this.zoom = Math.min(Math.min(zoomX, zoomY), MAX_ZOOM);
+                
+                // Center view
+                this.offset.x = this.canvas.width / 2 - centerX * this.zoom;
+                this.offset.y = this.canvas.height / 2 - centerY * this.zoom;
+                
+                // Update zoom display
+                document.getElementById('zoom-level').textContent = `${Math.round(this.zoom * 100)}%`;
+                
+                this.render();
+                this.autosave();
+                this.showToast('View centered', 'info');
+            }
+            
+            // Calculate node bounds recursively
+            calculateNodeBounds(node, minX, minY, maxX, maxY) {
+                minX = Math.min(minX, node.x - NODE_RADIUS);
+                minY = Math.min(minY, node.y - NODE_RADIUS);
+                maxX = Math.max(maxX, node.x + NODE_RADIUS);
+                maxY = Math.max(maxY, node.y + NODE_RADIUS);
+                
+                if (node.children) {
+                    for (const child of node.children) {
+                        this.calculateNodeBounds(child, minX, minY, maxX, maxY);
+                    }
+                }
+                
+                return { minX, minY, maxX, maxY };
+            }
+            
+            // Center view on specific node
+            centerViewOnNode(node) {
+                this.offset.x = this.canvas.width / 2 - node.x * this.zoom;
+                this.offset.y = this.canvas.height / 2 - node.y * this.zoom;
+                this.render();
+                this.autosave();
+            }
+            
+            // Create a new root node at position
+            createRootNodeAt(x, y) {
+                const node = {
+                    id: this.generateId(),
+                    title: 'New Node',
+                    content: '',
+                    x: x,
+                    y: y,
+                    color: '#4a6cff',
+                    isRoot: true,
+                    children: []
+                };
+                
+                this.nodes.push(node);
+                this.selectNode(node);
+                this.render();
+                this.autosave();
+                
+                // Automatically open editor for new node
+                this.editNode(node);
+                
+                return node;
+            }
+            
+            // Add a child node to a parent node
+            addChildNode(parentNode) {
+                if (!parentNode) return;
+                
+                // Calculate position for new child
+                const angle = this.getNextChildAngle(parentNode);
+                const distance = NODE_RADIUS * 3;
+                const childX = parentNode.x + Math.cos(angle) * distance;
+                const childY = parentNode.y + Math.sin(angle) * distance;
+                
+                const childNode = {
+                    id: this.generateId(),
+                    title: 'New Child',
+                    content: '',
+                    x: childX,
+                    y: childY,
+                    color: parentNode.color,
+                    parent: parentNode.id,
+                    children: []
+                };
+                
+                // Add child to parent's children array
+                if (!parentNode.children) {
+                    parentNode.children = [];
+                }
+                parentNode.children.push(childNode);
+                
+                this.selectNode(childNode);
+                this.render();
+                this.autosave();
+                
+                // Automatically open editor for new node
+                this.editNode(childNode);
+                
+                return childNode;
+            }
+            
+            // Calculate the next angle for a child node
+            getNextChildAngle(parentNode) {
+                if (!parentNode.children || parentNode.children.length === 0) {
+                    return 0; // First child at 0 degrees (right)
+                }
+                
+                // Distribute children evenly in a circle
+                const childCount = parentNode.children.length;
+                const angleStep = (Math.PI * 2) / (childCount + 1);
+                return angleStep * (childCount);
+            }
+            
+            // Select a node
+            selectNode(node) {
+                this.selectedNode = node;
+                this.render();
+            }
+            
+            // Edit a node
+            editNode(node) {
+                this.selectedNode = node;
+                
+                // Populate editor fields
+                document.getElementById('node-title').value = node.title || '';
+                document.getElementById('node-content').value = node.content || '';
+                
+                // Select the correct color
+                const colorOptions = document.querySelectorAll('.color-option');
+                colorOptions.forEach(option => {
+                    option.classList.remove('selected');
+                    if (option.dataset.color === node.color) {
+                        option.classList.add('selected');
+                    }
+                });
+                
+                // Show editor
+                this.nodeEditor.style.display = 'block';
+            }
+            
+            // Save node edit
+            saveNodeEdit() {
+                if (!this.selectedNode) return;
+                
+                const title = document.getElementById('node-title').value.trim();
+                if (!title) {
+                    this.showToast('Node title cannot be empty', 'error');
+                    return;
+                }
+                
+                this.selectedNode.title = title;
+                this.selectedNode.content = document.getElementById('node-content').value.trim();
+                
+                const selectedColor = document.querySelector('.color-option.selected');
+                if (selectedColor) {
+                    this.selectedNode.color = selectedColor.dataset.color;
+                }
+                
+                this.closeNodeEditor();
+                this.render();
+                this.autosave();
+                this.showToast('Node updated', 'success');
+            }
+            
+            // Close node editor
+            closeNodeEditor() {
+                this.nodeEditor.style.display = 'none';
+            }
+            
+            // Delete selected node
+            deleteSelectedNode() {
+                if (this.selectedNode) {
+                    this.deleteNode(this.selectedNode);
+                }
+            }
+            
+            // Delete a node and its children
+            deleteNode(node) {
+                // If it's a root node
+                if (node.isRoot) {
+                    this.nodes = this.nodes.filter(n => n.id !== node.id);
+                } else {
+                    // Find parent and remove from children
+                    for (const rootNode of this.nodes) {
+                        this.removeChildNodeRecursive(rootNode, node.id);
+                    }
+                }
+                
+                if (this.selectedNode === node) {
+                    this.selectedNode = null;
+                }
+                
+                this.closeNodeEditor();
+                this.render();
+                this.autosave();
+                this.showToast('Node deleted', 'info');
+            }
+            
+            // Recursively remove a child node by id
+            removeChildNodeRecursive(parentNode, nodeId) {
+                if (!parentNode.children) return false;
+                
+                // Check direct children
+                const index = parentNode.children.findIndex(child => child.id === nodeId);
+                if (index !== -1) {
+                    parentNode.children.splice(index, 1);
+                    return true;
+                }
+                
+                // Check children's children
+                for (const child of parentNode.children) {
+                    if (this.removeChildNodeRecursive(child, nodeId)) {
+                        return true;
+                    }
+                }
+                
+                return false;
+            }
+            
+            // Create a new map
+            newMap() {
+                // Autosave current map before creating new one
+                this.autosave(true);
+                
+                if (this.nodes.length > 0) {
+                    if (confirm('Create a new map? Your current map has been saved.')) {
+                        this.nodes = [];
+                        this.selectedNode = null;
+                        this.currentMapName = 'Autosaved Map';
+                        this.offset = { x: 0, y: 0 };
+                        this.zoom = 1;
+                        document.getElementById('zoom-level').textContent = '100%';
+                        this.createDefaultNode();
+                        this.render();
+                    }
+                } else {
+                    this.createDefaultNode();
+                }
+            }
+            
+            // Open load map dialog
+            openMapMenu() {
+                document.getElementById('file-menu-title').textContent = 'Open Mindmap';
+                document.getElementById('map-name').style.display = 'none';
+                document.getElementById('file-save-btn').style.display = 'none';
+                document.getElementById('saved-maps').style.display = 'block';
+                
+                // Populate saved maps
+                this.populateSavedMaps();
+                
+                this.fileMenu.style.display = 'block';
+            }
+            
+            // Populate saved maps list
+            populateSavedMaps() {
+                const savedMapsContainer = document.getElementById('saved-maps');
+                savedMapsContainer.innerHTML = '';
+                
+                // Get autosaved map
+                const autosaved = localStorage.getItem(LOCAL_STORAGE_KEY);
+                
+                // Get other saved maps
+                const savedMaps = JSON.parse(localStorage.getItem('cosmicMindmaps') || '[]');
+                
+                if (!autosaved && savedMaps.length === 0) {
+                    savedMapsContainer.innerHTML = '<p>No saved mindmaps found.</p>';
+                    return;
+                }
+                
+                // Add autosaved map first
+                if (autosaved) {
+                    try {
+                        const autosavedData = JSON.parse(autosaved);
+                        const mapItem = document.createElement('div');
+                        mapItem.className = 'saved-map-item';
                         
-                        if (x >= node.x && x <= node.x + nodeWidth &&
-                            y >= node.y && y <= node.y + nodeHeight) {
-                            return node;
-                        }
+                        const mapName = document.createElement('span');
+                        mapName.textContent = autosavedData.name || 'Autosaved Map';
+                        
+                        const loadBtn = document.createElement('button');
+                        loadBtn.textContent = 'Load';
+                        loadBtn.className = 'save-btn';
+                        loadBtn.addEventListener('click', () => this.loadAutosavedMap());
+                        
+                        mapItem.appendChild(mapName);
+                        mapItem.appendChild(loadBtn);
+                        
+                        savedMapsContainer.appendChild(mapItem);
+                    } catch (e) {
+                        console.error('Error parsing autosaved map:', e);
+                    }
+                }
+                
+                // Add other saved maps
+                savedMaps.forEach(map => {
+                    const mapItem = document.createElement('div');
+                    mapItem.className = 'saved-map-item';
+                    
+                    const mapName = document.createElement('span');
+                    mapName.textContent = map.name;
+                    
+                    const loadBtn = document.createElement('button');
+                    loadBtn.textContent = 'Load';
+                    loadBtn.className = 'save-btn';
+                    loadBtn.addEventListener('click', () => this.loadMap(map));
+                    
+                    const deleteBtn = document.createElement('button');
+                    deleteBtn.textContent = 'Delete';
+                    deleteBtn.className = 'delete-btn';
+                    deleteBtn.addEventListener('click', (e) => {
+                        e.stopPropagation();
+                        this.deleteMap(map.name);
+                    });
+                    
+                    mapItem.appendChild(mapName);
+                    mapItem.appendChild(loadBtn);
+                    mapItem.appendChild(deleteBtn);
+                    
+                    savedMapsContainer.appendChild(mapItem);
+                });
+            }
+            
+            // Load a map
+            loadMap(mapData) {
+                // Autosave current map before loading
+                this.autosave(true);
+                
+                this.nodes = mapData.nodes;
+                this.currentMapName = mapData.name;
+                this.selectedNode = null;
+                
+                this.closeFileMenu();
+                this.centerView();
+                this.autosave();
+                this.showToast(`Mindmap "${mapData.name}" loaded successfully`, 'success');
+            }
+            
+            // Delete a saved map
+            deleteMap(name) {
+                if (confirm(`Are you sure you want to delete the mindmap "${name}"?`)) {
+                    let savedMaps = JSON.parse(localStorage.getItem('cosmicMindmaps') || '[]');
+                    savedMaps = savedMaps.filter(map => map.name !== name);
+                    localStorage.setItem('cosmicMindmaps', JSON.stringify(savedMaps));
+                    
+                    this.populateSavedMaps();
+                    this.showToast(`Mindmap "${name}" deleted`, 'info');
+                }
+            }
+            
+            // Close file menu
+            closeFileMenu() {
+                this.fileMenu.style.display = 'none';
+            }
+            
+            // Export mindmap as image
+            exportAsImage() {
+                // Create a temporary canvas for export
+                const exportCanvas = document.createElement('canvas');
+                const ctx = exportCanvas.getContext('2d');
+                
+                // Find bounding box of all nodes
+                let bounds = { minX: Infinity, minY: Infinity, maxX: -Infinity, maxY: -Infinity };
+                
+                for (const node of this.nodes) {
+                    this.calculateNodeBoundsForExport(node, bounds);
+                }
+                
+                // Add padding
+                const padding = NODE_RADIUS * 2;
+                bounds.minX -= padding;
+                bounds.minY -= padding;
+                bounds.maxX += padding;
+                bounds.maxY += padding;
+                
+                // Set canvas size
+                const width = bounds.maxX - bounds.minX;
+                const height = bounds.maxY - bounds.minY;
+                exportCanvas.width = width;
+                exportCanvas.height = height;
+                
+                // Fill background
+                ctx.fillStyle = '#050520';
+                ctx.fillRect(0, 0, width, height);
+                
+                // Draw Mars background
+                const marsImg = new Image();
+                marsImg.onload = () => {
+                    // Draw Mars with opacity
+                    ctx.globalAlpha = 0.3;
+                    ctx.drawImage(marsImg, 0, 0, width, height);
+                    ctx.globalAlpha = 1;
+                    
+                    // Draw stars
+                    ctx.fillStyle = 'rgba(255, 255, 255, 0.5)';
+                    for (let i = 0; i < width * height / 1000; i++) {
+                        const x = Math.random() * width;
+                        const y = Math.random() * height;
+                        const radius = Math.random() * 1.5;
+                        ctx.beginPath();
+                        ctx.arc(x, y, radius, 0, Math.PI * 2);
+                        ctx.fill();
+                    }
+                    
+                    // Draw nodes and connections
+                    for (const node of this.nodes) {
+                        this.drawNodeForExport(ctx, node, bounds);
+                    }
+                    
+                    // Add title
+                    ctx.font = 'bold 20px Arial';
+                    ctx.fillStyle = '#ffffff';
+                    ctx.textAlign = 'center';
+                    ctx.fillText(this.currentMapName, width / 2, 30);
+                    
+                    // Create download link
+                    const link = document.createElement('a');
+                    link.download = `${this.currentMapName.replace(/\s+/g, '-')}.png`;
+                    link.href = exportCanvas.toDataURL('image/png');
+                    link.click();
+                    
+                    this.showToast('Mindmap exported as image', 'success');
+                };
+                
+                // Try to load Mars image
+                marsImg.onerror = () => {
+                    // Fallback to generated Mars
+                    marsImg.src = 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI1MDAiIGhlaWdodD0iNTAwIiB2aWV3Qm94PSIwIDAgNTAwIDUwMCI+CiAgPGNpcmNsZSBjeD0iMjUwIiBjeT0iMjUwIiByPSIyMDAiIGZpbGw9IiNlMjcyM2IiLz4KICA8Y2lyY2xlIGN4PSIxNzAiIGN5PSIxODAiIHI9IjQwIiBmaWxsPSIjYzQ1MDIzIi8+CiAgPGNpcmNsZSBjeD0iMzMwIiBjeT0iMjgwIiByPSI2MCIgZmlsbD0iI2M0NTAyMyIvPgogIDxjaXJjbGUgY3g9IjI0MCIgY3k9IjM0MCIgcj0iMzAiIGZpbGw9IiNjNDUwMjMiLz4KICA8Y2lyY2xlIGN4PSIyODAiIGN5PSIxNTAiIHI9IjUwIiBmaWxsPSIjYzQ1MDIzIi8+Cjwvc3ZnPg==';
+                };
+                marsImg.src = 'mars.png';
+            }
+            
+            // Calculate node bounds for export
+            calculateNodeBoundsForExport(node, bounds) {
+                bounds.minX = Math.min(bounds.minX, node.x - NODE_RADIUS);
+                bounds.minY = Math.min(bounds.minY, node.y - NODE_RADIUS);
+                bounds.maxX = Math.max(bounds.maxX, node.x + NODE_RADIUS);
+                bounds.maxY = Math.max(bounds.maxY, node.y + NODE_RADIUS);
+                
+                if (node.children) {
+                    for (const child of node.children) {
+                        this.calculateNodeBoundsForExport(child, bounds);
+                    }
+                }
+            }
+            
+            // Draw node for export
+            drawNodeForExport(ctx, node, bounds) {
+                // Draw connections to children
+                if (node.children && node.children.length > 0) {
+                    for (const child of node.children) {
+                        // Draw connection line
+                        ctx.beginPath();
+                        
+                        const startX = node.x - bounds.minX;
+                        const startY = node.y - bounds.minY;
+                        const endX = child.x - bounds.minX;
+                        const endY = child.y - bounds.minY;
+                        
+                        // Draw curved connection line
+                        const midX = (startX + endX) / 2;
+                        const midY = (startY + endY) / 2;
+                        const controlX = midX;
+                        const controlY = midY - 30;
+                        
+                        ctx.moveTo(startX, startY);
+                        ctx.quadraticCurveTo(controlX, controlY, endX, endY);
+                        
+                        ctx.strokeStyle = node.color || '#4a6cff';
+                        ctx.lineWidth = CONNECTION_WIDTH;
+                        ctx.stroke();
+                        
+                        // Draw child node
+                        this.drawNodeForExport(ctx, child, bounds);
+                    }
+                }
+                
+                // Draw improved node design
+                const x = node.x - bounds.minX;
+                const y = node.y - bounds.minY;
+                
+                // Draw glow effect
+                const gradient = ctx.createRadialGradient(x, y, NODE_RADIUS * 0.7, x, y, NODE_RADIUS * 1.3);
+                gradient.addColorStop(0, node.color || '#4a6cff');
+                gradient.addColorStop(1, 'rgba(0,0,0,0)');
+                
+                ctx.beginPath();
+                ctx.arc(x, y, NODE_RADIUS * 1.3, 0, Math.PI * 2);
+                ctx.fillStyle = gradient;
+                ctx.fill();
+                
+                // Draw node circle with gradient
+                const nodeGradient = ctx.createRadialGradient(x, y, 0, x, y, NODE_RADIUS);
+                const color = node.color || '#4a6cff';
+                const lighterColor = this.lightenColor(color, 30);
+                nodeGradient.addColorStop(0, lighterColor);
+                nodeGradient.addColorStop(1, color);
+                
+                ctx.beginPath();
+                ctx.arc(x, y, NODE_RADIUS, 0, Math.PI * 2);
+                ctx.fillStyle = nodeGradient;
+                ctx.fill();
+                
+                // Add subtle border
+                ctx.beginPath();
+                ctx.arc(x, y, NODE_RADIUS, 0, Math.PI * 2);
+                ctx.strokeStyle = 'rgba(255, 255, 255, 0.3)';
+                ctx.lineWidth = 2;
+                ctx.stroke();
+                
+                // Draw node title with better text rendering
+                ctx.font = 'bold 16px Arial';
+                ctx.fillStyle = '#ffffff';
+                ctx.textAlign = 'center';
+                ctx.textBaseline = 'middle';
+                
+                // Wrap text if needed
+                const words = node.title.split(' ');
+                let line = '';
+                let lineY = y - 10;
+                const maxWidth = NODE_RADIUS * 1.6;
+                
+                for (let i = 0; i < words.length; i++) {
+                    const testLine = line + words[i] + ' ';
+                    const metrics = ctx.measureText(testLine);
+                    const testWidth = metrics.width;
+                    
+                    if (testWidth > maxWidth && i > 0) {
+                        ctx.fillText(line, x, lineY);
+                        line = words[i] + ' ';
+                        lineY += 20;
+                    } else {
+                        line = testLine;
+                    }
+                }
+                
+                ctx.fillText(line, x, lineY);
+                
+                // Draw content preview if available
+                if (node.content && node.content.trim().length > 0) {
+                    ctx.font = '12px Arial';
+                    ctx.fillStyle = 'rgba(255, 255, 255, 0.7)';
+                    
+                    const contentPreview = node.content.length > 20 
+                        ? node.content.substring(0, 20) + '...' 
+                        : node.content;
+                    
+                    ctx.fillText(contentPreview, x, y + 15);
+                }
+            }
+            
+            // Show help modal
+            showHelpModal() {
+                this.helpModal.style.display = 'block';
+            }
+            
+            // Close help modal
+            closeHelpModal() {
+                this.helpModal.style.display = 'none';
+            }
+            
+            // Show toast notification
+            showToast(message, type = 'info') {
+                const toast = document.getElementById('toast');
+                toast.textContent = message;
+                toast.className = `toast ${type}`;
+                toast.classList.add('show');
+                
+                setTimeout(() => {
+                    toast.classList.remove('show');
+                }, 3000);
+            }
+            
+            // Get canvas position from mouse event
+            getCanvasPosition(e) {
+                const rect = this.canvas.getBoundingClientRect();
+                const x = (e.clientX - rect.left - this.offset.x) / this.zoom;
+                const y = (e.clientY - rect.top - this.offset.y) / this.zoom;
+                return { x, y };
+            }
+            
+            // Get node at position
+            getNodeAtPosition(x, y) {
+                // Check root nodes first
+                for (let i = this.nodes.length - 1; i >= 0; i--) {
+                    const node = this.nodes[i];
+                    const found = this.findNodeAtPositionRecursive(node, x, y);
+                    if (found) return found;
+                }
+                return null;
+            }
+            
+            // Recursively find node at position
+            findNodeAtPositionRecursive(node, x, y) {
+                // Check if point is within this node
+                const dx = node.x - x;
+                const dy = node.y - y;
+                const distance = Math.sqrt(dx * dx + dy * dy);
+                
+                if (distance <= NODE_RADIUS) {
+                    return node;
+                }
+                
+                // Check children
+                if (node.children) {
+                    for (let i = node.children.length - 1; i >= 0; i--) {
+                        const found = this.findNodeAtPositionRecursive(node.children[i], x, y);
+                        if (found) return found;
                     }
                 }
                 
                 return null;
             }
             
-            selectNode(nodeId) {
-                // Deselect previous node
-                if (this.selectedNodeId) {
-                    const prevNode = document.getElementById(`node-${this.selectedNodeId}`);
-                    if (prevNode) {
-                        prevNode.classList.remove('selected');
-                    }
-                }
-                
-                this.selectedNodeId = nodeId;
-                
-                // Select new node
-                if (nodeId) {
-                    const node = document.getElementById(`node-${nodeId}`);
-                    if (node) {
-                        node.classList.add('selected');
-                    }
+            // Get child button at position
+            getChildButtonAtPosition(x, y) {
+                for (const btn of this.childButtons) {
+                    const dx = btn.x - x;
+                    const dy = btn.y - y;
+                    const distance = Math.sqrt(dx * dx + dy * dy);
                     
-                    // If in connect mode, set as source
-                    if (this.connectMode && !this.connectSourceId) {
-                        this.connectSourceId = nodeId;
+                    if (distance <= CHILD_BUTTON_RADIUS) {
+                        return btn;
                     }
                 }
+                return null;
             }
             
-            addNode(x, y) {
-                if (!this.currentMindMap) return;
+            // Generate unique ID
+            generateId() {
+                return Date.now().toString(36) + Math.random().toString(36).substr(2);
+            }
+            
+            // Lighten a color by percentage
+            lightenColor(color, percent) {
+                const num = parseInt(color.replace('#', ''), 16),
+                      amt = Math.round(2.55 * percent),
+                      R = (num >> 16) + amt,
+                      G = (num >> 8 & 0x00FF) + amt,
+                      B = (num & 0x0000FF) + amt;
                 
-                // Default position in center if not specified
-                if (x === undefined || y === undefined) {
-                    const rect = this.canvas.getBoundingClientRect();
-                    x = rect.width / 2 / this.scale - this.canvasOffset.x;
-                    y = rect.height / 2 / this.scale - this.canvasOffset.y;
+                return '#' + (0x1000000 + (R < 255 ? R < 1 ? 0 : R : 255) * 0x10000 +
+                    (G < 255 ? G < 1 ? 0 : G : 255) * 0x100 +
+                    (B < 255 ? B < 1 ? 0 : B : 255)).toString(16).slice(1);
+            }
+            
+            // Render the mindmap
+            render() {
+                this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+                this.childButtons = []; // Reset child buttons
+                
+                // Draw all root nodes
+                for (const node of this.nodes) {
+                    this.renderNodeAndChildren(node);
                 }
                 
-                const newNode = {
-                    id: this.generateId(),
-                    text: 'New Node',
-                    x: x,
-                    y: y,
-                    connections: [],
-                    style: this.defaultNodeStyle,
-                    color: this.defaultNodeColor
-                };
-                
-                this.currentMindMap.nodes.push(newNode);
-                this.saveHistoryState();
-                this.renderMindMap();
-                this.selectNode(newNode.id);
-                this.editNode(newNode.id);
-                
-                return newNode;
-            }
-            
-            addChildNode() {
-                if (!this.selectedNodeId || !this.currentMindMap) return;
-                
-                const parentNode = this.getNodeById(this.selectedNodeId);
-                if (!parentNode) return;
-                
-                // Position the child node to the right of the parent
-                const childX = parentNode.x + 180;
-                const childY = parentNode.y;
-                
-                const childNode = this.addNode(childX, childY);
-                if (childNode) {
-                    this.connectNodes(parentNode.id, childNode.id);
+                // Draw add child buttons for hovered or selected node
+                if (this.hoveredNode || this.selectedNode) {
+                    const node = this.hoveredNode || this.selectedNode;
+                    this.drawAddChildButton(node);
                 }
             }
             
-            editNode(nodeId) {
-                const node = this.getNodeById(nodeId);
+            // Render a node and all its children
+            renderNodeAndChildren(node) {
+                // Draw connections to children first
+                if (node.children && node.children.length > 0) {
+                    for (const child of node.children) {
+                        // Draw connection line
+                        this.ctx.beginPath();
+                        const startX = node.x * this.zoom + this.offset.x;
+                        const startY = node.y * this.zoom + this.offset.y;
+                        const endX = child.x * this.zoom + this.offset.x;
+                        const endY = child.y * this.zoom + this.offset.y;
+                        
+                        // Draw curved connection line
+                        const midX = (startX + endX) / 2;
+                        const midY = (startY + endY) / 2;
+                        const controlX = midX;
+                        const controlY = midY - 30 * this.zoom;
+                        
+                        this.ctx.moveTo(startX, startY);
+                        this.ctx.quadraticCurveTo(controlX, controlY, endX, endY);
+                        
+                        this.ctx.strokeStyle = node.color || '#4a6cff';
+                        this.ctx.lineWidth = CONNECTION_WIDTH * this.zoom;
+                        this.ctx.stroke();
+                        
+                        // Draw child node
+                        this.renderNodeAndChildren(child);
+                    }
+                }
+                
+                // Draw node
+                this.drawImprovedNode(node);
+            }
+            
+            // Draw improved node design
+            drawImprovedNode(node) {
+                const x = node.x * this.zoom + this.offset.x;
+                const y = node.y * this.zoom + this.offset.y;
+                const radius = NODE_RADIUS * this.zoom;
+                
+                // Draw glow effect
+                if (node === this.selectedNode || node === this.hoveredNode) {
+                    const gradient = this.ctx.createRadialGradient(x, y, radius * 0.7, x, y, radius * 1.3);
+                    gradient.addColorStop(0, node.color || '#4a6cff');
+                    gradient.addColorStop(1, 'rgba(0,0,0,0)');
+                    
+                    this.ctx.beginPath();
+                    this.ctx.arc(x, y, radius * 1.3, 0, Math.PI * 2);
+                    this.ctx.fillStyle = gradient;
+                    this.ctx.fill();
+                }
+                
+                // Draw node circle with gradient
+                const nodeGradient = this.ctx.createRadialGradient(x, y, 0, x, y, radius);
+                const color = node.color || '#4a6cff';
+                const lighterColor = this.lightenColor(color, 30);
+                nodeGradient.addColorStop(0, lighterColor);
+                nodeGradient.addColorStop(1, color);
+                
+                this.ctx.beginPath();
+                this.ctx.arc(x, y, radius, 0, Math.PI * 2);
+                this.ctx.fillStyle = nodeGradient;
+                this.ctx.fill();
+                
+                // Add subtle border
+                this.ctx.beginPath();
+                this.ctx.arc(x, y, radius, 0, Math.PI * 2);
+                this.ctx.strokeStyle = 'rgba(255, 255, 255, 0.3)';
+                this.ctx.lineWidth = 2 * this.zoom;
+                this.ctx.stroke();
+                
+                // Draw selection indicator
+                if (node === this.selectedNode) {
+                    this.ctx.beginPath();
+                    this.ctx.arc(x, y, radius + 5 * this.zoom, 0, Math.PI * 2);
+                    this.ctx.strokeStyle = '#ffffff';
+                    this.ctx.lineWidth = 2 * this.zoom;
+                    this.ctx.stroke();
+                }
+                
+                // Draw node title with better text rendering
+                this.ctx.font = `bold ${16 * this.zoom}px Arial`;
+                this.ctx.fillStyle = '#ffffff';
+                this.ctx.textAlign = 'center';
+                this.ctx.textBaseline = 'middle';
+                
+                // Wrap text if needed
+                const words = node.title.split(' ');
+                let line = '';
+                let lineY = y - 10 * this.zoom;
+                const maxWidth = radius * 1.6;
+                
+                for (let i = 0; i < words.length; i++) {
+                    const testLine = line + words[i] + ' ';
+                    const metrics = this.ctx.measureText(testLine);
+                    const testWidth = metrics.width;
+                    
+                    if (testWidth > maxWidth && i > 0) {
+                        this.ctx.fillText(line, x, lineY);
+                        line = words[i] + ' ';
+                        lineY += 20 * this.zoom;
+                    } else {
+                        line = testLine;
+                    }
+                }
+                
+                this.ctx.fillText(line, x, lineY);
+                
+                // Draw content preview if available
+                if (node.content && node.content.trim().length > 0) {
+                    this.ctx.font = `${12 * this.zoom}px Arial`;
+                    this.ctx.fillStyle = 'rgba(255, 255, 255, 0.7)';
+                    
+                    const contentPreview = node.content.length > 20 
+                        ? node.content.substring(0, 20) + '...' 
+                        : node.content;
+                    
+                    this.ctx.fillText(contentPreview, x, y + 15 * this.zoom);
+                }
+            }
+            
+            // Draw add child button
+            drawAddChildButton(node) {
                 if (!node) return;
                 
-                const nodeElement = document.getElementById(`node-${nodeId}`);
-                if (!nodeElement) return;
+                const nodeX = node.x * this.zoom + this.offset.x;
+                const nodeY = node.y * this.zoom + this.offset.y;
+                const nodeRadius = NODE_RADIUS * this.zoom;
                 
-                const textArea = nodeElement.querySelector('.node-text');
-                if (textArea) {
-                    textArea.focus();
-                    textArea.select();
-                }
-            }
-            
-            editSelectedNode() {
-                if (this.selectedNodeId) {
-                    this.editNode(this.selectedNodeId);
-                }
-            }
-            
-            deleteSelectedNode() {
-                if (!this.selectedNodeId || !this.currentMindMap) return;
+                // Position button at the right edge of the node
+                const btnX = nodeX + nodeRadius + 5;
+                const btnY = nodeY;
                 
-                const nodeIndex = this.currentMindMap.nodes.findIndex(n => n.id === this.selectedNodeId);
-                if (nodeIndex === -1) return;
+                // Draw button with gradient
+                const gradient = this.ctx.createRadialGradient(btnX, btnY, 0, btnX, btnY, CHILD_BUTTON_RADIUS);
+                gradient.addColorStop(0, '#ffffff');
+                gradient.addColorStop(1, node.color || '#4a6cff');
                 
-                // Remove connections to this node
-                this.currentMindMap.nodes.forEach(node => {
-                    node.connections = node.connections.filter(conn => conn !== this.selectedNodeId);
+                this.ctx.beginPath();
+                this.ctx.arc(btnX, btnY, CHILD_BUTTON_RADIUS, 0, Math.PI * 2);
+                this.ctx.fillStyle = gradient;
+                this.ctx.fill();
+                
+                // Add subtle shadow
+                this.ctx.shadowColor = 'rgba(0, 0, 0, 0.5)';
+                this.ctx.shadowBlur = 5;
+                this.ctx.shadowOffsetX = 2;
+                this.ctx.shadowOffsetY = 2;
+                this.ctx.stroke();
+                this.ctx.shadowColor = 'transparent';
+                
+                // Draw plus sign
+                this.ctx.beginPath();
+                this.ctx.moveTo(btnX - 5, btnY);
+                this.ctx.lineTo(btnX + 5, btnY);
+                this.ctx.moveTo(btnX, btnY - 5);
+                this.ctx.lineTo(btnX, btnY + 5);
+                this.ctx.strokeStyle = '#ffffff';
+                this.ctx.lineWidth = 2;
+                this.ctx.stroke();
+                
+                // Store button for hit testing
+                this.childButtons.push({
+                    x: btnX,
+                    y: btnY,
+                    parentNode: node
                 });
-                
-                // Remove the node
-                this.currentMindMap.nodes.splice(nodeIndex, 1);
-                this.selectedNodeId = null;
-                
-                this.saveHistoryState();
-                this.renderMindMap();
-                this.showToast('Node deleted', 'success');
-            }
-            
-            connectNodes(sourceId, targetId) {
-                if (!this.currentMindMap) return;
-                
-                const sourceNode = this.getNodeById(sourceId);
-                if (!sourceNode) return;
-                
-                // Check if connection already exists
-                if (!sourceNode.connections.includes(targetId)) {
-                    sourceNode.connections.push(targetId);
-                    this.saveHistoryState();
-                    this.renderMindMap();
-                    this.showToast('Nodes connected', 'success');
-                }
-            }
-            
-            toggleConnectMode() {
-                this.connectMode = !this.connectMode;
-                const connectBtn = document.getElementById('connect-btn');
-                
-                if (this.connectMode) {
-                    connectBtn.classList.add('active');
-                    this.connectSourceId = this.selectedNodeId;
-                    this.showToast('Select another node to connect', 'info');
-                } else {
-                    connectBtn.classList.remove('active');
-                    this.connectSourceId = null;
-                }
-            }
-            
-            centerView() {
-                if (!this.currentMindMap || this.currentMindMap.nodes.length === 0) {
-                    this.canvasOffset.x = 0;
-                    this.canvasOffset.y = 0;
-                    this.renderMindMap();
-                    return;
-                }
-                
-                // Calculate bounding box of all nodes
-                let minX = Infinity, minY = Infinity, maxX = -Infinity, maxY = -Infinity;
-                
-                this.currentMindMap.nodes.forEach(node => {
-                    const nodeElement = document.getElementById(`node-${node.id}`);
-                    if (nodeElement) {
-                        const rect = nodeElement.getBoundingClientRect();
-                        const nodeWidth = rect.width / this.scale;
-                        const nodeHeight = rect.height / this.scale;
-                        
-                        minX = Math.min(minX, node.x);
-                        minY = Math.min(minY, node.y);
-                        maxX = Math.max(maxX, node.x + nodeWidth);
-                        maxY = Math.max(maxY, node.y + nodeHeight);
-                    } else {
-                        minX = Math.min(minX, node.x);
-                        minY = Math.min(minY, node.y);
-                        maxX = Math.max(maxX, node.x + 150); // Estimate width
-                        maxY = Math.max(maxY, node.y + 50);  // Estimate height
-                    }
-                });
-                
-                // Center the bounding box
-                const canvasRect = this.canvas.getBoundingClientRect();
-                const centerX = (minX + maxX) / 2;
-                const centerY = (minY + maxY) / 2;
-                
-                this.canvasOffset.x = canvasRect.width / 2 / this.scale - centerX;
-                this.canvasOffset.y = canvasRect.height / 2 / this.scale - centerY;
-                
-                this.renderMindMap();
-            }
-            
-            zoom(delta) {
-                const prevScale = this.scale;
-                this.scale = Math.max(0.2, Math.min(3, this.scale + delta));
-                
-                // Update zoom level display
-                document.querySelector('.zoom-level').textContent = `${Math.round(this.scale * 100)}%`;
-                
-                // Adjust offset to zoom toward center
-                const canvasRect = this.canvas.getBoundingClientRect();
-                const centerX = canvasRect.width / 2;
-                const centerY = canvasRect.height / 2;
-                
-                const worldCenterX = centerX / prevScale - this.canvasOffset.x;
-                const worldCenterY = centerY / prevScale - this.canvasOffset.y;
-                
-                const newWorldCenterX = centerX / this.scale - this.canvasOffset.x;
-                const newWorldCenterY = centerY / this.scale - this.canvasOffset.y;
-                
-                this.canvasOffset.x += (newWorldCenterX - worldCenterX);
-                this.canvasOffset.y += (newWorldCenterY - worldCenterY);
-                
-                this.renderMindMap();
-            }
-            
-            renderMindMap() {
-                if (!this.currentMindMap) return;
-                
-                // Clear canvas
-                this.canvas.innerHTML = '';
-                
-                // Apply transform for pan and zoom
-                this.canvas.style.transform = `scale(${this.scale})`;
-                
-                // Render connections first (so they appear behind nodes)
-                this.currentMindMap.nodes.forEach(node => {
-                    node.connections.forEach(targetId => {
-                        this.renderConnection(node.id, targetId);
-                    });
-                });
-                
-                // Render nodes
-                this.currentMindMap.nodes.forEach(node => {
-                    this.renderNode(node);
-                });
-            }
-            
-            renderNode(node) {
-                const nodeElement = document.createElement('div');
-                nodeElement.id = `node-${node.id}`;
-                nodeElement.className = `node ${node.style || 'default'}`;
-                nodeElement.style.left = `${node.x + this.canvasOffset.x}px`;
-                nodeElement.style.top = `${node.y + this.canvasOffset.y}px`;
-                
-                if (node.color) {
-                    if (node.style === 'jupiter-theme') {
-                        nodeElement.style.boxShadow = `0 0 20px ${node.color}80`;
-                    } else {
-                        nodeElement.style.backgroundColor = `${node.color}cc`;
-                    }
-                }
-                
-                if (this.selectedNodeId === node.id) {
-                    nodeElement.classList.add('selected');
-                }
-                
-                // Node controls
-                const controls = document.createElement('div');
-                controls.className = 'node-controls';
-                
-                const addBtn = document.createElement('button');
-                addBtn.className = 'node-control-btn';
-                addBtn.innerHTML = '+';
-                addBtn.title = 'Add Child Node';
-                addBtn.addEventListener('click', (e) => {
-                    e.stopPropagation();
-                    this.selectNode(node.id);
-                    this.addChildNode();
-                });
-                
-                const connectBtn = document.createElement('button');
-                connectBtn.className = 'node-control-btn';
-                connectBtn.innerHTML = '↔';
-                connectBtn.title = 'Connect Nodes';
-                connectBtn.addEventListener('click', (e) => {
-                    e.stopPropagation();
-                    this.selectNode(node.id);
-                    this.toggleConnectMode();
-                });
-                
-                const deleteBtn = document.createElement('button');
-                deleteBtn.className = 'node-control-btn';
-                deleteBtn.innerHTML = '×';
-                deleteBtn.title = 'Delete Node';
-                deleteBtn.addEventListener('click', (e) => {
-                    e.stopPropagation();
-                    this.selectNode(node.id);
-                    this.deleteSelectedNode();
-                });
-                
-                controls.appendChild(addBtn);
-                controls.appendChild(connectBtn);
-                controls.appendChild(deleteBtn);
-                nodeElement.appendChild(controls);
-                
-                // Node text
-                const textArea = document.createElement('textarea');
-                textArea.className = 'node-text';
-                textArea.value = node.text || '';
-                textArea.rows = 1;
-                
-                // Auto-resize textarea
-                const resizeTextarea = () => {
-                    textArea.style.height = 'auto';
-                    textArea.style.height = `${textArea.scrollHeight}px`;
-                };
-                
-                textArea.addEventListener('input', () => {
-                    node.text = textArea.value;
-                    resizeTextarea();
-                });
-                
-                textArea.addEventListener('focus', (e) => {
-                    e.stopPropagation();
-                    this.selectNode(node.id);
-                });
-                
-                textArea.addEventListener('blur', () => {
-                    this.saveHistoryState();
-                });
-                
-                textArea.addEventListener('keydown', (e) => {
-                    if (e.key === 'Enter' && !e.shiftKey) {
-                        e.preventDefault();
-                        textArea.blur();
-                    }
-                });
-                
-                nodeElement.appendChild(textArea);
-                this.canvas.appendChild(nodeElement);
-                
-                // Resize textarea initially
-                setTimeout(resizeTextarea, 0);
-            }
-            
-            renderConnection(sourceId, targetId) {
-                const sourceNode = this.getNodeById(sourceId);
-                const targetNode = this.getNodeById(targetId);
-                
-                if (!sourceNode || !targetNode) return;
-                
-                // Wait for nodes to be rendered
-                setTimeout(() => {
-                    const sourceElement = document.getElementById(`node-${sourceId}`);
-                    const targetElement = document.getElementById(`node-${targetId}`);
-                    
-                    if (!sourceElement || !targetElement) return;
-                    
-                    const sourceRect = sourceElement.getBoundingClientRect();
-                    const targetRect = targetElement.getBoundingClientRect();
-                    
-                    // Calculate center points
-                    const sourceX = sourceNode.x + sourceRect.width / (2 * this.scale) + this.canvasOffset.x;
-                    const sourceY = sourceNode.y + sourceRect.height / (2 * this.scale) + this.canvasOffset.y;
-                    const targetX = targetNode.x + targetRect.width / (2 * this.scale) + this.canvasOffset.x;
-                    const targetY = targetNode.y + targetRect.height / (2 * this.scale) + this.canvasOffset.y;
-                    
-                    // Calculate distance and angle
-                    const dx = targetX - sourceX;
-                    const dy = targetY - sourceY;
-                    const distance = Math.sqrt(dx * dx + dy * dy);
-                    const angle = Math.atan2(dy, dx) * 180 / Math.PI;
-                    
-                    // Create connection element
-                    const connection = document.createElement('div');
-                    connection.className = 'connection';
-                    connection.style.width = `${distance}px`;
-                    connection.style.left = `${sourceX}px`;
-                    connection.style.top = `${sourceY}px`;
-                    connection.style.transform = `rotate(${angle}deg)`;
-                    
-                    this.canvas.appendChild(connection);
-                }, 0);
-            }
-            
-            getNodeById(id) {
-                if (!this.currentMindMap) return null;
-                return this.currentMindMap.nodes.find(node => node.id === id);
-            }
-            
-            generateId() {
-                return Date.now().toString(36) + Math.random().toString(36).substr(2, 5);
-            }
-            
-            createNewMindMap(name) {
-                const newMindMap = {
-                    id: this.generateId(),
-                    name: name || 'Untitled Mind Map',
-                    createdAt: new Date().toISOString(),
-                    nodes: []
-                };
-                
-                this.mindMaps.push(newMindMap);
-                this.saveMindMaps();
-                this.switchToMindMap(newMindMap.id);
-                this.updateMindMapList();
-                
-                return newMindMap;
-            }
-            
-            createNewMindMapFromInput() {
-                const input = document.getElementById('new-map-name');
-                const name = input.value.trim() || 'Untitled Mind Map';
-                
-                this.createNewMindMap(name);
-                input.value = '';
-                this.showToast(`Created "${name}"`, 'success');
-            }
-            
-            switchToMindMap(id) {
-                const mindMap = this.mindMaps.find(map => map.id === id);
-                if (!mindMap) return;
-                
-                this.currentMindMapId = id;
-                this.currentMindMap = mindMap;
-                this.selectedNodeId = null;
-                this.history = [];
-                this.historyIndex = -1;
-                this.saveHistoryState();
-                
-                this.updateMindMapList();
-                this.renderMindMap();
-                this.centerView();
-            }
-            
-            deleteMindMap(id) {
-                const index = this.mindMaps.findIndex(map => map.id === id);
-                if (index === -1) return;
-                
-                const name = this.mindMaps[index].name;
-                this.mindMaps.splice(index, 1);
-                this.saveMindMaps();
-                
-                // If we deleted the current mind map, switch to another one
-                if (this.currentMindMapId === id) {
-                    if (this.mindMaps.length > 0) {
-                        this.switchToMindMap(this.mindMaps[0].id);
-                    } else {
-                        this.createNewMindMap('My Mind Map');
-                    }
-                }
-                
-                this.updateMindMapList();
-                this.showToast(`Deleted "${name}"`, 'success');
-            }
-            
-            renameMindMap(id, newName) {
-                const mindMap = this.mindMaps.find(map => map.id === id);
-                if (!mindMap) return;
-                
-                const oldName = mindMap.name;
-                mindMap.name = newName || 'Untitled Mind Map';
-                this.saveMindMaps();
-                this.updateMindMapList();
-                this.showToast(`Renamed "${oldName}" to "${mindMap.name}"`, 'success');
-            }
-            
-            updateMindMapList() {
-                const list = document.getElementById('mindmap-list');
-                list.innerHTML = '';
-                
-                this.mindMaps.forEach(mindMap => {
-                    const item = document.createElement('li');
-                    item.className = 'mindmap-item';
-                    if (mindMap.id === this.currentMindMapId) {
-                        item.classList.add('active');
-                    }
-                    
-                    const nameSpan = document.createElement('span');
-                    nameSpan.textContent = mindMap.name;
-                    nameSpan.style.flex = '1';
-                    nameSpan.style.overflow = 'hidden';
-                    nameSpan.style.textOverflow = 'ellipsis';
-                    nameSpan.style.whiteSpace = 'nowrap';
-                    
-                    const actions = document.createElement('div');
-                    actions.className = 'mindmap-actions';
-                    
-                    const renameBtn = document.createElement('button');
-                    renameBtn.className = 'mindmap-action-btn';
-                    renameBtn.innerHTML = '✎';
-                    renameBtn.title = 'Rename';
-                    renameBtn.addEventListener('click', (e) => {
-                        e.stopPropagation();
-                        const newName = prompt('Enter new name:', mindMap.name);
-                        if (newName !== null) {
-                            this.renameMindMap(mindMap.id, newName);
-                        }
-                    });
-                    
-                    const deleteBtn = document.createElement('button');
-                    deleteBtn.className = 'mindmap-action-btn';
-                    deleteBtn.innerHTML = '🗑';
-                    deleteBtn.title = 'Delete';
-                    deleteBtn.addEventListener('click', (e) => {
-                        e.stopPropagation();
-                        if (confirm(`Are you sure you want to delete "${mindMap.name}"?`)) {
-                            this.deleteMindMap(mindMap.id);
-                        }
-                    });
-                    
-                    actions.appendChild(renameBtn);
-                    actions.appendChild(deleteBtn);
-                    
-                    item.appendChild(nameSpan);
-                    item.appendChild(actions);
-                    
-                    item.addEventListener('click', () => {
-                        this.switchToMindMap(mindMap.id);
-                        this.toggleSideMenu(false);
-                    });
-                    
-                    list.appendChild(item);
-                });
-            }
-            
-            toggleSideMenu(open) {
-                const menu = document.getElementById('side-menu');
-                if (open === undefined) {
-                    menu.classList.toggle('open');
-                } else if (open) {
-                    menu.classList.add('open');
-                } else {
-                    menu.classList.remove('open');
-                }
-            }
-            
-            openExportModal() {
-                if (!this.currentMindMap) return;
-                
-                const modal = document.getElementById('export-modal');
-                const textarea = document.getElementById('export-data');
-                
-                textarea.value = JSON.stringify(this.currentMindMap, null, 2);
-                modal.classList.add('open');
-            }
-            
-            openImportModal() {
-                const modal = document.getElementById('import-modal');
-                const textarea = document.getElementById('import-data');
-                
-                textarea.value = '';
-                modal.classList.add('open');
-            }
-            
-            openHelpModal() {
-                const modal = document.getElementById('help-modal');
-                modal.classList.add('open');
-            }
-            
-            copyExportData() {
-                const textarea = document.getElementById('export-data');
-                textarea.select();
-                document.execCommand('copy');
-                this.showToast('Copied to clipboard', 'success');
-            }
-            
-            downloadMindMapJson() {
-                if (!this.currentMindMap) return;
-                
-                const dataStr = JSON.stringify(this.currentMindMap, null, 2);
-                const dataUri = 'data:application/json;charset=utf-8,' + encodeURIComponent(dataStr);
-                
-                const exportName = `${this.currentMindMap.name.replace(/\s+/g, '_')}_${new Date().toISOString().split('T')[0]}.json`;
-                
-                const linkElement = document.createElement('a');
-                linkElement.setAttribute('href', dataUri);
-                linkElement.setAttribute('download', exportName);
-                linkElement.click();
-            }
-            
-            importMindMap() {
-                const textarea = document.getElementById('import-data');
-                const data = textarea.value.trim();
-                
-                if (!data) {
-                    this.showToast('No data to import', 'error');
-                    return;
-                }
-                
-                try {
-                    const mindMap = JSON.parse(data);
-                    
-                    if (!mindMap.name || !Array.isArray(mindMap.nodes)) {
-                        throw new Error('Invalid mind map format');
-                    }
-                    
-                    // Generate a new ID for the imported mind map
-                    mindMap.id = this.generateId();
-                    mindMap.createdAt = new Date().toISOString();
-                    
-                    this.mindMaps.push(mindMap);
-                    this.saveMindMaps();
-                    this.switchToMindMap(mindMap.id);
-                    
-                    document.getElementById('import-modal').classList.remove('open');
-                    this.showToast(`Imported "${mindMap.name}"`, 'success');
-                } catch (error) {
-                    this.showToast('Invalid JSON data', 'error');
-                }
-            }
-            
-            clearAllData() {
-                if (confirm('Are you sure you want to delete ALL mind maps? This cannot be undone!')) {
-                    localStorage.removeItem('mindMaps');
-                    this.mindMaps = [];
-                    this.createNewMindMap('My Mind Map');
-                    this.showToast('All data cleared', 'success');
-                }
-            }
-            
-            showToast(message, type = 'info') {
-                const toast = document.getElementById('toast');
-                toast.textContent = message;
-                toast.className = `${type}`;
-                
-                // Show the toast
-                setTimeout(() => {
-                    toast.classList.add('show');
-                    
-                    // Hide after 3 seconds
-                    setTimeout(() => {
-                        toast.classList.remove('show');
-                    }, 3000);
-                }, 10);
-            }
-            
-            saveHistoryState() {
-                if (!this.currentMindMap) return;
-                
-                // If we're not at the end of the history, remove future states
-                if (this.historyIndex < this.history.length - 1) {
-                    this.history = this.history.slice(0, this.historyIndex + 1);
-                }
-                
-                // Add current state to history
-                this.history.push(JSON.stringify(this.currentMindMap));
-                this.historyIndex = this.history.length - 1;
-                
-                // Limit history size
-                if (this.history.length > 50) {
-                    this.history.shift();
-                    this.historyIndex--;
-                }
-                
-                // Save to localStorage
-                this.saveMindMaps();
-            }
-            
-            undo() {
-                if (this.historyIndex <= 0) return;
-                
-                this.historyIndex--;
-                this.currentMindMap = JSON.parse(this.history[this.historyIndex]);
-                this.renderMindMap();
-                this.showHistoryIndicator('Undo');
-            }
-            
-            redo() {
-                if (this.historyIndex >= this.history.length - 1) return;
-                
-                this.historyIndex++;
-                this.currentMindMap = JSON.parse(this.history[this.historyIndex]);
-                this.renderMindMap();
-                this.showHistoryIndicator('Redo');
-            }
-            
-            showHistoryIndicator(action) {
-                const indicator = document.getElementById('history-indicator');
-                indicator.textContent = `${action}: ${this.historyIndex + 1}/${this.history.length}`;
-                indicator.classList.add('show');
-                
-                setTimeout(() => {
-                    indicator.classList.remove('show');
-                }, 1500);
-            }
-            
-            loadMindMaps() {
-                const data = localStorage.getItem('mindMaps');
-                if (data) {
-                    try {
-                        this.mindMaps = JSON.parse(data);
-                    } catch (e) {
-                        this.mindMaps = [];
-                    }
-                } else {
-                    this.mindMaps = [];
-                }
-            }
-            
-            saveMindMaps() {
-                localStorage.setItem('mindMaps', JSON.stringify(this.mindMaps));
-            }
-            
-            setupAutoSave() {
-                if (this.autoSaveInterval) {
-                    clearInterval(this.autoSaveInterval);
-                }
-                
-                this.autoSaveInterval = setInterval(() => {
-                    if (this.currentMindMap) {
-                        this.saveMindMaps();
-                    }
-                }, 30000); // Auto-save every 30 seconds
             }
         }
-
-        // Initialize the app when the DOM is loaded
+        
+        // Initialize application when DOM is loaded
         document.addEventListener('DOMContentLoaded', () => {
-            const app = new MindMapApp();
+            const app = new CosmicMindmap();
         });
     </script>
 </body>
