@@ -50,6 +50,7 @@ const figures = [
 
 
 
+
 const carousel = document.getElementById('carousel');
 let currentRotation = 0;
 const radius = window.innerWidth <= 768 ? 355 : 474; // Smaller radius for mobile
@@ -1324,7 +1325,7 @@ const TaskManager = {
                 '29': 'Try a creative activity today. Notice its impact and consider how to incorporate this feeling into your daily life.',
                
             },
-            'Julius Cäsar': {
+            'Julius Caesar': {
                 '1': 'Reflect on a bold decision you made. How did you handle the risks, and how did it shape your path?',
                 '2': 'Reflect on a collaborative project. How did strengths and strategies shape the outcome?',
                 '3': 'Reflect on a goal and its challenges. Apply perseverance and take one step today to advance.',
