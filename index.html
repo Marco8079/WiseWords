@@ -540,6 +540,121 @@
         }
     }
 
+
+    .share-popup {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            z-index: 1000;
+            width: 300px;
+        }
+        
+        .share-popup h3 {
+            margin-top: 0;
+            color: #333;
+            text-align: center;
+        }
+        
+        .share-options {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            margin: 20px 0;
+        }
+        
+        .share-option {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            cursor: pointer;
+            padding: 10px;
+            border-radius: 8px;
+            transition: background-color 0.2s;
+        }
+        
+        .share-option:hover {
+            background-color: #f0f0f0;
+        }
+        
+        .share-option i {
+            font-size: 24px;
+            margin-bottom: 8px;
+        }
+        
+        .whatsapp i {
+            color: #25D366;
+        }
+        
+        .signal i {
+            color: #3A76F0;
+        }
+        
+        .telegram i {
+            color: #0088cc;
+        }
+        
+        .facebook i {
+            color: #1877F2;
+        }
+        
+        .twitter i {
+            color: #1DA1F2;
+        }
+        
+        .linkedin i {
+            color: #0A66C2;
+        }
+        
+        .email i {
+            color: #D44638;
+        }
+        
+        .copy i {
+            color: #6c757d;
+        }
+        
+        .close-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: none;
+            border: none;
+            font-size: 20px;
+            cursor: pointer;
+            color: #888;
+        }
+        
+        .overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 999;
+        }
+        
+        .toast-message {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #333;
+            color: white;
+            padding: 12px 24px;
+            border-radius: 5px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+            display: none;
+            z-index: 1001;
+        }
+
     </style>
     
     
@@ -775,17 +890,168 @@
         <!-- Input-Feld für den Download-Link -->
         <input type="text" id="download-link" value="https://wisewords01.com/" readonly style="display: none;">
 
-        <script>
-            // Funktion zum Kopieren des Links
-            function copyLink() {
-                const linkInput = document.getElementById('download-link');
-                linkInput.style.display = 'block'; // Zeige das Input-Feld kurz an, damit es kopiert werden kann
-                linkInput.select(); // Den Text im Input-Feld auswählen
-                document.execCommand('copy'); // Kopiere den ausgewählten Text
-                linkInput.style.display = 'none'; // Verstecke das Input-Feld wieder
         
-                // Feedback für den Benutzer
-                alert('Download link copied!');
+        <div class="overlay" id="overlay"></div>
+        <div class="share-popup" id="sharePopup">
+            <button class="close-btn" onclick="hideSharePopup()">
+                <i class="fas fa-times"></i>
+            </button>
+            <h3>Share via</h3>
+            <div class="share-options">
+                <div class="share-option whatsapp" onclick="shareViaWhatsApp()">
+                    <i class="fab fa-whatsapp"></i>
+                    <span>WhatsApp</span>
+                </div>
+                <div class="share-option signal" onclick="shareViaSignal()">
+                    <i class="fas fa-signal"></i>
+                    <span>Signal</span>
+                </div>
+                <div class="share-option telegram" onclick="shareViaTelegram()">
+                    <i class="fab fa-telegram"></i>
+                    <span>Telegram</span>
+                </div>
+                <div class="share-option facebook" onclick="shareViaFacebook()">
+                    <i class="fab fa-facebook"></i>
+                    <span>Facebook</span>
+                </div>
+                <div class="share-option twitter" onclick="shareViaTwitter()">
+                    <i class="fab fa-twitter"></i>
+                    <span>Twitter</span>
+                </div>
+                <div class="share-option linkedin" onclick="shareViaLinkedIn()">
+                    <i class="fab fa-linkedin"></i>
+                    <span>LinkedIn</span>
+                </div>
+                <div class="share-option email" onclick="shareViaEmail()">
+                    <i class="fas fa-envelope"></i>
+                    <span>Email</span>
+                </div>
+                <div class="share-option copy" onclick="copyToClipboard()">
+                    <i class="fas fa-copy"></i>
+                    <span>Copy Link</span>
+                </div>
+            </div>
+        </div>
+    
+        <!-- Toast-Nachricht für Feedback -->
+        <div class="toast-message" id="toastMessage"></div>
+    
+        <script>
+            const websiteUrl = "https://wisewords01.com/";
+            const shareText = "I found this incredible app for daily wisdom and insights!";
+            
+            // Bestehende copyLink-Funktion wird modifiziert, um das Popup zu zeigen
+            function copyLink() {
+                // Prüfen, ob Web Share API verfügbar ist (mobile Geräte)
+                if (navigator.share) {
+                    navigator.share({
+                        title: 'WiseWords',
+                        text: shareText,
+                        url: websiteUrl,
+                    })
+                    .then(() => console.log('Successful share'))
+                    .catch((error) => {
+                        console.log('Error sharing:', error);
+                        showSharePopup(); // Fallback auf unser Custom-Popup
+                    });
+                } else {
+                    // Auf Desktop-Geräten zeigen wir das Popup an
+                    showSharePopup();
+                }
+            }
+            
+            function showSharePopup() {
+                document.getElementById('sharePopup').style.display = 'block';
+                document.getElementById('overlay').style.display = 'block';
+            }
+            
+            function hideSharePopup() {
+                document.getElementById('sharePopup').style.display = 'none';
+                document.getElementById('overlay').style.display = 'none';
+            }
+            
+            function showToast(message) {
+                const toast = document.getElementById('toastMessage');
+                toast.textContent = message;
+                toast.style.display = 'block';
+                
+                setTimeout(() => {
+                    toast.style.display = 'none';
+                }, 3000);
+            }
+            
+            function copyToClipboard() {
+                const linkInput = document.getElementById('download-link');
+                linkInput.style.display = 'block';
+                linkInput.select();
+                document.execCommand('copy');
+                linkInput.style.display = 'none';
+                
+                showToast('Link copied to clipboard!');
+                hideSharePopup();
+            }
+            
+            function shareViaWhatsApp() {
+                const whatsappUrl = `https://wa.me/?text=${encodeURIComponent(shareText + ' ' + websiteUrl)}`;
+                window.open(whatsappUrl, '_blank');
+                hideSharePopup();
+            }
+            
+            function shareViaSignal() {
+                // Signal hat keinen direkten Web-Link, aber wir können einen signal://-Link versuchen
+                // und als Fallback den Link in die Zwischenablage kopieren
+                const signalUrl = `signal://send?text=${encodeURIComponent(shareText + ' ' + websiteUrl)}`;
+                
+                // Versuchen, Signal zu öffnen
+                const newWindow = window.open(signalUrl, '_blank');
+                
+                // Wenn das Öffnen fehlschlägt oder nach kurzer Zeit nicht funktioniert hat,
+                // kopieren wir den Link in die Zwischenablage
+                setTimeout(() => {
+                    if (!newWindow || newWindow.closed || newWindow.closed === undefined) {
+                        copyToClipboard();
+                        showToast('Link copied! Open Signal and paste to share.');
+                    }
+                }, 500);
+                
+                hideSharePopup();
+            }
+            
+            function shareViaTelegram() {
+                const telegramUrl = `https://t.me/share/url?url=${encodeURIComponent(websiteUrl)}&text=${encodeURIComponent(shareText)}`;
+                window.open(telegramUrl, '_blank');
+                hideSharePopup();
+            }
+            
+            function shareViaFacebook() {
+                const facebookUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(websiteUrl)}`;
+                window.open(facebookUrl, '_blank');
+                hideSharePopup();
+            }
+            
+            function shareViaTwitter() {
+                const twitterUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(shareText)}&url=${encodeURIComponent(websiteUrl)}`;
+                window.open(twitterUrl, '_blank');
+                hideSharePopup();
+            }
+            
+            function shareViaLinkedIn() {
+                const linkedInUrl = `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(websiteUrl)}`;
+                window.open(linkedInUrl, '_blank');
+                hideSharePopup();
+            }
+            
+            function shareViaEmail() {
+                const emailUrl = `mailto:?subject=${encodeURIComponent('Check out this website')}&body=${encodeURIComponent(shareText + ' ' + websiteUrl)}`;
+                window.location.href = emailUrl;
+                hideSharePopup();
+            }
+            
+            // Popup schließen, wenn außerhalb geklickt wird
+            window.onclick = function(event) {
+                if (event.target === document.getElementById('overlay')) {
+                    hideSharePopup();
+                }
             }
         </script>
         
