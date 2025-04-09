@@ -1030,90 +1030,166 @@
         .streak-milestone i {
             font-size: 0.75rem;
         }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         
         .chart-container {
-            height: 250px;
-            margin-top: 1.5rem;
-            position: relative;
-            padding-bottom: 2rem;
             width: 94%;
-            margin-left: auto;
-            margin-right: auto;
+            max-width: 600px;
+            height: 250px;
+            margin: 1.5rem auto;
+            padding: 1.5rem;
+            position: relative;
             background-color: var(--card);
             border-radius: var(--radius);
-            padding: 1.5rem;
             box-shadow: var(--shadow-md);
             border: 1px solid var(--border);
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
         }
-        
-        .chart-bar {
+
+        .chart-grid {
             position: absolute;
-            bottom: 30px;
-            width: 30px;
+            top: 1.5rem;
+            left: 0;
+            right: 0;
+            bottom: 2.5rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            z-index: 0;
+        }
+
+        .chart-grid-line {
+            height: 1px;
+            width: 100%;
+            background-color: var(--border);
+        }
+
+        .chart-bars {
+            display: flex;
+            justify-content: space-around;
+            align-items: flex-end;
+            height: 100%;
+            position: relative;
+            z-index: 1;
+        }
+
+        .chart-bar-wrapper {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+            max-width: 40px;
+            flex: 1;
+        }
+
+        .chart-value {
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: var(--foreground);
+            margin-bottom: 0.25rem;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .chart-bar {
+            width: 100%;
             background-color: var(--primary);
             border-radius: 4px 4px 0 0;
             transition: height 1s cubic-bezier(0.34, 1.56, 0.64, 1);
             box-shadow: var(--shadow);
+            cursor: pointer;
         }
-        
+
         .chart-bar:hover {
             filter: brightness(1.1);
             box-shadow: var(--shadow-md);
         }
-        
-        .chart-label {
-            position: absolute;
-            bottom: 0;
-            text-align: center;
-            font-size: 0.75rem;
-            color: var(--muted);
-            width: 30px;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-        }
-        
-        .chart-value {
-            position: absolute;
-            top: -20px;
-            text-align: center;
-            font-size: 0.75rem;
-            color: var(--foreground);
-            width: 30px;
-            font-weight: 600;
-            opacity: 0;
-            transition: opacity 0.3s;
-        }
-        
-        .chart-bar:hover + .chart-value,
+
         .chart-bar:hover ~ .chart-value {
             opacity: 1;
         }
-        
-        .chart-grid {
-            position: absolute;
-            width: 100%;
-            height: calc(100% - 30px);
-            bottom: 30px;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            z-index: -1;
-        }
-        
-        .chart-grid-line {
-            width: 100%;
-            height: 1px;
-            background-color: var(--border);
-        }
-        
-        .chart-grid-label {
-            position: absolute;
-            left: -30px;
+
+        .chart-label {
             font-size: 0.75rem;
             color: var(--muted);
-            transform: translateY(-50%);
+            margin-top: 0.25rem;
+            text-align: center;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            width: 100%;
         }
+
+        /* 📱 Responsiv */
+        @media (max-width: 500px) {
+            .chart-bar-wrapper {
+                max-width: 24px;
+            }
+
+            .chart-label,
+            .chart-value {
+                font-size: 0.65rem;
+            }
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
         
         .theme-toggle {
             background: none;
@@ -1829,6 +1905,28 @@
             background-color: var(--border);
             margin: 0.25rem 0;
         }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
         
         .streak-progress {
             margin-top: 1rem;
@@ -1982,17 +2080,29 @@
             justify-content: center;
             border-radius: 50%;
             transition: var(--transition-base);
+            z-index: 1; /* Sicherstellen, dass der Button über dem :before liegt */
         }
-        
+
+        .quote-refresh::before {
+            content: "";
+            position: absolute;
+            top: -12px;
+            left: -12px;
+            right: -12px;
+            bottom: -12px;
+            border-radius: 50%;
+        }
+
         .quote-refresh:hover {
             background-color: rgba(0, 0, 0, 0.05);
             color: var(--primary);
             transform: rotate(180deg);
         }
-        
+
         .dark .quote-refresh:hover {
             background-color: rgba(255, 255, 255, 0.05);
         }
+
         
         .notification-settings {
             margin-top: 1rem;
@@ -2333,10 +2443,6 @@
                         <i class="fas fa-list-check"></i>
                         Habits
                     </a></li>
-                    <li><a href="#statistics" data-tab="statistics">
-                        <i class="fas fa-chart-bar"></i>
-                        Statistics
-                    </a></li>
                     <li><a href="#achievements" data-tab="achievements">
                         <i class="fas fa-trophy"></i>
                         Achievements
@@ -2475,13 +2581,54 @@
                 </div>
             </div>
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
             <h3 class="section-header">Streak Progress</h3>
-            <div class="chart-container" id="streak-chart">
-                <div class="chart-grid" id="streak-chart-grid">
-                    <!-- Grid lines will be added here -->
-                </div>
-                <!-- Chart bars will be added here -->
+            <div class="chart-container">
+            <div class="chart-grid">
+                <div class="chart-grid-line"></div>
+                <div class="chart-grid-line"></div>
+                <div class="chart-grid-line"></div>
+                <div class="chart-grid-line"></div>
+                <div class="chart-grid-line"></div>
             </div>
+            <div class="chart-bars">
+                <div class="chart-bar-wrapper">
+                <div class="chart-value">80</div>
+                <div class="chart-bar" style="height: 80%"></div>
+                <div class="chart-label">Mo</div>
+                </div>
+                <div class="chart-bar-wrapper">
+                <div class="chart-value">60</div>
+                <div class="chart-bar" style="height: 60%"></div>
+                <div class="chart-label">Di</div>
+                </div>
+                <!-- weitere Balken -->
+            </div>
+            </div>
+
             
             <h3 class="section-header">Progress Over Time</h3>
             <div class="line-chart-container" id="progress-chart-container">
