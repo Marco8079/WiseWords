@@ -37,6 +37,8 @@ const figures = [
   { name: 'Leonidas', title: 'Spartan King', type: 'leader', image: 'leonidas.jpg', open: 'leonidas' },
   { name: 'Confucius', title: 'Chinese philosopher', type: 'philosopher', image: 'Confucius.jpg', open: 'confucius' },
   { name: 'Socrates', title: 'Greek Philosopher', type: 'philosopher', image: 'Socrates.jpg', open: 'socrates' },
+  { name: 'Immanuel Kant', title: 'German Philosopher', type: 'philosopher', image: 'kant.jpeg', open: 'kant' },
+
 ];
 
 
@@ -53,7 +55,8 @@ const figures = [
 
 const carousel = document.getElementById('carousel');
 let currentRotation = 0;
-const radius = window.innerWidth <= 768 ? 355 : 474; // Smaller radius for mobile
+const radius = window.innerWidth <= 768 ? 370 : 495;
+
 
 
 // Touch handling variables
@@ -708,7 +711,52 @@ const personalities = {
       { day: 28, audioFile: 'audio103/Confucius28.mp3' },
       { day: 29, audioFile: 'audio103/Confucius29.mp3' }
     ]
+  },
+  "Immanuel Kant": {
+    title: "German Philosopher (1724–1804)",
+    quotes: [
+      '"Sapere aude! Dare to use your own reason!"',
+      '"Act only according to that maxim whereby you can at the same time will that it should become a universal law."',
+      '"Enlightenment is man’s emergence from his self-imposed immaturity."',
+      '"The starry sky above me and the moral law within me."', 
+      '"Thoughts without content are empty; intuitions without concepts are blind."',
+      '"Freedom is the only idea belonging to the philosophy of reason."',
+      '"Duty! Sublime and mighty name that contains nothing pleasing to the senses."',
+      '"The only thing that is good without qualification is a good will."'
+    ],
+    tracks: [
+      { day: 1, audioFile: 'audio104/kant1.mp3' },
+      { day: 2, audioFile: 'audio104/kant2.mp3' },
+      { day: 3, audioFile: 'audio104/kant3.mp3' },
+      { day: 4, audioFile: 'audio104/kant4.mp3' },
+      { day: 5, audioFile: 'audio105/kant5.mp3' },
+      { day: 6, audioFile: 'audio105/kant6.mp3' },
+      { day: 7, audioFile: 'audio105/kant7.mp3' },
+      { day: 8, audioFile: 'audio105/kant8.mp3' },
+      { day: 9, audioFile: 'audio106/kant9.mp3' },
+      { day: 10, audioFile: 'audio106/kant10.mp3' },
+      { day: 11, audioFile: 'audio106/kant11.mp3' },
+      { day: 12, audioFile: 'audio106/kant12.mp3' },
+      { day: 13, audioFile: 'audio107/kant13.mp3' },
+      { day: 14, audioFile: 'audio107/kant14.mp3' },
+      { day: 15, audioFile: 'audio107/kant15.mp3' },
+      { day: 16, audioFile: 'audio107/kant16.mp3' },
+      { day: 17, audioFile: 'audio108/kant17.mp3' },
+      { day: 18, audioFile: 'audio108/kant18.mp3' },
+      { day: 19, audioFile: 'audio108/kant19.mp3' },
+      { day: 20, audioFile: 'audio108/kant20.mp3' },
+      { day: 21, audioFile: 'audio109/kant21.mp3' },
+      { day: 22, audioFile: 'audio109/kant22.mp3' },
+      { day: 23, audioFile: 'audio109/kant23.mp3' },
+      { day: 24, audioFile: 'audio109/kant24.mp3' },
+      { day: 25, audioFile: 'audio110/kant25.mp3' },
+      { day: 26, audioFile: 'audio110/kant26.mp3' },
+      { day: 27, audioFile: 'audio110/kant27.mp3' },
+      { day: 28, audioFile: 'audio110/kant28.mp3' },
+      { day: 29, audioFile: 'audio110/kant29.mp3' }
+    ]
   }
+
 };
 
 function createBackgroundParticles() {
@@ -1573,7 +1621,41 @@ const TaskManager = {
               '27': 'Choose integrity over convenience in one action.',
               '28': 'Help someone and reflect on its impact.',
               '29': 'Embrace patience—focus on process over outcome.'
+          },
+         
+          'Immanuel Kant': {
+            '1': 'Before acting, ask: "Can this be a universal law?" If not, choose differently.',
+            '2': 'When emotions rise, pause. Would reason approve this action? Wait until it does.',
+            '3': 'Replace excuses with: "It’s up to me." Act now—be unstoppable.',
+            '4': 'Emotional reaction? Ask: Who benefits? Act only with clear reason.',
+            '5': 'Ease or long-term gain? Choose what you’ll thank yourself for in 10 years.',
+            '6': 'Tempted? Ask: Who grows stronger—resister or giver-in? Choose strength.',
+            '7': 'Would I do this if unpaid? If not, take one step toward meaningful work.',
+            '8': 'Before judging, fully understand the other side. Then decide.',
+            '9': 'Living this day 100 times—would it be worth it? If not, change something now.',
+            '10': 'Would I choose this freely? If not, let go. Realign with your values.',
+            '11': 'Be honest with no reward. Is it your duty? Let truth be your principle.',
+            '12': 'Did reason guide this decision—or the crowd? Act with independent judgment.',
+            '13': 'Following a trend? Ask: Is it reason or imitation? Choose your path.',
+            '14': 'Justified something? If it’s right, no excuse needed. Let action speak.',
+            '15': 'Would your 10-year-old self be proud? If not, realign your choices.',
+            '16': 'When afraid, ask: What would my best self do? Then act like them.',
+            '17': '"I can’t"? Maybe it’s "I won’t." Be honest—and act anyway.',
+            '18': 'What cause would you suffer for? Let it guide today’s actions.',
+            '19': 'Remove one distraction. Replace it with something that builds your future.',
+            '20': 'Do one thing today just because it’s your duty—not for praise or gain.',
+            '21': 'Speak today only what you’d still stand by under oath.',
+            '22': 'Help someone today—but only from duty, not for thanks.',
+            '23': 'Pause before any indulgence. Does it respect your higher self?',
+            '24': 'Delay pleasure. See if it controls you—or if you rule it.',
+            '25': 'Imagine a world where everyone acted like you today. Would it thrive?',
+            '26': 'Act so your choices respect humanity—in yourself and others.',
+            '27': 'No shortcuts today. Choose the right path, not the easy one.',
+            '28': 'Resist any urge to manipulate. Let honesty guide your influence.',
+            '29': 'Today, live as though your example sets the law for all mankind.',
           }
+
+
 
 
   },
