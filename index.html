@@ -655,6 +655,8 @@
             z-index: 1001;
         }
 
+        
+
     </style>
     
     
@@ -672,7 +674,85 @@
     
     
 
-    
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+        const hasSeenIntro = localStorage.getItem('hasSeenIntro');
+
+        if (!hasSeenIntro) {
+            showIntroModal();
+        }
+        });
+
+        function showIntroModal() {
+        const slides = [
+            {
+            title: "Welcome to WiseWords",
+            text: "This app isn’t just a tool – it’s your quiet mentor. Its purpose: to help you grow – mentally, emotionally, and in character.",
+            },
+            {
+            title: "How it works",
+            text: "You’ll get short daily audio lessons from thinkers like Marcus Aurelius or Shakespeare. Each one ends with a simple action you take in real life.",
+            },
+            {
+            title: "Why this matters",
+            text: "Tiny steps, taken daily, build powerful habits. You become someone more grounded, focused, and resilient. Slowly, but surely.",
+            },
+            {
+            title: "Everything is included",
+            text: "You get lifetime access to all mentors, all lessons, all future updates – quizzes, reflections, new features. One time. All yours.",
+            },
+            {
+            title: "Private by design",
+            text: "Your progress stays with you. No tracking, no judgment, no public profiles. WiseWords is personal. Just between you and your growth.",
+            },
+            {
+            title: "Let’s begin",
+            text: "This is your moment. Your pace. Your path. Start by choosing the historical figure you want to learn from first.",
+            buttonText: "Choose Now"
+            }
+        ];
+
+        let currentSlide = 0;
+
+        const modal = document.createElement('div');
+        modal.className = 'intro-modal';
+
+        const content = document.createElement('div');
+        content.className = 'intro-content';
+        modal.appendChild(content);
+        document.body.appendChild(modal);
+
+        function renderSlide(index) {
+            const slide = slides[index];
+            content.innerHTML = `
+            <h2>${slide.title}</h2>
+            <p>${slide.text}</p>
+            <div class="intro-buttons">
+                ${index < slides.length - 1 
+                ? `<button id="nextSlide">Next →</button>` 
+                : `<button id="finishIntro">${slide.buttonText || 'Start'}</button>`}
+            </div>
+            `;
+
+            if (index < slides.length - 1) {
+            document.getElementById('nextSlide').addEventListener('click', () => {
+                currentSlide++;
+                renderSlide(currentSlide);
+            });
+            } else {
+            document.getElementById('finishIntro').addEventListener('click', () => {
+                localStorage.setItem('hasSeenIntro', 'true');
+                modal.remove();
+            });
+            }
+        }
+
+        renderSlide(currentSlide);
+        }
+
+
+
+    </script>
 
 
     <!-- Menüleiste -->
@@ -702,6 +782,9 @@
             <button class="menu-item" onclick="location.href='mindmap.html'">
                 <i class="fas fa-project-diagram"></i> Mind Map
             </button>
+            <button class="menu-item epic-plan-btn" onclick="location.href='planning.html'">
+                <i class="fas fa-chess-king"></i> Masterplan
+            </button>            
             <button class="menu-item" onclick="showAppInstruction(); closeWisdomMeter();">
                 <i class="fas fa-question-circle"></i> App-Guide
             </button>
@@ -3217,6 +3300,8 @@ const centralOrb = document.querySelector('.central-orb');
                     { title: "Is Victory Defined by Conquest or Wisdom?" },
                 ]
             }
+            
+
 
 
 
