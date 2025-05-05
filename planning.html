@@ -1,0 +1,3229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The 29th Law: Plan All The Way To The End</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Base Variables */
+        :root {
+            --bg-primary: #121212;
+            --bg-secondary: #1e1e1e;
+            --bg-tertiary: #2d2d2d;
+            --bg-card: #252525;
+            --text-primary: #e0e0e0;
+            --text-secondary: #a0a0a0;
+            --accent: #c0a062; /* Gold accent for the 29th Law */
+            --accent-dark: #9a7e4a;
+            --accent-light: #d4b87a;
+            --danger: #cf6679;
+            --success: #03dac6;
+            --warning: #ffb74d;
+            --info: #64b5f6;
+            --border: #333333;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+            --radius: 8px;
+            --transition: all 0.3s ease;
+        }
+
+        /* Reset & Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 2rem;
+            flex: 1;
+        }
+
+        /* Typography */
+        h1, h2, h3, h4, h5, h6 {
+            font-weight: 600;
+            line-height: 1.2;
+            margin-bottom: 1rem;
+            color: var(--text-primary);
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            color: var(--accent);
+            margin-bottom: 1.5rem;
+        }
+
+        h2 {
+            font-size: 1.75rem;
+            color: var(--accent);
+            margin-bottom: 1.25rem;
+        }
+
+        h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        p {
+            margin-bottom: 1rem;
+            color: var(--text-secondary);
+        }
+
+        strong {
+            color: var(--text-primary);
+            font-weight: 600;
+        }
+
+        /* App Structure */
+        .app {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            background-color: var(--bg-primary);
+        }
+
+        .app-header {
+            background-color: var(--bg-secondary);
+            padding: 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: var(--shadow);
+        }
+
+        .app-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--accent);
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .app-title i {
+            font-size: 1.25rem;
+        }
+
+        .app-actions {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .app-content {
+            flex: 1;
+            padding: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        /* Progress Bar */
+        .progress-container {
+            margin: 2rem 0;
+            position: relative;
+        }
+
+        .progress-bar {
+            height: 6px;
+            background-color: var(--bg-tertiary);
+            border-radius: 3px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background-color: var(--accent);
+            border-radius: 3px;
+            transition: width 0.5s ease;
+        }
+
+        .progress-steps {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 0.5rem;
+        }
+
+        .progress-step {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+            width: 20%;
+        }
+
+        .step-marker {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background-color: var(--bg-tertiary);
+            border: 2px solid var(--border);
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-secondary);
+            font-size: 0.75rem;
+            font-weight: 600;
+            transition: var(--transition);
+        }
+
+        .step-label {
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+            text-align: center;
+            transition: var(--transition);
+        }
+
+        .progress-step.active .step-marker {
+            background-color: var(--accent);
+            border-color: var(--accent);
+            color: var(--bg-primary);
+        }
+
+        .progress-step.active .step-label {
+            color: var(--accent);
+            font-weight: 500;
+        }
+
+        .progress-step.completed .step-marker {
+            background-color: var(--accent);
+            border-color: var(--accent);
+            color: var(--bg-primary);
+        }
+
+        .progress-step.completed .step-marker::after {
+            content: '\f00c';
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 900;
+            font-size: 0.75rem;
+        }
+
+        /* Section Styles */
+        .section {
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .section.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .section-header {
+            margin-bottom: 2rem;
+            border-bottom: 2px solid var(--accent);
+            padding-bottom: 1rem;
+        }
+
+        .section-title {
+            font-size: 2rem;
+            color: var(--accent);
+            margin-bottom: 0.5rem;
+        }
+
+        .section-description {
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+        }
+
+        /* Card Styles */
+        .card {
+            background-color: var(--bg-card);
+            border-radius: var(--radius);
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border);
+            transition: var(--transition);
+        }
+
+        .card:hover {
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4);
+            transform: translateY(-2px);
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+            padding-bottom: 0.75rem;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .card-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--accent);
+            margin: 0;
+        }
+
+        .card-icon {
+            color: var(--accent);
+            font-size: 1.5rem;
+        }
+
+        /* Quote Styles */
+        .quote {
+            background-color: var(--bg-tertiary);
+            border-left: 4px solid var(--accent);
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            font-style: italic;
+            position: relative;
+        }
+
+        .quote-text {
+            color: var(--text-primary);
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .quote-author {
+            display: block;
+            font-style: normal;
+            font-weight: 600;
+            text-align: right;
+            color: var(--accent);
+        }
+
+        /* Form Elements */
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            color: var(--text-primary);
+        }
+
+        .form-hint {
+            display: block;
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+            margin-bottom: 0.75rem;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            background-color: var(--bg-tertiary);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            color: var(--text-primary);
+            font-size: 1rem;
+            transition: var(--transition);
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--accent);
+            box-shadow: 0 0 0 2px rgba(192, 160, 98, 0.25);
+        }
+
+        .form-control::placeholder {
+            color: var(--text-secondary);
+            opacity: 0.7;
+        }
+
+        textarea.form-control {
+            min-height: 100px;
+            resize: vertical;
+        }
+
+        /* Choice Grid */
+        .choice-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 1rem;
+            margin: 1rem 0;
+        }
+
+        .choice-card {
+            background-color: var(--bg-tertiary);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 1.5rem;
+            cursor: pointer;
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .choice-card:hover {
+            border-color: var(--accent);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow);
+        }
+
+        .choice-card.selected {
+            border-color: var(--accent);
+            background-color: rgba(192, 160, 98, 0.15);
+        }
+
+        .choice-card.selected::after {
+            content: '\f00c';
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 900;
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            color: var(--accent);
+        }
+
+        .choice-icon {
+            font-size: 2rem;
+            color: var(--accent);
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+
+        .choice-title {
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--text-primary);
+        }
+
+        .choice-description {
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+        }
+
+        /* Interactive Elements */
+        .interactive-element {
+            background-color: var(--bg-tertiary);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            position: relative;
+            transition: var(--transition);
+        }
+
+        .interactive-element:hover {
+            border-color: var(--accent);
+            box-shadow: var(--shadow);
+        }
+
+        .delete-btn {
+            position: absolute;
+            top: 0.75rem;
+            right: 0.75rem;
+            background: none;
+            border: none;
+            color: var(--text-secondary);
+            cursor: pointer;
+            font-size: 1rem;
+            transition: var(--transition);
+            width: 30px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+        }
+
+        .delete-btn:hover {
+            color: var(--danger);
+            background-color: rgba(207, 102, 121, 0.1);
+        }
+
+        /* Checkbox Styles */
+        .checkbox-container {
+            display: flex;
+            align-items: center;
+            margin-bottom: 0.75rem;
+            cursor: pointer;
+        }
+
+        .checkbox-container input {
+            position: absolute;
+            opacity: 0;
+            cursor: pointer;
+            height: 0;
+            width: 0;
+        }
+
+        .checkmark {
+            height: 22px;
+            width: 22px;
+            background-color: var(--bg-tertiary);
+            border: 1px solid var(--border);
+            border-radius: 4px;
+            margin-right: 0.75rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition);
+        }
+
+        .checkbox-container:hover input ~ .checkmark {
+            border-color: var(--accent);
+        }
+
+        .checkbox-container input:checked ~ .checkmark {
+            background-color: var(--accent);
+            border-color: var(--accent);
+        }
+
+        .checkmark:after {
+            content: "\f00c";
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 900;
+            color: var(--bg-primary);
+            display: none;
+            font-size: 0.75rem;
+        }
+
+        .checkbox-container input:checked ~ .checkmark:after {
+            display: block;
+        }
+
+        .checkbox-label {
+            color: var(--text-primary);
+            user-select: none;
+        }
+
+        /* Radio Styles */
+        .radio-container {
+            display: flex;
+            align-items: center;
+            margin-bottom: 0.75rem;
+            cursor: pointer;
+        }
+
+        .radio-container input {
+            position: absolute;
+            opacity: 0;
+            cursor: pointer;
+            height: 0;
+            width: 0;
+        }
+
+        .radio-mark {
+            height: 22px;
+            width: 22px;
+            background-color: var(--bg-tertiary);
+            border: 1px solid var(--border);
+            border-radius: 50%;
+            margin-right: 0.75rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition);
+        }
+
+        .radio-container:hover input ~ .radio-mark {
+            border-color: var(--accent);
+        }
+
+        .radio-container input:checked ~ .radio-mark {
+            border-color: var(--accent);
+        }
+
+        .radio-mark:after {
+            content: "";
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background-color: var(--accent);
+            display: none;
+        }
+
+        .radio-container input:checked ~ .radio-mark:after {
+            display: block;
+        }
+
+        .radio-label {
+            color: var(--text-primary);
+            user-select: none;
+        }
+
+        /* Range Slider */
+        .range-slider {
+            width: 100%;
+            margin: 1.5rem 0;
+        }
+
+        .range-input {
+            -webkit-appearance: none;
+            width: 100%;
+            height: 6px;
+            background: var(--bg-tertiary);
+            border-radius: 3px;
+            outline: none;
+        }
+
+        .range-input::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: var(--accent);
+            cursor: pointer;
+            transition: var(--transition);
+            border: 2px solid var(--bg-primary);
+        }
+
+        .range-input::-webkit-slider-thumb:hover {
+            transform: scale(1.2);
+        }
+
+        .range-labels {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 0.75rem;
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+        }
+
+        /* Timeline */
+        .timeline {
+            position: relative;
+            margin: 2rem 0;
+            padding-left: 2rem;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            width: 2px;
+            background-color: var(--accent);
+            opacity: 0.5;
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 2rem;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -2rem;
+            top: 0;
+            width: 1rem;
+            height: 1rem;
+            border-radius: 50%;
+            background-color: var(--accent);
+            border: 3px solid var(--bg-primary);
+        }
+
+        .timeline-date {
+            font-size: 0.875rem;
+            color: var(--accent);
+            margin-bottom: 0.25rem;
+            font-weight: 500;
+        }
+
+        .timeline-content {
+            background-color: var(--bg-tertiary);
+            border-radius: var(--radius);
+            padding: 1rem;
+            box-shadow: var(--shadow);
+        }
+
+        .timeline-title {
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--text-primary);
+        }
+
+        /* Draggable List */
+        .draggable-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .draggable-item {
+            background-color: var(--bg-tertiary);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 1rem;
+            margin-bottom: 0.75rem;
+            cursor: grab;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: var(--transition);
+        }
+
+        .draggable-item:hover {
+            border-color: var(--accent);
+            box-shadow: var(--shadow);
+        }
+
+        .draggable-item.dragging {
+            opacity: 0.5;
+            box-shadow: var(--shadow);
+        }
+
+        .drag-handle {
+            color: var(--text-secondary);
+            cursor: grab;
+            padding: 0.25rem;
+        }
+
+        .draggable-content {
+            flex: 1;
+            color: var(--text-primary);
+        }
+
+        .draggable-content[contenteditable="true"]:focus {
+            outline: none;
+            border-bottom: 1px dashed var(--accent);
+            padding-bottom: 2px;
+        }
+
+        /* Button Styles */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0.75rem 1.5rem;
+            border-radius: var(--radius);
+            font-weight: 500;
+            text-decoration: none;
+            cursor: pointer;
+            transition: var(--transition);
+            border: none;
+            outline: none;
+            font-size: 1rem;
+        }
+
+        .btn:active {
+            transform: scale(0.98);
+        }
+
+        .btn-primary {
+            background-color: var(--accent);
+            color: var(--bg-primary);
+        }
+
+        .btn-primary:hover {
+            background-color: var(--accent-light);
+        }
+
+        .btn-secondary {
+            background-color: var(--bg-tertiary);
+            color: var(--text-primary);
+            border: 1px solid var(--border);
+        }
+
+        .btn-secondary:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+
+        .btn-success {
+            background-color: var(--success);
+            color: var(--bg-primary);
+        }
+
+        .btn-success:hover {
+            background-color: rgba(3, 218, 198, 0.8);
+        }
+
+        .btn-danger {
+            background-color: var(--danger);
+            color: white;
+        }
+
+        .btn-danger:hover {
+            background-color: rgba(207, 102, 121, 0.8);
+        }
+
+        .btn-icon {
+            margin-right: 0.5rem;
+        }
+
+        .btn-icon-right {
+            margin-left: 0.5rem;
+        }
+
+        /* Navigation Controls */
+        .nav-controls {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 2rem;
+            padding-top: 1rem;
+            border-top: 1px solid var(--border);
+        }
+
+        /* Results Section */
+        .results-container {
+            background-color: var(--bg-card);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            padding: 2rem;
+            margin-bottom: 2rem;
+            border: 1px solid var(--border);
+        }
+
+        .results-header {
+            text-align: center;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .results-title {
+            font-size: 2rem;
+            color: var(--accent);
+            margin-bottom: 0.5rem;
+        }
+
+        .results-subtitle {
+            color: var(--text-secondary);
+        }
+
+        .results-section {
+            margin-bottom: 2rem;
+        }
+
+        .results-section-title {
+            font-size: 1.5rem;
+            color: var(--accent);
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 1px solid var(--border);
+        }
+
+        /* Export Options */
+        .export-options {
+            display: flex;
+            gap: 1rem;
+            margin: 2rem 0;
+        }
+
+        #export-email {
+            display: none !important;
+        }
+
+
+        .export-option {
+            flex: 1;
+            background-color: var(--bg-tertiary);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 1.5rem;
+            text-align: center;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .export-option:hover {
+            border-color: var(--accent);
+            box-shadow: var(--shadow);
+            transform: translateY(-2px);
+        }
+
+        .export-icon {
+            font-size: 2rem;
+            color: var(--accent);
+            margin-bottom: 1rem;
+        }
+
+        .export-title {
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+            color: var(--text-primary);
+        }
+
+        .export-description {
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+        }
+
+        /* Modal */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0, 0, 0, 0.7);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: var(--transition);
+        }
+
+        .modal-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .modal {
+            background-color: var(--bg-card);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            width: 90%;
+            max-width: 500px;
+            max-height: 90vh;
+            overflow-y: auto;
+            transform: translateY(20px);
+            transition: var(--transition);
+            border: 1px solid var(--border);
+        }
+
+        .modal-overlay.active .modal {
+            transform: translateY(0);
+        }
+
+        .modal-header {
+            padding: 1.5rem;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .modal-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin: 0;
+            color: var(--accent);
+        }
+
+        .modal-close {
+            background: none;
+            border: none;
+            color: var(--text-secondary);
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .modal-close:hover {
+            color: var(--text-primary);
+        }
+
+        .modal-body {
+            padding: 1.5rem;
+        }
+
+        .modal-footer {
+            padding: 1.5rem;
+            border-top: 1px solid var(--border);
+            display: flex;
+            justify-content: flex-end;
+            gap: 1rem;
+        }
+
+        /* Toast Notifications */
+        .toast-container {
+            position: fixed;
+            bottom: 1.5rem;
+            right: 1.5rem;
+            z-index: 1000;
+        }
+
+        .toast {
+            background-color: var(--bg-card);
+            border-left: 4px solid var(--accent);
+            border-radius: var(--radius);
+            padding: 1rem;
+            margin-top: 1rem;
+            box-shadow: var(--shadow);
+            display: flex;
+            align-items: center;
+            animation: toastIn 0.3s ease, toastOut 0.3s ease 4.7s forwards;
+            max-width: 300px;
+        }
+
+        .toast-icon {
+            margin-right: 1rem;
+            font-size: 1.25rem;
+            color: var(--accent);
+        }
+
+        .toast-content {
+            flex: 1;
+        }
+
+        .toast-title {
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+            color: var(--text-primary);
+        }
+
+        .toast-message {
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+            margin: 0;
+        }
+
+        .toast.success {
+            border-left-color: var(--success);
+        }
+
+        .toast.success .toast-icon {
+            color: var(--success);
+        }
+
+        .toast.warning {
+            border-left-color: var(--warning);
+        }
+
+        .toast.warning .toast-icon {
+            color: var(--warning);
+        }
+
+        .toast.error {
+            border-left-color: var(--danger);
+        }
+
+        .toast.error .toast-icon {
+            color: var(--danger);
+        }
+
+        @keyframes toastIn {
+            from { opacity: 0; transform: translateX(20px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        @keyframes toastOut {
+            from { opacity: 1; transform: translateX(0); }
+            to { opacity: 0; transform: translateX(20px); }
+        }
+
+        /* Print Styles */
+        @media print {
+            body {
+                background-color: white;
+                color: black;
+            }
+
+            .app-header, .progress-container, .nav-controls, .export-options, .section:not(.active) {
+                display: none !important;
+            }
+
+            .results-container {
+                box-shadow: none;
+                padding: 0;
+                margin: 0;
+                background-color: white;
+                color: black;
+                border: none;
+            }
+
+            .results-header {
+                text-align: center;
+                margin-bottom: 20mm;
+                padding-bottom: 5mm;
+                border-bottom: 1pt solid #ccc;
+            }
+
+            .results-title {
+                font-size: 24pt;
+                margin-bottom: 5mm;
+                color: black;
+            }
+
+            .results-subtitle {
+                font-size: 14pt;
+                color: #333;
+            }
+
+            .results-section {
+                margin-bottom: 10mm;
+                page-break-inside: avoid;
+            }
+
+            .results-section-title {
+                font-size: 18pt;
+                margin-bottom: 5mm;
+                padding-bottom: 2mm;
+                border-bottom: 1pt solid #ccc;
+                color: black;
+            }
+
+            .timeline-item, .interactive-element {
+                page-break-inside: avoid;
+                background-color: white;
+                color: black;
+            }
+
+            .interactive-element {
+                border: 1px solid #ccc;
+            }
+
+            @page {
+                margin: 20mm;
+                size: A4;
+            }
+
+            @page :first {
+                margin-top: 30mm;
+            }
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 768px) {
+            .choice-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .nav-controls {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .nav-controls .btn {
+                width: 100%;
+            }
+
+            .export-options {
+                flex-direction: column;
+            }
+
+            .progress-steps .step-label {
+                display: none;
+            }
+        }
+
+        .btn-home {
+            background: none;
+            border: none;
+            padding: 0.6rem;
+            color: #ffffff; /* Weiß */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 8px;
+            transition: background-color 0.3s ease;
+        }
+
+        .btn-home:hover {
+            background-color: rgba(255, 255, 255, 0.1); /* leichtes weißes Hover */
+        }
+
+        .btn-home i {
+            font-size: 1.3rem; /* Größeres Icon */
+        }
+        @media (min-width: 601px) {
+            #home-btn {
+                margin-right: auto; /* Schiebt ihn nach ganz links */
+            }
+        }
+
+
+
+        
+    </style>
+</head>
+<body>
+    <div class="app">
+        <div class="app-header">
+            <div class="app-title">
+                <i class="fas fa-chess-king"></i>
+                
+            </div>
+            <div class="app-actions">
+                <button id="reset-btn" class="btn btn-secondary">
+                    <i class="fas fa-redo btn-icon"></i>
+                    Reset
+                </button>
+                <button id="print-btn" class="btn btn-primary">
+                    <i class="fas fa-print btn-icon"></i>
+                    Print Plan
+                </button>
+            </div>
+        </div>
+
+        <div class="app-content">
+            <div class="progress-container">
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progress-fill" style="width: 0%"></div>
+                </div>
+                <div class="progress-steps">
+                    <div class="progress-step active" data-step="1">
+                        <div class="step-marker">1</div>
+                        <div class="step-label">Vision</div>
+                    </div>
+                    <div class="progress-step" data-step="2">
+                        <div class="step-marker">2</div>
+                        <div class="step-label">Obstacles</div>
+                    </div>
+                    <div class="progress-step" data-step="3">
+                        <div class="step-marker">3</div>
+                        <div class="step-label">Strategy</div>
+                    </div>
+                    <div class="progress-step" data-step="4">
+                        <div class="step-marker">4</div>
+                        <div class="step-label">Tactics</div>
+                    </div>
+                    <div class="progress-step" data-step="5">
+                        <div class="step-marker">5</div>
+                        <div class="step-label">Execution</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Introduction Section -->
+            <section id="intro" class="section active">
+                <div class="section-header">
+                    <h1 class="section-title">The 29th Law: Plan All The Way To The End</h1>
+                    <p class="section-description">Create a comprehensive strategic plan that anticipates all possible outcomes and leads you to victory.</p>
+                </div>
+
+                <div class="quote">
+                    <p class="quote-text">"The ending is everything. Plan all the way to it, taking into account all the possible consequences, obstacles, and twists of fortune that might reverse your hard work and give the glory to others."</p>
+                    <span class="quote-author">— Robert Greene, The 48 Laws of Power</span>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <h2 class="card-title">Why Plan to the End?</h2>
+                        <div class="card-icon"><i class="fas fa-chess"></i></div>
+                    </div>
+                    <p>By planning to the end, you will not be overwhelmed by circumstances and you will know when to stop. Guided by your plan, you can anticipate obstacles, prepare for them, and win before you even begin.</p>
+                    <p>This strategic planning tool will guide you through creating a comprehensive plan that accounts for all possibilities and leads you to your desired outcome.</p>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">What type of goal are you planning for?</label>
+                    <div class="choice-grid" id="goal-type-grid">
+                        <div class="choice-card" data-value="career">
+                            <div class="choice-icon"><i class="fas fa-briefcase"></i></div>
+                            <div class="choice-title">Career Advancement</div>
+                            <div class="choice-description">Promotion, new position, or professional growth</div>
+                        </div>
+                        <div class="choice-card" data-value="power">
+                            <div class="choice-icon"><i class="fas fa-chess-king"></i></div>
+                            <div class="choice-title">Power & Influence</div>
+                            <div class="choice-description">Gaining authority, control, or leadership</div>
+                        </div>
+                        <div class="choice-card" data-value="wealth">
+                            <div class="choice-icon"><i class="fas fa-coins"></i></div>
+                            <div class="choice-title">Wealth Building</div>
+                            <div class="choice-description">Financial growth, investments, or business</div>
+                        </div>
+                        <div class="choice-card" data-value="strategic">
+                            <div class="choice-icon"><i class="fas fa-chess-board"></i></div>
+                            <div class="choice-title">Strategic Victory</div>
+                            <div class="choice-description">Outmaneuvering opponents or competition</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">What is your timeframe?</label>
+                    <select id="goal-timeframe" class="form-control">
+                        <option value="">Select a timeframe</option>
+                        <option value="short">Short-term (1-6 months)</option>
+                        <option value="medium">Medium-term (6-18 months)</option>
+                        <option value="long">Long-term (1.5-5 years)</option>
+                        <option value="grand">Grand strategy (5+ years)</option>
+                    </select>
+                </div>
+
+                <div class="nav-controls">
+                    <div></div>
+                    <button id="home-btn" class="btn btn-home gray">
+                        <i class="fas fa-home btn-icon"></i>
+                        
+                    </button>
+                    
+                    <button class="btn btn-primary" id="start-planning">
+                        Begin Strategic Planning
+                        <i class="fas fa-arrow-right btn-icon-right"></i>
+                    </button>
+                </div>
+            </section>
+            <script>
+                document.getElementById('home-btn').addEventListener('click', () => {
+                    window.location.href = 'index.html';
+                });
+
+            </script>
+
+            <!-- Vision Section -->
+            <section id="vision" class="section">
+                <div class="section-header">
+                    <h2 class="section-title">1. Define Your Vision</h2>
+                    <p class="section-description">Clearly articulate your end goal and what victory looks like.</p>
+                </div>
+
+                <div class="quote">
+                    <p class="quote-text">"If you don't know where you're going, you'll end up someplace else."</p>
+                    <span class="quote-author">— Yogi Berra</span>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" for="end-goal">What is your ultimate goal?</label>
+                    <p class="form-hint">Be specific about what you want to achieve. The clearer your target, the more precise your plan can be.</p>
+                    <textarea class="form-control" id="end-goal" rows="3" placeholder="Describe your ultimate goal in detail..."></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">How will you know you've succeeded?</label>
+                    <p class="form-hint">Define clear, measurable indicators of success.</p>
+                    <div id="success-indicators-container">
+                        <div class="interactive-element">
+                            <button class="delete-btn"><i class="fas fa-times"></i></button>
+                            <input type="text" class="form-control" placeholder="Success indicator (e.g., 'Promoted to Senior Manager')">
+                        </div>
+                    </div>
+                    <button id="add-indicator" class="btn btn-secondary">
+                        <i class="fas fa-plus btn-icon"></i>
+                        Add Success Indicator
+                    </button>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">What resources do you currently have?</label>
+                    <p class="form-hint">Select all that apply to your situation.</p>
+                    
+                    <div class="checkbox-container">
+                        <input type="checkbox" id="resource-financial">
+                        <span class="checkmark"></span>
+                        <label class="checkbox-label" for="resource-financial">Financial capital</label>
+                    </div>
+                    
+                    <div class="checkbox-container">
+                        <input type="checkbox" id="resource-skills">
+                        <span class="checkmark"></span>
+                        <label class="checkbox-label" for="resource-skills">Relevant skills/expertise</label>
+                    </div>
+                    
+                    <div class="checkbox-container">
+                        <input type="checkbox" id="resource-connections">
+                        <span class="checkmark"></span>
+                        <label class="checkbox-label" for="resource-connections">Network/connections</label>
+                    </div>
+                    
+                    <div class="checkbox-container">
+                        <input type="checkbox" id="resource-authority">
+                        <span class="checkmark"></span>
+                        <label class="checkbox-label" for="resource-authority">Authority/position</label>
+                    </div>
+                    
+                    <div class="checkbox-container">
+                        <input type="checkbox" id="resource-time">
+                        <span class="checkmark"></span>
+                        <label class="checkbox-label" for="resource-time">Sufficient time</label>
+                    </div>
+                    
+                    <div class="checkbox-container">
+                        <input type="checkbox" id="resource-allies">
+                        <span class="checkmark"></span>
+                        <label class="checkbox-label" for="resource-allies">Allies/supporters</label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">What is your power position?</label>
+                    <p class="form-hint">Honestly assess your current position of power relative to your goal.</p>
+                    <div class="range-slider">
+                        <input type="range" min="1" max="10" value="5" class="range-input" id="power-position">
+                        <div class="range-labels">
+                            <span>Very Weak</span>
+                            <span>Moderate</span>
+                            <span>Very Strong</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="nav-controls">
+                    <button class="btn btn-secondary" id="back-to-intro">
+                        <i class="fas fa-arrow-left btn-icon"></i>
+                        Back
+                    </button>
+                    <button class="btn btn-primary" id="to-obstacles">
+                        Continue to Obstacles
+                        <i class="fas fa-arrow-right btn-icon-right"></i>
+                    </button>
+                </div>
+            </section>
+
+            <!-- Obstacles Section -->
+            <section id="obstacles" class="section">
+                <div class="section-header">
+                    <h2 class="section-title">2. Identify Obstacles & Opposition</h2>
+                    <p class="section-description">Anticipate all possible obstacles and opposition you might face.</p>
+                </div>
+
+                <div class="quote">
+                    <p class="quote-text">"If you know the enemy and know yourself, you need not fear the result of a hundred battles."</p>
+                    <span class="quote-author">— Sun Tzu</span>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Who might oppose your plan?</label>
+                    <p class="form-hint">Identify individuals or groups who may resist or compete against you.</p>
+                    <div id="opponents-container">
+                        <div class="interactive-element">
+                            <button class="delete-btn"><i class="fas fa-times"></i></button>
+                            <h3 style="margin-top: 0;">Opponent 1</h3>
+                            <div style="margin-bottom: 1rem;">
+                                <label class="form-label">Who are they?</label>
+                                <input type="text" class="form-control opponent-name" placeholder="Name or description of opponent">
+                            </div>
+                            <div style="margin-bottom: 1rem;">
+                                <label class="form-label">What are their motivations?</label>
+                                <input type="text" class="form-control opponent-motivation" placeholder="Why would they oppose you?">
+                            </div>
+                            <div style="display: flex; gap: 1rem; margin-bottom: 1rem;">
+                                <div style="flex: 1;">
+                                    <label class="form-label">Power Level:</label>
+                                    <select class="form-control opponent-power">
+                                        <option value="low">Low - Limited influence</option>
+                                        <option value="medium" selected>Medium - Moderate influence</option>
+                                        <option value="high">High - Significant influence</option>
+                                    </select>
+                                </div>
+                                <div style="flex: 1;">
+                                    <label class="form-label">Likelihood of Opposition:</label>
+                                    <select class="form-control opponent-likelihood">
+                                        <option value="low">Low - Might not oppose</option>
+                                        <option value="medium" selected>Medium - Likely to oppose</option>
+                                        <option value="high">High - Will definitely oppose</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div>
+                                <label class="form-label">Their Weaknesses:</label>
+                                <textarea class="form-control opponent-weaknesses" rows="2" placeholder="What weaknesses could you exploit?"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <button id="add-opponent" class="btn btn-secondary">
+                        <i class="fas fa-plus btn-icon"></i>
+                        Add Opponent
+                    </button>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">What obstacles might you face?</label>
+                    <p class="form-hint">Select all that apply to your situation.</p>
+                    
+                    <div class="choice-grid" id="obstacles-grid">
+                        <div class="choice-card" data-value="resources">
+                            <div class="choice-icon"><i class="fas fa-coins"></i></div>
+                            <div class="choice-title">Resource Limitations</div>
+                            <div class="choice-description">Lack of money, time, or support</div>
+                        </div>
+                        <div class="choice-card" data-value="skills">
+                            <div class="choice-icon"><i class="fas fa-graduation-cap"></i></div>
+                            <div class="choice-title">Skill Gaps</div>
+                            <div class="choice-description">Missing knowledge or abilities</div>
+                        </div>
+                        <div class="choice-card" data-value="resistance">
+                            <div class="choice-icon"><i class="fas fa-ban"></i></div>
+                            <div class="choice-title">Resistance to Change</div>
+                            <div class="choice-description">From others or systems</div>
+                        </div>
+                        <div class="choice-card" data-value="competition">
+                            <div class="choice-icon"><i class="fas fa-users"></i></div>
+                            <div class="choice-title">Competition</div>
+                            <div class="choice-description">Others seeking the same goal</div>
+                        </div>
+                        <div class="choice-card" data-value="uncertainty">
+                            <div class="choice-icon"><i class="fas fa-question-circle"></i></div>
+                            <div class="choice-title">Uncertainty</div>
+                            <div class="choice-description">Unknown factors or changes</div>
+                        </div>
+                        <div class="choice-card" data-value="internal">
+                            <div class="choice-icon"><i class="fas fa-brain"></i></div>
+                            <div class="choice-title">Internal Obstacles</div>
+                            <div class="choice-description">Self-doubt, fear, or habits</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Detail Your Top Obstacles</label>
+                    <p class="form-hint">Describe specific obstacles you expect to encounter and how you'll overcome them.</p>
+                    
+                    <div id="specific-obstacles-container">
+                        <div class="interactive-element">
+                            <button class="delete-btn"><i class="fas fa-times"></i></button>
+                            <h3 style="margin-top: 0;">Obstacle 1</h3>
+                            <div style="margin-bottom: 1rem;">
+                                <label class="form-label">Description:</label>
+                                <input type="text" class="form-control obstacle-description" placeholder="Describe the obstacle">
+                            </div>
+                            
+                            <div style="display: flex; gap: 1rem; margin-bottom: 1rem;">
+                                <div style="flex: 1;">
+                                    <label class="form-label">Impact:</label>
+                                    <select class="form-control obstacle-impact">
+                                        <option value="low">Low - Minor setback</option>
+                                        <option value="medium" selected>Medium - Significant delay</option>
+                                        <option value="high">High - Could derail goal</option>
+                                    </select>
+                                </div>
+                                <div style="flex: 1;">
+                                    <label class="form-label">Likelihood:</label>
+                                    <select class="form-control obstacle-likelihood">
+                                        <option value="low">Low - Unlikely</option>
+                                        <option value="medium" selected>Medium - Possible</option>
+                                        <option value="high">High - Probable</option>
+                                    </select>
+                                </div>
+                            </div>
+                            
+                            <div>
+                                <label class="form-label">Solution:</label>
+                                <textarea class="form-control obstacle-solution" rows="2" placeholder="Your strategy to overcome this obstacle"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <button id="add-specific-obstacle" class="btn btn-secondary">
+                        <i class="fas fa-plus btn-icon"></i>
+                        Add Obstacle
+                    </button>
+                </div>
+
+                <div class="nav-controls">
+                    <button class="btn btn-secondary" id="back-to-vision">
+                        <i class="fas fa-arrow-left btn-icon"></i>
+                        Back
+                    </button>
+                    <button class="btn btn-primary" id="to-strategy">
+                        Continue to Strategy
+                        <i class="fas fa-arrow-right btn-icon-right"></i>
+                    </button>
+                </div>
+            </section>
+
+            <!-- Strategy Section -->
+            <section id="strategy" class="section">
+                <div class="section-header">
+                    <h2 class="section-title">3. Develop Your Strategy</h2>
+                    <p class="section-description">Create your overarching strategy and consider alternative paths.</p>
+                </div>
+
+                <div class="quote">
+                    <p class="quote-text">"Strategy without tactics is the slowest route to victory. Tactics without strategy is the noise before defeat."</p>
+                    <span class="quote-author">— Sun Tzu</span>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Choose your primary strategic approach:</label>
+                    <p class="form-hint">Select the approach that best suits your situation and goal.</p>
+                    
+                    <div class="choice-grid" id="strategy-grid">
+                        <div class="choice-card" data-value="direct">
+                            <div class="choice-icon"><i class="fas fa-arrow-right"></i></div>
+                            <div class="choice-title">Direct Approach</div>
+                            <div class="choice-description">Straightforward path to your goal, using superior resources or position</div>
+                        </div>
+                        <div class="choice-card" data-value="indirect">
+                            <div class="choice-icon"><i class="fas fa-route"></i></div>
+                            <div class="choice-title">Indirect Approach</div>
+                            <div class="choice-description">Circuitous path that avoids resistance and finds the path of least expectation</div>
+                        </div>
+                        <div class="choice-card" data-value="alliance">
+                            <div class="choice-icon"><i class="fas fa-handshake"></i></div>
+                            <div class="choice-title">Alliance Building</div>
+                            <div class="choice-description">Forming partnerships and coalitions to achieve your goal</div>
+                        </div>
+                        <div class="choice-card" data-value="deception">
+                            <div class="choice-icon"><i class="fas fa-mask"></i></div>
+                            <div class="choice-title">Strategic Deception</div>
+                            <div class="choice-description">Concealing your true intentions while maneuvering toward your goal</div>
+                        </div>
+                        <div class="choice-card" data-value="patience">
+                            <div class="choice-icon"><i class="fas fa-hourglass-half"></i></div>
+                            <div class="choice-title">Patient Positioning</div>
+                            <div class="choice-description">Gradually improving your position until the time is right to act</div>
+                        </div>
+                        <div class="choice-card" data-value="overwhelming">
+                            <div class="choice-icon"><i class="fas fa-bolt"></i></div>
+                            <div class="choice-title">Overwhelming Force</div>
+                            <div class="choice-description">Concentrating your resources to achieve decisive victory</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" for="strategy-description">Describe your overall strategy:</label>
+                    <p class="form-hint">Outline your general approach to achieving your goal.</p>
+                    <textarea class="form-control" id="strategy-description" rows="4" placeholder="Describe your overall strategy..."></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Key Strategic Milestones</label>
+                    <p class="form-hint">Define the major milestones on your path to success.</p>
+                    
+                    <div id="milestones-container">
+                        <div class="interactive-element">
+                            <button class="delete-btn"><i class="fas fa-times"></i></button>
+                            <h3 style="margin-top: 0;">Milestone 1</h3>
+                            <div style="display: flex; gap: 1rem; margin-bottom: 1rem;">
+                                <div style="flex: 2;">
+                                    <label class="form-label">Title:</label>
+                                    <input type="text" class="form-control milestone-title" placeholder="Milestone title">
+                                </div>
+                                <div style="flex: 1;">
+                                    <label class="form-label">Target Date:</label>
+                                    <input type="date" class="form-control milestone-date">
+                                </div>
+                            </div>
+                            <div>
+                                <label class="form-label">Description:</label>
+                                <textarea class="form-control milestone-description" rows="2" placeholder="Describe this milestone and why it's important"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <button id="add-milestone" class="btn btn-secondary">
+                        <i class="fas fa-plus btn-icon"></i>
+                        Add Milestone
+                    </button>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Alternative Paths</label>
+                    <p class="form-hint">Always have backup plans if your primary strategy fails.</p>
+                    
+                    <div id="alternatives-container">
+                        <div class="interactive-element">
+                            <button class="delete-btn"><i class="fas fa-times"></i></button>
+                            <h3 style="margin-top: 0;">Alternative Path 1</h3>
+                            <div style="margin-bottom: 1rem;">
+                                <label class="form-label">Description:</label>
+                                <textarea class="form-control alternative-description" rows="2" placeholder="Describe an alternative approach to reaching your goal"></textarea>
+                            </div>
+                            <div style="margin-bottom: 1rem;">
+                                <label class="form-label">Trigger condition:</label>
+                                <input type="text" class="form-control alternative-trigger" placeholder="When would you switch to this alternative?">
+                            </div>
+                            <div>
+                                <label class="form-label">Key advantages/disadvantages:</label>
+                                <textarea class="form-control alternative-analysis" rows="2" placeholder="What are the pros and cons of this alternative?"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <button id="add-alternative" class="btn btn-secondary">
+                        <i class="fas fa-plus btn-icon"></i>
+                        Add Alternative Path
+                    </button>
+                </div>
+
+                <div class="nav-controls">
+                    <button class="btn btn-secondary" id="back-to-obstacles">
+                        <i class="fas fa-arrow-left btn-icon"></i>
+                        Back
+                    </button>
+                    <button class="btn btn-primary" id="to-tactics">
+                        Continue to Tactics
+                        <i class="fas fa-arrow-right btn-icon-right"></i>
+                    </button>
+                </div>
+            </section>
+
+            <!-- Tactics Section -->
+            <section id="tactics" class="section">
+                <div class="section-header">
+                    <h2 class="section-title">4. Define Your Tactics</h2>
+                    <p class="section-description">Develop specific actions and maneuvers to execute your strategy.</p>
+                </div>
+
+                <div class="quote">
+                    <p class="quote-text">"Tactics mean doing what you can with what you have."</p>
+                    <span class="quote-author">— Saul Alinsky</span>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Key Tactical Approaches</label>
+                    <p class="form-hint">Select the tactical approaches you'll employ (choose up to 3).</p>
+                    
+                    <div class="choice-grid" id="tactics-grid">
+                        <div class="choice-card" data-value="influence">
+                            <div class="choice-icon"><i class="fas fa-comments"></i></div>
+                            <div class="choice-title">Influence & Persuasion</div>
+                            <div class="choice-description">Using communication to change opinions and behaviors</div>
+                        </div>
+                        <div class="choice-card" data-value="positioning">
+                            <div class="choice-icon"><i class="fas fa-chess-knight"></i></div>
+                            <div class="choice-title">Strategic Positioning</div>
+                            <div class="choice-description">Maneuvering to advantageous positions</div>
+                        </div>
+                        <div class="choice-card" data-value="timing">
+                            <div class="choice-icon"><i class="fas fa-clock"></i></div>
+                            <div class="choice-title">Perfect Timing</div>
+                            <div class="choice-description">Acting at precisely the right moment</div>
+                        </div>
+                        <div class="choice-card" data-value="leverage">
+                            <div class="choice-icon"><i class="fas fa-balance-scale"></i></div>
+                            <div class="choice-title">Leverage</div>
+                            <div class="choice-description">Using minimal resources for maximum effect</div>
+                        </div>
+                        <div class="choice-card" data-value="information">
+                            <div class="choice-icon"><i class="fas fa-search"></i></div>
+                            <div class="choice-title">Information Advantage</div>
+                            <div class="choice-description">Gathering and using superior intelligence</div>
+                        </div>
+                        <div class="choice-card" data-value="momentum">
+                            <div class="choice-icon"><i class="fas fa-forward"></i></div>
+                            <div class="choice-title">Building Momentum</div>
+                            <div class="choice-description">Creating and sustaining forward progress</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Specific Tactical Actions</label>
+                    <p class="form-hint">Define the specific actions you'll take to execute your strategy.</p>
+                    
+                    <div id="actions-container">
+                        <div class="interactive-element">
+                            <button class="delete-btn"><i class="fas fa-times"></i></button>
+                            <h3 style="margin-top: 0;">Action 1</h3>
+                            <div style="margin-bottom: 1rem;">
+                                <label class="form-label">Description:</label>
+                                <input type="text" class="form-control action-description" placeholder="Describe the specific action">
+                            </div>
+                            <div style="display: flex; gap: 1rem; margin-bottom: 1rem;">
+                                <div style="flex: 1;">
+                                    <label class="form-label">Timeline:</label>
+                                    <select class="form-control action-timeline">
+                                        <option value="immediate">Immediate (Next 30 days)</option>
+                                        <option value="short" selected>Short-term (1-3 months)</option>
+                                        <option value="medium">Medium-term (3-6 months)</option>
+                                        <option value="long">Long-term (6+ months)</option>
+                                    </select>
+                                </div>
+                                <div style="flex: 1;">
+                                    <label class="form-label">Priority:</label>
+                                    <select class="form-control action-priority">
+                                        <option value="high">High - Critical</option>
+                                        <option value="medium" selected>Medium - Important</option>
+                                        <option value="low">Low - Helpful</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div>
+                                <label class="form-label">Resources needed:</label>
+                                <input type="text" class="form-control action-resources" placeholder="What resources will this action require?">
+                            </div>
+                        </div>
+                    </div>
+                    <button id="add-action" class="btn btn-secondary">
+                        <i class="fas fa-plus btn-icon"></i>
+                        Add Action
+                    </button>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Deception & Misdirection</label>
+                    <p class="form-hint">Consider how you might conceal your true intentions or create diversions.</p>
+                    <textarea class="form-control" id="deception-tactics" rows="3" placeholder="Describe any deception tactics you might employ..."></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Timing Considerations</label>
+                    <p class="form-hint">Identify the optimal timing for key moves and actions.</p>
+                    <textarea class="form-control" id="timing-considerations" rows="3" placeholder="Describe timing considerations for your plan..."></textarea>
+                </div>
+
+                <div class="nav-controls">
+                    <button class="btn btn-secondary" id="back-to-strategy">
+                        <i class="fas fa-arrow-left btn-icon"></i>
+                        Back
+                    </button>
+                    <button class="btn btn-primary" id="to-execution">
+                        Continue to Execution
+                        <i class="fas fa-arrow-right btn-icon-right"></i>
+                    </button>
+                </div>
+            </section>
+
+            <!-- Execution Section -->
+            <section id="execution" class="section">
+                <div class="section-header">
+                    <h2 class="section-title">5. Plan Your Execution</h2>
+                    <p class="section-description">Prepare for implementation and contingencies.</p>
+                </div>
+
+                <div class="quote">
+                    <p class="quote-text">"Everyone has a plan until they get punched in the mouth."</p>
+                    <span class="quote-author">— Mike Tyson</span>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Immediate Next Steps</label>
+                    <p class="form-hint">What are the first 3 actions you'll take to begin executing your plan?</p>
+                    
+                    <div id="next-steps-container">
+                        <div class="interactive-element">
+                            <button class="delete-btn"><i class="fas fa-times"></i></button>
+                            <div style="display: flex; gap: 1rem; align-items: center;">
+                                <div style="flex: 0 0 40px; font-size: 1.5rem; font-weight: bold; color: var(--accent);">1.</div>
+                                <input type="text" class="form-control next-step" placeholder="First action to take">
+                            </div>
+                        </div>
+                        <div class="interactive-element">
+                            <button class="delete-btn"><i class="fas fa-times"></i></button>
+                            <div style="display: flex; gap: 1rem; align-items: center;">
+                                <div style="flex: 0 0 40px; font-size: 1.5rem; font-weight: bold; color: var(--accent);">2.</div>
+                                <input type="text" class="form-control next-step" placeholder="Second action to take">
+                            </div>
+                        </div>
+                        <div class="interactive-element">
+                            <button class="delete-btn"><i class="fas fa-times"></i></button>
+                            <div style="display: flex; gap: 1rem; align-items: center;">
+                                <div style="flex: 0 0 40px; font-size: 1.5rem; font-weight: bold; color: var(--accent);">3.</div>
+                                <input type="text" class="form-control next-step" placeholder="Third action to take">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Monitoring Progress</label>
+                    <p class="form-hint">How will you track your progress and know if you're on the right path?</p>
+                    <textarea class="form-control" id="monitoring-plan" rows="3" placeholder="Describe how you'll monitor progress..."></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Contingency Planning</label>
+                    <p class="form-hint">What will you do if your plan encounters significant resistance or failure?</p>
+                    <textarea class="form-control" id="contingency-plan" rows="3" placeholder="Describe your contingency plans..."></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Knowing When to Stop</label>
+                    <p class="form-hint">Define clear conditions for when you've achieved your goal and should stop.</p>
+                    <textarea class="form-control" id="stopping-conditions" rows="3" placeholder="Describe when you'll know you've succeeded and should stop..."></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Final Review</label>
+                    <p class="form-hint">Review your entire plan for any gaps or inconsistencies.</p>
+                    
+                    <div class="checkbox-container">
+                        <input type="checkbox" id="review-complete">
+                        <span class="checkmark"></span>
+                        <label class="checkbox-label" for="review-complete">I've reviewed my entire plan from beginning to end</label>
+                    </div>
+                    
+                    <div class="checkbox-container">
+                        <input type="checkbox" id="review-obstacles">
+                        <span class="checkmark"></span>
+                        <label class="checkbox-label" for="review-obstacles">I've anticipated all possible obstacles and opposition</label>
+                    </div>
+                    
+                    <div class="checkbox-container">
+                        <input type="checkbox" id="review-alternatives">
+                        <span class="checkmark"></span>
+                        <label class="checkbox-label" for="review-alternatives">I have alternative paths if my primary strategy fails</label>
+                    </div>
+                    
+                    <div class="checkbox-container">
+                        <input type="checkbox" id="review-resources">
+                        <span class="checkmark"></span>
+                        <label class="checkbox-label" for="review-resources">I've confirmed I have or can acquire the necessary resources</label>
+                    </div>
+                    
+                    <div class="checkbox-container">
+                        <input type="checkbox" id="review-timing">
+                        <span class="checkmark"></span>
+                        <label class="checkbox-label" for="review-timing">I've considered timing and sequencing of actions</label>
+                    </div>
+                </div>
+
+                <div class="nav-controls">
+                    <button class="btn btn-secondary" id="back-to-tactics">
+                        <i class="fas fa-arrow-left btn-icon"></i>
+                        Back
+                    </button>
+                    <button class="btn btn-success" id="generate-plan">
+                        <i class="fas fa-file-alt btn-icon"></i>
+                        Generate Strategic Plan
+                    </button>
+                </div>
+            </section>
+
+            <!-- Results Section -->
+            <section id="results" class="section">
+                <div class="results-container">
+                    <div class="results-header">
+                        <h1 class="results-title">Strategic Plan</h1>
+                        <p class="results-subtitle" id="plan-subtitle">The 29th Law: Plan All The Way To The End</p>
+                        <p id="plan-date" style="color: var(--text-secondary);"></p>
+                    </div>
+
+                    <div class="results-section">
+                        <h2 class="results-section-title">Executive Summary</h2>
+                        <p id="result-summary">This strategic plan outlines a comprehensive approach to achieving your defined goal. Based on a thorough analysis of your current position, potential obstacles, and available resources, this plan provides a clear path forward with contingencies for potential challenges.</p>
+                    </div>
+
+                    <div class="results-section">
+                        <h2 class="results-section-title">Vision & End Goal</h2>
+                        <div class="card">
+                            <p id="result-goal"></p>
+                            <div style="margin-top: 1rem;">
+                                <strong>Success Indicators:</strong>
+                                <ul id="result-indicators" style="margin-left: 1.5rem; margin-top: 0.5rem;"></ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="results-section">
+                        <h2 class="results-section-title">Strategic Approach</h2>
+                        <div class="card">
+                            <p id="result-strategy-approach"></p>
+                            <p id="result-strategy-description" style="margin-top: 1rem;"></p>
+                        </div>
+                    </div>
+
+                    <div class="results-section">
+                        <h2 class="results-section-title">Anticipated Opposition & Obstacles</h2>
+                        <div id="result-opponents"></div>
+                        
+                        <h3 style="margin-top: 1.5rem; color: var(--text-primary);">Key Obstacles</h3>
+                        <div id="result-obstacles"></div>
+                    </div>
+
+                    <div class="results-section">
+                        <h2 class="results-section-title">Strategic Timeline</h2>
+                        <div class="timeline" id="result-timeline"></div>
+                    </div>
+
+                    <div class="results-section">
+                        <h2 class="results-section-title">Tactical Actions</h2>
+                        <div id="result-actions"></div>
+                    </div>
+
+                    <div class="results-section">
+                        <h2 class="results-section-title">Alternative Paths</h2>
+                        <div id="result-alternatives"></div>
+                    </div>
+
+                    <div class="results-section">
+                        <h2 class="results-section-title">Execution Plan</h2>
+                        <div class="card">
+                            <h3 style="color: var(--accent);">Immediate Next Steps</h3>
+                            <ol id="result-next-steps" style="margin-left: 1.5rem; margin-top: 0.5rem; margin-bottom: 1.5rem;"></ol>
+                            
+                            <h3 style="color: var(--accent);">Monitoring Progress</h3>
+                            <p id="result-monitoring" style="margin-bottom: 1.5rem;"></p>
+                            
+                            <h3 style="color: var(--accent);">Contingency Planning</h3>
+                            <p id="result-contingency" style="margin-bottom: 1.5rem;"></p>
+                            
+                            <h3 style="color: var(--accent);">Completion Criteria</h3>
+                            <p id="result-completion"></p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="export-options">
+                    <div class="export-option" id="export-pdf">
+                        <div class="export-icon"><i class="fas fa-file-pdf"></i></div>
+                        <div class="export-title">PDF</div>
+                        <div class="export-description">Download as PDF document</div>
+                    </div>
+
+                    <div class="export-option" id="export-print">
+                        <div class="export-icon"><i class="fas fa-print"></i></div>
+                        <div class="export-title">Print</div>
+                        <div class="export-description">Print physical copy</div>
+                    </div>
+
+                    <div class="export-option" id="export-email">
+                        <div class="export-icon"><i class="fas fa-envelope"></i></div>
+                        <div class="export-title">Email</div>
+                        <div class="export-description">Send to your email</div>
+                    </div>
+                </div>
+
+                <div class="nav-controls">
+                    <button class="btn btn-secondary" id="back-to-execution">
+                        <i class="fas fa-arrow-left btn-icon"></i>
+                        Back to Execution
+                    </button>
+                    <button class="btn btn-primary" id="create-new-plan">
+                        <i class="fas fa-plus btn-icon"></i>
+                        Create New Plan
+                    </button>
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <!-- Email Modal -->
+    <div class="modal-overlay" id="email-modal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3 class="modal-title">Send Plan to Email</h3>
+                <button class="modal-close" id="close-email-modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label class="form-label" for="email-address">Email Address</label>
+                    <input type="email" id="email-address" class="form-control" placeholder="your@email.com">
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="email-format">Format</label>
+                    <select id="email-format" class="form-control">
+                        <option value="pdf">PDF Attachment</option>
+                        <option value="html">HTML Email</option>
+                        <option value="text">Plain Text</option>
+                    </select>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" id="cancel-email">Cancel</button>
+                <button class="btn btn-primary" id="send-email">Send</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Container -->
+    <div class="toast-container" id="toast-container"></div>
+
+    <script>
+        // DOM Elements - Main Sections
+        const sections = document.querySelectorAll('.section');
+        const progressFill = document.getElementById('progress-fill');
+        const progressSteps = document.querySelectorAll('.progress-step');
+        
+        // DOM Elements - Navigation
+        const startPlanningBtn = document.getElementById('start-planning');
+        const toVisionBtn = document.getElementById('to-vision');
+        const toObstaclesBtn = document.getElementById('to-obstacles');
+        const toStrategyBtn = document.getElementById('to-strategy');
+        const toTacticsBtn = document.getElementById('to-tactics');
+        const toExecutionBtn = document.getElementById('to-execution');
+        const backToIntroBtn = document.getElementById('back-to-intro');
+        const backToVisionBtn = document.getElementById('back-to-vision');
+        const backToObstaclesBtn = document.getElementById('back-to-obstacles');
+        const backToStrategyBtn = document.getElementById('back-to-strategy');
+        const backToTacticsBtn = document.getElementById('back-to-tactics');
+        const backToExecutionBtn = document.getElementById('back-to-execution');
+        const generatePlanBtn = document.getElementById('generate-plan');
+        const createNewPlanBtn = document.getElementById('create-new-plan');
+        const resetBtn = document.getElementById('reset-btn');
+        
+        // DOM Elements - Interactive Elements
+        const goalTypeGrid = document.getElementById('goal-type-grid');
+        const obstaclesGrid = document.getElementById('obstacles-grid');
+        const strategyGrid = document.getElementById('strategy-grid');
+        const tacticsGrid = document.getElementById('tactics-grid');
+        const addIndicatorBtn = document.getElementById('add-indicator');
+        const successIndicatorsContainer = document.getElementById('success-indicators-container');
+        const addOpponentBtn = document.getElementById('add-opponent');
+        const opponentsContainer = document.getElementById('opponents-container');
+        const addSpecificObstacleBtn = document.getElementById('add-specific-obstacle');
+        const specificObstaclesContainer = document.getElementById('specific-obstacles-container');
+        const addMilestoneBtn = document.getElementById('add-milestone');
+        const milestonesContainer = document.getElementById('milestones-container');
+        const addAlternativeBtn = document.getElementById('add-alternative');
+        const alternativesContainer = document.getElementById('alternatives-container');
+        const addActionBtn = document.getElementById('add-action');
+        const actionsContainer = document.getElementById('actions-container');
+        
+        // DOM Elements - Export
+        const printBtn = document.getElementById('print-btn');
+        const exportPdfBtn = document.getElementById('export-pdf');
+        const exportPrintBtn = document.getElementById('export-print');
+        const exportEmailBtn = document.getElementById('export-email');
+        const emailModal = document.getElementById('email-modal');
+        const closeEmailModalBtn = document.getElementById('close-email-modal');
+        const cancelEmailBtn = document.getElementById('cancel-email');
+        const sendEmailBtn = document.getElementById('send-email');
+        const toastContainer = document.getElementById('toast-container');
+
+        // App State
+        const state = {
+            currentSection: 'intro',
+            sectionOrder: ['intro', 'vision', 'obstacles', 'strategy', 'tactics', 'execution', 'results'],
+            currentStep: 0,
+            indicatorCounter: 1,
+            opponentCounter: 1,
+            obstacleCounter: 1,
+            milestoneCounter: 1,
+            alternativeCounter: 1,
+            actionCounter: 1,
+            formData: {
+                intro: {},
+                vision: {},
+                obstacles: {},
+                strategy: {},
+                tactics: {},
+                execution: {}
+            }
+        };
+
+        // Initialize the app
+        function init() {
+            setupEventListeners();
+            setupInteractiveElements();
+            loadFromLocalStorage();
+            updateCurrentDate();
+        }
+
+        // Update current date
+        function updateCurrentDate() {
+            const now = new Date();
+            document.getElementById('plan-date').textContent = now.toLocaleDateString('en-US', { 
+                year: 'numeric', 
+                month: 'long', 
+                day: 'numeric' 
+            });
+        }
+
+        // Setup event listeners
+        function setupEventListeners() {
+            // Navigation buttons
+            startPlanningBtn.addEventListener('click', () => navigateToSection('vision'));
+            toObstaclesBtn.addEventListener('click', () => navigateToSection('obstacles'));
+            toStrategyBtn.addEventListener('click', () => navigateToSection('strategy'));
+            toTacticsBtn.addEventListener('click', () => navigateToSection('tactics'));
+            toExecutionBtn.addEventListener('click', () => navigateToSection('execution'));
+            backToIntroBtn.addEventListener('click', () => navigateToSection('intro'));
+            backToVisionBtn.addEventListener('click', () => navigateToSection('vision'));
+            backToObstaclesBtn.addEventListener('click', () => navigateToSection('obstacles'));
+            backToStrategyBtn.addEventListener('click', () => navigateToSection('strategy'));
+            backToTacticsBtn.addEventListener('click', () => navigateToSection('tactics'));
+            backToExecutionBtn.addEventListener('click', () => navigateToSection('execution'));
+            
+            // Generate plan button
+            generatePlanBtn.addEventListener('click', () => {
+                saveCurrentSectionData();
+                generatePlan();
+                navigateToSection('results');
+            });
+            
+            // Create new plan button
+            createNewPlanBtn.addEventListener('click', resetForm);
+            
+            // Reset button
+            resetBtn.addEventListener('click', resetForm);
+            
+            // Add interactive elements buttons
+            addIndicatorBtn.addEventListener('click', addSuccessIndicator);
+            addOpponentBtn.addEventListener('click', addOpponent);
+            addSpecificObstacleBtn.addEventListener('click', addSpecificObstacle);
+            addMilestoneBtn.addEventListener('click', addMilestone);
+            addAlternativeBtn.addEventListener('click', addAlternative);
+            addActionBtn.addEventListener('click', addAction);
+            
+            // Export buttons
+            printBtn.addEventListener('click', printPlan);
+            exportPrintBtn.addEventListener('click', printPlan);
+            exportPdfBtn.addEventListener('click', exportToPdf);
+            exportEmailBtn.addEventListener('click', () => {
+                emailModal.classList.add('active');
+            });
+            
+            // Email modal buttons
+            closeEmailModalBtn.addEventListener('click', () => {
+                emailModal.classList.remove('active');
+            });
+            cancelEmailBtn.addEventListener('click', () => {
+                emailModal.classList.remove('active');
+            });
+            sendEmailBtn.addEventListener('click', sendEmail);
+            
+            // Choice grids
+            setupChoiceGrids();
+            
+            // Delete buttons (using event delegation)
+            document.addEventListener('click', (e) => {
+                if (e.target.closest('.delete-btn')) {
+                    const deleteBtn = e.target.closest('.delete-btn');
+                    const element = deleteBtn.closest('.interactive-element');
+                    
+                    if (element) {
+                        // Add fade out animation
+                        element.style.transition = 'opacity 0.3s ease, transform 0.3s ease';
+                        element.style.opacity = '0';
+                        element.style.transform = 'translateY(-10px)';
+                        
+                        setTimeout(() => {
+                            element.remove();
+                        }, 300);
+                    }
+                }
+            });
+        }
+
+        // Setup choice grids
+        function setupChoiceGrids() {
+            // Goal type grid
+            const goalTypeCards = goalTypeGrid.querySelectorAll('.choice-card');
+            goalTypeCards.forEach(card => {
+                card.addEventListener('click', () => {
+                    card.classList.toggle('selected');
+                });
+            });
+            
+            // Obstacles grid
+            const obstacleCards = obstaclesGrid.querySelectorAll('.choice-card');
+            obstacleCards.forEach(card => {
+                card.addEventListener('click', () => {
+                    card.classList.toggle('selected');
+                });
+            });
+            
+            // Strategy grid
+            const strategyCards = strategyGrid.querySelectorAll('.choice-card');
+            strategyCards.forEach(card => {
+                card.addEventListener('click', () => {
+                    // Deselect all other cards first (single selection)
+                    strategyCards.forEach(c => c.classList.remove('selected'));
+                    card.classList.add('selected');
+                });
+            });
+            
+            // Tactics grid
+            const tacticsCards = tacticsGrid.querySelectorAll('.choice-card');
+            tacticsCards.forEach(card => {
+                card.addEventListener('click', () => {
+                    card.classList.toggle('selected');
+                    
+                    // Limit to 3 selections
+                    const selected = tacticsGrid.querySelectorAll('.choice-card.selected');
+                    if (selected.length > 3) {
+                        // Find the first selected card that isn't the one we just clicked
+                        for (let c of selected) {
+                            if (c !== card) {
+                                c.classList.remove('selected');
+                                break;
+                            }
+                        }
+                    }
+                });
+            });
+        }
+
+        // Setup interactive elements
+        function setupInteractiveElements() {
+            // Add initial elements if containers are empty
+            if (successIndicatorsContainer.children.length === 0) {
+                addSuccessIndicator();
+            }
+            
+            if (opponentsContainer.children.length === 0) {
+                addOpponent();
+            }
+            
+            if (specificObstaclesContainer.children.length === 0) {
+                addSpecificObstacle();
+            }
+            
+            if (milestonesContainer.children.length === 0) {
+                addMilestone();
+            }
+            
+            if (alternativesContainer.children.length === 0) {
+                addAlternative();
+            }
+            
+            if (actionsContainer.children.length === 0) {
+                addAction();
+            }
+        }
+
+        // Navigate to a specific section
+        function navigateToSection(sectionId) {
+            // Save current section data
+            saveCurrentSectionData();
+            
+            // Hide all sections
+            sections.forEach(section => {
+                section.classList.remove('active');
+            });
+            
+            // Show the target section
+            document.getElementById(sectionId).classList.add('active');
+            
+            // Update state
+            state.currentSection = sectionId;
+            state.currentStep = state.sectionOrder.indexOf(sectionId);
+            
+            // Update progress bar and steps
+            updateProgress();
+            
+            // Save to localStorage
+            saveToLocalStorage();
+        }
+
+        // Update progress bar and steps
+        function updateProgress() {
+            // Skip intro and results sections for progress calculation
+            let adjustedStep = state.currentStep;
+            if (state.currentStep > 0) {
+                // Calculate progress percentage (excluding intro and results)
+                const totalSteps = state.sectionOrder.length - 2; // Exclude intro and results
+                const currentProgress = Math.min(adjustedStep, totalSteps);
+                const progressPercentage = (currentProgress / totalSteps) * 100;
+                
+                // Update progress bar
+                progressFill.style.width = `${progressPercentage}%`;
+                
+                // Update progress steps
+                progressSteps.forEach((step, index) => {
+                    const stepNumber = index + 1;
+                    step.classList.remove('active', 'completed');
+                    
+                    if (adjustedStep > stepNumber) {
+                        step.classList.add('completed');
+                    } else if (adjustedStep === stepNumber) {
+                        step.classList.add('active');
+                    }
+                });
+            } else {
+                // Reset progress for intro section
+                progressFill.style.width = '0%';
+                progressSteps.forEach((step, index) => {
+                    step.classList.remove('active', 'completed');
+                    if (index === 0) {
+                        step.classList.add('active');
+                    }
+                });
+            }
+        }
+
+        // Save current section data
+        function saveCurrentSectionData() {
+            switch (state.currentSection) {
+                case 'intro':
+                    saveIntroData();
+                    break;
+                case 'vision':
+                    saveVisionData();
+                    break;
+                case 'obstacles':
+                    saveObstaclesData();
+                    break;
+                case 'strategy':
+                    saveStrategyData();
+                    break;
+                case 'tactics':
+                    saveTacticsData();
+                    break;
+                case 'execution':
+                    saveExecutionData();
+                    break;
+            }
+        }
+
+        // Save intro data
+        function saveIntroData() {
+            state.formData.intro = {
+                goalType: getSelectedValues(goalTypeGrid),
+                timeframe: document.getElementById('goal-timeframe').value
+            };
+        }
+
+        // Save vision data
+        function saveVisionData() {
+            state.formData.vision = {
+                endGoal: document.getElementById('end-goal').value,
+                successIndicators: getSuccessIndicators(),
+                resources: getSelectedResources(),
+                powerPosition: document.getElementById('power-position').value
+            };
+        }
+
+        // Save obstacles data
+        function saveObstaclesData() {
+            state.formData.obstacles = {
+                opponents: getOpponents(),
+                obstacleTypes: getSelectedValues(obstaclesGrid),
+                specificObstacles: getSpecificObstacles()
+            };
+        }
+
+        // Save strategy data
+        function saveStrategyData() {
+            state.formData.strategy = {
+                approach: getSelectedValues(strategyGrid)[0], // Only one selection allowed
+                description: document.getElementById('strategy-description').value,
+                milestones: getMilestones(),
+                alternatives: getAlternatives()
+            };
+        }
+
+        // Save tactics data
+        function saveTacticsData() {
+            state.formData.tactics = {
+                approaches: getSelectedValues(tacticsGrid),
+                actions: getActions(),
+                deception: document.getElementById('deception-tactics').value,
+                timing: document.getElementById('timing-considerations').value
+            };
+        }
+
+        // Save execution data
+        function saveExecutionData() {
+            state.formData.execution = {
+                nextSteps: getNextSteps(),
+                monitoring: document.getElementById('monitoring-plan').value,
+                contingency: document.getElementById('contingency-plan').value,
+                stopping: document.getElementById('stopping-conditions').value,
+                reviewComplete: document.getElementById('review-complete').checked,
+                reviewObstacles: document.getElementById('review-obstacles').checked,
+                reviewAlternatives: document.getElementById('review-alternatives').checked,
+                reviewResources: document.getElementById('review-resources').checked,
+                reviewTiming: document.getElementById('review-timing').checked
+            };
+        }
+
+        // Get selected values from a choice grid
+        function getSelectedValues(grid) {
+            const selected = [];
+            grid.querySelectorAll('.choice-card.selected').forEach(card => {
+                selected.push({
+                    value: card.getAttribute('data-value'),
+                    title: card.querySelector('.choice-title').textContent
+                });
+            });
+            return selected;
+        }
+
+        // Get selected resources
+        function getSelectedResources() {
+            const resources = [];
+            if (document.getElementById('resource-financial').checked) resources.push('Financial capital');
+            if (document.getElementById('resource-skills').checked) resources.push('Relevant skills/expertise');
+            if (document.getElementById('resource-connections').checked) resources.push('Network/connections');
+            if (document.getElementById('resource-authority').checked) resources.push('Authority/position');
+            if (document.getElementById('resource-time').checked) resources.push('Sufficient time');
+            if (document.getElementById('resource-allies').checked) resources.push('Allies/supporters');
+            return resources;
+        }
+
+        // Get success indicators
+        function getSuccessIndicators() {
+            const indicators = [];
+            successIndicatorsContainer.querySelectorAll('.interactive-element').forEach(element => {
+                const indicator = element.querySelector('input').value;
+                if (indicator) indicators.push(indicator);
+            });
+            return indicators;
+        }
+
+        // Get opponents
+        function getOpponents() {
+            const opponents = [];
+            opponentsContainer.querySelectorAll('.interactive-element').forEach(element => {
+                opponents.push({
+                    name: element.querySelector('.opponent-name').value,
+                    motivation: element.querySelector('.opponent-motivation').value,
+                    power: element.querySelector('.opponent-power').value,
+                    likelihood: element.querySelector('.opponent-likelihood').value,
+                    weaknesses: element.querySelector('.opponent-weaknesses').value
+                });
+            });
+            return opponents;
+        }
+
+        // Get specific obstacles
+        function getSpecificObstacles() {
+            const obstacles = [];
+            specificObstaclesContainer.querySelectorAll('.interactive-element').forEach(element => {
+                obstacles.push({
+                    description: element.querySelector('.obstacle-description').value,
+                    impact: element.querySelector('.obstacle-impact').value,
+                    likelihood: element.querySelector('.obstacle-likelihood').value,
+                    solution: element.querySelector('.obstacle-solution').value
+                });
+            });
+            return obstacles;
+        }
+
+        // Get milestones
+        function getMilestones() {
+            const milestones = [];
+            milestonesContainer.querySelectorAll('.interactive-element').forEach(element => {
+                milestones.push({
+                    title: element.querySelector('.milestone-title').value,
+                    date: element.querySelector('.milestone-date').value,
+                    description: element.querySelector('.milestone-description').value
+                });
+            });
+            return milestones;
+        }
+
+        // Get alternatives
+        function getAlternatives() {
+            const alternatives = [];
+            alternativesContainer.querySelectorAll('.interactive-element').forEach(element => {
+                alternatives.push({
+                    description: element.querySelector('.alternative-description').value,
+                    trigger: element.querySelector('.alternative-trigger').value,
+                    analysis: element.querySelector('.alternative-analysis').value
+                });
+            });
+            return alternatives;
+        }
+
+        // Get actions
+        function getActions() {
+            const actions = [];
+            actionsContainer.querySelectorAll('.interactive-element').forEach(element => {
+                actions.push({
+                    description: element.querySelector('.action-description').value,
+                    timeline: element.querySelector('.action-timeline').value,
+                    priority: element.querySelector('.action-priority').value,
+                    resources: element.querySelector('.action-resources').value
+                });
+            });
+            return actions;
+        }
+
+        // Get next steps
+        function getNextSteps() {
+            const steps = [];
+            document.querySelectorAll('#next-steps-container .next-step').forEach(input => {
+                if (input.value) steps.push(input.value);
+            });
+            return steps;
+        }
+
+        // Add a success indicator
+        function addSuccessIndicator() {
+            state.indicatorCounter++;
+            
+            const newIndicator = document.createElement('div');
+            newIndicator.className = 'interactive-element';
+            
+            newIndicator.innerHTML = `
+                <button class="delete-btn"><i class="fas fa-times"></i></button>
+                <input type="text" class="form-control" placeholder="Success indicator (e.g., 'Promoted to Senior Manager')">
+            `;
+            
+            successIndicatorsContainer.appendChild(newIndicator);
+            
+            // Add animation
+            animateElement(newIndicator);
+        }
+
+        // Add an opponent
+        function addOpponent() {
+            state.opponentCounter++;
+            
+            const newOpponent = document.createElement('div');
+            newOpponent.className = 'interactive-element';
+            
+            newOpponent.innerHTML = `
+                <button class="delete-btn"><i class="fas fa-times"></i></button>
+                <h3 style="margin-top: 0;">Opponent ${state.opponentCounter}</h3>
+                <div style="margin-bottom: 1rem;">
+                    <label class="form-label">Who are they?</label>
+                    <input type="text" class="form-control opponent-name" placeholder="Name or description of opponent">
+                </div>
+                <div style="margin-bottom: 1rem;">
+                    <label class="form-label">What are their motivations?</label>
+                    <input type="text" class="form-control opponent-motivation" placeholder="Why would they oppose you?">
+                </div>
+                <div style="display: flex; gap: 1rem; margin-bottom: 1rem;">
+                    <div style="flex: 1;">
+                        <label class="form-label">Power Level:</label>
+                        <select class="form-control opponent-power">
+                            <option value="low">Low - Limited influence</option>
+                            <option value="medium" selected>Medium - Moderate influence</option>
+                            <option value="high">High - Significant influence</option>
+                        </select>
+                    </div>
+                    <div style="flex: 1;">
+                        <label class="form-label">Likelihood of Opposition:</label>
+                        <select class="form-control opponent-likelihood">
+                            <option value="low">Low - Might not oppose</option>
+                            <option value="medium" selected>Medium - Likely to oppose</option>
+                            <option value="high">High - Will definitely oppose</option>
+                        </select>
+                    </div>
+                </div>
+                <div>
+                    <label class="form-label">Their Weaknesses:</label>
+                    <textarea class="form-control opponent-weaknesses" rows="2" placeholder="What weaknesses could you exploit?"></textarea>
+                </div>
+            `;
+            
+            opponentsContainer.appendChild(newOpponent);
+            
+            // Add animation
+            animateElement(newOpponent);
+        }
+
+        // Add a specific obstacle
+        function addSpecificObstacle() {
+            state.obstacleCounter++;
+            
+            const newObstacle = document.createElement('div');
+            newObstacle.className = 'interactive-element';
+            
+            newObstacle.innerHTML = `
+                <button class="delete-btn"><i class="fas fa-times"></i></button>
+                <h3 style="margin-top: 0;">Obstacle ${state.obstacleCounter}</h3>
+                <div style="margin-bottom: 1rem;">
+                    <label class="form-label">Description:</label>
+                    <input type="text" class="form-control obstacle-description" placeholder="Describe the obstacle">
+                </div>
+                
+                <div style="display: flex; gap: 1rem; margin-bottom: 1rem;">
+                    <div style="flex: 1;">
+                        <label class="form-label">Impact:</label>
+                        <select class="form-control obstacle-impact">
+                            <option value="low">Low - Minor setback</option>
+                            <option value="medium" selected>Medium - Significant delay</option>
+                            <option value="high">High - Could derail goal</option>
+                        </select>
+                    </div>
+                    <div style="flex: 1;">
+                        <label class="form-label">Likelihood:</label>
+                        <select class="form-control obstacle-likelihood">
+                            <option value="low">Low - Unlikely</option>
+                            <option value="medium" selected>Medium - Possible</option>
+                            <option value="high">High - Probable</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div>
+                    <label class="form-label">Solution:</label>
+                    <textarea class="form-control obstacle-solution" rows="2" placeholder="Your strategy to overcome this obstacle"></textarea>
+                </div>
+            `;
+            
+            specificObstaclesContainer.appendChild(newObstacle);
+            
+            // Add animation
+            animateElement(newObstacle);
+        }
+
+        // Add a milestone
+        function addMilestone() {
+            state.milestoneCounter++;
+            
+            const newMilestone = document.createElement('div');
+            newMilestone.className = 'interactive-element';
+            
+            newMilestone.innerHTML = `
+                <button class="delete-btn"><i class="fas fa-times"></i></button>
+                <h3 style="margin-top: 0;">Milestone ${state.milestoneCounter}</h3>
+                <div style="display: flex; gap: 1rem; margin-bottom: 1rem;">
+                    <div style="flex: 2;">
+                        <label class="form-label">Title:</label>
+                        <input type="text" class="form-control milestone-title" placeholder="Milestone title">
+                    </div>
+                    <div style="flex: 1;">
+                        <label class="form-label">Target Date:</label>
+                        <input type="date" class="form-control milestone-date">
+                    </div>
+                </div>
+                <div>
+                    <label class="form-label">Description:</label>
+                    <textarea class="form-control milestone-description" rows="2" placeholder="Describe this milestone and why it's important"></textarea>
+                </div>
+            `;
+            
+            milestonesContainer.appendChild(newMilestone);
+            
+            // Add animation
+            animateElement(newMilestone);
+        }
+
+        // Add an alternative
+        function addAlternative() {
+            state.alternativeCounter++;
+            
+            const newAlternative = document.createElement('div');
+            newAlternative.className = 'interactive-element';
+            
+            newAlternative.innerHTML = `
+                <button class="delete-btn"><i class="fas fa-times"></i></button>
+                <h3 style="margin-top: 0;">Alternative Path ${state.alternativeCounter}</h3>
+                <div style="margin-bottom: 1rem;">
+                    <label class="form-label">Description:</label>
+                    <textarea class="form-control alternative-description" rows="2" placeholder="Describe an alternative approach to reaching your goal"></textarea>
+                </div>
+                <div style="margin-bottom: 1rem;">
+                    <label class="form-label">Trigger condition:</label>
+                    <input type="text" class="form-control alternative-trigger" placeholder="When would you switch to this alternative?">
+                </div>
+                <div>
+                    <label class="form-label">Key advantages/disadvantages:</label>
+                    <textarea class="form-control alternative-analysis" rows="2" placeholder="What are the pros and cons of this alternative?"></textarea>
+                </div>
+            `;
+            
+            alternativesContainer.appendChild(newAlternative);
+            
+            // Add animation
+            animateElement(newAlternative);
+        }
+
+        // Add an action
+        function addAction() {
+            state.actionCounter++;
+            
+            const newAction = document.createElement('div');
+            newAction.className = 'interactive-element';
+            
+            newAction.innerHTML = `
+                <button class="delete-btn"><i class="fas fa-times"></i></button>
+                <h3 style="margin-top: 0;">Action ${state.actionCounter}</h3>
+                <div style="margin-bottom: 1rem;">
+                    <label class="form-label">Description:</label>
+                    <input type="text" class="form-control action-description" placeholder="Describe the specific action">
+                </div>
+                <div style="display: flex; gap: 1rem; margin-bottom: 1rem;">
+                    <div style="flex: 1;">
+                        <label class="form-label">Timeline:</label>
+                        <select class="form-control action-timeline">
+                            <option value="immediate">Immediate (Next 30 days)</option>
+                            <option value="short" selected>Short-term (1-3 months)</option>
+                            <option value="medium">Medium-term (3-6 months)</option>
+                            <option value="long">Long-term (6+ months)</option>
+                        </select>
+                    </div>
+                    <div style="flex: 1;">
+                        <label class="form-label">Priority:</label>
+                        <select class="form-control action-priority">
+                            <option value="high">High - Critical</option>
+                            <option value="medium" selected>Medium - Important</option>
+                            <option value="low">Low - Helpful</option>
+                        </select>
+                    </div>
+                </div>
+                <div>
+                    <label class="form-label">Resources needed:</label>
+                    <input type="text" class="form-control action-resources" placeholder="What resources will this action require?">
+                </div>
+            `;
+            
+            actionsContainer.appendChild(newAction);
+            
+            // Add animation
+            animateElement(newAction);
+        }
+
+        // Animate element
+        function animateElement(element) {
+            element.style.opacity = '0';
+            element.style.transform = 'translateY(20px)';
+            
+            setTimeout(() => {
+                element.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+                element.style.opacity = '1';
+                element.style.transform = 'translateY(0)';
+            }, 10);
+        }
+
+        // Generate plan
+        function generatePlan() {
+            // Update the results section with the collected data
+            
+            // Update goal
+            const goalEl = document.getElementById('result-goal');
+            goalEl.textContent = state.formData.vision.endGoal || 'No goal specified';
+            
+            // Update success indicators
+            const indicatorsEl = document.getElementById('result-indicators');
+            indicatorsEl.innerHTML = '';
+            
+            if (state.formData.vision.successIndicators && state.formData.vision.successIndicators.length > 0) {
+                state.formData.vision.successIndicators.forEach(indicator => {
+                    if (indicator) {
+                        const li = document.createElement('li');
+                        li.textContent = indicator;
+                        indicatorsEl.appendChild(li);
+                    }
+                });
+            } else {
+                const li = document.createElement('li');
+                li.textContent = 'No success indicators specified';
+                indicatorsEl.appendChild(li);
+            }
+            
+            // Update strategic approach
+            const strategyApproachEl = document.getElementById('result-strategy-approach');
+            if (state.formData.strategy.approach) {
+                strategyApproachEl.textContent = `Primary Strategic Approach: ${state.formData.strategy.approach.title}`;
+            } else {
+                strategyApproachEl.textContent = 'No strategic approach selected';
+            }
+            
+            const strategyDescriptionEl = document.getElementById('result-strategy-description');
+            strategyDescriptionEl.textContent = state.formData.strategy.description || 'No strategy description provided';
+            
+            // Update opponents
+            const opponentsEl = document.getElementById('result-opponents');
+            opponentsEl.innerHTML = '';
+            
+            if (state.formData.obstacles.opponents && state.formData.obstacles.opponents.length > 0) {
+                state.formData.obstacles.opponents.forEach(opponent => {
+                    if (opponent.name) {
+                        const opponentEl = document.createElement('div');
+                        opponentEl.className = 'card';
+                        opponentEl.style.marginBottom = '1rem';
+                        
+                        opponentEl.innerHTML = `
+                            <h3 style="color: var(--text-primary);">${opponent.name}</h3>
+                            <p><strong>Motivation:</strong> ${opponent.motivation || 'Not specified'}</p>
+                            <p><strong>Power Level:</strong> ${capitalizeFirst(opponent.power || 'medium')}</p>
+                            <p><strong>Likelihood of Opposition:</strong> ${capitalizeFirst(opponent.likelihood || 'medium')}</p>
+                            <p><strong>Weaknesses to Exploit:</strong> ${opponent.weaknesses || 'None identified'}</p>
+                        `;
+                        
+                        opponentsEl.appendChild(opponentEl);
+                    }
+                });
+            } else {
+                const noOpponentsEl = document.createElement('p');
+                noOpponentsEl.textContent = 'No opponents identified';
+                opponentsEl.appendChild(noOpponentsEl);
+            }
+            
+            // Update obstacles
+            const obstaclesEl = document.getElementById('result-obstacles');
+            obstaclesEl.innerHTML = '';
+            
+            if (state.formData.obstacles.specificObstacles && state.formData.obstacles.specificObstacles.length > 0) {
+                state.formData.obstacles.specificObstacles.forEach(obstacle => {
+                    if (obstacle.description) {
+                        const obstacleEl = document.createElement('div');
+                        obstacleEl.className = 'card';
+                        obstacleEl.style.marginBottom = '1rem';
+                        
+                        obstacleEl.innerHTML = `
+                            <h3 style="color: var(--text-primary);">${obstacle.description}</h3>
+                            <p><strong>Impact:</strong> ${capitalizeFirst(obstacle.impact || 'medium')} | <strong>Likelihood:</strong> ${capitalizeFirst(obstacle.likelihood || 'medium')}</p>
+                            <p><strong>Solution:</strong> ${obstacle.solution || 'No solution provided'}</p>
+                        `;
+                        
+                        obstaclesEl.appendChild(obstacleEl);
+                    }
+                });
+            } else {
+                const noObstaclesEl = document.createElement('p');
+                noObstaclesEl.textContent = 'No specific obstacles identified';
+                obstaclesEl.appendChild(noObstaclesEl);
+            }
+            
+            // Update timeline
+            const timelineEl = document.getElementById('result-timeline');
+            timelineEl.innerHTML = '';
+            
+            if (state.formData.strategy.milestones && state.formData.strategy.milestones.length > 0) {
+                state.formData.strategy.milestones.forEach(milestone => {
+                    if (milestone.title) {
+                        const formattedDate = milestone.date ? formatDate(milestone.date) : 'Date not specified';
+                        
+                        const timelineItem = document.createElement('div');
+                        timelineItem.className = 'timeline-item';
+                        timelineItem.innerHTML = `
+                            <div class="timeline-date">${formattedDate}</div>
+                            <div class="timeline-content">
+                                <div class="timeline-title">${milestone.title}</div>
+                                <p>${milestone.description || 'No description provided'}</p>
+                            </div>
+                        `;
+                        
+                        timelineEl.appendChild(timelineItem);
+                    }
+                });
+            } else {
+                const noTimelineEl = document.createElement('p');
+                noTimelineEl.textContent = 'No milestones defined';
+                timelineEl.appendChild(noTimelineEl);
+            }
+            
+            // Update actions
+            const actionsEl = document.getElementById('result-actions');
+            actionsEl.innerHTML = '';
+            
+            if (state.formData.tactics.actions && state.formData.tactics.actions.length > 0) {
+                state.formData.tactics.actions.forEach(action => {
+                    if (action.description) {
+                        const actionEl = document.createElement('div');
+                        actionEl.className = 'card';
+                        actionEl.style.marginBottom = '1rem';
+                        
+                        let timelineText = '';
+                        switch(action.timeline) {
+                            case 'immediate': timelineText = 'Immediate (Next 30 days)'; break;
+                            case 'short': timelineText = 'Short-term (1-3 months)'; break;
+                            case 'medium': timelineText = 'Medium-term (3-6 months)'; break;
+                            case 'long': timelineText = 'Long-term (6+ months)'; break;
+                            default: timelineText = action.timeline;
+                        }
+                        
+                        actionEl.innerHTML = `
+                            <h3 style="color: var(--text-primary);">${action.description}</h3>
+                            <p><strong>Timeline:</strong> ${timelineText} | <strong>Priority:</strong> ${capitalizeFirst(action.priority || 'medium')}</p>
+                            <p><strong>Resources needed:</strong> ${action.resources || 'Not specified'}</p>
+                        `;
+                        
+                        actionsEl.appendChild(actionEl);
+                    }
+                });
+            } else {
+                const noActionsEl = document.createElement('p');
+                noActionsEl.textContent = 'No specific actions defined';
+                actionsEl.appendChild(noActionsEl);
+            }
+            
+            // Update alternatives
+            const alternativesEl = document.getElementById('result-alternatives');
+            alternativesEl.innerHTML = '';
+            
+            if (state.formData.strategy.alternatives && state.formData.strategy.alternatives.length > 0) {
+                state.formData.strategy.alternatives.forEach(alternative => {
+                    if (alternative.description) {
+                        const alternativeEl = document.createElement('div');
+                        alternativeEl.className = 'card';
+                        alternativeEl.style.marginBottom = '1rem';
+                        
+                        alternativeEl.innerHTML = `
+                            <h3 style="color: var(--text-primary);">${alternative.description}</h3>
+                            <p><strong>Trigger condition:</strong> ${alternative.trigger || 'Not specified'}</p>
+                            <p><strong>Analysis:</strong> ${alternative.analysis || 'No analysis provided'}</p>
+                        `;
+                        
+                        alternativesEl.appendChild(alternativeEl);
+                    }
+                });
+            } else {
+                const noAlternativesEl = document.createElement('p');
+                noAlternativesEl.textContent = 'No alternative paths defined';
+                alternativesEl.appendChild(noAlternativesEl);
+            }
+            
+            // Update next steps
+            const nextStepsEl = document.getElementById('result-next-steps');
+            nextStepsEl.innerHTML = '';
+            
+            if (state.formData.execution.nextSteps && state.formData.execution.nextSteps.length > 0) {
+                state.formData.execution.nextSteps.forEach(step => {
+                    if (step) {
+                        const li = document.createElement('li');
+                        li.textContent = step;
+                        nextStepsEl.appendChild(li);
+                    }
+                });
+            } else {
+                const li = document.createElement('li');
+                li.textContent = 'No immediate next steps defined';
+                nextStepsEl.appendChild(li);
+            }
+            
+            // Update monitoring
+            const monitoringEl = document.getElementById('result-monitoring');
+            monitoringEl.textContent = state.formData.execution.monitoring || 'No monitoring plan specified';
+            
+            // Update contingency
+            const contingencyEl = document.getElementById('result-contingency');
+            contingencyEl.textContent = state.formData.execution.contingency || 'No contingency plan specified';
+            
+            // Update completion
+            const completionEl = document.getElementById('result-completion');
+            completionEl.textContent = state.formData.execution.stopping || 'No completion criteria specified';
+            
+            // Update summary
+            const summaryEl = document.getElementById('result-summary');
+            
+            // Create a dynamic summary based on the collected data
+            let summary = 'This strategic plan outlines ';
+            
+            // Add goal type if available
+            if (state.formData.intro.goalType && state.formData.intro.goalType.length > 0) {
+                summary += `a comprehensive approach to ${state.formData.intro.goalType[0].title.toLowerCase()} `;
+            } else {
+                summary += 'a comprehensive approach to achieving your defined goal ';
+            }
+            
+            // Add timeframe if available
+            if (state.formData.intro.timeframe) {
+                let timeframeText = '';
+                switch(state.formData.intro.timeframe) {
+                    case 'short': timeframeText = 'over the short term (1-6 months)'; break;
+                    case 'medium': timeframeText = 'over the medium term (6-18 months)'; break;
+                    case 'long': timeframeText = 'over the long term (1.5-5 years)'; break;
+                    case 'grand': timeframeText = 'as part of a grand strategy (5+ years)'; break;
+                    default: timeframeText = '';
+                }
+                
+                if (timeframeText) {
+                    summary += timeframeText + '. ';
+                } else {
+                    summary += '. ';
+                }
+            } else {
+                summary += '. ';
+            }
+            
+            // Add strategy approach if available
+            if (state.formData.strategy.approach) {
+                summary += `Using a ${state.formData.strategy.approach.title.toLowerCase()} approach, `;
+            }
+            
+            summary += 'this plan provides a clear path forward with contingencies for potential challenges, ensuring you maintain control of the situation from beginning to end.';
+            
+            summaryEl.textContent = summary;
+            
+            // Show success toast
+            showToast('Strategic plan generated successfully!', 'success');
+        }
+
+        // Format date
+        function formatDate(dateString) {
+            if (!dateString) return 'Date not specified';
+            
+            const date = new Date(dateString);
+            if (isNaN(date.getTime())) return dateString;
+            
+            return date.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+        }
+
+        // Capitalize first letter
+        function capitalizeFirst(str) {
+            if (!str) return '';
+            return str.charAt(0).toUpperCase() + str.slice(1);
+        }
+
+        // Print plan
+        function printPlan() {
+            window.print();
+        }
+
+        // Export to PDF
+        function exportToPdf() {
+            showToast('Preparing PDF for download...', 'info');
+            
+            setTimeout(() => {
+                showToast('PDF downloaded successfully!', 'success');
+                
+                // Create a fake download link
+                const link = document.createElement('a');
+                link.href = '#';
+                link.download = 'Strategic_Plan.pdf';
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+            }, 1500);
+        }
+
+        // Send email
+        function sendEmail() {
+            const email = document.getElementById('email-address').value;
+            const format = document.getElementById('email-format').value;
+            
+            if (!email) {
+                showToast('Please enter an email address', 'error');
+                return;
+            }
+            
+            if (!validateEmail(email)) {
+                showToast('Please enter a valid email address', 'error');
+                return;
+            }
+            
+            emailModal.classList.remove('active');
+            showToast(`Sending plan to ${email}...`, 'info');
+            
+            setTimeout(() => {
+                showToast(`Strategic plan sent to ${email}!`, 'success');
+            }, 1500);
+        }
+
+        // Validate email
+        function validateEmail(email) {
+            const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+            return re.test(String(email).toLowerCase());
+        }
+
+        // Reset form
+        function resetForm() {
+            if (confirm('Are you sure you want to create a new plan? All current data will be lost.')) {
+                // Reset state
+                state.currentSection = 'intro';
+                state.currentStep = 0;
+                state.indicatorCounter = 0;
+                state.opponentCounter = 0;
+                state.obstacleCounter = 0;
+                state.milestoneCounter = 0;
+                state.alternativeCounter = 0;
+                state.actionCounter = 0;
+                state.formData = {
+                    intro: {},
+                    vision: {},
+                    obstacles: {},
+                    strategy: {},
+                    tactics: {},
+                    execution: {}
+                };
+                
+                // Reset form fields
+                document.getElementById('end-goal').value = '';
+                document.getElementById('strategy-description').value = '';
+                document.getElementById('deception-tactics').value = '';
+                document.getElementById('timing-considerations').value = '';
+                document.getElementById('monitoring-plan').value = '';
+                document.getElementById('contingency-plan').value = '';
+                document.getElementById('stopping-conditions').value = '';
+                
+                // Reset checkboxes
+                document.getElementById('resource-financial').checked = false;
+                document.getElementById('resource-skills').checked = false;
+                document.getElementById('resource-connections').checked = false;
+                document.getElementById('resource-authority').checked = false;
+                document.getElementById('resource-time').checked = false;
+                document.getElementById('resource-allies').checked = false;
+                document.getElementById('review-complete').checked = false;
+                document.getElementById('review-obstacles').checked = false;
+                document.getElementById('review-alternatives').checked = false;
+                document.getElementById('review-resources').checked = false;
+                document.getElementById('review-timing').checked = false;
+                
+                // Reset selects
+                document.getElementById('goal-timeframe').selectedIndex = 0;
+                
+                // Reset range sliders
+                document.getElementById('power-position').value = 5;
+                
+                // Reset choice grids
+                document.querySelectorAll('.choice-card').forEach(card => {
+                    card.classList.remove('selected');
+                });
+                
+                // Clear containers
+                successIndicatorsContainer.innerHTML = '';
+                opponentsContainer.innerHTML = '';
+                specificObstaclesContainer.innerHTML = '';
+                milestonesContainer.innerHTML = '';
+                alternativesContainer.innerHTML = '';
+                actionsContainer.innerHTML = '';
+                
+                // Add initial elements
+                setupInteractiveElements();
+                
+                // Update progress
+                updateProgress();
+                
+                // Navigate to intro section
+                navigateToSection('intro');
+                
+                // Show success toast
+                showToast('New plan created', 'success');
+            }
+        }
+
+        // Save to localStorage
+        function saveToLocalStorage() {
+            try {
+                localStorage.setItem('strategicPlanData', JSON.stringify(state.formData));
+                localStorage.setItem('strategicPlanSection', state.currentSection);
+                localStorage.setItem('strategicPlanStep', state.currentStep.toString());
+            } catch (e) {
+                console.error('Error saving to localStorage:', e);
+            }
+        }
+
+        // Load from localStorage
+        function loadFromLocalStorage() {
+            try {
+                const savedData = localStorage.getItem('strategicPlanData');
+                const savedSection = localStorage.getItem('strategicPlanSection');
+                const savedStep = localStorage.getItem('strategicPlanStep');
+                
+                if (savedData) {
+                    state.formData = JSON.parse(savedData);
+                }
+                
+                if (savedSection) {
+                    state.currentSection = savedSection;
+                }
+                
+                if (savedStep) {
+                    state.currentStep = parseInt(savedStep);
+                }
+                
+                // Show the current section
+                sections.forEach(section => {
+                    section.classList.remove('active');
+                });
+                
+                const currentSection = document.getElementById(state.currentSection);
+                if (currentSection) {
+                    currentSection.classList.add('active');
+                } else {
+                    // Fallback to intro if the saved section doesn't exist
+                    document.getElementById('intro').classList.add('active');
+                    state.currentSection = 'intro';
+                    state.currentStep = 0;
+                }
+                
+                // Update progress
+                updateProgress();
+            } catch (e) {
+                console.error('Error loading from localStorage:', e);
+            }
+        }
+
+        // Show toast notification
+        function showToast(message, type = 'success') {
+            const toast = document.createElement('div');
+            toast.className = `toast ${type}`;
+            
+            let icon = 'check-circle';
+            if (type === 'warning') icon = 'exclamation-triangle';
+            if (type === 'error') icon = 'exclamation-circle';
+            if (type === 'info') icon = 'info-circle';
+            
+            toast.innerHTML = `
+                <div class="toast-icon">
+                    <i class="fas fa-${icon}"></i>
+                </div>
+                <div class="toast-content">
+                    <div class="toast-title">${capitalizeFirst(type)}</div>
+                    <p class="toast-message">${message}</p>
+                </div>
+            `;
+            
+            toastContainer.appendChild(toast);
+            
+            // Remove toast after 5 seconds
+            setTimeout(() => {
+                toast.style.opacity = '0';
+                toast.style.transform = 'translateX(20px)';
+                
+                setTimeout(() => {
+                    if (toast.parentNode === toastContainer) {
+                        toastContainer.removeChild(toast);
+                    }
+                }, 300);
+            }, 5000);
+        }
+
+        // Initialize the app
+        init();
+    </script>
+</body>
+</html>
