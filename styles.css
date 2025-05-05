@@ -3179,3 +3179,74 @@ b {
     width: 100%;
   }
 }
+
+.intro-modal {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100vw; height: 100vh;
+  background: rgba(0,0,0,0.75);
+  backdrop-filter: blur(10px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  z-index: 9999;
+}
+
+.intro-content {
+  background: #1c1e27;
+  color: #f0f0f0;
+  padding: 28px;
+  max-width: 480px;
+  width: 100%;
+  border-radius: 16px;
+  box-shadow: 0 12px 24px rgba(0,0,0,0.25);
+  text-align: center;
+  font-family: 'Inter', system-ui, sans-serif;
+}
+
+.intro-content h2 {
+  font-size: 24px;
+  margin-bottom: 16px;
+}
+
+.intro-content p {
+  font-size: 16px;
+  line-height: 1.5;
+  margin-bottom: 24px;
+}
+
+.intro-buttons button {
+  background: rgba(255,255,255,0.1);
+  color: #fff;
+  border: 1px solid rgba(255,255,255,0.2);
+  padding: 12px 20px;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: all 0.3s ease;
+}
+
+.intro-buttons button:hover {
+  background: rgba(255,255,255,0.2);
+  transform: translateY(-2px);
+}
+
+@media (max-width: 480px) {
+  .intro-content {
+    padding: 22px 18px;
+  }
+
+  .intro-content h2 {
+    font-size: 20px;
+  }
+
+  .intro-content p {
+    font-size: 15px;
+  }
+
+  .intro-buttons button {
+    width: 100%;
+    font-size: 15px;
+  }
+}
