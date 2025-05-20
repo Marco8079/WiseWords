@@ -795,6 +795,7 @@
 
 </head>
 <body>
+    <audio id="background-music" src="Gamesong.mp3" autoplay loop></audio>
     <div id="game-container">
         <canvas id="background-canvas"></canvas>
         <canvas id="main-canvas"></canvas>
@@ -2010,8 +2011,190 @@
                 mapSize: { width: 2, height: 1 }
             },
             
+            // Level 31
+            {
+                id: 31,
+                name: "Mind's Labyrinth",
+                description: "The path is clear only when you understand the pattern - 'Discipline is choosing between what you want now and what you want most.'",
+                backgroundColor: '#0a0a20',
+                echoes: [
+                    // Echoes placed strategically along the correct path
+                    { x: 0.15, y: 0.15, collected: false },
+                    { x: 0.15, y: 0.5, collected: false },
+                    { x: 0.3, y: 0.85, collected: false },
+                    { x: 0.5, y: 0.85, collected: false },
+                    { x: 0.7, y: 0.7, collected: false },
+                    { x: 0.85, y: 0.5, collected: false },
+                    { x: 0.85, y: 0.3, collected: false },
+                    { x: 1.15, y: 0.15, collected: false },
+                    { x: 1.3, y: 0.3, collected: false },
+                    { x: 1.5, y: 0.5, collected: false },
+                    { x: 1.7, y: 0.7, collected: false },
+                    { x: 1.85, y: 0.85, collected: false }
+                ],
+                obstacles: [
+                    // Main labyrinth walls - creating a clear but challenging path
+                    // Outer walls
+                    { x: 0.5, y: 0.1, width: 0.8, height: 0.03, color: '#4287f5', velocityX: 0, velocityY: 0, pattern: 'static' },
+                    { x: 0.5, y: 0.9, width: 0.8, height: 0.03, color: '#4287f5', velocityX: 0, velocityY: 0, pattern: 'static' },
+                    { x: 0.1, y: 0.5, width: 0.03, height: 0.8, color: '#4287f5', velocityX: 0, velocityY: 0, pattern: 'static' },
+                    { x: 0.9, y: 0.5, width: 0.03, height: 0.8, color: '#4287f5', velocityX: 0, velocityY: 0, pattern: 'static' },
+                    
+                    // Inner maze structure - left side
+                    { x: 0.3, y: 0.3, width: 0.4, height: 0.03, color: '#4287f5', velocityX: 0, velocityY: 0, pattern: 'static' },
+                    { x: 0.3, y: 0.5, width: 0.4, height: 0.03, color: '#4287f5', velocityX: 0, velocityY: 0, pattern: 'static' },
+                    { x: 0.3, y: 0.7, width: 0.4, height: 0.0, color: '#4287f5', velocityX: 0, velocityY: 0, pattern: 'static' },
+                    { x: 0.3, y: 0.4, width: 0.03, height: 0.2, color: '#4287f5', velocityX: 0, velocityY: 0, pattern: 'static' },
+                    { x: 0.5, y: 0.6, width: 0.03, height: 0.2, color: '#4287f5', velocityX: 0, velocityY: 0, pattern: 'static' },
+                    { x: 0.7, y: 0.4, width: 0.03, height: 0.2, color: '#4287f5', velocityX: 0, velocityY: 0, pattern: 'static' },
+                    
+                    // Center divider with timed gate
+                    { x: 1.0, y: 0.3, width: 0.03, height: 0.4, color: '#4287f5', velocityX: 0, velocityY: 0, pattern: 'static' },
+                    { x: 1.0, y: 0.8, width: 0.03, height: 0.2, color: '#4287f5', velocityX: 0, velocityY: 0, pattern: 'static' },
+                    
+                    // Timed gate in the center
+                    { x: 1.0, y: 0.6, width: 0.03, height: 0.2, color: 'rgba(66, 135, 245, 0.7)', velocityX: 0, velocityY: 0, pattern: 'timedGate', 
+                    openInterval: 3000, closedInterval: 2000, initialState: 'closed'
+                    },
+                    
+                    // Right side maze structure - mirrored but with different timing
+                    { x: 1.7, y: 0.3, width: 0.4, height: 0.03, color: '#4287f5', velocityX: 0, velocityY: 0, pattern: 'static' },
+                    { x: 1.7, y: 0.5, width: 0.4, height: 0.03, color: '#4287f5', velocityX: 0, velocityY: 0, pattern: 'static' },
+                    { x: 1.7, y: 0.7, width: 0.4, height: 0.03, color: '#4287f5', velocityX: 0, velocityY: 0, pattern: 'static' },
+                    { x: 1.3, y: 0.4, width: 0.03, height: 0.2, color: '#4287f5', velocityX: 0, velocityY: 0, pattern: 'static' },
+                    { x: 1.5, y: 0.6, width: 0.03, height: 0.2, color: '#4287f5', velocityX: 0, velocityY: 0, pattern: 'static' },
+                    { x: 1.7, y: 0.4, width: 0.03, height: 0.2, color: '#4287f5', velocityX: 0, velocityY: 0, pattern: 'static' },
+                    
+                    // Moving obstacle that follows a predictable pattern - requires timing to pass
+                    { x: 0.5, y: 0.2, width: 0.05, height: 0.05, color: '#ff3366', velocityX: 0, velocityY: 0.1, pattern: 'patrol', 
+                    pathPoints: [
+                        { x: 0.5, y: 0.2 },
+                        { x: 0.5, y: 0.8 },
+                        { x: 0.8, y: 0.8 },
+                        { x: 0.8, y: 0.2 }
+                    ],
+                    speed: 0.1,
+                    waitTime: 500
+                    },
+                    
+                    // Second patrolling obstacle on the right side
+                    { x: 1.5, y: 0.2, width: 0.05, height: 0.05, color: '#ff3366', velocityX: 0, velocityY: 0.1, pattern: 'patrol', 
+                    pathPoints: [
+                        { x: 1.5, y: 0.2 },
+                        { x: 1.5, y: 0.8 },
+                        { x: 1.2, y: 0.8 },
+                        { x: 1.2, y: 0.2 }
+                    ],
+                    speed: 0.1,
+                    waitTime: 500
+                    },
+                    
+                    // Boundary walls
+                    { x: 0.0, y: 0.5, width: 0.02, height: 1.0, color: '#ffffff', velocityX: 0, velocityY: 0, pattern: 'static' },
+                    { x: 2.0, y: 0.5, width: 0.02, height: 1.0, color: '#ffffff', velocityX: 0, velocityY: 0, pattern: 'static' },
+                    { x: 1.0, y: 0.0, width: 2.0, height: 0.02, color: '#ffffff', velocityX: 0, velocityY: 0, pattern: 'static' },
+                    { x: 1.0, y: 1.0, width: 2.0, height: 0.02, color: '#ffffff', velocityX: 0, velocityY: 0, pattern: 'static' }
+                ],
+                playerStart: { x: 0.05, y: 0.05 },
+                exit: { x: 1.95, y: 0.95, width: 0.075, height: 0.1 },
+                mapSize: { width: 2, height: 1 }
+            },
+
+            // Level 32
+            {
+                id: 32,
+                name: "Patience's Reward",
+                description: "Timing is everything - 'Patience is not the ability to wait, but the ability to keep a good attitude while waiting.'",
+                backgroundColor: '#0f1a2a',
+                echoes: [
+                    // Echoes placed in timing-critical locations
+                    { x: 0.2, y: 0.2, collected: false },
+                    { x: 0.5, y: 0.2, collected: false },
+                    { x: 0.8, y: 0.2, collected: false },
+                    { x: 0.2, y: 0.5, collected: false },
+                    { x: 0.8, y: 0.5, collected: false },
+                    { x: 0.2, y: 0.8, collected: false },
+                    { x: 0.5, y: 0.8, collected: false },
+                    { x: 0.8, y: 0.8, collected: false },
+                    { x: 1.2, y: 0.2, collected: false },
+                    { x: 1.5, y: 0.2, collected: false },
+                    { x: 1.8, y: 0.2, collected: false },
+                    { x: 1.2, y: 0.5, collected: false },
+                    { x: 1.8, y: 0.5, collected: false },
+                    { x: 1.2, y: 0.8, collected: false },
+                    { x: 1.5, y: 0.8, collected: false },
+                    { x: 1.8, y: 0.8, collected: false }
+                ],
+                obstacles: [
+                    // Synchronized barrier system - requires precise timing to navigate
+                    // Horizontal barriers that move up and down in sequence
+                    { x: 0.5, y: 0.25, width: 0.8, height: 0.03, color: '#ff3366', velocityX: 0, velocityY: 0.05, pattern: 'oscillate', 
+                    axis: 'y', amplitude: 0.15, period: 4000, phase: 0
+                    },
+                    { x: 0.5, y: 0.5, width: 0.8, height: 0.03, color: '#ff3366', velocityX: 0, velocityY: 0.05, pattern: 'oscillate', 
+                    axis: 'y', amplitude: 0.15, period: 4000, phase: Math.PI/2
+                    },
+                    { x: 0.5, y: 0.75, width: 0.8, height: 0.03, color: '#ff3366', velocityX: 0, velocityY: 0.05, pattern: 'oscillate', 
+                    axis: 'y', amplitude: 0.15, period: 4000, phase: Math.PI
+                    },
+                    
+                    // Right side barriers - offset timing
+                    { x: 1.5, y: 0.25, width: 0.8, height: 0.03, color: '#ff3366', velocityX: 0, velocityY: 0.05, pattern: 'oscillate', 
+                    axis: 'y', amplitude: 0.15, period: 4000, phase: Math.PI/4
+                    },
+                    { x: 1.5, y: 0.5, width: 0.8, height: 0.03, color: '#ff3366', velocityX: 0, velocityY: 0.05, pattern: 'oscillate', 
+                    axis: 'y', amplitude: 0.15, period: 4000, phase: 3*Math.PI/4
+                    },
+                    { x: 1.5, y: 0.75, width: 0.8, height: 0.03, color: '#ff3366', velocityX: 0, velocityY: 0.05, pattern: 'oscillate', 
+                    axis: 'y', amplitude: 0.15, period: 4000, phase: 5*Math.PI/4
+                    },
+                    
+                    // Vertical barriers that move left and right in sequence
+                    { x: 0.25, y: 0.5, width: 0.03, height: 0.8, color: '#4287f5', velocityX: 0.05, velocityY: 0, pattern: 'oscillate', 
+                    axis: 'x', amplitude: 0.15, period: 4000, phase: 0
+                    },
+                    { x: 0.5, y: 0.5, width: 0.03, height: 0.8, color: '#4287f5', velocityX: 0.05, velocityY: 0, pattern: 'oscillate', 
+                    axis: 'x', amplitude: 0.15, period: 4000, phase: Math.PI/2
+                    },
+                    { x: 0.75, y: 0.5, width: 0.03, height: 0.8, color: '#4287f5', velocityX: 0.05, velocityY: 0, pattern: 'oscillate', 
+                    axis: 'x', amplitude: 0.15, period: 4000, phase: Math.PI
+                    },
+                    
+                    // Right side vertical barriers
+                    { x: 1.25, y: 0.5, width: 0.03, height: 0.8, color: '#4287f5', velocityX: 0.05, velocityY: 0, pattern: 'oscillate', 
+                    axis: 'x', amplitude: 0.15, period: 4000, phase: Math.PI/4
+                    },
+                    { x: 1.5, y: 0.5, width: 0.03, height: 0.8, color: '#4287f5', velocityX: 0.05, velocityY: 0, pattern: 'oscillate', 
+                    axis: 'x', amplitude: 0.15, period: 4000, phase: 3*Math.PI/4
+                    },
+                    { x: 1.75, y: 0.5, width: 0.03, height: 0.8, color: '#4287f5', velocityX: 0.05, velocityY: 0, pattern: 'oscillate', 
+                    axis: 'x', amplitude: 0.15, period: 4000, phase: 5*Math.PI/4
+                    },
+                    
+                    // Center barrier with timed gate
+                    { x: 1.0, y: 0.5, width: 0.03, height: 0.8, color: '#ffffff', velocityX: 0, velocityY: 0, pattern: 'static' },
+                    
+                    // Timed gate in the center - opens briefly on a cycle
+                    { x: 1.0, y: 0.2, width: 0.03, height: 0.2, color: 'rgba(255, 255, 255, 0.5)', velocityX: 0, velocityY: 0, pattern: 'timedGate', 
+                    openInterval: 2000, closedInterval: 3000, initialState: 'closed'
+                    },
+                    
+                    // Boundary walls
+                    { x: 0.0, y: 0.5, width: 0.02, height: 1.0, color: '#ffffff', velocityX: 0, velocityY: 0, pattern: 'static' },
+                    { x: 2.0, y: 0.5, width: 0.02, height: 1.0, color: '#ffffff', velocityX: 0, velocityY: 0, pattern: 'static' },
+                    { x: 1.0, y: 0.0, width: 2.0, height: 0.02, color: '#ffffff', velocityX: 0, velocityY: 0, pattern: 'static' },
+                    { x: 1.0, y: 1.0, width: 2.0, height: 0.02, color: '#ffffff', velocityX: 0, velocityY: 0, pattern: 'static' }
+                ],
+                playerStart: { x: 0.05, y: 0.05 },
+                exit: { x: 1.95, y: 0.95, width: 0.075, height: 0.1 },
+                mapSize: { width: 2, height: 1 }
+            },
 
             
+            
+            
+
+
 
          
 
@@ -2444,6 +2627,27 @@
                 console.error("Could not save settings:", e);
             }
         }
+
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         
         function resizeGame() {
             const container = document.getElementById('game-container');
