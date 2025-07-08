@@ -1195,6 +1195,47 @@
                 grid-template-columns: 1fr;
             }
         }
+
+        .quiz-image {
+            flex: 0 0 86px;
+            padding: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .quiz-image-img {
+            width: 86px;
+            height: 86px;
+            border-radius: 50%;
+            object-fit: cover;
+            display: block;
+            filter: sepia(18%) saturate(0.75) contrast(1.16) brightness(1.04) hue-rotate(8deg) grayscale(35%);
+            box-shadow: 
+                0 0 0 2px rgba(255,253,250,0.9),
+                0 0 0 4px rgba(188,175,158,0.1),
+                0 2px 8px rgba(78,56,42,0.12),
+                0 4px 16px rgba(78,56,42,0.08),
+                0 8px 32px rgba(78,56,42,0.04),
+                inset 0 1px 2px rgba(255,248,235,0.3),
+                inset 0 -1px 2px rgba(139,131,120,0.1);
+            border: 2px solid rgba(188,175,158,0.18);
+            transition: all 0.38s ease;
+        }
+
+        .quiz-image-img:hover {
+            filter: sepia(25%) saturate(0.85) contrast(1.2) brightness(1.08) hue-rotate(12deg) grayscale(25%);
+            box-shadow: 
+                0 0 0 2px rgba(255,253,250,1),
+                0 0 0 4px rgba(188,175,158,0.15),
+                0 4px 12px rgba(78,56,42,0.16),
+                0 8px 24px rgba(78,56,42,0.12),
+                0 16px 48px rgba(78,56,42,0.06),
+                inset 0 1px 2px rgba(255,248,235,0.4),
+                inset 0 -1px 2px rgba(139,131,120,0.15);
+            transform: translateY(-1px);
+        }
+    
     </style>
 </head>
 <body>
@@ -1218,132 +1259,172 @@
             
             <div class="quiz-cards">
                 <div class="quiz-card" onclick="selectQuizWithOptions('hamlet')">
-                    <div class="quiz-icon">🎭</div>
-                    <h3>Hamlet: A Psychological Journey</h3>
-                    <p>Explore Shakespeare's masterpiece through the lens of psychology. Understand Hamlet's inner turmoil, the nature of consciousness, and the burden of knowledge.</p>
-                    <div class="quiz-progress">
-                        <div class="quiz-progress-fill" id="hamlet-progress" style="width: 0%"></div>
+                    <div class="quiz-image">
+                        <img src="shakespeare.jpg" alt="Hamlet" class="quiz-image-img">
                     </div>
-                    <div class="quiz-stats">
-                        <span id="hamlet-completion">0% Complete</span>
-                        <span>30 Steps • 60 min</span>
+                    <div class="quiz-content">
+                        <h3>Hamlet: A Psychological Journey</h3>
+                        <p>Explore Shakespeare's masterpiece through the lens of psychology. Understand Hamlet's inner turmoil, the nature of consciousness, and the burden of knowledge.</p>
+                        <div class="quiz-progress">
+                            <div class="quiz-progress-fill" id="hamlet-progress" style="width: 0%"></div>
+                        </div>
+                        <div class="quiz-stats">
+                            <span id="hamlet-completion">0% Complete</span>
+                            <span>30 Steps • 60 min</span>
+                        </div>
                     </div>
                 </div>
 
                 <div class="quiz-card" onclick="selectQuizWithOptions('zarathustra')">
-                    <div class="quiz-icon">⚡</div>
-                    <h3>Thus Spoke Zarathustra</h3>
-                    <p>Journey with Nietzsche's prophet through the mountains of self-creation. Discover the Übermensch, eternal recurrence, and the courage to create your own values.</p>
-                    <div class="quiz-progress">
-                        <div class="quiz-progress-fill" id="zarathustra-progress" style="width: 0%"></div>
+                    <div class="quiz-image">
+                        <img src="nietzsche.jpg" alt="Friedrich Nietzsche" class="quiz-image-img">
                     </div>
-                    <div class="quiz-stats">
-                        <span id="zarathustra-completion">0% Complete</span>
-                        <span>28 Steps • 55 min</span>
+                    <div class="quiz-content">
+                        <h3>Thus Spoke Zarathustra</h3>
+                        <p>Journey with Nietzsche's prophet through the mountains of self-creation. Discover the Übermensch, eternal recurrence, and the courage to create your own values.</p>
+                        <div class="quiz-progress">
+                            <div class="quiz-progress-fill" id="zarathustra-progress" style="width: 0%"></div>
+                        </div>
+                        <div class="quiz-stats">
+                            <span id="zarathustra-completion">0% Complete</span>
+                            <span>28 Steps • 55 min</span>
+                        </div>
                     </div>
                 </div>
 
                 <div class="quiz-card" onclick="selectQuizWithOptions('karamazov')">
-                    <div class="quiz-icon">⛪</div>
-                    <h3>The Brothers Karamazov: Faith & Doubt</h3>
-                    <p>Explore Dostoevsky's masterpiece of spiritual and psychological depth. Journey through questions of faith, free will, and the nature of good and evil with the Karamazov family.</p>
-                    <div class="quiz-progress">
-                        <div class="quiz-progress-fill" id="karamazov-progress" style="width: 0%"></div>
+                    <div class="quiz-image">
+                        <img src="dostoevsky.jpg" alt="Fyodor Dostoevsky" class="quiz-image-img">
                     </div>
-                    <div class="quiz-stats">
-                        <span id="karamazov-completion">0% Complete</span>
-                        <span>32 Steps • 60 min</span>
+                    <div class="quiz-content">
+                        <h3>The Brothers Karamazov: Faith & Doubt</h3>
+                        <p>Explore Dostoevsky's masterpiece of spiritual and psychological depth. Journey through questions of faith, free will, and the nature of good and evil with the Karamazov family.</p>
+                        <div class="quiz-progress">
+                            <div class="quiz-progress-fill" id="karamazov-progress" style="width: 0%"></div>
+                        </div>
+                        <div class="quiz-stats">
+                            <span id="karamazov-completion">0% Complete</span>
+                            <span>32 Steps • 60 min</span>
+                        </div>
                     </div>
                 </div>
                 
                 <div class="quiz-card" onclick="selectQuizWithOptions('faust')">
-                    <div class="quiz-icon">🔥</div>
-                    <h3>Faust: The Eternal Striving</h3>
-                    <p>Follow Goethe's Faust on his journey from scholarly despair to cosmic understanding. Explore the Faustian bargain, the nature of knowledge, and the redemption found in eternal striving.</p>
-                    <div class="quiz-progress">
-                        <div class="quiz-progress-fill" id="faust-progress" style="width: 0%"></div>
+                    <div class="quiz-image">
+                        <img src="goethe.jpg" alt="Johann Wolfgang von Goethe" class="quiz-image-img">
                     </div>
-                    <div class="quiz-stats">
-                        <span id="faust-completion">0% Complete</span>
-                        <span>28 Steps • 58 min</span>
+                    <div class="quiz-content">
+                        <h3>Faust: The Eternal Striving</h3>
+                        <p>Follow Goethe's Faust on his journey from scholarly despair to cosmic understanding. Explore the Faustian bargain, the nature of knowledge, and the redemption found in eternal striving.</p>
+                        <div class="quiz-progress">
+                            <div class="quiz-progress-fill" id="faust-progress" style="width: 0%"></div>
+                        </div>
+                        <div class="quiz-stats">
+                            <span id="faust-completion">0% Complete</span>
+                            <span>28 Steps • 58 min</span>
+                        </div>
                     </div>
                 </div>
 
                 <div class="quiz-card" onclick="selectQuizWithOptions('crime-punishment')">
-                    <div class="quiz-icon">⚖️</div>
-                    <h3>Crime and Punishment: The Guilty Mind</h3>
-                    <p>Dive into Raskolnikov's psychological torment and moral awakening. Explore guilt, redemption, and the nature of justice through Dostoevsky's masterpiece of psychological realism.</p>
-                    <div class="quiz-progress">
-                        <div class="quiz-progress-fill" id="crime-punishment-progress" style="width: 0%"></div>
+                    <div class="quiz-image">
+                        <img src="dostoevsky.jpg" alt="Fyodor Dostoevsky" class="quiz-image-img">
                     </div>
-                    <div class="quiz-stats">
-                        <span id="crime-punishment-completion">0% Complete</span>
-                        <span>31 Steps • 62 min</span>
+                    <div class="quiz-content">
+                        <h3>Crime and Punishment: The Guilty Mind</h3>
+                        <p>Dive into Raskolnikov's psychological torment and moral awakening. Explore guilt, redemption, and the nature of justice through Dostoevsky's masterpiece of psychological realism.</p>
+                        <div class="quiz-progress">
+                            <div class="quiz-progress-fill" id="crime-punishment-progress" style="width: 0%"></div>
+                        </div>
+                        <div class="quiz-stats">
+                            <span id="crime-punishment-completion">0% Complete</span>
+                            <span>31 Steps • 62 min</span>
+                        </div>
                     </div>
                 </div>
                 
                 <div class="quiz-card" onclick="selectQuizWithOptions('king-lear')">
-                    <div class="quiz-icon">👑</div>
-                    <h3>King Lear: Nature and Nurture</h3>
-                    <p>Witness the tragic unraveling of families and kingdoms. Explore themes of aging, power, blindness, and the bonds between parents and children in Shakespeare's darkest tragedy.</p>
-                    <div class="quiz-progress">
-                        <div class="quiz-progress-fill" id="king-lear-progress" style="width: 0%"></div>
+                    <div class="quiz-image">
+                        <img src="shakespeare.jpg" alt="William Shakespeare" class="quiz-image-img">
                     </div>
-                    <div class="quiz-stats">
-                        <span id="king-lear-completion">0% Complete</span>
-                        <span>30 Steps • 60 min</span>
+                    <div class="quiz-content">
+                        <h3>King Lear: Nature and Nurture</h3>
+                        <p>Witness the tragic unraveling of families and kingdoms. Explore themes of aging, power, blindness, and the bonds between parents and children in Shakespeare's darkest tragedy.</p>
+                        <div class="quiz-progress">
+                            <div class="quiz-progress-fill" id="king-lear-progress" style="width: 0%"></div>
+                        </div>
+                        <div class="quiz-stats">
+                            <span id="king-lear-completion">0% Complete</span>
+                            <span>30 Steps • 60 min</span>
+                        </div>
                     </div>
                 </div>
 
                 <div class="quiz-card" onclick="selectQuizWithOptions('meditations')">
-                    <div class="quiz-icon">🏛️</div>
-                    <h3>Meditations: The Philosopher Emperor</h3>
-                    <p>Journey with Marcus Aurelius through his private reflections on duty, virtue, and the nature of existence. Discover timeless Stoic wisdom for living with purpose and tranquility.</p>
-                    <div class="quiz-progress">
-                        <div class="quiz-progress-fill" id="meditations-progress" style="width: 0%"></div>
+                    <div class="quiz-image">
+                        <img src="aurelius.jpg" alt="Marcus Aurelius" class="quiz-image-img">
                     </div>
-                    <div class="quiz-stats">
-                        <span id="meditations-completion">0% Complete</span>
-                        <span>28 Steps • 56 min</span>
+                    <div class="quiz-content">
+                        <h3>Meditations: The Philosopher Emperor</h3>
+                        <p>Journey with Marcus Aurelius through his private reflections on duty, virtue, and the nature of existence. Discover timeless Stoic wisdom for living with purpose and tranquility.</p>
+                        <div class="quiz-progress">
+                            <div class="quiz-progress-fill" id="meditations-progress" style="width: 0%"></div>
+                        </div>
+                        <div class="quiz-stats">
+                            <span id="meditations-completion">0% Complete</span>
+                            <span>28 Steps • 56 min</span>
+                        </div>
                     </div>
                 </div>
                 
                 <div class="quiz-card" onclick="selectQuizWithOptions('the-stranger')">
-                    <div class="quiz-icon">🌅</div>
-                    <h3>The Stranger: Absurd Existence</h3>
-                    <p>Follow Meursault's journey from indifference to self-awareness. Explore Camus' philosophy of the absurd and the question of how to live authentically in a meaningless universe.</p>
-                    <div class="quiz-progress">
-                        <div class="quiz-progress-fill" id="the-stranger-progress" style="width: 0%"></div>
+                    <div class="quiz-image">
+                        <img src="camus.jpg" alt="Albert Camus" class="quiz-image-img">
                     </div>
-                    <div class="quiz-stats">
-                        <span id="the-stranger-completion">0% Complete</span>
-                        <span>27 Steps • 54 min</span>
+                    <div class="quiz-content">
+                        <h3>The Stranger: Absurd Existence</h3>
+                        <p>Follow Meursault's journey from indifference to self-awareness. Explore Camus' philosophy of the absurd and the question of how to live authentically in a meaningless universe.</p>
+                        <div class="quiz-progress">
+                            <div class="quiz-progress-fill" id="the-stranger-progress" style="width: 0%"></div>
+                        </div>
+                        <div class="quiz-stats">
+                            <span id="the-stranger-completion">0% Complete</span>
+                            <span>27 Steps • 54 min</span>
+                        </div>
                     </div>
                 </div>
 
                 <div class="quiz-card" onclick="selectQuizWithOptions('the-prince')">
-                    <div class="quiz-icon">🦊</div>
-                    <h3>The Prince: The Art of Power</h3>
-                    <p>Navigate Machiavelli's controversial guide to political leadership. Explore the tension between moral idealism and practical governance in the pursuit of effective rule.</p>
-                    <div class="quiz-progress">
-                        <div class="quiz-progress-fill" id="the-prince-progress" style="width: 0%"></div>
+                    <div class="quiz-image">
+                        <img src="machiavelli.jpg" alt="Niccolò Machiavelli" class="quiz-image-img">
                     </div>
-                    <div class="quiz-stats">
-                        <span id="the-prince-completion">0% Complete</span>
-                        <span>26 Steps • 52 min</span>
+                    <div class="quiz-content">
+                        <h3>The Prince: The Art of Power</h3>
+                        <p>Navigate Machiavelli's controversial guide to political leadership. Explore the tension between moral idealism and practical governance in the pursuit of effective rule.</p>
+                        <div class="quiz-progress">
+                            <div class="quiz-progress-fill" id="the-prince-progress" style="width: 0%"></div>
+                        </div>
+                        <div class="quiz-stats">
+                            <span id="the-prince-completion">0% Complete</span>
+                            <span>26 Steps • 52 min</span>
+                        </div>
                     </div>
                 </div>
                 
                 <div class="quiz-card" onclick="selectQuizWithOptions('apology-socrates')">
-                    <div class="quiz-icon">🍷</div>
-                    <h3>The Apology: Socrates on Trial</h3>
-                    <p>Witness Socrates defend his life of philosophical inquiry. Discover the power of questioning, the examined life, and the courage to stand by one's principles unto death.</p>
-                    <div class="quiz-progress">
-                        <div class="quiz-progress-fill" id="apology-socrates-progress" style="width: 0%"></div>
+                    <div class="quiz-image">
+                        <img src="socrates.jpg" alt="Socrates" class="quiz-image-img">
                     </div>
-                    <div class="quiz-stats">
-                        <span id="apology-socrates-completion">0% Complete</span>
-                        <span>25 Steps • 50 min</span>
+                    <div class="quiz-content">
+                        <h3>The Apology: Socrates on Trial</h3>
+                        <p>Witness Socrates defend his life of philosophical inquiry. Discover the power of questioning, the examined life, and the courage to stand by one's principles unto death.</p>
+                        <div class="quiz-progress">
+                            <div class="quiz-progress-fill" id="apology-socrates-progress" style="width: 0%"></div>
+                        </div>
+                        <div class="quiz-stats">
+                            <span id="apology-socrates-completion">0% Complete</span>
+                            <span>25 Steps • 50 min</span>
+                        </div>
                     </div>
                 </div>
             </div>
