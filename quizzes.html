@@ -1235,6 +1235,51 @@
                 inset 0 -1px 2px rgba(139,131,120,0.15);
             transform: translateY(-1px);
         }
+        /* Filter Feature Styles */
+        .quiz-filter {
+            margin-bottom: 2rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .quiz-filter label {
+            font-size: 1.1rem;
+            color: var(--text);
+        }
+
+        .quiz-filter input[type="text"] {
+            padding: 0.75rem 1rem;
+            border: 1px solid var(--surface-secondary);
+            border-radius: var(--border-radius);
+            background: var(--surface);
+            color: var(--text);
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+
+        .quiz-filter input[type="text"]:focus {
+            outline: none;
+            border-color: var(--accent);
+            box-shadow: 0 0 0 2px rgba(0, 122, 255, 0.1);
+        }
+
+        /* Responsive adjustments for quiz filter */
+        @media (max-width: 768px) {
+            .quiz-filter {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .quiz-filter label {
+                text-align: left;
+            }
+
+            .quiz-filter input[type="text"] {
+                width: 100%;
+            }
+        }
     
     </style>
 </head>
@@ -1254,6 +1299,11 @@
     <div class="main-container">
         <!-- Quiz Selection -->
         <div class="quiz-selection" id="quiz-selection">
+            <!-- Filter Feature -->
+            <div class="quiz-filter">
+                <label for="quiz-search">Search Quizzes:</label>
+                <input type="text" id="quiz-search" placeholder="Enter quiz title...">
+            </div>
             <h1>Literary Masterworks</h1>
             <p>Choose your journey through the greatest works of literature and philosophy. Each path offers deep insights into human nature and timeless wisdom.</p>
             
@@ -1514,6 +1564,40 @@
                     </div>
                 </div>
 
+                <div class="quiz-card" onclick="selectQuizWithOptions('on-war')">
+                    <div class="quiz-image">
+                        <img src="clausewitz.jpg" alt="Carl von Clausewitz" class="quiz-image-img">
+                    </div>
+                    <div class="quiz-content">
+                        <h3>On War: Strategy and Conflict</h3>
+                        <p>Delve into Clausewitz's seminal work on military strategy. Explore the relationship between politics and war, the nature of strategy, and the dynamics of conflict.</p>
+                        <div class="quiz-progress">
+                        <div class="quiz-progress-fill" id="on-war-progress" style="width: 0%"></div>
+                        </div>
+                        <div class="quiz-stats">
+                        <span id="on-war-completion">0% Complete</span>
+                        <span>27 Steps • 54 min</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="quiz-card" onclick="selectQuizWithOptions('gulag-archipelago')">
+                    <div class="quiz-image">
+                        <img src="solzhenitsyn.jpg" alt="Aleksandr Solzhenitsyn" class="quiz-image-img">
+                    </div>
+                    <div class="quiz-content">
+                        <h3>The Gulag Archipelago: A History of Suffering</h3>
+                        <p>Uncover the brutal history of the Soviet prison system. Explore themes of oppression, resistance, and the resilience of the human spirit in the face of totalitarianism.</p>
+                        <div class="quiz-progress">
+                        <div class="quiz-progress-fill" id="gulag-archipelago-progress" style="width: 0%"></div>
+                        </div>
+                        <div class="quiz-stats">
+                        <span id="gulag-archipelago-completion">0% Complete</span>
+                        <span>29 Steps • 58 min</span>
+                        </div>
+                    </div>
+                </div>
+
             
             </div>
         </div>
@@ -1581,12 +1665,959 @@
             'the-republic': 'the_republic_progress',           // Add this
             'discourses-livy': 'discourses_livy_progress',
             'odyssey': 'odyssey_progress',
-            'julius-caesar': 'julius_caesar_progress'
+            'julius-caesar': 'julius_caesar_progress',
+            'on-war': 'on_war_progress',
+            'gulag-archipelago': 'gulag_archipelago_progress'
 
         };
 
         // Comprehensive Quiz Data
         const quizData = {
+
+            'gulag-archipelago': {
+                title: "The Gulag Archipelago: A History of Suffering",
+                subtitle: "Uncover the brutal history of the Soviet prison system",
+                icon: "⛓️",
+                totalSteps: 29,
+                steps: [
+                    // Step 1: Introduction to the Gulag
+                    {
+                        type: "introduction",
+                        title: "A Nation Imprisoned",
+                        content: {
+                            text: "Aleksandr Solzhenitsyn's 'The Gulag Archipelago' is a monumental work of historical and literary significance, exposing the vast network of Soviet forced labor camps and the brutal system of oppression that defined much of the 20th century. More than just a history, it's a testament to the resilience of the human spirit in the face of unimaginable suffering.",
+                            context: "Written in secret and published in the West in 1973, 'The Gulag Archipelago' shattered the Soviet Union's carefully constructed image and revealed the true scale of its crimes against humanity. It draws on the author's own experiences as a prisoner, as well as hundreds of interviews and accounts from other survivors, to create a comprehensive and devastating portrait of the Gulag system."
+                        }
+                    },
+                    // Step 2: The Arrest
+                    {
+                        type: "quote-analysis",
+                        title: "The Machinery of Repression",
+                        quote: "Arrest is an instantaneous, shattering thrust, expulsion, somersault from one kind of life into another. He is no longer master of his own fate, is now subject to someone else's will, alien and senseless.",
+                        speaker: "Aleksandr Solzhenitsyn",
+                        question: "What does Solzhenitsyn emphasize about the experience of arrest?",
+                        choices: [
+                            {
+                                title: "Legal Procedure",
+                                description: "A formal process with due rights",
+                                correct: false
+                            },
+                            {
+                                title: "Psychological Shock",
+                                description: "A sudden and disorienting trauma",
+                                correct: true
+                            },
+                            {
+                                title: "Physical Violence",
+                                description: "Always involving physical abuse",
+                                correct: false
+                            },
+                            {
+                                title: "Political Justification",
+                                description: "Based on clear evidence of wrongdoing",
+                                correct: false
+                            }
+                        ],
+                        explanation: "Solzhenitsyn emphasizes the psychological shock and sudden loss of control that characterize arrest. It's not a legal procedure but a violent disruption of one's life, placing the individual at the mercy of an arbitrary and oppressive system."
+                    },
+                    // Step 3: The Ideology of Terror
+                    {
+                        type: "text-interaction",
+                        title: "Justifying Injustice",
+                        text: "Ideology – that is what gives evildoing its long-sought justification and gives the evildoer the necessary steadfastness and determination. Thanks to ideology, the twentieth century experienced evildoing on a scale calculated in the millions.",
+                        instruction: "What role does ideology play in enabling mass atrocities?",
+                        highlightable: ["Ideology", "justification", "steadfastness and determination", "evildoing on a scale"],
+                        insights: {
+                            "Ideology": "A system of beliefs that provides a framework for understanding the world",
+                            "justification": "Ideology provides a rationale for actions that would otherwise be seen as immoral",
+                            "steadfastness and determination": "Ideology gives evildoers the conviction to carry out atrocities",
+                            "evildoing on a scale": "Ideology enables mass atrocities by dehumanizing victims and justifying violence"
+                        }
+                    },
+                    // Step 4: The Interrogation
+                    {
+                        type: "philosophical-reflection",
+                        title: "Breaking the Will",
+                        context: "Solzhenitsyn describes the interrogation process as a systematic attempt to break the prisoner's will and force them to confess to false charges.",
+                        quote: "The simplest and most convenient formula is: 'I am an enemy of the people.' It relieves you of all necessity to think.",
+                        reflection_prompt: "How does the interrogation process undermine individual autonomy and critical thinking? What psychological techniques are used to break down resistance? How can individuals resist such pressures?",
+                        guidance: "Consider how the interrogation aims to replace individual conscience with ideological conformity."
+                    },
+                    // Step 5: The Archipelago
+                    {
+                        type: "choice-analysis",
+                        title: "A Nation Within a Nation",
+                        context: "Solzhenitsyn uses the metaphor of an 'archipelago' to describe the vast network of Gulag camps scattered throughout the Soviet Union.",
+                        question: "What does the 'Gulag Archipelago' metaphor represent?",
+                        choices: [
+                            {
+                                title: "Geographic Feature",
+                                description: "A literal chain of islands",
+                                correct: false
+                            },
+                            {
+                                title: "Hidden System",
+                                description: "A vast and interconnected system of oppression hidden within Soviet society",
+                                correct: true
+                            },
+                            {
+                                title: "Prison Population",
+                                description: "The total number of prisoners",
+                                correct: false
+                            },
+                            {
+                                title: "Economic Resource",
+                                description: "A source of forced labor",
+                                correct: false
+                            }
+                        ],
+                        explanation: "The 'Gulag Archipelago' represents the vast and interconnected system of forced labor camps that existed within the Soviet Union, a hidden nation of suffering and oppression. It emphasizes the scale and pervasiveness of the Gulag system, which affected millions of lives."
+                    },
+                    // Step 6: The Psychology of the Guards
+                    {
+                        type: "slider-assessment",
+                        title: "The Perpetrators",
+                        question: "How do you understand the psychology of the Gulag guards and administrators who carried out the system's brutality?",
+                        slider: {
+                            min: 1,
+                            max: 10,
+                            labels: ["Pure Sadism", "Complex Motivations", "Ideological Conformity"],
+                            explanation: "The guards and administrators were not simply sadists but were often motivated by a combination of factors: ideological conformity, fear of punishment, career advancement, and dehumanization of the prisoners. Understanding their psychology is crucial for understanding how such atrocities can occur."
+                        }
+                    },
+                    // Step 7: The Zeks - Life in the Camps
+                    {
+                        type: "text-interaction",
+                        title: "Surviving the Unsurvivable",
+                        text: "How many years have passed already? As many as you have left. You have bartered away your time, exchanged it for stones, for mud, for barbed wire. You hug that time ever closer, you hug it to yourself; you don't want to let a single moment of it escape you; you count the days that are left to you not in order to hurry their passing, no, but to have them as complete as possible.",
+                        instruction: "What does Solzhenitsyn mean by 'bartering away your time'?",
+                        highlightable: ["bartered away your time", "exchanged it for stones", "hug that time ever closer", "count the days"],
+                        insights: {
+                            "bartered away your time": "Losing control over your life and future",
+                            "exchanged it for stones": "Forced labor and meaningless suffering",
+                            "hug that time ever closer": "Clinging to the remaining moments of life",
+                            "count the days": "Obsessive awareness of mortality"
+                        }
+                    },
+                    // Step 8: The Power of Memory
+                    {
+                        type: "choice-analysis",
+                        title: "Preserving Humanity",
+                        context: "In the Gulag, memory becomes a crucial tool for preserving one's humanity and resisting the dehumanizing effects of the system.",
+                        question: "Why is memory so important in the Gulag?",
+                        choices: [
+                            {
+                                title: "Planning Escape",
+                                description: "Remembering escape routes",
+                                correct: false
+                            },
+                            {
+                                title: "Maintaining Identity",
+                                description: "Remembering one's past and values",
+                                correct: true
+                            },
+                            {
+                                title: "Seeking Revenge",
+                                description: "Planning retribution",
+                                correct: false
+                            },
+                            {
+                                title: "Avoiding Work",
+                                description: "Recalling easier times",
+                                correct: false
+                            }
+                        ],
+                        explanation: "Memory allows prisoners to maintain their sense of self, their connection to the outside world, and their moral compass. By remembering their past, their loved ones, and their values, they resist the Gulag's attempt to erase their humanity."
+                    },
+                    // Step 9: The Lie as a Way of Life
+                    {
+                        type: "slider-assessment",
+                        title: "Living in Deceit",
+                        question: "How does the constant pressure to lie and conform affect the individual's soul?",
+                        slider: {
+                            min: 1,
+                            max: 10,
+                            labels: ["No Impact", "Minor Damage", "Total Corruption"],
+                            explanation: "Solzhenitsyn argues that living a life of constant lies and conformity deeply corrupts the soul, eroding trust, integrity, and the ability to distinguish between right and wrong. The Gulag system forces individuals to betray their own values in order to survive, creating a society built on deceit."
+                        }
+                    },
+                    // Step 10: The Archipelago as a Microcosm
+                    {
+                        type: "philosophical-reflection",
+                        title: "A Reflection of Society",
+                        context: "Solzhenitsyn presents the Gulag as a distorted reflection of Soviet society, revealing its underlying values and power structures.",
+                        quote: "The line separating good and evil passes not through states, nor between classes, nor between political parties either -- but right through every human heart -- and through all human hearts. This line shifts. It is changeable with time. It fluctuates as one man succeeds in pushing it back, as another approaches it.",
+                        reflection_prompt: "What does this quote suggest about the nature of good and evil? How does the Gulag reveal the potential for both brutality and compassion within human beings? How do we maintain our moral compass in difficult circumstances?",
+                        guidance: "Consider how the Gulag system creates conditions that test the limits of human morality and reveal the fragility of ethical boundaries."
+                    },
+                    // Step 11: The Importance of Resistance
+                    {
+                        type: "text-interaction",
+                        title: "Defying the System",
+                        text: "And how we burned in the camps later, thinking: What would things have been like if every Security operative, when he went out at night to make an arrest, had been uncertain whether he would return alive and",
+                        instruction: "What does Solzhenitsyn imply about the power of individual resistance?",
+                        highlightable: ["burned in the camps later", "every Security operative", "uncertain whether he would return alive"],
+                        insights: {
+                            "burned in the camps later": "The regret and realization of missed opportunities for resistance",
+                            "every Security operative": "The widespread nature of the oppressive apparatus",
+                            "uncertain whether he would return alive": "The potential for fear to paralyze the oppressors if faced with collective defiance"
+                        }
+                    },
+                    // Step 12: The Informer System
+                    {
+                        type: "choice-analysis",
+                        title: "The Web of Betrayal",
+                        context: "The Gulag system heavily relied on a vast network of informers, turning citizens against each other.",
+                        question: "What was the primary purpose of the informer system in the Gulag?",
+                        choices: [
+                            {
+                                title: "To gather intelligence on foreign enemies",
+                                description: "It was primarily for external threats.",
+                                correct: false
+                            },
+                            {
+                                title: "To maintain control and suppress dissent internally",
+                                description: "It created an atmosphere of fear and distrust.",
+                                correct: true
+                            },
+                            {
+                                title: "To identify genuine criminals",
+                                description: "It was for legitimate law enforcement.",
+                                correct: false
+                            },
+                            {
+                                title: "To provide employment opportunities",
+                                description: "It was a job creation scheme.",
+                                correct: false
+                            }
+                        ],
+                        explanation: "The informer system was a crucial tool for internal control, designed to sow distrust among the population and within the camps, making organized resistance nearly impossible. It ensured that no one felt safe, even among friends or family."
+                    },
+                    // Step 13: The Journey to the Camps
+                    {
+                        type: "philosophical-reflection",
+                        title: "The Stolypin Cars",
+                        context: "Prisoners were transported to the camps in horrific conditions, often in overcrowded and unsanitary 'Stolypin cars' – special railway carriages designed for prisoners.",
+                        quote: "The journey in the Stolypin car is a journey into the unknown, a journey into the abyss.",
+                        reflection_prompt: "How does the physical journey to the Gulag camps contribute to the dehumanization of prisoners? What psychological impact would such a journey have on individuals?",
+                        guidance: "Consider the sensory deprivation, lack of dignity, and the growing realization of their fate."
+                    },
+                    // Step 14: Different Types of Camps
+                    {
+                        type: "comparison",
+                        title: "Varieties of Torment",
+                        context: "The Gulag encompassed various types of camps, each with its own specific purpose and level of brutality.",
+                        question: "Compare and contrast different types of Gulag camps:",
+                        comparison: {
+                            labor_camps: {
+                                title: "Labor Camps",
+                                traits: ["Forced physical labor (mining, logging, construction)", "Harsh conditions, starvation, disease", "High mortality rates", "Economic exploitation"]
+                            },
+                            political_camps: {
+                                title: "Political Camps",
+                                traits: ["For 'enemies of the people' (intellectuals, dissidents)", "Often more severe ideological pressure", "Isolation and psychological torture", "Aimed at breaking the spirit"]
+                            }
+                        },
+                        insight: "While all Gulag camps were brutal, some were primarily focused on economic exploitation through forced labor, leading to immense physical suffering, while others, particularly political camps, aimed more at psychological torment and breaking the will of the 'enemies of the people'."
+                    },
+                    // Step 15: Work in the Camps
+                    {
+                        type: "text-interaction",
+                        title: "The Labor of Death",
+                        text: "The work was not merely hard; it was designed to be destructive, to break the human spirit and body. It was a form of slow execution.",
+                        instruction: "What was the true purpose of the forced labor in the Gulag?",
+                        highlightable: ["not merely hard", "designed to be destructive", "break the human spirit and body", "slow execution"],
+                        insights: {
+                            "not merely hard": "Beyond just physical exertion",
+                            "designed to be destructive": "Intentionally harmful and dehumanizing",
+                            "break the human spirit and body": "Aimed at total subjugation",
+                            "slow execution": "A gradual process of killing through exhaustion and deprivation"
+                        }
+                    },
+                    // Step 16: Hunger and Disease
+                    {
+                        type: "slider-assessment",
+                        title: "The Constant Companions",
+                        question: "How significant were hunger and disease as tools of repression and causes of death in the Gulag?",
+                        slider: {
+                            min: 1,
+                            max: 10,
+                            labels: ["Minor Issues", "Significant Challenges", "Primary Killers"],
+                            explanation: "Hunger and disease were not merely unfortunate side effects but deliberate instruments of repression. Insufficient rations, brutal working conditions, and lack of medical care ensured that prisoners were constantly on the brink of starvation and vulnerable to epidemics, leading to millions of deaths."
+                        }
+                    },
+                    // Step 17: The Spirit of Resistance (Passive)
+                    {
+                        type: "choice-analysis",
+                        title: "Subtle Defiance",
+                        context: "Even in the most oppressive conditions, prisoners found ways to resist, often through passive means.",
+                        question: "Which of these is an example of passive resistance in the Gulag?",
+                        choices: [
+                            {
+                                title: "Organizing an armed revolt",
+                                description: "An overt act of rebellion.",
+                                correct: false
+                            },
+                            {
+                                title: "Refusing to work entirely",
+                                description: "Direct insubordination, often met with severe punishment.",
+                                correct: false
+                            },
+                            {
+                                title: "Telling jokes about the regime",
+                                description: "Maintaining a sense of humor and undermining authority through satire.",
+                                correct: true
+                            },
+                            {
+                                title: "Escaping from the camp",
+                                description: "An active and dangerous form of resistance.",
+                                correct: false
+                            }
+                        ],
+                        explanation: "Passive resistance included acts like slowing down work, sharing forbidden stories, maintaining personal hygiene, or simply refusing to lose hope. These small acts of defiance helped prisoners retain their dignity and humanity in the face of dehumanization."
+                    },
+                    // Step 18: The Spirit of Resistance (Active)
+                    {
+                        type: "philosophical-reflection",
+                        title: "The Uprisings",
+                        context: "Despite overwhelming odds, there were instances of active resistance and uprisings in the Gulag, such as the Kengir uprising.",
+                        quote: "The only way to survive is to fight. Even if you die, you die free.",
+                        reflection_prompt: "What does it take for individuals to engage in active resistance when facing certain death? What are the moral and strategic considerations behind such uprisings?",
+                        guidance: "Consider the desperation, the desire for dignity, and the slim hope of inspiring change."
+                    },
+                    // Step 19: The Role of Women in the Gulag
+                    {
+                        type: "text-interaction",
+                        title: "Double Burden",
+                        text: "Women in the Gulag faced unique hardships, including sexual violence, the loss of children, and the struggle to maintain their femininity in brutal conditions.",
+                        instruction: "What additional challenges did women face in the Gulag compared to men?",
+                        highlightable: ["unique hardships", "sexual violence", "loss of children", "maintain their femininity"],
+                        insights: {
+                            "unique hardships": "Specific forms of suffering due to their gender",
+                            "sexual violence": "A pervasive threat and form of abuse",
+                            "loss of children": "Separation from or death of their children, a profound emotional toll",
+                            "maintain their femininity": "Struggling to preserve their identity and dignity in a dehumanizing environment"
+                        }
+                    },
+                    // Step 20: Children of the Gulag
+                    {
+                        type: "choice-analysis",
+                        title: "Innocent Victims",
+                        context: "Children were often imprisoned with their parents or born in the camps, facing a childhood devoid of freedom and normal development.",
+                        question: "What was the fate of many children born in the Gulag or imprisoned with their parents?",
+                        choices: [
+                            {
+                                title: "They were quickly released to relatives.",
+                                description: "This was rarely the case.",
+                                correct: false
+                            },
+                            {
+                                title: "They received special care and education.",
+                                description: "Conditions were harsh for all.",
+                                correct: false
+                            },
+                            {
+                                title: "They often died young or grew up in orphanages/camps.",
+                                description: "Their lives were severely impacted by the system.",
+                                correct: true
+                            },
+                            {
+                                title: "They were adopted by camp guards.",
+                                description: "This was not a common practice.",
+                                correct: false
+                            }
+                        ],
+                        explanation: "Children in the Gulag faced extreme deprivation, high mortality rates, and often grew up without parental care, either in special children's camps or state orphanages, perpetuating the cycle of suffering."
+                    },
+                    // Step 21: The Release and Aftermath
+                    {
+                        type: "philosophical-reflection",
+                        title: "The Return to Silence",
+                        context: "For those who survived and were released, returning to society was often fraught with new challenges, including social stigma, surveillance, and the inability to speak about their experiences.",
+                        quote: "The most difficult thing was not to survive, but to live after survival.",
+                        reflection_prompt: "What psychological and social challenges did Gulag survivors face upon release? How did the societal silence about the Gulag affect their ability to heal and reintegrate?",
+                        guidance: "Consider the trauma, the fear of re-arrest, and the pressure to conform to the official narrative."
+                    },
+                    // Step 22: The Silence and Denial
+                    {
+                        type: "slider-assessment",
+                        title: "The Conspiracy of Silence",
+                        question: "How effective was the Soviet regime in suppressing the truth about the Gulag for decades?",
+                        slider: {
+                            min: 1,
+                            max: 10,
+                            labels: ["Ineffective", "Partially Effective", "Highly Effective"],
+                            explanation: "The Soviet regime employed extensive censorship, propaganda, and terror to suppress any information about the Gulag, creating a pervasive 'conspiracy of silence.' This made it incredibly difficult for the truth to emerge, both domestically and internationally, for many decades."
+                        }
+                    },
+                    // Step 23: The Power of the Word
+                    {
+                        type: "text-interaction",
+                        title: "Solzhenitsyn's Mission",
+                        text: "The Gulag Archipelago is not a work of fiction. It is a work of investigation, a work of witness, a work of memory. It is a monument to all those who suffered and died.",
+                        instruction: "What was Solzhenitsyn's primary goal in writing 'The Gulag Archipelago'?",
+                        highlightable: ["not a work of fiction", "work of investigation", "work of witness", "work of memory", "monument to all those who suffered and died"],
+                        insights: {
+                            "not a work of fiction": "Emphasizes its factual and historical basis",
+                            "work of investigation": "Result of meticulous research and collection of testimonies",
+                            "work of witness": "Bearing personal testimony to the atrocities",
+                            "work of memory": "Ensuring the victims are not forgotten",
+                            "monument to all those who suffered and died": "A memorial and a warning against totalitarianism"
+                        }
+                    },
+                    // Step 24: The Moral Imperative of Remembrance
+                    {
+                        type: "philosophical-reflection",
+                        title: "Never Forget",
+                        context: "Solzhenitsyn's work underscores the moral imperative to remember the victims of totalitarian regimes and to learn from history.",
+                        quote: "To stand up for truth is to stand up for humanity.",
+                        reflection_prompt: "Why is it crucial for societies to remember and confront their past atrocities, even if painful? What are the dangers of historical revisionism or forgetting?",
+                        guidance: "Consider how remembrance contributes to justice, prevents recurrence, and shapes collective identity."
+                    },
+                    // Step 25: Lessons for Humanity
+                    {
+                        type: "choice-analysis",
+                        title: "Universal Warnings",
+                        context: "Beyond its historical account, 'The Gulag Archipelago' offers universal lessons about human nature, power, and the fragility of freedom.",
+                        question: "What is a key universal lesson from 'The Gulag Archipelago'?",
+                        choices: [
+                            {
+                                title: "The inevitability of suffering",
+                                description: "It suggests suffering is unavoidable.",
+                                correct: false
+                            },
+                            {
+                                title: "The importance of vigilance against totalitarianism",
+                                description: "It warns against the dangers of unchecked power.",
+                                correct: true
+                            },
+                            {
+                                title: "The superiority of one political system over another",
+                                description: "It promotes a specific political ideology.",
+                                correct: false
+                            },
+                            {
+                                title: "The futility of individual action",
+                                description: "It implies individuals cannot make a difference.",
+                                correct: false
+                            }
+                        ],
+                        explanation: "The book serves as a powerful warning against the dangers of totalitarianism, the abuse of power, and the ease with which ordinary people can become complicit in evil. It emphasizes the importance of individual moral choice and the constant vigilance required to protect freedom."
+                    },
+                    // Step 26: The Cost of Totalitarianism
+                    {
+                        type: "comparison",
+                        title: "The Human Cost",
+                        context: "The Gulag system represents the ultimate cost of a totalitarian regime's attempt to control every aspect of human life.",
+                        question: "What are the primary costs of totalitarianism as revealed by the Gulag?",
+                        comparison: {
+                            totalitarianism_cost: {
+                                title: "Costs of Totalitarianism",
+                                traits: ["Mass murder and repression", "Destruction of individual freedom and dignity", "Erosion of truth and trust", "Economic stagnation and inefficiency", "Moral corruption of society"]
+                            },
+                            democratic_benefits: {
+                                title: "Benefits of Democracy",
+                                traits: ["Protection of individual rights", "Freedom of speech and expression", "Rule of law and justice", "Economic opportunity and innovation", "Accountability of power"]
+                            }
+                        },
+                        insight: "The Gulag vividly illustrates that totalitarianism, despite its promises of order or equality, inevitably leads to immense human suffering, the suppression of truth, and the moral degradation of society. It highlights the fundamental value of individual liberty and the rule of law."
+                    },
+                    // Step 27: The Individual vs. The State
+                    {
+                        type: "philosophical-reflection",
+                        title: "The Unconquerable Spirit",
+                        context: "At its core, 'The Gulag Archipelago' is a testament to the enduring struggle between the individual human spirit and the overwhelming power of the totalitarian state.",
+                        quote: "The most important thing is not to live, but to live in truth.",
+                        reflection_prompt: "How does Solzhenitsyn's work inspire hope in the face of seemingly insurmountable oppression? What does it mean to 'live in truth' when surrounded by lies?",
+                        guidance: "Consider the power of internal freedom, moral integrity, and the refusal to compromise one's conscience."
+                    },
+                    // Step 28: The Future of Freedom
+                    {
+                        type: "personal-application",
+                        title: "Protecting Liberty",
+                        question: "What actions can individuals and societies take today to prevent the recurrence of atrocities like the Gulag and safeguard human rights?",
+                        reflection_areas: [
+                            "Promoting freedom of speech and press",
+                            "Supporting independent judiciary and rule of law",
+                            "Educating future generations about historical atrocities",
+                            "Holding power accountable and resisting authoritarian tendencies",
+                            "Cultivating empathy and respect for human dignity",
+                            "Supporting human rights organizations and international justice"
+                        ]
+                    },
+                    // Step 29: Conclusion
+                    {
+                        type: "conclusion",
+                        title: "A Legacy of Truth",
+                        content: {
+                            text: "Aleksandr Solzhenitsyn's 'The Gulag Archipelago' stands as a powerful and enduring testament to the millions who suffered under Soviet totalitarianism. It is a stark reminder of the fragility of freedom and the profound importance of truth, memory, and individual moral courage in the face of oppression. Its lessons remain vital for understanding the past and safeguarding the future.",
+                            call_to_action: "Reflect on the lessons of 'The Gulag Archipelago' and consider how you can contribute to a world where such atrocities are never repeated."
+                        }
+                    }
+                ]
+            },
+        
+
+            'on-war': {
+                title: "On War: Strategy and Conflict",
+                subtitle: "Delve into Clausewitz's seminal work on military strategy",
+                icon: "⚔️",
+                totalSteps: 27,
+                steps: [
+                    // Step 1: Introduction to Clausewitz
+                    {
+                        type: "introduction",
+                        title: "The Nature of War",
+                        content: {
+                            text: "Carl von Clausewitz's 'On War' is a foundational text in military strategy, exploring the relationship between war, politics, and society. Written in the aftermath of the Napoleonic Wars, it offers timeless insights into the dynamics of conflict and the challenges of leadership.",
+                            context: "Clausewitz's work is characterized by its emphasis on the 'trinity' of war - passion, chance, and reason - and its understanding of war as a complex, dynamic, and inherently uncertain phenomenon. It challenges simplistic views of military strategy and emphasizes the importance of political context and human factors."
+                        }
+                    },
+                    // Step 2: War as an Instrument of Policy
+                    {
+                        type: "quote-analysis",
+                        title: "War as a Continuation of Politics",
+                        quote: "War is not merely a political act, but also a real political instrument, a continuation of political commerce, a carrying out of the same by other means.",
+                        speaker: "Carl von Clausewitz",
+                        question: "What does Clausewitz mean by this famous statement?",
+                        choices: [
+                            {
+                                title: "War is purely political",
+                                description: "Military considerations are irrelevant",
+                                correct: false
+                            },
+                            {
+                                title: "War serves political goals",
+                                description: "Military action should always be subordinate to political objectives",
+                                correct: true
+                            },
+                            {
+                                title: "War is irrational",
+                                description: "Politics makes war senseless",
+                                correct: false
+                            },
+                            {
+                                title: "War is inevitable",
+                                description: "Politics always leads to war",
+                                correct: false
+                            }
+                        ],
+                        explanation: "Clausewitz argues that war is not an end in itself but a means to achieve political objectives. Military strategy should always be guided by political goals, and war should be seen as a continuation of political bargaining by other means. This emphasizes the importance of understanding the political context of any conflict."
+                    },
+                    // Step 3: The Trinity of War
+                    {
+                        type: "text-interaction",
+                        title: "Passion, Chance, and Reason",
+                        text: "War is more than a true chameleon that slightly adapts its characteristics to each particular case. As a whole, war is dominated by three tendencies, mainly a paradoxical trinity composed of violence, hatred, and enmity, which are to be regarded as a blind natural force; of the play of chance and probability within which the creative spirit is free to roam; and of its element of subordination, as an instrument of policy, which makes it subject to reason alone.",
+                        instruction: "Click on the three elements of Clausewitz's 'wondrous trinity':",
+                        highlightable: ["violence, hatred, and enmity", "play of chance and probability", "instrument of policy, which makes it subject to reason alone"],
+                        insights: {
+                            "violence, hatred, and enmity": "Represents the passions and emotions that drive war",
+                            "play of chance and probability": "Highlights the uncertainty and unpredictability of war",
+                            "instrument of policy, which makes it subject to reason alone": "Emphasizes the rational and political control of war"
+                        }
+                    },
+                    // Step 4: Friction in War
+                    {
+                        type: "philosophical-reflection",
+                        title: "The Fog of War",
+                        context: "Clausewitz emphasizes the concept of 'friction' - the psychological, physical, and logistical difficulties that make war so challenging.",
+                        quote: "Everything in war is very simple, but the simplest thing is difficult. The difficulties accumulate and end by producing a kind of friction that is inconceivable unless one has experienced war.",
+                        reflection_prompt: "What are some sources of 'friction' in modern military operations or other complex endeavors? How can leaders prepare for and mitigate the effects of friction?",
+                        guidance: "Consider how friction arises from factors like imperfect information, communication breakdowns, logistical challenges, and the psychological stress of combat."
+                    },
+                    // Step 5: Center of Gravity
+                    {
+                        type: "choice-analysis",
+                        title: "Identifying the Key to Victory",
+                        context: "Clausewitz introduces the concept of the 'center of gravity' - the critical source of strength that, if neutralized, will lead to the enemy's defeat.",
+                        question: "What is the 'center of gravity' in a military campaign?",
+                        choices: [
+                            {
+                                title: "Geographic Location",
+                                description: "A key terrain feature",
+                                correct: false
+                            },
+                            {
+                                title: "Enemy's Strength",
+                                description: "The source of the enemy's power and resistance",
+                                correct: true
+                            },
+                            {
+                                title: "Military Base",
+                                description: "A major military installation",
+                                correct: false
+                            },
+                            {
+                                title: "Political Leader",
+                                description: "The head of state",
+                                correct: false
+                            }
+                        ],
+                        explanation: "The center of gravity is the source of the enemy's power - often the enemy's army, its political leadership, or its public support. Identifying and neutralizing the center of gravity is crucial for achieving victory with minimal resources."
+                    },
+                    // Step 6: Strategy vs. Tactics
+                    {
+                        type: "slider-assessment",
+                        title: "Levels of Warfare",
+                        question: "How do you balance strategic goals with tactical realities in military planning?",
+                        slider: {
+                            min: 1,
+                            max: 10,
+                            labels: ["Tactics Dominate", "Balanced Approach", "Strategy Dominates"],
+                            explanation: "Clausewitz distinguishes between strategy (the overall plan for achieving political goals) and tactics (the specific methods used to achieve military objectives). Effective warfare requires aligning tactics with strategic goals and adapting plans to changing circumstances. Strategy should guide tactics, but tactical realities can also influence strategic decisions."
+                        }
+                    },
+                    // Step 7: The Culminating Point
+                    {
+                        type: "text-interaction",
+                        title: "Limits of Victory",
+                        text: "The culminating point of the attack is reached when the advantages of the offensive have dwindled to the point where they are insufficient for victory.",
+                        instruction: "What does Clausewitz mean by the 'culminating point'?",
+                        highlightable: ["culminating point of the attack", "advantages of the offensive", "dwindled to the point", "insufficient for victory"],
+                        insights: {
+                            "culminating point of the attack": "The limit of offensive operations",
+                            "advantages of the offensive": "The initial strengths of the attacking force",
+                            "dwindled to the point": "Resources and momentum have been exhausted",
+                            "insufficient for victory": "Continuing the attack will lead to defeat"
+                        }
+                    },
+                    // Step 8: The Moral Factors
+                    {
+                        type: "choice-analysis",
+                        title: "The Importance of Spirit",
+                        context: "Clausewitz emphasizes the importance of moral factors - courage, morale, leadership - in determining the outcome of war.",
+                        question: "Why are moral factors so important in war?",
+                        choices: [
+                            {
+                                title: "Technology is Irrelevant",
+                                description: "Technology doesn't matter",
+                                correct: false
+                            },
+                            {
+                                title: "Human Element",
+                                description: "They affect the will to fight and the ability to overcome adversity",
+                                correct: true
+                            },
+                            {
+                                title: "Logistics are Secondary",
+                                description: "Supplies don't matter as much",
+                                correct: false
+                            },
+                            {
+                                title: "Strategy is Unnecessary",
+                                description: "Planning is unimportant",
+                                correct: false
+                            }
+                        ],
+                        explanation: "Clausewitz argues that moral factors - courage, morale, leadership, and national will - are crucial because they affect the will to fight and the ability to overcome adversity. Superior technology or logistics are useless if soldiers lack the motivation and leadership to use them effectively."
+                    },
+                    // Step 9: Limited vs. Absolute War
+                    {
+                        type: "philosophical-reflection",
+                        title: "The Spectrum of Conflict",
+                        context: "Clausewitz distinguishes between limited war (fought for specific political objectives) and absolute war (fought for total victory and destruction of the enemy).",
+                        quote: "War is an act of violence intended to compel our opponent to fulfill our will.",
+                        reflection_prompt: "How does the distinction between limited and absolute war apply to modern conflicts? What factors determine whether a war will escalate or remain limited? How do nuclear weapons affect this calculation?",
+                        guidance: "Consider how the political objectives, the means employed, and the willingness to escalate all influence the nature and scope of a conflict."
+                    },
+                    // Step 10: The Role of Genius
+                    {
+                        type: "text-interaction",
+                        title: "The Qualities of Military Genius",
+                        text: "If, then, boldness is a prominent element in the qualifications of a general, still it must be combined with a discriminating judgment; for boldness alone is not sufficient, it may easily lead to disaster.",
+                        instruction: "What qualities define military genius according to Clausewitz?",
+                        highlightable: ["boldness", "discriminating judgment", "boldness alone is not sufficient", "easily lead to disaster"],
+                        insights: {
+                            "boldness": "Courage and willingness to take risks",
+                            "discriminating judgment": "Ability to assess situations accurately and make sound decisions",
+                            "boldness alone is not sufficient": "Courage without wisdom is dangerous",
+                            "easily lead to disaster": "Recklessness can lead to catastrophic failure"
+                        }
+                    },
+                    // Step 11: The Relationship Between Offense and Defense
+                    {
+                        type: "choice-analysis",
+                        title: "The Strength of Defense",
+                        context: "Clausewitz argues that defense is a stronger form of warfare than offense.",
+                        question: "Why does Clausewitz believe defense is inherently stronger?",
+                        choices: [
+                            {
+                                title: "Moral Superiority",
+                                description: "Defenders have right on their side",
+                                correct: false
+                            },
+                            {
+                                title: "Strategic Advantage",
+                                description: "Defenders can choose the time and place of battle",
+                                correct: false
+                            },
+                            {                                title: "Psychological Advantage",                                description: "Defenders have the home-field advantage and know the terrain",                                correct: false                            },
+                            {
+                                title: "Tactical Advantage",
+                                description: "Defenders can prepare fortifications and use terrain to their advantage",
+                                correct: true
+                            }
+                        ],
+                        explanation: "Clausewitz argues that defense is stronger because it allows the defender to prepare fortifications, use terrain to their advantage, and force the attacker to come to them. However, defense alone cannot win a war - it must be used strategically to create opportunities for a decisive offensive."
+                    },
+                    // Step 12: The Importance of Surprise
+                    {
+                        type: "slider-assessment",
+                        title: "The Element of Surprise",
+                        question: "How important is surprise in military operations?",
+                        slider: {
+                            min: 1,
+                            max: 10,
+                            labels: ["Unimportant", "Significant Factor", "Absolutely Essential"],
+                            explanation: "Surprise can be a powerful force multiplier, allowing a smaller force to defeat a larger one. However, Clausewitz cautions against relying solely on surprise, as it is difficult to achieve and maintain. Surprise should be used strategically to create opportunities for decisive action, but it cannot replace sound planning and execution."
+                        }
+                    },
+                    // Step 13: The Value of Terrain
+                    {
+                        type: "philosophical-reflection",
+                        title: "The Landscape of War",
+                        context: "Clausewitz emphasizes the importance of understanding terrain and geography in military planning.",
+                        quote: "The knowledge of the country is, therefore, a chief part of the knowledge which the commander must have, and the capacity to turn it to account is one of the most essential qualities in him.",
+                        reflection_prompt: "How does terrain influence military strategy and tactics? What are some examples of battles where terrain played a decisive role? How can technology alter the importance of terrain?",
+                        guidance: "Consider how terrain affects movement, visibility, and defensibility, and how technology can both overcome and enhance the importance of geographical features."
+                    },
+                    // Step 14: The Role of Public Opinion
+                    {
+                        type: "text-interaction",
+                        title: "Winning Hearts and Minds",
+                        text: "War is not a mere act of policy but a true political instrument, a continuation of political intercourse, carried on with other means. What remains peculiar to war is simply the peculiar character of its means.",
+                        instruction: "How does public opinion influence the course of war?",
+                        highlightable: ["true political instrument", "continuation of political intercourse", "peculiar character of its means", "War is not a mere act of policy"],
+                        insights: {
+                            "true political instrument": "War is a tool to achieve political goals",
+                            "continuation of political intercourse": "War is a form of communication between states",
+                            "peculiar character of its means": "Violence distinguishes war from other forms of politics",
+                            "War is not a mere act of policy": "War is deeply intertwined with political and social factors"
+                        }
+                    },
+                    // Step 15: The Importance of Logistics
+                    {
+                        type: "choice-analysis",
+                        title: "Supplying the War Effort",
+                        context: "Clausewitz emphasizes the importance of logistics in sustaining military operations.",
+                        question: "Why are logistics so crucial for military success?",
+                        choices: [
+                            {
+                                title: "Combat is Decisive",
+                                description: "Battles are all that matter",
+                                correct: false
+                            },
+                            {
+                                title: "Morale is Key",
+                                description: "Troop spirit is most important",
+                                correct: false
+                            },
+                            {
+                                title: "Supplies Enable Operations",
+                                description: "Troops need food, ammunition, and equipment to fight",
+                                correct: true
+                            },
+                            {
+                                title: "Leadership is Paramount",
+                                description: "Good leaders can overcome any logistical problem",
+                                correct: false
+                            }
+                        ],
+                        explanation: "Clausewitz argues that logistics are essential because troops need food, ammunition, and equipment to fight. A well-supplied army can sustain operations over longer periods and project power more effectively. Logistical failures can lead to defeat even with superior strategy or tactics."
+                    },
+                    // Step 16: The Value of Reserves
+                    {
+                        type: "comparison",
+                        title: "Maintaining Strength",
+                        context: "Clausewitz advises commanders to maintain reserves to exploit opportunities and respond to unexpected events.",
+                        question: "Why are reserves so important in warfare?",
+                        comparison: {
+                            no_reserves: {
+                                title: "Without Reserves",
+                                traits: ["Inability to exploit success", "Vulnerable to unexpected attacks", "Limited flexibility", "Risk of exhaustion"]
+                            },
+                            with_reserves: {
+                                title: "With Reserves",
+                                traits: ["Ability to exploit success", "Flexibility to respond to threats", "Sustained momentum", "Increased chance of victory"]
+                            }
+                        },
+                        insight: "Reserves provide flexibility and staying power. They allow a commander to exploit opportunities, respond to unexpected threats, and maintain momentum. Without reserves, an army is vulnerable to exhaustion and unable to capitalize on its successes."
+                    },
+                    // Step 17: The Culminating Point of Victory
+                    {
+                        type: "text-interaction",
+                        title: "Knowing When to Stop",
+                        text: "The culminating point of victory is that point at which the remaining strength is just enough to maintain a defensive but not enough to continue the attack.",
+                        instruction: "What does Clausewitz mean by the 'culminating point of victory'?",
+                        highlightable: ["culminating point of victory", "remaining strength", "maintain a defensive", "not enough to continue the attack"],
+                        insights: {
+                            "culminating point of victory": "The limit of offensive operations",
+                            "remaining strength": "The resources and momentum left after a campaign",
+                            "maintain a defensive": "Sufficient force to hold gained territory",
+                            "not enough to continue the attack": "Insufficient force to achieve further objectives"
+                        }
+                    },
+                    // Step 18: The Importance of a Clear Objective
+                    {
+                        type: "slider-assessment",
+                        title: "Defining Success",
+                        question: "How important is a clear and well-defined political objective for military success?",
+                        slider: {
+                            min: 1,
+                            max: 10,
+                            labels: ["Unimportant", "Significant Factor", "Absolutely Essential"],
+                            explanation: "Clausewitz argues that a clear and well-defined political objective is absolutely essential for military success. Without a clear objective, military operations lack direction and purpose, leading to wasted resources and potential defeat. The political objective should guide all strategic and tactical decisions."
+                        }
+                    },
+                    // Step 19: The Moral as Compared to the Material
+                    {
+                        type: "philosophical-reflection",
+                        title: "The Power of the Human Spirit",
+                        context: "Clausewitz emphasizes the importance of moral factors - courage, morale, leadership - in determining the outcome of war.",
+                        quote: "The moral is to the physical as three to one.",
+                        reflection_prompt: "How do moral factors influence the outcome of conflicts? What are some examples of battles or wars where moral factors played a decisive role? How can leaders cultivate morale and resilience in their forces?",
+                        guidance: "Consider how factors like national will, leadership, and unit cohesion can amplify or diminish the impact of material resources."
+                    },
+                    // Step 20: The Commander's Intuition
+                    {
+                        type: "choice-analysis",
+                        title: "The Role of Coup d'oeil",
+                        context: "Clausewitz discusses the importance of 'coup d'oeil' - the ability to quickly grasp the essential elements of a situation and make sound decisions.",
+                        question: "What does 'coup d'oeil' represent in military leadership?",
+                        choices: [
+                            {
+                                title: "Detailed Planning",
+                                description: "Meticulous preparation and analysis",
+                                correct: false
+                            },
+                            {
+                                title: "Rational Analysis",
+                                description: "Careful calculation and logical deduction",
+                                correct: false
+                            },
+                            {
+                                title: "Intuitive Grasp",
+                                description: "The ability to see the essential truth of a situation",
+                                correct: true
+                            },
+                            {
+                                title: "Blind Luck",
+                                description: "Random chance and good fortune",
+                                correct: false
+                            }
+                        ],
+                        explanation: "'Coup d'oeil' represents the ability to quickly grasp the essential elements of a situation and make sound decisions based on incomplete information. It's a combination of experience, intelligence, and intuition that allows a commander to see through the fog of war and make effective choices."
+                    },
+                    // Step 21: The Importance of Adaptability
+                    {
+                        type: "text-interaction",
+                        title: "Responding to Change",
+                        text: "No plan survives contact with the enemy.",
+                        instruction: "How should leaders respond to unexpected events and changing circumstances?",
+                        highlightable: ["No plan survives contact", "the enemy"],
+                        insights: {
+                            "No plan survives contact": "Plans are useful starting points but must be adapted to reality",
+                            "the enemy": "The enemy's actions will always disrupt our plans"
+                        }
+                    },
+                    // Step 22: The Value of Deception
+                    {
+                        type: "comparison",
+                        title: "Misleading the Enemy",
+                        context: "Clausewitz discusses the importance of deception in warfare.",
+                        question: "What are some ways to deceive the enemy?",
+                        comparison: {
+                            deception: {
+                                title: "Deception",
+                                traits: ["Misleading information", "Feints and diversions", "Camouflage and concealment", "Psychological warfare"]
+                            },
+                            truth: {
+                                title: "Truth",
+                                traits: ["Honest communication", "Transparency", "Predictability", "Trust"]
+                            }
+                        },
+                        insight: "Deception can create opportunities for surprise and misdirect the enemy's resources. However, it must be used carefully and strategically, as excessive deception can erode trust and create confusion within one's own forces."
+                    },
+                    // Step 23: The Moral Responsibility of Leaders
+                    {
+                        type: "philosophical-reflection",
+                        title: "Ethics in Warfare",
+                        context: "Clausewitz's work raises ethical questions about the use of violence and the responsibility of leaders.",
+                        quote: "Kind-hearted people might of course think there was some ingenious way to disarm or defeat the enemy without causing great bloodshed, and might prefer to use it. Pleasant as it sounds, that is a fallacy that must be exposed: war is such a dangerous business that the mistakes that come from kindness are the very worst.",
+                        reflection_prompt: "What are the ethical responsibilities of military leaders? How do they balance the need to achieve military objectives with the imperative to minimize harm to civilians and combatants? Are there limits to what is permissible in war?",
+                        guidance: "Consider the tension between Clausewitz's realism and the moral considerations that must guide the use of force."
+                    },
+                    // Step 24: The Importance of Historical Study
+                    {
+                        type: "choice-analysis",
+                        title: "Learning from the Past",
+                        context: "Clausewitz emphasizes the importance of studying military history to understand the principles of war.",
+                        question: "Why is historical study so valuable for military leaders?",
+                        choices: [
+                            {
+                                title: "Predicting the Future",
+                                description: "History repeats itself",
+                                correct: false
+                            },
+                            {
+                                title: "Memorizing Facts",
+                                description: "Knowing dates and names",
+                                correct: false
+                            },
+                            {
+                                title: "Understanding Principles",
+                                description: "Identifying recurring patterns and principles",
+                                correct: true
+                            },
+                            {
+                                title: "Following Tradition",
+                                description: "Doing what worked in the past",
+                                correct: false
+                            }
+                        ],
+                        explanation: "Historical study allows leaders to identify recurring patterns and principles of warfare, understand the impact of different factors, and develop their judgment. It's not about memorizing facts or blindly following tradition, but about developing a deeper understanding of the dynamics of conflict."
+                    },
+                    // Step 25: The Enduring Relevance of Clausewitz
+                    {
+                        type: "text-interaction",
+                        title: "Timeless Wisdom",
+                        text: "Clausewitz's work remains relevant today because it focuses on the enduring nature of war rather than specific technologies or tactics.",
+                        instruction: "What aspects of Clausewitz's theory remain relevant in the 21st century?",
+                        highlightable: ["enduring nature of war", "specific technologies", "tactics"],
+                        insights: {
+                            "enduring nature of war": "The fundamental dynamics of conflict remain constant",
+                            "specific technologies": "Weapons and equipment change over time",
+                            "tactics": "Specific methods of fighting evolve",
+                        }
+                    },
+                    // Step 26: Clausewitz and Modern Conflict
+                    {
+                        type: "personal-application",
+                        title: "Applying Clausewitz Today",
+                        question: "How can Clausewitz's insights inform our understanding of contemporary conflicts, such as terrorism, cyber warfare, and hybrid warfare?",
+                        reflection_areas: [
+                            "The political objectives of different actors",
+                            "The role of moral factors and public opinion",
+                            "The importance of adaptability and innovation",
+                            "The challenges of identifying the center of gravity",
+                            "The ethical considerations of using force",
+                            "The limits of military power in achieving political goals"
+                        ]
+                    },
+                    // Step 27: The Limits of Clausewitzian Thought
+                    {
+                        type: "philosophical-reflection",
+                        title: "Critiques and Limitations",
+                        context: "Clausewitz's theories have been criticized for being too focused on state-on-state warfare and for neglecting non-state actors and unconventional forms of conflict.",
+                        quote: "Everything is very simple, but the simplest thing is difficult.",
+                        reflection_prompt: "What are some limitations of Clausewitz's framework for understanding modern conflict? How might his theories need to be adapted or supplemented to account for new forms of warfare and political violence?",
+                        guidance: "Consider how factors like globalization, technology, and the rise of non-state actors challenge traditional Clausewitzian assumptions."
+                    }
+                ]
+            },
+
+
             'odyssey': {
                 title: "The Odyssey: Journey Home",
                 subtitle: "Follow Odysseus on his epic journey of heroism, loyalty, and self-discovery",
@@ -10002,7 +11033,28 @@
         document.addEventListener('DOMContentLoaded', function() {
             createStars();
             loadAllProgress();
+            setupQuizSearch(); // Setup the quiz search functionality
         });
+
+        function setupQuizSearch() {
+            const searchInput = document.getElementById('quiz-search');
+            searchInput.addEventListener('input', function() {
+                const searchTerm = searchInput.value.toLowerCase();
+                filterQuizzes(searchTerm);
+            });
+        }
+
+        function filterQuizzes(searchTerm) {
+            const quizCards = document.querySelectorAll('.quiz-card');
+            quizCards.forEach(card => {
+                const title = card.querySelector('h3').textContent.toLowerCase();
+                if (title.includes(searchTerm)) {
+                    card.style.display = 'block'; // Show the card
+                } else {
+                    card.style.display = 'none'; // Hide the card
+                }
+            });
+        }
 
         // Create animated stars
         function createStars() {
